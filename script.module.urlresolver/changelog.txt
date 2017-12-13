@@ -1,0 +1,9 @@
+[B]Version 4.0.15 (Dec 7, 2017)[/B]
+- Code Base Changes:
+    - None
+- Resolvers Added:
+    - None
+- Resolvers Fixed/Updated:
+    - AllDebrid (Eldorado)
+- Languages Added/Updated
+    - None

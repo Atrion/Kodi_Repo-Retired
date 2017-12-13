@@ -1,0 +1,14 @@
+[B]2017.11.12[/B]
+- Added new artwork
+
+[B]2017.08.18[/B]
+- Added artwork for the new lists
+
+[B]2017.06.27[/B]
+- Added extra theme (thanks Will Martins)
+
+[B]2017.06.08[/B]
+- Rebrand Zen to Elysium
+
+[B]1.0.0[/B]
+- Initial version

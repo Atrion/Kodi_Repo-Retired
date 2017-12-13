@@ -1,0 +1,294 @@
+<window id="1999">
+	<defaultcontrol always="true">5001</defaultcontrol>
+     <controls>
+		
+		<include>CommonBackground</include>
+		<include>HomeButtonCommons</include>
+        <include>BottomNowPLaying</include>      
+		<control type="label">
+			<description>Window label</description>
+			<include>MediaWindowTitleCommons</include>
+			<label>Relais Dialog</label>
+		</control>		
+ 		<control type="group" id="">
+		<include>Window_OpenClose_Animation_Zoom</include>
+			<posx>150</posx>
+			<posy>70</posy>
+			<include>VisibleFadeEffect</include>
+			<control type="label">
+				<description>Titel</description>
+				<posx>0</posx>
+				<posy>0</posy>
+				<height>100</height>
+				<width>1000</width>
+				<label>Relais schalten</label>
+				<align>center</align>
+				<aligny>center</aligny>
+				<font>font30_title</font>
+				<textcolor>FFFFFFFF</textcolor>		
+			</control>
+		</control>
+		
+<!-- #################### Button Area ################################################ -->
+		
+<!-- Button Funktion-1 -->		
+		<control type="group" id="5000">
+		<include>Window_OpenClose_Animation_Zoom</include>
+			<posx>150</posx>
+			<posy>200</posy>
+			<include>VisibleFadeEffect</include>
+			<control type="button" id="5001">
+				<description>Funktion-1 einschalten</description>
+				<visible>!Skin.HasSetting(Relais1)</visible>
+                <posx>0</posx>
+				<posy>0</posy>
+				<width>450</width>
+				<height>100</height>
+				<align>center</align>
+				<aligny>center</aligny>
+				<textoffsetx>20</textoffsetx>
+				<font>font30_title</font>
+				<textcolor>FFFFFFFF</textcolor>
+				<label>Relais-1 [B]EIN[/B]</label>	
+				<texturefocus colordiffuse="Color39">bottombar_bg100.png</texturefocus>
+				<texturenofocus colordiffuse="Color70">bottombar_bg100.png</texturenofocus>
+				<onclick>RunScript("special://skin/scripts/dein_script_1_ein.py")</onclick>
+				<onclick>Skin.ToggleSetting(Relais1)</onclick>
+				<onup>666</onup>
+				<onright>5003</onright>
+				<ondown>5005</ondown>
+			</control>
+			<control type="button" id="5001">
+				<description>Funktion-1 ausschalten</description>
+				<visible>Skin.HasSetting(Relais1)</visible>
+                <posx>0</posx>
+				<posy>0</posy>
+				<width>450</width>
+				<height>100</height>
+				<align>center</align>
+				<aligny>center</aligny>
+				<textoffsetx>20</textoffsetx>
+				<font>font30_title</font>
+				<textcolor>FFFFFFFF</textcolor>
+				<label>Relais-1 [B]AUS[/B]</label>	
+				<texturefocus colordiffuse="Color117">bottombar_bg100.png</texturefocus>
+				<texturenofocus colordiffuse="Color131">bottombar_bg100.png</texturenofocus>
+				<onclick>RunScript("special://skin/scripts/dein_script_1_aus.py")</onclick>
+				<onclick>Skin.Reset(Relais1)</onclick>
+				<onup>666</onup>
+				<onright>5003</onright>
+				<ondown>5005</ondown>
+			</control>
+		</control>
+
+<!-- Button Funktion-2 -->		
+		<control type="group" id="5002">
+		<include>Window_OpenClose_Animation_Zoom</include>
+			<posx>680</posx>
+			<posy>200</posy>
+			<include>VisibleFadeEffect</include>
+			<control type="button" id="5003">
+				<description>Funktion-2 einschalten</description>
+				<visible>!Skin.HasSetting(Relais2)</visible>
+                <posx>0</posx>
+				<posy>0</posy>
+				<width>450</width>
+				<height>100</height>
+				<align>center</align>
+				<aligny>center</aligny>
+				<textoffsetx>20</textoffsetx>
+				<font>font30_title</font>
+				<textcolor>FFFFFFFF</textcolor>
+				<label>Relais-2 [B]EIN[/B]</label>	
+				<texturefocus colordiffuse="Color39">bottombar_bg100.png</texturefocus>
+				<texturenofocus colordiffuse="Color70">bottombar_bg100.png</texturenofocus>
+				<onclick>RunScript("special://skin/scripts/dein_script_2_ein.py")</onclick>
+				<onclick>Skin.ToggleSetting(Relais2)</onclick>
+				<onup>666</onup>
+				<onleft>5001</onleft>
+				<ondown>5007</ondown>
+			</control>
+			<control type="button" id="5003">
+				<description>Funktion-2 ausschalten</description>
+				<visible>Skin.HasSetting(Relais2)</visible>
+                <posx>0</posx>
+				<posy>0</posy>
+				<width>450</width>
+				<height>100</height>
+				<align>center</align>
+				<aligny>center</aligny>
+				<textoffsetx>20</textoffsetx>
+				<font>font30_title</font>
+				<textcolor>FFFFFFFF</textcolor>
+				<label>Relais-2 [B]AUS[/B]</label>	
+				<texturefocus colordiffuse="Color117">bottombar_bg100.png</texturefocus>
+				<texturenofocus colordiffuse="Color131">bottombar_bg100.png</texturenofocus>
+				<onclick>RunScript("special://skin/scripts/dein_script_2_aus.py")</onclick>
+				<onclick>Skin.Reset(Relais2)</onclick>
+				<onup>666</onup>
+				<onleft>5001</onleft>
+				<ondown>5007</ondown>
+			</control>
+		</control>
+
+<!-- Button Funktion-3 -->		
+		<control type="group" id="5004">
+		<include>Window_OpenClose_Animation_Zoom</include>
+			<posx>150</posx>
+			<posy>350</posy>
+			<include>VisibleFadeEffect</include>
+			<control type="button" id="5005">
+				<description>Funktion-3 einschalten</description>
+				<visible>!Skin.HasSetting(Relais3)</visible>
+                <posx>0</posx>
+				<posy>0</posy>
+				<width>450</width>
+				<height>100</height>
+				<align>center</align>
+				<aligny>center</aligny>
+				<textoffsetx>20</textoffsetx>
+				<font>font30_title</font>
+				<textcolor>FFFFFFFF</textcolor>
+				<label>Relais-3 [B]EIN[/B]</label>	
+				<texturefocus colordiffuse="Color39">bottombar_bg100.png</texturefocus>
+				<texturenofocus colordiffuse="Color70">bottombar_bg100.png</texturenofocus>
+				<onclick>RunScript("special://skin/scripts/dein_script_3_ein.py")</onclick>
+				<onclick>Skin.ToggleSetting(Relais3)</onclick>
+				<onup>5001</onup>
+				<onright>5007</onright>
+				<ondown>5009</ondown>
+			</control>
+			<control type="button" id="5005">
+				<description>Funktion-3 ausschalten</description>
+				<visible>Skin.HasSetting(Relais3)</visible>
+                <posx>0</posx>
+				<posy>0</posy>
+				<width>450</width>
+				<height>100</height>
+				<align>center</align>
+				<aligny>center</aligny>
+				<textoffsetx>20</textoffsetx>
+				<font>font30_title</font>
+				<textcolor>FFFFFFFF</textcolor>
+				<label>Relais-3 [B]AUS[/B]</label>	
+				<texturefocus colordiffuse="Color117">bottombar_bg100.png</texturefocus>
+				<texturenofocus colordiffuse="Color131">bottombar_bg100.png</texturenofocus>
+				<onclick>RunScript("special://skin/scripts/dein_script_3_aus.py")</onclick>
+				<onclick>Skin.Reset(Relais3)</onclick>
+				<onup>5001</onup>
+				<onright>5007</onright>
+				<ondown>5009</ondown>
+			</control>
+		</control>
+
+<!-- Button Funktion-4 -->		
+		<control type="group" id="5006">
+		<include>Window_OpenClose_Animation_Zoom</include>
+			<posx>680</posx>
+			<posy>350</posy>
+			<include>VisibleFadeEffect</include>
+			<control type="button" id="5007">
+				<description>Funktion-4 einschalten</description>
+				<visible>!Skin.HasSetting(Relais4)</visible>
+                <posx>0</posx>
+				<posy>0</posy>
+				<width>450</width>
+				<height>100</height>
+				<align>center</align>
+				<aligny>center</aligny>
+				<textoffsetx>20</textoffsetx>
+				<font>font30_title</font>
+				<textcolor>FFFFFFFF</textcolor>
+				<label>Relais-4 [B]EIN[/B]</label>	
+				<texturefocus colordiffuse="Color39">bottombar_bg100.png</texturefocus>
+				<texturenofocus colordiffuse="Color70">bottombar_bg100.png</texturenofocus>
+				<onclick>RunScript("special://skin/scripts/dein_script_4_ein.py")</onclick>
+				<onclick>Skin.ToggleSetting(Relais4)</onclick>
+				<onup>5003</onup>
+				<onleft>5005</onleft>
+				<ondown>5009</ondown>
+			</control>
+			<control type="button" id="5007">
+				<description>Funktion-4 ausschalten</description>
+				<visible>Skin.HasSetting(Relais4)</visible>
+                <posx>0</posx>
+				<posy>0</posy>
+				<width>450</width>
+				<height>100</height>
+				<align>center</align>
+				<aligny>center</aligny>
+				<textoffsetx>20</textoffsetx>
+				<font>font30_title</font>
+				<textcolor>FFFFFFFF</textcolor>
+				<label>Relais-4 [B]AUS[/B]</label>	
+				<texturefocus colordiffuse="Color117">bottombar_bg100.png</texturefocus>
+				<texturenofocus colordiffuse="Color131">bottombar_bg100.png</texturenofocus>
+				<onclick>RunScript("special://skin/scripts/dein_script_4_aus.py")</onclick>
+				<onclick>Skin.Reset(Relais4)</onclick>
+				<onup>5003</onup>
+				<onleft>5005</onleft>
+				<ondown>5009</ondown>
+			</control>
+		</control>
+
+<!-- Abbrechen Button -->
+		<control type="group" id="5008">
+		<include>Window_OpenClose_Animation_Zoom</include>
+			<posx>490</posx>
+			<posy>580</posy>
+			<include>VisibleFadeEffect</include>
+			<control type="button" id="5009">
+				<description>Button Cancel</description>
+                <posx>0</posx>
+				<posy>0</posy>
+				<width>300</width>
+				<height>80</height>
+				<font>-</font>
+				<texturefocus colordiffuse="$VAR[CustomColorFocus]">button_outline.png</texturefocus>
+				<texturenofocus colordiffuse="$VAR[CustomColorNofocus]">button_outline.png</texturenofocus>
+				<onclick>back</onclick>
+				<onup>5011</onup>
+				<onright>5011</onright>
+				<ondown>5010</ondown>
+			</control>
+
+			<control type="label">
+				<description>Cancel</description>
+				<posx>0</posx>
+				<posy>20</posy>
+				<height>50</height>
+				<width>300</width>
+				<label>$LOCALIZE[31122]</label>
+				<align>center</align>
+				<aligny>top</aligny>
+				<font>font30_title</font>
+				<textcolor>FFFFFFFF</textcolor>	
+			</control>
+		</control>
+		
+<!-- ################# Ende Button Area ############################################## -->
+
+<!-- Zurück Button -->
+		<control type="group" id="5010">
+           <include>Window_OpenClose_Animation_Slide_Up</include>
+            <posx>95r</posx>
+            <posy>85r</posy>
+            <control type="button" id="5011">
+                <ondown>Control.SetFocus(5001)</ondown>
+                <onup>Control.SetFocus(5007)</onup>
+				<onright></onright>
+                <description>Back Button</description>
+                <posx>0</posx>
+                <posy>0</posy>
+                <width>70</width>
+                <height>70</height>
+                <texturenofocus colordiffuse="$VAR[CustomColorNofocus]">icon_back_w.png</texturenofocus>
+                <texturefocus colordiffuse="$VAR[CustomColorFocus]">icon_back_w.png</texturefocus>
+                <onclick>back</onclick>
+            </control>   
+        </control>
+		
+		<include>BehindDialogFadeOut</include>
+		      
+   </controls>      
+</window>

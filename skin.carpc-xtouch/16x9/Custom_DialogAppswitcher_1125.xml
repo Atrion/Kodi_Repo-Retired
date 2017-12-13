@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window type="dialog" id="1125">
+	<defaultcontrol always="true">9009</defaultcontrol>
+	<include>Window_OpenClose_Animation</include>
+	<coordinates>
+		<system>1</system>
+		<posx>0</posx>
+		<posy>0</posy>
+	</coordinates>
+	<controls>
+<!-- Background -->
+		<control type="image">
+			<posx>20</posx>
+			<posy>20</posy>
+			<width>1240</width>
+			<height>680</height>
+			<texture border="5">dialog_back_black2.png</texture>
+		</control>
+
+<!-- App icons 1 -->
+		<control type="panel" id="9009">
+			<posx>60</posx>
+			<posy>40</posy>
+			<width>1180</width>
+			<height>660</height>
+			<onfocus>Control.SetFocus(9009)</onfocus>
+			<onleft>9009</onleft>
+			<onright>9009</onright>
+			<onup>9009</onup>
+			<ondown>9009</ondown>
+			<orientation>vertical</orientation>
+			<pagecontrol>60</pagecontrol>
+			<scrolltime></scrolltime>
+			<visible>true</visible>
+<!--		<visible>!Window.IsActive(PlayerControls) + Skin.HasSetting(EnableAppSwitcher) + !Skin.HasSetting(SubmenuIconsMid) + !Skin.HasSetting(SubmenuIconsBig)</visible> -->
+			<include>AppSwitcher</include>
+			<content>
+				<item id="3010">
+					<label>$LOCALIZE[31062]</label>
+					<icon>button_music.png</icon>
+					<onclick>Dialog.Close(1125)</onclick>
+					<onclick condition="!String.IsEmpty(Skin.String(CustomMusicPath1))">ActivateWindow(Music,$INFO[Skin.String(CustomMusicPath1)])</onclick>
+					<onclick condition="!String.IsEmpty(Skin.String(CustomMusicPath2))">ActivateWindow(Music,$INFO[Skin.String(CustomMusicPath2)])</onclick>
+					<onclick condition="!String.IsEmpty(Skin.String(CustomMusicPath3))">ActivateWindow(Music,$INFO[Skin.String(CustomMusicPath3)])</onclick>
+					<onclick condition="!String.IsEmpty(Skin.String(CustomMusicPath4))">ActivateWindow(Music,$INFO[Skin.String(CustomMusicPath4)])</onclick>
+					<onclick condition="!String.IsEmpty(Skin.String(CustomMusicPath5))">ActivateWindow(Music,$INFO[Skin.String(CustomMusicPath5)])</onclick>
+					<onclick condition="!String.IsEmpty(Skin.String(CustomMusicPath6))">ActivateWindow(Music,$INFO[Skin.String(CustomMusicPath6)])</onclick>
+				</item>
+				<item id="3011">
+					<label>$LOCALIZE[31241]</label>
+					<icon>button_musicartist.png</icon>
+					<onclick>Dialog.Close(1125)</onclick>
+					<onclick>ActivateWindow(Music,musicdb://artists/,return)</onclick>
+				</item>
+				<item id="3012">
+					<label>$LOCALIZE[31242]</label>
+					<icon>button_musicalbum.png</icon>
+					<onclick>Dialog.Close(1125)</onclick>
+					<onclick>ActivateWindow(Music,musicdb://albums/,return])</onclick>
+				</item>
+				<item id="3013">
+					<label>$LOCALIZE[31243]</label>
+					<icon>button_musicgenre.png</icon>
+					<onclick>Dialog.Close(1125)</onclick>
+					<onclick>ActivateWindow(Music,musicdb://genres/,return)</onclick>
+				</item>
+				<item id="3014">
+					<label>$LOCALIZE[31063]</label>
+					<icon>button_video.png</icon>
+					<onclick>Dialog.Close(1125)</onclick>
+<!--				<onclick>ActivateWindow(Videos,$INFO[Skin.String(CustomVideoPath)])</onclick> -->
+					<onclick condition="!String.IsEmpty(Skin.String(CustomVideoPath1))">ActivateWindow(Videos,$INFO[Skin.String(CustomVideoPath1)])</onclick>
+					<onclick condition="!String.IsEmpty(Skin.String(CustomVideoPath2))">ActivateWindow(Videos,$INFO[Skin.String(CustomVideoPath2)])</onclick>
+					<onclick condition="!String.IsEmpty(Skin.String(CustomVideoPath3))">ActivateWindow(Videos,$INFO[Skin.String(CustomVideoPath3)])</onclick>
+					<onclick condition="!String.IsEmpty(Skin.String(CustomVideoPath4))">ActivateWindow(Videos,$INFO[Skin.String(CustomVideoPath4)])</onclick>
+					<onclick condition="!String.IsEmpty(Skin.String(CustomVideoPath5))">ActivateWindow(Videos,$INFO[Skin.String(CustomVideoPath5)])</onclick>
+					<onclick condition="!String.IsEmpty(Skin.String(CustomVideoPath6))">ActivateWindow(Videos,$INFO[Skin.String(CustomVideoPath6)])</onclick>
+				</item>
+				<item id="3015">
+					<label>$LOCALIZE[31064]</label>
+					<icon>button_navi.png</icon>
+					<onclick>RunScript("plugin.program.navigation")</onclick>
+					<onclick condition="Player.HasVideo">PlayerControl(Stop)</onclick>
+					<onclick>Dialog.Close(1125)</onclick>
+				</item>
+				<item id="3016">
+					<label>$LOCALIZE[31061]</label>
+					<icon>button_radio.png</icon>
+					<onclick>Dialog.Close(1125)</onclick>
+					<onclick>RunScript("ActivateWindow(1126)")</onclick>
+				</item> 
+				<item id="3017">
+					<label>$LOCALIZE[31065]</label>
+					<icon>button_settings.png</icon>
+					<onclick>Dialog.Close(1125)</onclick>
+					<onclick>ActivateWindow(Settings)</onclick>
+				</item>
+				<item id="3018">
+					<label>$LOCALIZE[31074]</label>
+					<icon>button_filemanager.png</icon>
+					<onclick>Dialog.Close(1125)</onclick>
+					<onclick>ActivateWindow(FileManager)</onclick>
+				</item>
+				<item id="3019">
+					<label>$LOCALIZE[31073]</label>
+					<icon>button_3g.png</icon>
+					<onclick>Dialog.Close(1125)</onclick>
+					<onclick>ActivateWindow(1118)</onclick>
+				</item>
+				<item id="3020">
+					<label>$LOCALIZE[31137]</label>
+					<icon>button_obd.png</icon>
+					<onclick>Dialog.Close(1125)</onclick>
+					<onclick>-</onclick>
+				</item>  
+				<item id="3021">
+					<label>$LOCALIZE[31135]</label>
+					<icon>button_weather.png</icon>
+					<onclick>Dialog.Close(1125)</onclick>
+					<onclick>ActivateWindow(Weather)</onclick>
+				</item>
+				<item id="3022">
+					<label>$LOCALIZE[31072]</label>
+					<icon>button_favs.png</icon>
+					<onclick>Dialog.Close(1125)</onclick>
+					<onclick>ActivateWindow(Favourites)</onclick>
+				</item>
+				<item id="3023">
+					<label>$LOCALIZE[31071]</label>
+					<icon>button_apps.png</icon>
+					<onclick>Dialog.Close(1125)</onclick>
+					<onclick>ActivateWindow(Programs,addons://sources/executable)</onclick>
+				</item>
+				<item id="3025">
+					<label>$LOCALIZE[40133]</label>
+			 		<visible>[Skin.String(Daysaved,1) + Skin.String(Nightsaved,1)] + !Window.IsVisible(ExtendedProgressDialog) + !Skin.String(DayNightModus,day) + System.HasAddon(plugin.program.carpc-xtouch)</visible>
+					<icon>button_day.png</icon>
+					<onclick>Skin.Reset(DayNightModus)</onclick>
+					<onclick>Skin.SetString(DayNightModus,day)</onclick>
+					<onclick>Dialog.Close(1125)</onclick>
+					<onclick>RunScript(/home/pi/.kodi/addons/plugin.program.carpc-xtouch/addon.py,loadday)</onclick>
+				</item>
+				<item id="3025">
+					<label>$LOCALIZE[40133]</label>
+			 		<visible>[!Skin.String(Daysaved,1) | !Skin.String(Nightsaved,1)] + !Window.IsVisible(ExtendedProgressDialog) + !Skin.String(DayNightModus,day) + System.HasAddon(plugin.program.carpc-xtouch)</visible>
+					<icon>button_daynight_alert.png</icon>
+					<onclick>Skin.Reset(OpenSettingsMenu1)</onclick>
+					<onclick>Skin.Reset(OpenSettingsMenu2)</onclick>
+					<onclick>Skin.Reset(OpenSettingsMenu3)</onclick>
+					<onclick>Skin.Reset(OpenSettingsMenu4)</onclick>
+					<onclick>Skin.Reset(ChangeFocusColor)</onclick>
+					<onclick>Skin.Reset(ChangeSubmenuBGColor)</onclick>
+					<onclick>Skin.Reset(ChangeIconTextColor)</onclick>
+					<onclick>Skin.Reset(ChangeOutlineColor)</onclick>
+					<onclick>Skin.Reset(ChangeOutlineColorFocus)</onclick>
+					<onclick>Skin.Reset(ChangeButtonBGColor)</onclick>
+					<onclick>Skin.Reset(ChangePlayerButtonsBGColor)</onclick>
+					<onclick>Skin.Reset(ChangeBottomBGColor)</onclick>
+					<onclick>Skin.Reset(ChangeRadioBGColor)</onclick>
+					<onclick>Skin.Reset(ChangeRadioDisplayColor)</onclick>
+					<onclick>Skin.Reset(ChangeTempClockColorMinutes)</onclick>
+					<onclick>Skin.Reset(ChangeTempClockColorHours)</onclick>
+					<onclick>Skin.Reset(ChangeTempLabelColor)</onclick>
+					<onclick>Skin.Reset(ChangeButtonBGColorFocus)</onclick>
+					<onclick>Skin.Reset(ChangeSkinColor)</onclick>
+					<onclick>Skin.Reset(SkinSettings)</onclick>
+					<onclick>Skin.SetString(SkinSettings,42)</onclick>
+					<onclick>Skin.Reset(SaveDayNight)</onclick>
+					<onclick>ActivateWindow(1113)</onclick>
+					<onclick>Control.SetFocus(440)</onclick>
+				</item>
+				<item id="3026">
+					<label>$LOCALIZE[40134]</label>
+			 		<visible>[Skin.String(Daysaved,1) + Skin.String(Nightsaved,1)] + !Window.IsVisible(ExtendedProgressDialog) + !Skin.String(DayNightModus,night) + System.HasAddon(plugin.program.carpc-xtouch)</visible>
+					<icon>button_night.png</icon>
+					<onclick>Skin.Reset(DayNightModus)</onclick>
+					<onclick>Skin.SetString(DayNightModus,night)</onclick>
+					<onclick>Dialog.Close(1125)</onclick>
+					<onclick>RunScript(/home/pi/.kodi/addons/plugin.program.carpc-xtouch/addon.py,loadnight)</onclick>
+				</item>
+				<item id="3027">
+					<description>Switch Temp<>Clock</description>
+					<label>$LOCALIZE[40137]</label>
+			 		<visible>System.HasAddon(plugin.program.piwire) + Skin.HasSetting(Enable_Temp_Display)</visible>
+					<icon>buttons-tempclock-switch.png</icon>
+					<onclick>Dialog.Close(1125)</onclick>
+					<onclick>Skin.ToggleSetting(SwitchTempClock)</onclick>
+				</item>
+				<item id="3028">
+					<description>Playlist-Editor</description>
+					<label>$LOCALIZE[40141]</label>
+					<icon>button_musicplaylisteditor.png</icon>
+					<onclick>Dialog.Close(1125)</onclick>
+					<onclick>ActivateWindow(503)</onclick>
+				</item>
+				<item id="3029">
+					<description>WiFi-Manager</description>
+					<visible>System.HasAddon(plugin.program.wifimanager)</visible>
+					<label>$LOCALIZE[31260]</label>
+					<icon>button_wifi.png</icon>
+					<onclick>Dialog.Close(1125)</onclick>
+					<onclick>ActivateWindow(1119)</onclick>
+				</item>
+				<item id="3030">
+					<description>USB-Manager</description>
+					<label>$LOCALIZE[40136]</label>
+			 		<visible>System.HasAddon(plugin.program.usbmanager)</visible>
+					<icon>button_usbmanager.png</icon>
+					<onclick>Dialog.Close(1125)</onclick>
+					<onclick>RunPlugin(plugin://plugin.program.usbmanager)</onclick>
+				</item>
+				<item id="3031">
+					<description>PiWire-Addon</description>
+					<label>$LOCALIZE[40135]</label>
+			 		<visible>System.HasAddon(plugin.program.piwire)</visible>
+					<icon>button_piwire.png</icon>
+					<onclick>Dialog.Close(1125)</onclick>
+					<onclick>RunPlugin(plugin://plugin.program.piwire)</onclick>
+				</item>
+				<item id="3032">
+					<description>GPIODiag-Addon</description>
+			 		<visible>System.HasAddon(plugin.program.gpiodiag)</visible>
+					<label>$LOCALIZE[40138]</label>
+					<icon>button_gpiodiag.png</icon>
+					<onclick>Dialog.Close(1125)</onclick>
+					<onclick>RunPlugin(plugin://plugin.program.gpiodiag)</onclick>
+				</item>
+				<item id="3033">
+					<description>PiDash-Addon</description>
+					<label>$LOCALIZE[40139]</label>
+			 		<visible>System.HasAddon(plugin.program.pidash)</visible>
+					<icon>button_pidash.png</icon>
+					<onclick>Dialog.Close(1125)</onclick>
+					<onclick>RunPlugin(plugin://plugin.program.pidash)</onclick>
+				</item>
+				<item id="3034">
+					<description>Youtube-Addon</description>
+					<label>Youtube</label>
+			 		<visible>System.HasAddon(plugin.video.youtube)</visible>
+					<icon>button_youtube.png</icon>
+					<onclick>Dialog.Close(1125)</onclick>
+					<onclick>RunPlugin(plugin://plugin.video.youtube)</onclick>
+				</item>
+				<item id="3035">
+					<description>CarPC-Controller</description>
+					<label>$LOCALIZE[40140]</label>
+					<icon>button_Controller.png</icon>
+			 		<visible>System.HasAddon(service.carpccontroller)</visible>
+					<onclick>Dialog.Close(1125)</onclick>
+					<onclick>Addon.OpenSettings(service.carpccontroller)</onclick>
+				</item>
+				<item id="3036">
+					<label>$INFO[Skin.String(MagicSMBLabel1)]</label>
+		        	<visible>Skin.HasSetting(ShowMagicSMB1) + !String.IsEmpty(Skin.String(MagicSMBLabel1))</visible>
+					<icon>$INFO[Skin.String(MagicSMBIcon1)]</icon>
+					<onclick>Dialog.Close(1125)</onclick>
+					<onclick>$INFO[Skin.String(MagicSMBAction1)]</onclick>
+				</item>
+				<item id="3037">
+					<label>$INFO[Skin.String(MagicSMBLabel2)]</label>
+		        	<visible>Skin.HasSetting(ShowMagicSMB2) + !String.IsEmpty(Skin.String(MagicSMBLabel2))</visible>
+					<icon>$INFO[Skin.String(MagicSMBIcon2)]</icon>
+					<onclick>Dialog.Close(1125)</onclick>
+					<onclick>$INFO[Skin.String(MagicSMBAction2)]</onclick>
+				</item>
+				<item id="3038">
+					<label>$INFO[Skin.String(MagicSMBLabel3)]</label>
+		        	<visible>Skin.HasSetting(ShowMagicSMB3) + !String.IsEmpty(Skin.String(MagicSMBLabel3))</visible>
+					<icon>$INFO[Skin.String(MagicSMBIcon3)]</icon>
+					<onclick>Dialog.Close(1125)</onclick>
+					<onclick>$INFO[Skin.String(MagicSMBAction3)]</onclick>
+				</item>
+				<item id="3039">
+					<label>$INFO[Skin.String(MagicSMBLabel4)]</label>
+		        	<visible>Skin.HasSetting(ShowMagicSMB4) + !String.IsEmpty(Skin.String(MagicSMBLabel4))</visible>
+					<icon>$INFO[Skin.String(MagicSMBIcon4)]</icon>
+					<onclick>Dialog.Close(1125)</onclick>
+					<onclick>$INFO[Skin.String(MagicSMBAction4)]</onclick>
+				</item>
+				<item id="3040">
+					<label>$LOCALIZE[31119]</label>
+					<icon>button_shutdown.png</icon>
+					<onclick>Dialog.Close(1125)</onclick>
+					<onclick>ActivateWindow(1998)</onclick>
+				</item>  
+				<item id="3041">
+					<label>$LOCALIZE[31271]</label>
+					<icon>icon_shutdownnodialog.png</icon>
+					<onclick>Dialog.Close(1125)</onclick>
+					<onclick>RunScript("special://skin/scripts/system_poweroff.py")</onclick>
+					<ondown>Control.SetFocus(3030)</ondown>
+				</item>  
+
+			</content>
+		</control>
+
+<!-- Close button -->
+        <control type="button" id="3036">
+            <posx>80r</posx>
+            <posy>80r</posy>
+            <width>60</width>
+            <height>60</height>
+            <texturenofocus colordiffuse="$VAR[CustomColorNofocus]" border="0,2,0,2">icon_close.png</texturenofocus>
+            <texturefocus colordiffuse="$VAR[CustomColorFocus]" border="0,2,0,2">icon_close.png</texturefocus>
+			<onclick>Dialog.Close(1125)</onclick>
+			<onup>Control.SetFocus(9009)</onup>
+        </control>
+        
+	</controls>
+</window>

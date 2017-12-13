@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+	 <category label = "General">		<setting id="cache_enabled" type="bool" label="Enable Caching" default="true"/>	</category>	<category label="Scrapers 1">
+		<setting label="123Movies" type="lsep"/>
+		<setting id="123Movies_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="1movies" type="lsep"/>
+		<setting id="1movies_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="Alluc" type="lsep"/>
+		<setting id="Alluc_enabled" type="bool" label="Enabled" default="true"/>
+		<setting id="Alluc_max" type="slider" label="Max Results for Search" default="20" range="5,200" option="int"/>
+		<setting id= "Alluc_user" type="text" label="Username" default=Username />
+		<setting id= "Alluc_pw" type="text" label="Password" default=Password />
+		<setting label="animetoon" type="lsep"/>
+		<setting id="animetoon_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="BeeMP3" type="lsep"/>
+		<setting id="BeeMP3_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="Bmoviez" type="lsep"/>
+		<setting id="Bmoviez_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="CartoonHD" type="lsep"/>
+		<setting id="CartoonHD_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="Direct Download" type="lsep"/>
+		<setting id="Direct Download_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="dizi720p" type="lsep"/>
+		<setting id="dizi720p_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="Flenix" type="lsep"/>
+		<setting id="Flenix_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="Fullmovies24" type="lsep"/>
+		<setting id="Fullmovies24_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="hddizi" type="lsep"/>
+		<setting id="hddizi_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="Joymovies" type="lsep"/>
+		<setting id="Joymovies_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="M4U" type="lsep"/>
+		<setting id="M4U_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="Movie321cc" type="lsep"/>
+		<setting id="Movie321cc_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="MovieFlix" type="lsep"/>
+		<setting id="MovieFlix_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="MP3clan" type="lsep"/>
+		<setting id="MP3clan_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="Onemusic" type="lsep"/>
+		<setting id="Onemusic_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="onethousand" type="lsep"/>
+		<setting id="onethousand_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="pelispedia" type="lsep"/>
+		<setting id="pelispedia_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="primewire" type="lsep"/>
+		<setting id="primewire_enabled" type="bool" label="Enabled" default="true"/>
+		<setting id= "primewire_baseurl" type="text" label="Base Url" default="http://www.primewire.ag"/>
+		<setting label="ProjectFree" type="lsep"/>
+		<setting id="ProjectFree_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="Releasebb" type="lsep"/>
+		<setting id="Releasebb_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="rlshd" type="lsep"/>
+		<setting id="rlshd_enabled" type="bool" label="Enabled" default="true"/>
+	</category>
+	<category label="Scrapers 2">
+		<setting label="sceper" type="lsep"/>
+		<setting id="sceper_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="SteamHD" type="lsep"/>
+		<setting id="SteamHD_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="streamdreams" type="lsep"/>
+		<setting id="streamdreams_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="thewatchseries" type="lsep"/>
+		<setting id="thewatchseries_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="toonova" type="lsep"/>
+		<setting id="toonova_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="TVRelease" type="lsep"/>
+		<setting id="TVRelease_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="Ultramovie" type="lsep"/>
+		<setting id="Ultramovie_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="vumoo" type="lsep"/>
+		<setting id="vumoo_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="watchcartoon" type="lsep"/>
+		<setting id="watchcartoon_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="watchepisodes" type="lsep"/>
+		<setting id="watchepisodes_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="watchfree" type="lsep"/>
+		<setting id="watchfree_enabled" type="bool" label="Enabled" default="true"/>
+		<setting id= "watchfree_baseurl" type="text" label="Base Url" default="http://www.watchfree.to"/>
+		<setting label="watchfrees" type="lsep"/>
+		<setting id="watchfrees_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="wzrcraft" type="lsep"/>
+		<setting id="wzrcraft_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="yesmovies" type="lsep"/>
+		<setting id="yesmovies_enabled" type="bool" label="Enabled" default="true"/>
+		<setting label="YTSMovies" type="lsep"/>
+		<setting id="YTSMovies_enabled" type="bool" label="Enabled" default="true"/>
+	</category>
+</settings>
