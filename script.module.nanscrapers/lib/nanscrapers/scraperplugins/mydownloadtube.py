@@ -18,7 +18,7 @@ class mydownloadtube(Scraper):
 
     def __init__(self):
         self.base_link = 'https://www.mydownloadtube.to/'
-        self.base_tv_link = 'https://www.mydownloadtube.video/'
+        self.base_tv_link = 'https://www.mydownloadtube.tv/'
         self.sources = []
 
     def scrape_movie(self, title, year, imdb, debrid=False):

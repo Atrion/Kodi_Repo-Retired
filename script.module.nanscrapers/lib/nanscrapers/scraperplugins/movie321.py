@@ -2,7 +2,8 @@ import requests
 import re
 import xbmc
 from ..scraper import Scraper
-from ..common import clean_title,clean_search            
+from ..common import clean_title,clean_search
+from nanscrapers.modules import cfscrape          
 requests.packages.urllib3.disable_warnings()
 
 s = requests.session()
@@ -16,20 +17,21 @@ class Movie321(Scraper):
     def __init__(self):
         self.base_link = 'https://321movies.cc'
         self.search_url = '/?s='
+        self.scraper = cfscrape.create_scraper()
 
     def scrape_episode(self, title, show_year, year, season, episode, imdb, tvdb, debrid = False):
         try:
             start_url = self.base_link + '/episodes/' + title.replace(' ','-') + '-' + season + 'x' + episode
             #print 'GW> '+start_url
             headers={'User-Agent':User_Agent}
-            html = requests.get(start_url,headers=headers,timeout=5).content
+            html = self.scraper.get(start_url,headers=headers,timeout=5).content
             #print 'PAGE > '+html
             match = re.compile('class="metaframe rptss" src="(.+?)"').findall(html)
             for link in match: 
                 host = link.split('//')[1].replace('www.','')
                 host = host.split('/')[0].split('.')[0].title()
                 if 'streamango.com' in link:
-                    holder = requests.get(link).content
+                    holder = self.scraper.get(link).content
                     qual = re.compile('type:"video/mp4".+?height:(.+?),',re.DOTALL).findall(holder)[0]
                     self.sources.append({'source': host, 'quality': qual, 'scraper': self.name, 'url': link,'direct': False})            
                 else:
@@ -46,7 +48,7 @@ class Movie321(Scraper):
             start_url = self.base_link + '/?s=' + search_id.replace(' ','+')
             #print 'GW> '+start_url
             headers={'User-Agent':User_Agent}
-            html = requests.get(start_url,headers=headers,timeout=5).content
+            html = self.scraper.get(start_url,headers=headers,timeout=5).content
             match = re.compile('class="thumbnail.+?href="(.+?)">.+?alt="(.+?)".+?class="year">(.+?)</span>',re.DOTALL).findall(html)
             for url,name,date in match:
                 print 'CHK>>'+name
@@ -65,13 +67,13 @@ class Movie321(Scraper):
             
             #print 'FILM_URL= '+url
             headers={'User-Agent':User_Agent}
-            OPEN = requests.get(url,headers=headers,timeout=5).content
+            OPEN = self.scraper.get(url,headers=headers,timeout=5).content
             Regex = re.compile('</iframe>.+?class="metaframe rptss" src="(.+?)"',re.DOTALL).findall(OPEN)
             for link in Regex: 
                 host = link.split('//')[1].replace('www.','')
                 host = host.split('/')[0].split('.')[0].title()
                 if 'streamango.com' in link:
-                    holder = requests.get(link).content
+                    holder = self.scraper.get(link).content
                     qual = re.compile('type:"video/mp4".+?height:(.+?),',re.DOTALL).findall(holder)[0]
                     self.sources.append({'source': host, 'quality': qual, 'scraper': self.name, 'url': link,'direct': False})              
                 else:

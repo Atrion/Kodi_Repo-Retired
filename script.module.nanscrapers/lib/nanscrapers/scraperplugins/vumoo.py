@@ -1,20 +1,21 @@
 import re
 import requests
-import difflib
 import xbmc
 import urlparse
 from ..scraper import Scraper
 from ..common import clean_title, random_agent, clean_search
+from nanscrapers.modules import cfscrape
 
 class vumoo(Scraper):
     domains = ['vumoo.li']
     name = "Vumoo"
     sources = []
-    name_list = []
+
 
     def __init__(self):
         self.base_link = 'http://vumoo.li'
         self.goog = 'https://www.google.co.uk'
+        self.scraper = cfscrape.create_scraper()
 
     def scrape_episode(self, title, show_year, year, season, episode, imdb, tvdb, debrid = False):
         try:
@@ -24,7 +25,7 @@ class vumoo(Scraper):
             print 'start ##'+start_url
             headers = {'User-Agent':random_agent()}
 
-            html = requests.get(start_url,headers=headers).content
+            html = self.scraper.get(start_url,headers=headers).content
 
             results = re.compile('class="movie_item".+?href="(.+?)".+?alt="(.+?)"',re.DOTALL).findall(html)
             for url,media_title in results:
@@ -70,7 +71,7 @@ class vumoo(Scraper):
     def tv_source(self,url, season, episode):
         try:
             #print 'GWCHECK url= %s season= %s episode= %s' %(url,season,episode)
-            html = requests.get(url).content
+            html = self.scraper.get(url).content
             #print 'page>>>>>>>>>>>>>>>>'+html
             info = re.findall('<span class="season-info">(.+?)</span>(.+?)</div> </div>',html)
             for i,rest in info:
@@ -115,13 +116,13 @@ class vumoo(Scraper):
             print 'sent over> '+url
             #headers = {'User-Agent':random_agent(),'Referer':self.base_link}
 
-            OPEN = requests.get(url).content
+            OPEN = self.scraper.get(url).content
             #print 'page'+OPEN
             Regex = re.compile("var p_link_id='(.+?)'.+?&p=(.+?)&imdb=(.+?)\"",re.DOTALL).findall(OPEN)
             for var,p,imdb in Regex:
                 page = 'http://vumoo.li/api/getContents?id='+var+'&p='+p+'imdb='+imdb   #correct to here
                 #print 'gw#page'+page
-                links = requests.get(page).content
+                links = self.scraper.get(page).content
                 regex2 = re.compile('"src":"(.+?)","label":"(.+?)"',re.DOTALL).findall(links)
                 for url2,name2 in regex2:
                     url2=self.base_link+url2.replace('\\','')

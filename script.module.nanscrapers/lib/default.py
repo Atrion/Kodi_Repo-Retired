@@ -5,9 +5,28 @@ import xbmc
 import xbmcaddon
 import random
 import sys
+import urlparse
 import xbmcvfs
 from nanscrapers.common import clean_title
 from BeautifulSoup import BeautifulStoneSoup
+
+params = dict(urlparse.parse_qsl(sys.argv[2].replace('?', '')))
+mode = params.get('mode')
+if mode == "DisableAll":
+    scrapers = sorted(
+        nanscrapers.relevant_scrapers(include_disabled=True), key=lambda x: x.name.lower())
+    for scraper in scrapers:
+        key = "%s_enabled" % scraper.name
+        xbmcaddon.Addon('script.module.nanscrapers').setSetting(key, "false")
+    sys.exit()
+elif mode == "EnableAll":
+    scrapers = sorted(
+        nanscrapers.relevant_scrapers(include_disabled=True), key=lambda x: x.name.lower())
+    for scraper in scrapers:
+        key = "%s_enabled" % scraper.name
+        xbmcaddon.Addon('script.module.nanscrapers').setSetting(key, "true")
+    sys.exit()
+
 
 try:
     from sqlite3 import dbapi2 as database

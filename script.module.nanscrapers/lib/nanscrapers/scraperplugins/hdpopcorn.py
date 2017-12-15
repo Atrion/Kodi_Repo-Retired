@@ -45,7 +45,7 @@ class hdpopcorn(Scraper):
             try:
                 params = re.compile('FileName1080p.+?value="(.+?)".+?FileSize1080p.+?value="(.+?)".+?value="(.+?)"',re.DOTALL).findall(OPEN)
                 for param1, param2,param3 in params:
-                    request_url = '%s/select-movie-quality/' %(self.base_link)
+                    request_url = '%s/select-movie-quality.php' %(self.base_link)
                     form_data = {'FileName1080p':param1,'FileSize1080p':param2,'FSID1080p':param3}
                 link = requests.post(request_url, data=form_data, headers=headers,timeout=3).content
                 final_url = re.compile('<strong>1080p</strong>.+?href="(.+?)"',re.DOTALL).findall(link)[0]
@@ -55,7 +55,7 @@ class hdpopcorn(Scraper):
             try:
                 params = re.compile('FileName720p.+?value="(.+?)".+?FileSize720p".+?value="(.+?)".+?value="(.+?)"',re.DOTALL).findall(OPEN)
                 for param1, param2,param3 in params:
-                    request_url = '%s/select-movie-quality/' %(self.base_link)
+                    request_url = '%s/select-movie-quality.php' %(self.base_link)
                     form_data = {'FileName720p':param1,'FileSize720p':param2,'FSID720p':param3}
                 link = requests.post(request_url, data=form_data, headers=headers,timeout=3).content
                 final_url = re.compile('<strong>720p</strong>.+?href="(.+?)"',re.DOTALL).findall(link)[0]

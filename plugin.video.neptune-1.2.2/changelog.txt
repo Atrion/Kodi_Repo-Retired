@@ -1,0 +1,14 @@
+[B]1.2.2[/B]
+- Fixed Download option
+- Added Hevc and info to Settings
+- Shows file Sizes on some debrid sources now
+- Update/Change of icon
+- Updated a few modules
+
+[B]1.2.1[/B]
+- Initial version
+- Fixed Debrid Scraping
+- Fixed Trakt Authetication
+- Fixed Clear Providers
+- Few Other Bits and Pieces Fixed
+- Bug Fixes and Error Fixes Done

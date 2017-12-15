@@ -4,6 +4,7 @@ import xbmc
 import urllib,base64
 from ..scraper import Scraper
 from ..common import clean_title,clean_search, filter_host, get_rd_domains  
+from nanscrapers.modules import cfscrape 
 
 User_Agent = 'Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36'
 
@@ -15,6 +16,7 @@ class zoocinema(Scraper):
 
     def __init__(self):
         self.base_link = 'http://zoocine.net/'
+        self.scraper = cfscrape.create_scraper()
         self.sources = []
 
     def scrape_movie(self, title, year, imdb, debrid=False):
@@ -23,7 +25,7 @@ class zoocinema(Scraper):
             
             search = {'do':'search', 'subaction':'search', 'story':name}
             headers = {'User_Agent':User_Agent}
-            link = requests.post(self.base_link, data=search,headers=headers, timeout=3).content
+            link = self.scraper.post(self.base_link, data=search,headers=headers, timeout=3).content
             print 'xmxmx'+link
             links = link.split('-in">')[1:]
             
@@ -53,7 +55,7 @@ class zoocinema(Scraper):
 
             search = {'do':'search', 'subaction':'search', 'story':'%s %s' %(name,sep)}            
 
-            link = requests.post(self.base_link, data=search, timeout=3).content
+            link = self.scraper.post(self.base_link, data=search, timeout=3).content
             
             links = link.split('-in">')[1:]
             
@@ -76,7 +78,7 @@ class zoocinema(Scraper):
     def get_source(self,movie_url):
         try:
             #print ':::::::::::::::::::::::'+movie_url
-            link = requests.get(movie_url, timeout=3).content
+            link = self.scraper.get(movie_url, timeout=3).content
             qual = link.split('>Source:<')[1:]
             for p in qual:
                 res = re.findall(r'class="finfo-text">([^<]+)</div>', str(link), re.I|re.DOTALL)[0]
