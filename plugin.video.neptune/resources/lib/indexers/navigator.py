@@ -295,6 +295,14 @@ class navigator:
 		self.addDirectoryItem('Virtual Reality', 'movies&url=vr', 'vr.jpg', 'playlist.jpg')
 		self.addDirectoryItem('Wilhelm Scream', 'movies&url=wilhelm', 'wilhelm.jpg', 'playlist.jpg')
 		self.addDirectoryItem('Zombies', 'movies&url=zombie', 'zombie.jpg', 'playlist.jpg')
+		self.addDirectoryItem('New Years', 'movies&url=newyear', 'season.jpg', 'season.jpg')
+		self.addDirectoryItem('Easter', 'movies&url=easter', 'season.jpg', 'season.jpg')
+		self.addDirectoryItem('Halloween', 'movies&url=halloween', 'season.jpg', 'season.jpg')
+		self.addDirectoryItem('Thanksgiving', 'movies&url=thanx', 'season.jpg', 'season.jpg')
+		self.addDirectoryItem('Christmas', 'movies&url=xmass', 'season.jpg', 'season.jpg')
+		self.addDirectoryItem('DC', 'movies&url=dc', 'playlist.jpg', 'playlist.jpg')
+		self.addDirectoryItem('Disney and Pixar', 'movies&url=disney', 'playlist.jpg', 'playlist.jpg')
+		self.addDirectoryItem('Marvel Universe', 'movies&url=marvel', 'playlist.jpg', 'playlist.jpg')
 
 		self.endDirectory()		
 

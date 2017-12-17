@@ -155,39 +155,6 @@
 	</extension>
 </addon>
 
-<addon id="plugin.video.neptune" version="1.2.2" name=" Neptune Rising" provider-name="Mr.Blamo">
-	<requires>
-		<import addon="xbmc.python" version="2.19.0" />
-		<import addon="script.neptune.artwork" />
-		<import addon="script.neptune.metadata" />
-                <import addon="script.module.urlresolver"/>
-                <import addon="script.module.metahandler"/>
-                <import addon="script.module.requests"/>
-                <import addon="script.module.beautifulsoup"/>
-                <import addon="script.module.schism.common"/>
-                <import addon="script.module.futures"/>
-                <import addon="script.module.nanscrapers" version="0.5.41" />
-	</requires>
-	<extension point="xbmc.python.pluginsource" library="neptune.py">
-		<provides>video</provides>
-	</extension>
-	<extension point="xbmc.service" library="service.py" start="startup" />
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en">Neptune Rising</summary>
-		<description lang="en">Movie, TV Show, and Playlist Add-on</description>
-		<disclaimer lang="en">The author does not host or distribute any of the content displayed by this addon. The author does not have any affiliation with the content provider.</disclaimer>
-		<platform>all</platform>
-		<forum></forum>
-		<website></website>
-		<source></source>
-		<assets>
-			<icon>icon.png</icon>
-			<fanart>fanart.jpg</fanart>
-		</assets>
-		<news></news>
-	</extension>
-</addon>
-
 <addon id="script.module.kodi65" name="Kodi65 Library" version="1.2.1" provider-name="Philipp Temminghoff (phil65)">
 	<requires>
 		<import addon="xbmc.python" version="2.25.0"/>
@@ -246,7 +213,7 @@
     </extension>
 </addon>
 
-<addon id="plugin.video.neptune" version="1.2.2" name=" Neptune Rising" provider-name="Mr.Blamo">
+<addon id="plugin.video.neptune" version="1.2.3" name=" Neptune Rising" provider-name="Mr.Blamo">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.neptune.artwork" />
@@ -637,6 +604,31 @@
                 <website>https://superrepo.org/</website>
                 </extension>
                 </addon>
+
+<addon id="repository.bubbles.3" version="2.5.0" name="Bubbles Repository 3" provider-name="Bubbles">
+	<extension point="xbmc.addon.repository" name="Bubbles Repository 3">
+		<dir>
+			<info compressed="false">https://gitlab.com/trailerpark/trailerpark/raw/HEAD/repository/common/addons.xml</info>
+			<checksum>https://gitlab.com/trailerpark/trailerpark/raw/HEAD/repository/common/addons.xml.md5</checksum>
+			<datadir zip="true">https://gitlab.com/trailerpark/trailerpark/raw/HEAD/repository/common/</datadir>
+		</dir>
+		<info compressed="false">https://gitlab.com/trailerpark/trailerpark/raw/HEAD/repository/addons.xml</info>
+		<checksum>https://gitlab.com/trailerpark/trailerpark/raw/HEAD/repository/addons.xml.md5</checksum>
+		<datadir zip="true">https://gitlab.com/trailerpark/trailerpark/raw/HEAD/repository/</datadir>
+	</extension>
+	<requires>
+		<import addon="script.module.urllib.3" version="1.22.0" />
+	</requires>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Bubbles Tertiary Repository</summary>
+		<description lang="en">The Bubbles repository for the addon, resources, extensions, and external addons. Any of the Bubbles mirror repositories can be used for installation and updates.</description>
+		<disclaimer lang="en">Bubbles and its developers are not in any way affiliated with Kodi, TVAddons, Premiumize, RealDebrid, EasyNews, or any of the sites and providers used in the addon. Bubbles is and always will be free and open-source. None of its code and resources may be sold or redistributed for any commercial purposes. Bubbles and its developers do not host, create, or distribute any of the content displayed in the addon, it simply searches public websites.</disclaimer>
+		<platform>all</platform>
+		<license>GPL 3.0</license>
+		<website>https://bubbles4kodi.com</website>
+		<forum>https://bubbles4kodi.com/support</forum>
+	</extension>
+</addon>
 
 <addon id="script.module.trakt"
        name="trakt.py"
@@ -1699,18 +1691,6 @@ v5.0.15 (2016-11-26) by amet
   </extension>
 </addon>
 
-<addon id="script.neptune.metadata" version="1.0.4" name="Neptune Rising Metadata" provider-name="Mr.Blamo">
-	<requires>
-		<import addon="xbmc.python" version="2.19.0"/>
-	</requires>
-	<extension point="xbmc.python.module" library="lib" />
-	<extension point="xbmc.addon.metadata">
-		<summary>Metadata for the Neptune Rising Addon</summary>
-		<description>Metadata for Neptune Rising are maintained separately to make distribution of the the addon itself easier/faster.</description>
-		<platform>all</platform>
-	</extension>
-</addon>
-
 <addon id="script.covenant.artwork" version="1.0.3" name="Covenant Artwork" provider-name="Covenant">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0"/>
@@ -1793,6 +1773,28 @@ v5.0.15 (2016-11-26) by amet
     <website>https://github.com/uri-templates/uritemplate-py</website>
     <source>https://github.com/uri-templates/uritemplate-py</source>
   </extension>
+</addon>
+
+<addon id="repository.bubbles.1" version="2.5.0" name="Bubbles Repository 1" provider-name="Bubbles">
+	<extension point="xbmc.addon.repository" name="Bubbles Repository 1">
+		<dir>
+			<info compressed="false">https://github.com/trailerpark/trailerpark/raw/master/repository/common/addons.xml</info>
+			<checksum>https://github.com/trailerpark/trailerpark/raw/master/repository/common/addons.xml.md5</checksum>
+			<datadir zip="true">https://github.com/trailerpark/trailerpark/raw/master/repository/common/</datadir>
+		</dir>
+		<info compressed="false">https://github.com/trailerpark/trailerpark/raw/master/repository/addons.xml</info>
+		<checksum>https://github.com/trailerpark/trailerpark/raw/master/repository/addons.xml.md5</checksum>
+		<datadir zip="true">https://github.com/trailerpark/trailerpark/raw/master/repository/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Bubbles Primary Repository</summary>
+		<description lang="en">The Bubbles repository for the addon, resources, extensions, and external addons. Any of the Bubbles mirror repositories can be used for installation and updates.</description>
+		<disclaimer lang="en">Bubbles and its developers are not in any way affiliated with Kodi, TVAddons, Premiumize, RealDebrid, EasyNews, or any of the sites and providers used in the addon. Bubbles is and always will be free and open-source. None of its code and resources may be sold or redistributed for any commercial purposes. Bubbles and its developers do not host, create, or distribute any of the content displayed in the addon, it simply searches public websites.</disclaimer>
+		<platform>all</platform>
+		<license>GPL 3.0</license>
+		<website>https://bubbles4kodi.com</website>
+		<forum>https://bubbles4kodi.com/support</forum>
+	</extension>
 </addon>
 
 <addon id="resource.images.recordlabels.white" name="Recordlabel Icons - White" version="0.0.7" provider-name="Team Kodi">
@@ -2214,6 +2216,23 @@ v5.0.15 (2016-11-26) by amet
   </extension>
 </addon>
 
+<addon id="script.module.urllib.3" version="1.22.0" name="Python Urllib 3" provider-name="Urllib">
+	<requires>
+		<import addon="xbmc.python" version="2.1.0" />
+	</requires>
+	<extension point="xbmc.python.module" library="lib" />
+	<extension point="xbmc.service" library="__init__.py" start="startup" />
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Python Urllib 3 for Kodi</summary>
+		<description lang="en">Python Urllib 3 extension for Kodi</description>
+		<disclaimer lang="en"></disclaimer>
+		<platform>all</platform>
+		<license>MIT</license>
+		<website>https://urllib3.readthedocs.io</website>
+		<forum>https://urllib3.readthedocs.io</forum>
+	</extension>
+</addon>
+
 <addon id="plugin.program.touchCalibration" name="Touch Screen Calibration" version="1.1.1" provider-name="Andrei">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
@@ -2345,6 +2364,31 @@ v5.0.15 (2016-11-26) by amet
 			<screenshot>resources/screenshot09.jpg</screenshot>
 			<screenshot>resources/screenshot10.jpg</screenshot>
 		</assets>
+	</extension>
+</addon>
+
+<addon id="repository.bubbles.2" version="2.5.0" name="Bubbles Repository 2" provider-name="Bubbles">
+	<extension point="xbmc.addon.repository" name="Bubbles Repository Mirror 2">
+		<dir>
+			<info compressed="false">https://bitbucket.org/trailerpark/trailerpark/raw/HEAD/repository/common/addons.xml</info>
+			<checksum>https://bitbucket.org/trailerpark/trailerpark/raw/HEAD/repository/common/addons.xml.md5</checksum>
+			<datadir zip="true">https://bitbucket.org/trailerpark/trailerpark/raw/HEAD/repository/common/</datadir>
+		</dir>
+		<info compressed="false">https://bitbucket.org/trailerpark/trailerpark/raw/HEAD/repository/addons.xml</info>
+		<checksum>https://bitbucket.org/trailerpark/trailerpark/raw/HEAD/repository/addons.xml.md5</checksum>
+		<datadir zip="true">https://bitbucket.org/trailerpark/trailerpark/raw/HEAD/repository/</datadir>
+	</extension>
+	<requires>
+		<import addon="script.module.urllib.3" version="1.22.0" />
+	</requires>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Bubbles Secondary Repository</summary>
+		<description lang="en">The Bubbles repository for the addon, resources, extensions, and external addons. Any of the Bubbles mirror repositories can be used for installation and updates.</description>
+		<disclaimer lang="en">Bubbles and its developers are not in any way affiliated with Kodi, TVAddons, Premiumize, RealDebrid, EasyNews, or any of the sites and providers used in the addon. Bubbles is and always will be free and open-source. None of its code and resources may be sold or redistributed for any commercial purposes. Bubbles and its developers do not host, create, or distribute any of the content displayed in the addon, it simply searches public websites.</disclaimer>
+		<platform>all</platform>
+		<license>GPL 3.0</license>
+		<website>https://bubbles4kodi.com</website>
+		<forum>https://bubbles4kodi.com/support</forum>
 	</extension>
 </addon>
 
@@ -2543,7 +2587,7 @@ v5.0.15 (2016-11-26) by amet
 	</extension>
 </addon>
 
-    <addon id="repository.Atrion" name="Atrions Repo" version="0.2.4" provider-name="AtrionDarnay">
+    <addon id="repository.Atrion" name="Atrions Repo" version="0.2.5" provider-name="AtrionDarnay">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -2605,7 +2649,7 @@ Kodi is a registered trademark of the XBMC Foundation. We are not connected to o
   </extension>
 </addon>
 
-    <addon id="repository.Atrion2" name="Atrions Repo2" version="0.2.4" provider-name="AtrionDarnay">
+    <addon id="repository.Atrion2" name="Atrions Repo2" version="0.2.5" provider-name="AtrionDarnay">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -2660,18 +2704,6 @@ Kodi is a registered trademark of the XBMC Foundation. We are not connected to o
         <license>GNU GENERAL PUBLIC LICENSE Version 2.1, February 1999</license>
         <source>https://github.com/phil65/plugin.program.autocompletion</source>
     </extension>
-</addon>
-
-<addon id="script.neptune.artwork" version="1.0.8" name="Neptune Rising Artwork" provider-name="Mr.Blamo">
-	<requires>
-		<import addon="xbmc.python" version="2.19.0"/>
-	</requires>
-	<extension point="xbmc.python.module" library="lib" />
-	<extension point="xbmc.addon.metadata">
-		<summary>Themes for the Neptune Rising Addon</summary>
-		<description>Themes for Neptune Rising are maintained separately to make distribution of the the addon itself easier/faster.</description>
-		<platform>all</platform>
-	</extension>
 </addon>
 
 <addon id="metadata.album.universal"

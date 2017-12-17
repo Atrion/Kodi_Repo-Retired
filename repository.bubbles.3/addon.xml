@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.bubbles.3" version="2.5.0" name="Bubbles Repository 3" provider-name="Bubbles">
+	<extension point="xbmc.addon.repository" name="Bubbles Repository 3">
+		<dir>
+			<info compressed="false">https://gitlab.com/trailerpark/trailerpark/raw/HEAD/repository/common/addons.xml</info>
+			<checksum>https://gitlab.com/trailerpark/trailerpark/raw/HEAD/repository/common/addons.xml.md5</checksum>
+			<datadir zip="true">https://gitlab.com/trailerpark/trailerpark/raw/HEAD/repository/common/</datadir>
+		</dir>
+		<info compressed="false">https://gitlab.com/trailerpark/trailerpark/raw/HEAD/repository/addons.xml</info>
+		<checksum>https://gitlab.com/trailerpark/trailerpark/raw/HEAD/repository/addons.xml.md5</checksum>
+		<datadir zip="true">https://gitlab.com/trailerpark/trailerpark/raw/HEAD/repository/</datadir>
+	</extension>
+	<requires>
+		<import addon="script.module.urllib.3" version="1.22.0" />
+	</requires>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Bubbles Tertiary Repository</summary>
+		<description lang="en">The Bubbles repository for the addon, resources, extensions, and external addons. Any of the Bubbles mirror repositories can be used for installation and updates.</description>
+		<disclaimer lang="en">Bubbles and its developers are not in any way affiliated with Kodi, TVAddons, Premiumize, RealDebrid, EasyNews, or any of the sites and providers used in the addon. Bubbles is and always will be free and open-source. None of its code and resources may be sold or redistributed for any commercial purposes. Bubbles and its developers do not host, create, or distribute any of the content displayed in the addon, it simply searches public websites.</disclaimer>
+		<platform>all</platform>
+		<license>GPL 3.0</license>
+		<website>https://bubbles4kodi.com</website>
+		<forum>https://bubbles4kodi.com/support</forum>
+	</extension>
+</addon>

@@ -1,3 +1,8 @@
+[B]1.2.3[/B]
+- Fixed most of Top Movies
+- Added Holiday sections to Playlists
+- Added DC, Marvel, Disney
+
 [B]1.2.2[/B]
 - Fixed Download option
 - Added Hevc and info to Settings
