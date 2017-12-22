@@ -1,3 +1,9 @@
+[B]1.2.4[/B]
+- Refined searches in the Top Movies Section
+- Fixed almost all scections within Top Movies
+- Repaired a few sections in Playlist
+- Startded changing to allow new icons
+
 [B]1.2.3[/B]
 - Fixed most of Top Movies
 - Added Holiday sections to Playlists

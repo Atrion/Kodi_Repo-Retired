@@ -1,3 +1,7 @@
+[B]1.0.9[/B]
+- Started the change for new icons
+
+
 [B]1.0.8[/B]
 - Initial version
 - Added New Fanart and icons

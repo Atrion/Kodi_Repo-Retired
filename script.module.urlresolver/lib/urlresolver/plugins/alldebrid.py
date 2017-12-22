@@ -70,7 +70,10 @@ class AllDebridResolver(UrlResolver):
             if 'error' in js_result:
                 raise ResolverError('AllDebrid Error: %s (%s)' % (js_result['error'], js_result['errorCode']))
             elif js_result['success']:
-                return js_result['infos']['link']
+                if js_result['infos']['link']:
+                    return js_result['infos']['link']
+                else:
+                    raise ResolverError('alldebrid: no stream returned')    
             else:
                 raise ResolverError('alldebrid: no stream returned')
 
@@ -107,7 +110,7 @@ class AllDebridResolver(UrlResolver):
 
     # SiteAuth methods
     def login(self):
-        if not self.get_setting('token'):
+        if self.get_setting('username') and self.get_setting('password') and not self.get_setting('token'):
             self.authorize_resolver()
 
     def reset_authorization(self):

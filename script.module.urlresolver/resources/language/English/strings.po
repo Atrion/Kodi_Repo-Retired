@@ -187,14 +187,14 @@ msgstr ""
 
 msgctxt "#33043"
 msgid "Vshare.eu Stream Authorization"
-msgstr "Vshare.eu Stream Authorization"
+msgstr ""
 
 msgctxt "#33044"
 msgid "Flashx Stream Authorization"
-msgstr "Flashx Stream Authorization"
+msgstr ""
 
 msgctxt "#33045"
-msgid AllDebrid Authorization Reset"
+msgid "AllDebrid Authorization Reset"
 msgstr ""
 
 msgctxt "#33046"

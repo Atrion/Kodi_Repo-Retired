@@ -20,8 +20,6 @@
 
 
 import urlparse,urlresolver,nanscrapers,sys,urllib,json,xbmc,os,zipfile,ntpath,xbmcaddon,xbmcgui
-from resources.lib.indexers import channels,episodes,movies,navigator,tvshows
-from resources.lib.modules  import changelog,control,debrid,regex,downloader,realdebrid,playcount,trailer,trakt,views,thexem
 from resources.lib.modules  import sources
 
 dialog = xbmcgui.Dialog()						 

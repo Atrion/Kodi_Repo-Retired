@@ -99,13 +99,13 @@ class movies:
 
 
         self.thousand_link = 'http://www.imdb.com/search/title?at=0&count=100&groups=top_1000&release_date=2000,2017&sort=moviemeter,asc&count=40&start=1'
-        self.eighties_link = 'http://www.imdb.com/search/title/?release_date=1980,1989&title_type=feature=title_type,genres&pf_rd_m=A2FGELUUNOQJNL&pf_rd_p=3449263302&pf_rd_r=1MMD5GQWJXB94W82VA7Y&pf_rd_s=center-3&pf_rd_t=15051&pf_rd_i=genre&ref_=ft_gnr_poprow3_i_3'
-        self.docs_link = 'http://www.imdb.com/list/ls074480877/?view=detail&sort=title:asc&title_type=feature,short,tv_movie,tv_special,video,documentary,game&start=1'
+        self.eighties_link = 'http://www.imdb.com/search/title?count=100&keywords%3Fsort=moviemeter,asc&mode=detail&page=1&title_type=movie,tvMovie&release_date=1980,1989&sort=moviemeter,asc&ref_=kw_ref_typ'
+        self.docs_link = 'http://www.imdb.com/search/title?count=100&keywords=documentary-subject%27s-name-in-title&mode=detail&page=1&title_type=movie,tvMovie&genres=Documentary&sort=alpha,asc&ref_=kw_ref_typ'
         self.action_link = 'http://www.imdb.com/search/title?count=100&keywords=action-hero&sort=user_rating,desc&mode=detail&page=1&title_type=movie&release_date=2000%2C2017&ref_=kw_ref_yr'
-        self.animated_link = 'http://www.imdb.com/search/title?genres=animation&explore=title_type,genres&pf_rd_m=A2FGELUUNOQJNL&pf_rd_p=3449263302&pf_rd_r=1MMD5GQWJXB94W82VA7Y&pf_rd_s=center-3&pf_rd_t=15051&pf_rd_i=genre&ref_=ft_gnr_poprow3_i_3'
+        self.animated_link = 'http://www.imdb.com/search/title?count=100&keywords=2d-animation&sort=alpha,asc&mode=detail&page=1&title_type=movie%2Cvideo&ref_=kw_ref_typ'
         self.gangster_link = 'http://www.imdb.com/search/title?count=100&keywords=gangster&sort=user_rating,desc&mode=detail&page=1&title_type=movie&ref_=kw_ref_typ'
         self.box_link = 'http://www.imdb.com/list/ls057080540/?view=detail&sort=title:asc&title_type=feature,short,tv_movie,tv_special,video,documentary,game&start=1'
-        self.horror_link = 'http://www.imdb.com/list/ls000522817/?view=detail&sort=title:asc&title_type=feature,short,tv_movie,tv_special,video,documentary,game&start=1'
+        self.horror_link = 'http://www.imdb.com/search/title?count=100&keywords=survival-horror&sort=alpha,asc&mode=detail&page=1&title_type=movie%2CtvMovie&ref_=kw_ref_typ'
         self.action2_link = 'http://www.imdb.com/search/title?count=100&keywords=action-hero&sort=user_rating,desc&mode=detail&page=1&title_type=movie&release_date=1960%2C1999&ref_=kw_ref_yr'
         self.loners_link = 'http://www.imdb.com/search/title?count=100&keywords=loner&sort=moviemeter,asc&mode=detail&page=1&title_type=movie&ref_=kw_ref_typ'
         self.remakes_link = 'http://www.imdb.com/search/title?count=100&keywords=horror-movie-remake&sort=moviemeter,asc&mode=detail&page=1&title_type=movie&ref_=kw_ref_typ'
