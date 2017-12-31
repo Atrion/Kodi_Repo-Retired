@@ -1,8 +1,8 @@
-import requests,base64
+import requests
 import re
 import xbmc
 from ..scraper import Scraper
-from ..common import clean_title,clean_search
+from ..common import clean_title,clean_search,filter_host
 
             
 requests.packages.urllib3.disable_warnings()
@@ -23,16 +23,17 @@ class hollymoviehd(Scraper):
     def scrape_movie(self, title, year, imdb, debrid = False):
         try:
             search_id = clean_search(title.lower())
-            start_url = '%s/?s=%s' %(self.base_link,search_id.replace(' ','+'))
+            start_url = '%s/?ac=search&s=%s' %(self.base_link,search_id.replace(' ','+'))
             #print ':::::::::::::######################## '+start_url
             headers={'User-Agent':User_Agent,'referer':self.base_link}
             html = requests.get(start_url,headers=headers,timeout=5).content
             #print ':::::::::::::######################## '+html
-            match = re.compile('data-movie-id=.+?href="(.+?)" .+?class="mli-info"><h2>(.+?)</h2>',re.DOTALL).findall(html)
+            match = re.compile('data-movie-id=.+?href="(.+?)".+?class="mli-info"><h2>(.+?)</h2>',re.DOTALL).findall(html)
             for item_url, name in match:
                 if year in name:
                     name=name.split('(')[0]
                     if clean_title(search_id).lower() == clean_title(name).lower():
+                        
                         self.get_source(item_url)
             return self.sources
         except:
@@ -67,29 +68,55 @@ class hollymoviehd(Scraper):
             
     def get_source(self,item_url):
         try:
-            print 'MOVIE '+item_url
+            print 'MOVIE cfwd '+item_url
             headers={'User-Agent':User_Agent}
             OPEN = requests.get(item_url,headers=headers,timeout=5).content
             #print OPEN
-            holder = re.compile('data-lazy-src="(.+?)"',re.DOTALL).findall(OPEN)[0]
-            if holder.startswith('//'):
-                holder = 'https:' + holder
-            #print 'embfile'+holder
-            headers={'User-Agent':User_Agent}
+            holder = re.compile('data-lazy-src="(.+?)"',re.DOTALL).findall(OPEN)
+            for sources in holder:
+                if sources.startswith('//'):
+                    sources = 'https:' + sources
+                #print 'embfile>> '+sources
             
-            Page = requests.get(holder,headers=headers,timeout=5).content
-            Endlinks = re.compile('file.+?(https://lh3.+?)"',re.DOTALL).findall(Page)
-            for link in Endlinks:
-                if '=m37' in link:
-                    label = '1080p'
-                elif '=m22' in link:
-                    label = '720p'
-                elif '=m59' in link:
-                    label = 'DVD'
-                else:
-                    label = 'SD'
-                #print 'HOLLYHEADendlink> %s - %s'%(link,label)
-                self.sources.append({'source': 'GoogleLink', 'quality': label, 'scraper': self.name, 'url': link,'direct': True})           
+                headers={'User-Agent':User_Agent,'referer':item_url}
+
+                Page = requests.get(sources,headers=headers,timeout=5).content
+                Endlinks = re.compile("<iframe src='(.+?)'",re.DOTALL).findall(Page)
+                for link in Endlinks:
+                    #print 'TRY ME > '+link
+                    if 'openload' in link:
+                        try:
+                            headers = {'User_Agent':User_Agent}
+                            get_res=requests.get(link,headers=headers,timeout=5).content
+                            rez = re.compile('description" content="(.+?)"',re.DOTALL).findall(get_res)[0]
+                            if '1080p' in rez:
+                                qual = '1080p'
+                            elif '720p' in rez:
+                                qual='720p'
+                            else:
+                                qual='DVD'
+                        except: qual='DVD' 
+                        self.sources.append({'source': 'Openload','quality': qual,'scraper': self.name,'url': link,'direct': False})
+                    elif 'streamango.com' in link:
+                        get_res=requests.get(link,headers=headers,timeout=5).content
+                        rez = re.compile('{type:"video/mp4".+?height:(.+?),',re.DOTALL).findall(get_res)[0]
+                        if '1080' in rez:
+                            qual = '1080p'
+                        elif '720' in rez:
+                            qual='720p'
+                        else:
+                            qual='DVD'
+                        self.sources.append({'source': 'Streamango', 'quality': qual, 'scraper': self.name, 'url': link,'direct': False})
+                    else:
+                        #print 'OTHER '+link
+                        try:
+                            host = link.split('//')[1].replace('www.','')
+                            host = host.split('/')[0].lower()
+                            if not filter_host(host):
+                                continue
+                            host = host.split('.')[0].title()
+                            self.sources.append({'source': host, 'quality': 'DVD', 'scraper': self.name, 'url': link,'direct': False}) 
+                        except:pass          
         except:
             pass
 

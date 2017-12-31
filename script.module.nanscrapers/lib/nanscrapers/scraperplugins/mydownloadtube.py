@@ -5,7 +5,7 @@ import urllib
 import base64
 from ..common import clean_title,clean_search
 from ..scraper import Scraper
-
+from nanscrapers.modules import cfscrape 
 requests.packages.urllib3.disable_warnings()
 
 s = requests.session()
@@ -19,6 +19,7 @@ class mydownloadtube(Scraper):
     def __init__(self):
         self.base_link = 'https://www.mydownloadtube.to/'
         self.base_tv_link = 'https://www.mydownloadtube.tv/'
+        self.scraper = cfscrape.create_scraper()
         self.sources = []
 
     def scrape_movie(self, title, year, imdb, debrid=False):
@@ -82,7 +83,7 @@ class mydownloadtube(Scraper):
             show_url = '%sseries/%s' %(self.base_tv_link,search_id.replace(' ','-'))
             #print 'NEW URL '+show_url
             headers = {'User-Agent': User_Agent}
-            mov_page = requests.get(show_url,headers=headers,timeout=5).content
+            mov_page = self.scraper.get(show_url,headers=headers,timeout=5).content
             #print mov_page            
             season_chk = '<h4>Season %s' %(season)
             epi_chk = 'Episode %s' %(episode)
@@ -97,7 +98,7 @@ class mydownloadtube(Scraper):
                         #print 'this be >> ' +epi_url                                   
                         
                         headers = {'User-Agent': User_Agent}
-                        mov_page = requests.get(epi_url,headers=headers,allow_redirects=True).content
+                        mov_page = self.scraper.get(epi_url,headers=headers,allow_redirects=True).content
 
                         mov_id = re.compile('name=idBox value=(.+?)>',re.DOTALL).findall(mov_page)[0]
                         #print 'gwid '+mov_id      
@@ -109,7 +110,7 @@ class mydownloadtube(Scraper):
                         
                         form_data = {'episode':mov_id}
                         
-                        links_page = requests.post(request_url, data=form_data,verify=False, headers=headers).content
+                        links_page = self.scraper.post(request_url, data=form_data,verify=False, headers=headers).content
                         #print links_page
                         matches = re.compile("sources:(.+?)controlbar",re.DOTALL).findall(links_page)
                         match = re.compile("file:window.atob.+?'(.+?)'.+?label:\"(.+?)\"",re.DOTALL).findall(str(matches))

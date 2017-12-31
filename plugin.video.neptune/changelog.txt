@@ -1,3 +1,24 @@
+[B]1.2.8[/B]
+- Quick Network fix my bad
+
+[B]1.2.7[/B]
+- Updated the navigator to accept the new icons
+
+[B]1.2.6[/B]
+- IMDB person list fixed
+- Lots work done to IMDB user lists 
+- Fixed tvmaze
+- Fixed code in the indexers
+- Few other repairs and tweaks done 
+- Thank you Muaddib for helping with this stuff
+- Critter corner fixed
+- Working on fixing IMDB user list section now
+
+[B]1.2.5[/B]
+- Network section fixed
+- IMDB watch list fixed
+- Some section Fixes
+
 [B]1.2.4[/B]
 - Refined searches in the Top Movies Section
 - Fixed almost all scections within Top Movies

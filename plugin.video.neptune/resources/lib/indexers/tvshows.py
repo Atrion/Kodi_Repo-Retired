@@ -106,9 +106,9 @@ class tvshows:
         self.traktcollection_link = 'http://api.trakt.tv/users/me/collection/shows'
         self.traktwatchlist_link = 'http://api.trakt.tv/users/me/watchlist/shows'
         self.traktfeatured_link = 'http://api.trakt.tv/recommendations/shows?limit=40'
-        self.imdblists_link = 'http://www.imdb.com/user/ur%s/lists?tab=all&sort=modified:desc&filter=titles' % self.imdb_user
-        self.imdblist_link = 'http://www.imdb.com/list/%s/?view=detail&sort=title:asc&title_type=tv_series,mini_series&start=1'
-        self.imdblist2_link = 'http://www.imdb.com/list/%s/?view=detail&sort=created:desc&title_type=tv_series,mini_series&start=1'
+        self.imdblists_link = 'http://www.imdb.com/user/ur%s/lists?tab=all&sort=mdfd&order=desc&filter=titles' % self.imdb_user
+        self.imdblist_link = 'http://www.imdb.com/list/%s/?view=detail&sort=alpha,asc&title_type=tvSeries,miniSeries&start=1'
+        self.imdblist2_link = 'http://www.imdb.com/list/%s/?view=detail&sort=date_added,desc&title_type=tvSeries,miniSeries&start=1'
         self.imdbwatchlist_link = 'http://www.imdb.com/user/ur%s/watchlist?sort=alpha,asc' % self.imdb_user
         self.imdbwatchlist2_link = 'http://www.imdb.com/user/ur%s/watchlist?sort=date_added,desc' % self.imdb_user
 
@@ -193,6 +193,7 @@ class tvshows:
 
             url = self.persons_link + urllib.quote_plus(q)
             url = '%s?action=tvPersons&url=%s' % (sys.argv[0], urllib.quote_plus(url))
+
             control.execute('Container.Update(%s)' % url)
         except:
             return
@@ -632,13 +633,13 @@ class tvshows:
 
             result = result.replace('\n', ' ')
 
-            items = client.parseDOM(result, 'div', attrs = {'class': 'lister-item mode-advanced'})
+            items = client.parseDOM(result, 'div', attrs = {'class': 'lister-item .+?'})
             items += client.parseDOM(result, 'div', attrs = {'class': 'list_item.+?'})
         except:
             return
 
         try:
-            next = client.parseDOM(result, 'a', ret='href', attrs = {'class': 'lister-page-next.+?'})
+            next = client.parseDOM(result, 'a', ret='href', attrs = {'class': 'lister-page-next next-page'})
 
             if len(next) == 0:
                 next = client.parseDOM(result, 'div', attrs = {'class': 'pagination'})[0]
@@ -710,13 +711,13 @@ class tvshows:
     def imdb_person_list(self, url):
         try:
             result = client.request(url)
-            items = client.parseDOM(result, 'tr', attrs = {'class': '.+? detailed'})
+            items = client.parseDOM(result, 'div', attrs = {'class': '.+? mode-detail'})
         except:
             return
 
         for item in items:
             try:
-                name = client.parseDOM(item, 'a', ret='title')[0]
+                name = client.parseDOM(item, 'img', ret='alt')[0]
                 name = client.replaceHTMLCodes(name)
                 name = name.encode('utf-8')
 
@@ -727,8 +728,8 @@ class tvshows:
                 url = url.encode('utf-8')
 
                 image = client.parseDOM(item, 'img', ret='src')[0]
-                if not ('._SX' in image or '._SY' in image): raise Exception()
-                image = re.sub('(?:_SX|_SY|_UX|_UY|_CR|_AL)(?:\d+|_).+?\.', '_SX500.', image)
+                #if not ('._SX' in image or '._SY' in image): raise Exception()
+                #image = re.sub('(?:_SX|_SY|_UX|_UY|_CR|_AL)(?:\d+|_).+?\.', '_SX500.', image)
                 image = client.replaceHTMLCodes(image)
                 image = image.encode('utf-8')
 
@@ -742,7 +743,7 @@ class tvshows:
     def imdb_user_list(self, url):
         try:
             result = client.request(url)
-            items = client.parseDOM(result, 'div', attrs = {'class': 'list_name'})
+            items = client.parseDOM(result, 'li', attrs = {'class': 'ipl-zebra-list__item user-list'})
         except:
             pass
 
@@ -753,7 +754,7 @@ class tvshows:
                 name = name.encode('utf-8')
 
                 url = client.parseDOM(item, 'a', ret='href')[0]
-                url = url.split('/list/', 1)[-1].replace('/', '')
+                url = url = url.split('/list/', 1)[-1].strip('/')
                 url = self.imdblist_link % url
                 url = client.replaceHTMLCodes(url)
                 url = url.encode('utf-8')
@@ -771,7 +772,7 @@ class tvshows:
             result = client.request(url)
             result = client.parseDOM(result, 'section', attrs = {'id': 'this-seasons-shows'})
 
-            items = client.parseDOM(result, 'li')
+            items = client.parseDOM(result, 'div', attrs = {'class': 'content auto cell'})
             items = [client.parseDOM(i, 'a', ret='href') for i in items]
             items = [i[0] for i in items if len(i) > 0]
             items = [re.findall('/(\d+)/', i) for i in items]
@@ -1060,11 +1061,9 @@ class tvshows:
             fanart = client.replaceHTMLCodes(fanart)
             fanart = fanart.encode('utf-8')
 
-
             try:
                 artmeta = True
-                if self.fanart_tv_user == '': raise Exception()
-
+                #if self.fanart_tv_user == '': raise Exception()
                 art = client.request(self.fanart_tv_art_link % tvdb, headers=self.fanart_tv_headers, timeout='10', error=True)
                 try: art = json.loads(art)
                 except: artmeta = False
@@ -1073,21 +1072,21 @@ class tvshows:
 
             try:
                 poster2 = art['tvposter']
-                poster2 = [x for x in poster2 if x.get('lang') == 'en'][::-1] + [x for x in poster2 if x.get('lang') == '00'][::-1]
+                poster2 = [x for x in poster2 if x.get('lang') == self.lang][::-1] + [x for x in poster2 if x.get('lang') == 'en'][::-1] + [x for x in poster2 if x.get('lang') in ['00', '']][::-1]
                 poster2 = poster2[0]['url'].encode('utf-8')
             except:
                 poster2 = '0'
 
             try:
                 fanart2 = art['showbackground']
-                fanart2 = [x for x in fanart2 if x.get('lang') == 'en'][::-1] + [x for x in fanart2 if x.get('lang') == '00'][::-1]
+                fanart2 = [x for x in fanart2 if x.get('lang') == self.lang][::-1] + [x for x in fanart2 if x.get('lang') == 'en'][::-1] + [x for x in fanart2 if x.get('lang') in ['00', '']][::-1]
                 fanart2 = fanart2[0]['url'].encode('utf-8')
             except:
                 fanart2 = '0'
 
             try:
                 banner2 = art['tvbanner']
-                banner2 = [x for x in banner2 if x.get('lang') == 'en'][::-1] + [x for x in banner2 if x.get('lang') == '00'][::-1]
+                banner2 = [x for x in banner2 if x.get('lang') == self.lang][::-1] + [x for x in banner2 if x.get('lang') == 'en'][::-1] + [x for x in banner2 if x.get('lang') in ['00', '']][::-1]
                 banner2 = banner2[0]['url'].encode('utf-8')
             except:
                 banner2 = '0'
@@ -1095,7 +1094,7 @@ class tvshows:
             try:
                 if 'hdtvlogo' in art: clearlogo = art['hdtvlogo']
                 else: clearlogo = art['clearlogo']
-                clearlogo = [x for x in clearlogo if x.get('lang') == 'en'][::-1] + [x for x in clearlogo if x.get('lang') == '00'][::-1]
+                clearlogo = [x for x in clearlogo if x.get('lang') == self.lang][::-1] + [x for x in clearlogo if x.get('lang') == 'en'][::-1] + [x for x in clearlogo if x.get('lang') in ['00', '']][::-1]
                 clearlogo = clearlogo[0]['url'].encode('utf-8')
             except:
                 clearlogo = '0'
@@ -1103,7 +1102,7 @@ class tvshows:
             try:
                 if 'hdclearart' in art: clearart = art['hdclearart']
                 else: clearart = art['clearart']
-                clearart = [x for x in clearart if x.get('lang') == 'en'][::-1] + [x for x in clearart if x.get('lang') == '00'][::-1]
+                clearart = [x for x in clearart if x.get('lang') == self.lang][::-1] + [x for x in clearart if x.get('lang') == 'en'][::-1] + [x for x in clearart if x.get('lang') in ['00', '']][::-1]
                 clearart = clearart[0]['url'].encode('utf-8')
             except:
                 clearart = '0'

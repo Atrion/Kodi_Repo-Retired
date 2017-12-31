@@ -12,7 +12,7 @@ class twoddl(Scraper):
     sources = []
 
     def __init__(self):
-        self.base_link = 'http://twoddl.co'
+        self.base_link = 'http://iiddl.net'
         self.sources = []
 
     # def scrape_movie(self, title, year, imdb, debrid=False):

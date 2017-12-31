@@ -1,3 +1,15 @@
+[B]2.9.7[/B]
+- changed: attempt to scrape generic local title from IMDb if multiple are available
+
+[B]2.9.6[/B]
+- fixed: movie title issues after IMDb layout changes
+
+[B]2.9.5[/B]
+- fixed: IMDb Full credits after IMDb layout changes
+
+[B]2.9.4[/B]
+- fixed: USA certification rating due to IMDb changes
+
 [B]2.9.3[/B]
 - fixed: always get USA rating regardless of the country set
 

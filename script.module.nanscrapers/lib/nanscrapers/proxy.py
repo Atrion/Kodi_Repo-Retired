@@ -62,8 +62,8 @@ def get_proxy_url():
         'http://www.englandproxy.co.uk/%s',
         'http://buka.link/browse.php?u=%s&b=2',
         'http://proxite.net/browse.php?u=%s&b=20',
-        'http://www.justproxy.co.uk/index.php?q=%s',
-        'http://dontfilter.us/browse.php?b=20&u=%s',
+        #'http://www.justproxy.co.uk/index.php?q=%s',
+        #'http://dontfilter.us/browse.php?b=20&u=%s',
         
         #'http://unblockthatsite.net/browse.php?u=%s&b=0&f=norefer',
         #'http://protectproxy.com/browse.php?u=%s&b=20',

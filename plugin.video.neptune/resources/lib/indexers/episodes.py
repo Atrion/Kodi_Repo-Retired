@@ -2,7 +2,7 @@
 
 '''
     Neptune Rising Add-on
-    Copyright (C) 2016 Mr. Blamo
+    Copyright (C) 2016 Mr.Blamo
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -530,7 +530,9 @@ class episodes:
         self.tvdb_poster = 'http://thetvdb.com/banners/_cache/'
 
         self.added_link = 'http://api.tvmaze.com/schedule'
-        self.mycalendar_link = 'http://api.trakt.tv/calendars/my/shows/date[29]/60/'
+		#https://api.trakt.tv/calendars/all/shows/date[30]/31 #use this for new episodes? Sure either can do it
+		#self.mycalendar_link = 'http://api.trakt.tv/calendars/my/shows/date[29]/60/'
+        self.mycalendar_link = 'http://api.trakt.tv/calendars/my/shows/date[30]/31/' #go back 30 and show all shows aired until tomorrow
         self.trakthistory_link = 'http://api.trakt.tv/users/me/history/shows?limit=300'
         self.progress_link = 'http://api.trakt.tv/users/me/watched/shows'
         self.hiddenprogress_link = 'http://api.trakt.tv/users/hidden/progress_watched?limit=1000&type=show'
@@ -784,6 +786,7 @@ class episodes:
         except:
             return
 
+        sortorder = control.setting('prgr.sortorder')
         for item in result:
             try:
                 num_1 = 0
@@ -813,7 +816,9 @@ class episodes:
                 if tvdb == None or tvdb == '': raise Exception()
                 tvdb = re.sub('[^0-9]', '', str(tvdb))
 
-                items.append({'imdb': imdb, 'tvdb': tvdb, 'tvshowtitle': tvshowtitle, 'year': year, 'snum': season, 'enum': episode})
+                last_watched = item['last_watched_at']
+                if last_watched == None or last_watched == '': last_watched = '0'
+                items.append({'imdb': imdb, 'tvdb': tvdb, 'tvshowtitle': tvshowtitle, 'year': year, 'snum': season, 'enum': episode, '_last_watched': last_watched})
             except:
                 pass
 
@@ -997,7 +1002,7 @@ class episodes:
                 plot = client.replaceHTMLCodes(plot)
                 plot = plot.encode('utf-8')
 
-                self.list.append({'title': title, 'season': season, 'episode': episode, 'tvshowtitle': tvshowtitle, 'year': year, 'premiered': premiered, 'status': status, 'studio': studio, 'genre': genre, 'duration': duration, 'rating': rating, 'votes': votes, 'mpaa': mpaa, 'director': director, 'writer': writer, 'cast': cast, 'plot': plot, 'imdb': imdb, 'tvdb': tvdb, 'poster': poster, 'banner': banner, 'fanart': fanart, 'thumb': thumb, 'snum': i['snum'], 'enum': i['enum'], 'action': 'episodes'})
+                self.list.append({'title': title, 'season': season, 'episode': episode, 'tvshowtitle': tvshowtitle, 'year': year, 'premiered': premiered, 'status': status, 'studio': studio, 'genre': genre, 'duration': duration, 'rating': rating, 'votes': votes, 'mpaa': mpaa, 'director': director, 'writer': writer, 'cast': cast, 'plot': plot, 'imdb': imdb, 'tvdb': tvdb, 'poster': poster, 'banner': banner, 'fanart': fanart, 'thumb': thumb, 'snum': i['snum'], 'enum': i['enum'], 'action': 'episodes', '_last_watched': i['_last_watched'], '_sort_key': max(i['_last_watched'],premiered)})
             except:
                 pass
 
@@ -1010,9 +1015,12 @@ class episodes:
         [i.join() for i in threads]
 
 
-        try: self.list = sorted(self.list, key=lambda k: k['premiered'], reverse=True)
+        try:
+            if sortorder == '0':
+                self.list = sorted(self.list, key=lambda k: k['premiered'], reverse=True)
+            else:
+                self.list = sorted(self.list, key=lambda k: k['_sort_key'], reverse=True)
         except: pass
-
         return self.list
 
 

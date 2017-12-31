@@ -18,7 +18,7 @@ class BeeMP3(Scraper):
     name = "BeeMP3"
 
     def __init__(self):
-        self.base_link = 'https://beemp3.unblocked.bid'
+        self.base_link = 'https://beemp3.unblocked.vc'
         self.search_link = '/search?query=%s&field=artist'
 
     def scrape_music(self, title, artist, debrid=False):

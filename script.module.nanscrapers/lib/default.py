@@ -5,7 +5,6 @@ import xbmc
 import xbmcaddon
 import random
 import sys
-import urlparse
 import xbmcvfs
 from nanscrapers.common import clean_title
 from BeautifulSoup import BeautifulStoneSoup
@@ -26,7 +25,6 @@ elif mode == "EnableAll":
         key = "%s_enabled" % scraper.name
         xbmcaddon.Addon('script.module.nanscrapers').setSetting(key, "true")
     sys.exit()
-
 
 try:
     from sqlite3 import dbapi2 as database

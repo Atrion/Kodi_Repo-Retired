@@ -4,6 +4,7 @@ import xbmc
 import urllib
 from ..scraper import Scraper
 from ..common import random_agent, filter_host,get_rd_domains
+from nanscrapers.modules import cfscrape
 User_Agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'
 
 class hevc(Scraper):
@@ -13,6 +14,7 @@ class hevc(Scraper):
 
     def __init__(self):
         self.base_link = 'http://hevcbluray.info'
+        self.scraper = cfscrape.create_scraper()
         self.sources = []
 
     def scrape_movie(self, title, year, imdb, debrid=False):
@@ -21,7 +23,7 @@ class hevc(Scraper):
             movie_url = '%s/search/%s/feed/rss2/' %(self.base_link,search_id.replace(' ','+'))
             #print 'HEVC:::::::::::::::::::::::::::::'+movie_url
             headers = {'User_Agent':random_agent()}
-            LINK = requests.get(movie_url,headers=headers, timeout=5).content
+            LINK = self.scraper.get(movie_url,headers=headers, timeout=5).content
             
             match = re.compile('<a rel="nofollow" href="(.+?)">(.+?)<',re.DOTALL).findall(LINK)
             uniques=[]
@@ -42,7 +44,7 @@ class hevc(Scraper):
         #print 'SOURCES pass> '+item_url
         try:
             headers = {'User_Agent':random_agent()}
-            LINK = requests.get(item_url,headers=headers, timeout=5).content
+            LINK = self.scraper.get(item_url,headers=headers, timeout=5).content
             res = item_url.upper()
             #link = LINK.split('Download Links')[0]
             #link = LINK.split('<h3 style="text-align: center;">')

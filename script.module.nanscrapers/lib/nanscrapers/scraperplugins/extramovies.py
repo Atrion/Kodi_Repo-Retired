@@ -3,7 +3,7 @@ import xbmc,urlparse
 from ..scraper import Scraper
 from ..common import clean_title,clean_search, filter_host, get_rd_domains           
 import requests
-
+from nanscrapers.modules import cfscrape
 User_Agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'
  
 class extramovies(Scraper):
@@ -13,7 +13,8 @@ class extramovies(Scraper):
 
     def __init__(self):
         self.base_link = 'http://extramovies.cc'
-        self.base_tv_link = 'https://extramovies.biz'               
+        self.base_tv_link = 'https://extramovies.biz'  
+        self.scraper = cfscrape.create_scraper()        
 
     def scrape_movie(self, title, year, imdb, debrid = False):
         try:
@@ -23,7 +24,7 @@ class extramovies(Scraper):
             start_url = self.base_link + '/?s=' + search_id.replace(' ','+')
             print '@@@@@'+start_url
             headers={'User-Agent':User_Agent}
-            html = requests.get(start_url,headers=headers,timeout=5).content
+            html = requests.get(start_url,headers=headers,timeout=10).content
             match = re.compile('<div class="thumbnail".+?href="(.+?)" title="(.+?)"',re.DOTALL).findall(html)
             for url,item_name in match:
                 if clean_title(title).lower() in clean_title(item_name).lower():
@@ -41,7 +42,7 @@ class extramovies(Scraper):
             start_url = self.base_tv_link + '/?s=' + search_id.replace(' ','+')
             #print '@@@@@'+start_url
             headers={'User-Agent':User_Agent}
-            html = requests.get(start_url,headers=headers,timeout=5).content
+            html = self.scraper.get(start_url,headers=headers,timeout=5).content
             match = re.compile('class="post-item.+?href="(.+?)" title="(.+?)"',re.DOTALL).findall(html)
             for url,item_name in match:
                 
@@ -52,7 +53,7 @@ class extramovies(Scraper):
                     sea_epi ='S%sE%s'%(season_url,episode_url)
                     
                     headers={'User-Agent':User_Agent}
-                    OPEN = requests.get(url,headers=headers,timeout=5).content
+                    OPEN = self.scraper.get(url,headers=headers,timeout=5).content
                     Regex = re.compile('href="(.+?)"',re.DOTALL).findall(OPEN)
                     for ep_url in Regex:
                         if sea_epi in ep_url:
@@ -81,7 +82,7 @@ class extramovies(Scraper):
             else: 
                 res = 'DVD'
             headers={'User-Agent':User_Agent}
-            OPEN = requests.get(url,headers=headers,timeout=5).content
+            OPEN = requests.get(url,headers=headers,timeout=10).content
             Regex = re.compile('href="/download.php.+?link=(.+?)"',re.DOTALL).findall(OPEN)
 
             for link in Regex:

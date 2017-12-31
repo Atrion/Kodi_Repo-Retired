@@ -183,6 +183,6 @@ class Watchfree(Scraper):
     def get_settings_xml(clas):
         xml = [
             '<setting id="%s_enabled" ''type="bool" label="Enabled" default="true"/>' % (clas.name),
-            '<setting id= "%s_baseurl" type="text" label="Base Url" default="http://www.watchfree.to"/>' % (clas.name)
+            '<setting id= "%s_baseurl" type="text" label="Base Url" default="http://www.gowatchfreemovies.to"/>' % (clas.name)
         ]
         return xml

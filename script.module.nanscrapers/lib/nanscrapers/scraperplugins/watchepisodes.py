@@ -1,78 +1,62 @@
 import re
 import urllib
 import requests
-import urlparse
-import xbmc
-from BeautifulSoup import BeautifulSoup
-from nanscrapers.common import clean_title, random_agent, replaceHTMLCodes
+
+from ..common import clean_title,clean_search, random_agent,filter_host
 from ..scraper import Scraper
+
+User_Agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_4 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12H143 Safari/600.1.4'
 
 
 class Watchepisodes(Scraper):
     domains = ['watch-episodes.co']
-    name = "watchepisodes"
+    name = "Watchepisodes"
 
     def __init__(self):
-        self.base_link = 'http://www.watchepisodeseries.com'
-        self.search_link = '/home/search?q=%s'
+        self.base_link = 'http://www.watchepisodes4.com/'
+        self.sources = []
 
     def scrape_episode(self, title, show_year, year, season, episode, imdb, tvdb, debrid=False):
         try:
-            headers = {'User-Agent': random_agent(), "X-Requested-With": "XMLHttpRequest"}
-            query = self.search_link % (urllib.quote_plus(title))
-            query = urlparse.urljoin(self.base_link, query)
-            cleaned_title = clean_title(title)
-            ep_id = int(episode)
-            season_id = int(season)
-            html = requests.get(query, headers=headers, timeout=30).json()
-            results = html['series']
-            for item in results:
-                r_title = item['original_name'].encode('utf-8')
-                r_link = item['seo_name'].encode('utf-8')
-                if cleaned_title == clean_title(r_title):
-                    r_page = self.base_link + "/" + r_link
-                    #print("WATCHEPISODES r1", r_title,r_page)
-                    r_html = BeautifulSoup(requests.get(r_page, headers=headers, timeout=30).content)
-                    r = r_html.findAll('div', attrs={'class': re.compile('\s*el-item\s*')})
-                    for container in r:
-                        try:
-                            r_href = container.findAll('a')[0]['href'].encode('utf-8')
-                            r_season = container.findAll('div', attrs={"class": "season"})[0].text.encode('utf-8')
-                            r_episode = container.findAll('div', attrs={"class": "episode"})[0].text.encode('utf-8')
-                            #print("WATCHEPISODES r3", r_href,r_title)
-                            episode_check = "[sS]%02d[eE]%02d" % (int(season), int(episode))
-                            match = re.search(episode_check, r_href)
-                            if match:
-                                    #print("WATCHEPISODES PASSED EPISODE", r_href)
-                                    return self.sources(replaceHTMLCodes(r_href))
-                            else:
-                                if "%02d" % int(season) in r_season and "%02d" % int(episode) in r_episode:
-                                    return self.sources(replaceHTMLCodes(r_href))
-                        except:
-                            pass
-        except:
-            pass
-        return []
+            scrape = clean_search(title.lower())
+            start_url = '%ssearch/ajax_search?q=%s' %(self.base_link,scrape)
+            #print 'SEARCH  > '+start_url
+            headers = {'User_Agent':User_Agent}
+            html = requests.get(start_url, headers=headers,timeout=5).content
+            #print html
+            regex = re.compile('"value":"(.+?)","seo":"(.+?)"',re.DOTALL).findall(html) 
+            for name,link_title in regex:
+                if clean_title(title).lower() == clean_title(name).lower():
+                    show_page = self.base_link + link_title
+                    
+                    format_grab = 'season-%s-episode-%s' %(season, episode)
+                    #print 'format ' + format_grab
+                    headers = {'User_Agent':User_Agent}
+                    linkspage = requests.get(show_page, headers=headers,timeout=5).content
+                    series_links = re.compile('<div class="el-item.+?href="(.+?)"',re.DOTALL).findall(linkspage)
+                    for episode_url in series_links:
+                        if format_grab in episode_url:
+                            #print 'PASS ME >>>>>>>> '+episode_url
+                            self.get_sources(episode_url)
+ 
+            return self.sources
+        except Exception, argument:
+            return self.sources 
 
-    def sources(self, url):
-        #print '::::::::::::::'+url
-        sources = []
+    def get_sources(self, episode_url):
+        #print '::::::::::::::'+episode_url
         try:
-            if url == None: return sources
-            count = 0
-            headers = {'User-Agent': random_agent()}
-            html = requests.get(url, headers=headers, timeout=30).content
-            r = re.compile('<div class="ll-item">.+?<a href="(.+?)"',re.DOTALL).findall(html)
-            for url in r:
-                while count<10:
-                    count +=1
-                    PAGE = requests.get(url).content
-                    host_url = re.compile('<div class="wb-main">.+?<a rel="nofollow" target="_blank" href="(.+?)"',re.DOTALL).findall(PAGE)
-                    for final_url in host_url:
-                        holster = final_url.split('//')[1].replace('www.','')
-                        holster = holster.split('/')[0].split('.')[0].title()
-                        sources.append({'source': holster, 'quality': 'SD', 'scraper': self.name, 'url': final_url, 'direct': False})
+            headers = {'User_Agent':User_Agent}
+            links = requests.get(episode_url,headers=headers,timeout=5).content   
+            LINK = re.compile('<div class="link-number".+?data-actuallink="(.+?)"',re.DOTALL).findall(links)
+                        
+            for final_url in LINK:
+                #print final_url
+                host = final_url.split('//')[1].replace('www.','')
+                host = host.split('/')[0].lower()
+                if not filter_host(host):
+                    continue
+                host = host.split('.')[0].title()
+                self.sources.append({'source': host,'quality': 'DVD','scraper': self.name,'url': final_url,'direct': False})
 
-        except:
-            pass
-        return sources
+        except:pass
