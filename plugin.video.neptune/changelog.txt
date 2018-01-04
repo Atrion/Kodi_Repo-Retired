@@ -1,3 +1,7 @@
+[B]1.2.9[/B]
+- bug fixes
+- Fixed mostly all of the IMDB user lists section
+
 [B]1.2.8[/B]
 - Quick Network fix my bad
 

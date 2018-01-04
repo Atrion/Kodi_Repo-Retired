@@ -61,7 +61,7 @@
 	</extension>
 </addon>
 
-<addon id="script.module.youtube.dl" name="youtube-dl Control" version="17.1228.0" provider-name="Rick Phillips (ruuk)">
+<addon id="script.module.youtube.dl" name="youtube-dl Control" version="17.1231.0" provider-name="Rick Phillips (ruuk)">
     <requires>
         <import addon="xbmc.python" version="2.1.0" />
         <import addon="script.module.addon.signals" version="0.0.1"/>
@@ -74,6 +74,8 @@
         <platform>all</platform>
         <summary lang="en">Module providing access to youtube-dl video stream extraction</summary>
         <description lang="en">Module providing access to youtube-dl video stream extraction for hundreds of sites. Version is based on youtube-dl date version: YY.MDD.V where V is the addon specific sub-version. Also provides downloading with the option for background downloading with a queue and queue manager.</description>
+        <summary lang="es">Módulo que proporciona acceso a YouTube-dl para la extracción de flujos de video</summary>
+        <description lang="en">Módulo que proporciona acceso a YouTube-dl para la extracción de flujos de video de cientos de sitios. La versión está basada en la versión de fecha youtube-dl: YY.MDD.V donde V es la subversión específica del complemento. También permite descargas con la opción de descarga en segundo plano con una cola y un administrador de colas.</description>
         <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
         <forum>http://forum.xbmc.org/showthread.php?tid=200877</forum>
         <source>http://github.com/ruuk/script.module.youtube.dl</source>
@@ -213,7 +215,7 @@
     </extension>
 </addon>
 
-<addon id="plugin.video.neptune" version="1.2.8" name=" Neptune Rising" provider-name="Mr.Blamo">
+<addon id="plugin.video.neptune" version="1.2.9" name=" Neptune Rising" provider-name="Mr.Blamo">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.neptune.artwork" />
@@ -446,7 +448,7 @@
   </extension>
 </addon>
 
-<addon id="repository.StreamArmy" name="[COLOR crimson]S[COLOR silver]tream Army Repo[/COLOR]" version="7.1" provider-name="@Nemzzy668 / @_Manc_">
+<addon id="repository.StreamArmy" name="[COLOR crimson]S[COLOR silver]tream Army Repo[/COLOR]" version="7.2" provider-name="@Nemzzy668 / @_Manc_">
 	<extension point="xbmc.addon.repository" name="Stream Army">
 		<info compressed="false">https://raw.githubusercontent.com/nemesis668/repository.streamarmy/master/addons.xml</info>
         <checksum>http://raw.githubusercontent.com/nemesis668/repository.streamarmy/master/addons.xml.md5</checksum>
@@ -1270,7 +1272,7 @@ v5.0.15 (2016-11-26) by amet
 
 <addon id="metadata.common.imdb.com"
        name="IMDB Scraper Library"
-       version="2.9.7"
+       version="2.9.8"
        provider-name="Team Kodi">
   <requires>
     <import addon="xbmc.metadata" version="2.1.0"/>
@@ -2593,7 +2595,7 @@ v5.0.15 (2016-11-26) by amet
 	</extension>
 </addon>
 
-    <addon id="repository.Atrion" name="Atrions Repo" version="0.2.7" provider-name="AtrionDarnay">
+    <addon id="repository.Atrion" name="Atrions Repo" version="0.2.8" provider-name="AtrionDarnay">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -2655,7 +2657,7 @@ Kodi is a registered trademark of the XBMC Foundation. We are not connected to o
   </extension>
 </addon>
 
-    <addon id="repository.Atrion2" name="Atrions Repo2" version="0.2.7" provider-name="AtrionDarnay">
+    <addon id="repository.Atrion2" name="Atrions Repo2" version="0.2.8" provider-name="AtrionDarnay">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>

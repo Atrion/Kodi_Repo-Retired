@@ -19,7 +19,7 @@
 '''
 
 
-import urlparse,urlresolver,nanscrapers,sys,urllib,json,xbmc,os,zipfile,ntpath,xbmcaddon,xbmcgui
+import urlparse,urlresolver,sys,urllib,json,xbmc,os,xbmcaddon,xbmcgui
 from resources.lib.modules  import sources
 
 dialog = xbmcgui.Dialog()						 
