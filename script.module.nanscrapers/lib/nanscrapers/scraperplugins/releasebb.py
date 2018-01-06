@@ -24,7 +24,7 @@ import re,urllib,urlparse,json
 from ..common import clean_title, random_agent, clean_search, replaceHTMLCodes, filter_host, get_rd_domains
 from ..scraper import Scraper
 import requests
-import xbmc
+import xbmc,time
 
 
 class Releasebb(Scraper):
@@ -37,6 +37,7 @@ class Releasebb(Scraper):
         self.search_header_link = {'X-Requested-With': 'XMLHttpRequest', 'Cookie': 'serach_mode=light'}
         self.search_link = '/lib/search526049.php?phrase=%s&pindex=1&content=true'
         self.search_link2 = '/search/%s'
+        self.start_time = time.time()
 
     def scrape_movie(self, title, year, imdb, debrid=False):
         try:
@@ -78,7 +79,7 @@ class Releasebb(Scraper):
             r = requests.get(query, headers=headers, timeout=10).content
             posts = []
             dupes = []
-            print ("RELEASEBB QUERY", r)
+            #print ("RELEASEBB QUERY", r)
 
             try:
                 posts += json.loads(re.findall('({.+?})$', r)[0])['results']
@@ -91,12 +92,12 @@ class Releasebb(Scraper):
                     if url in dupes:
                         raise Exception()
                     dupes.append(url)
-                    print ("RELEASEBB 2", name, url)
+                    #print ("RELEASEBB 2", name, url)
                     t = re.sub('(\.|\(|\[|\s)(\d{4}|S\d*E\d*|S\d*|3D)(\.|\)|\]|\s|)(.+|)', '', name)
 
                     if cleanmovie not in clean_title(name) or not year in name:
                         raise Exception()
-                    print ("RELEASEBB 3 PASSED", t)
+                    #print ("RELEASEBB 3 PASSED", t)
                     content = post['post_content']
                     url = [i for i in parse_dom(content, 'a', ret='href')]
 
@@ -105,7 +106,7 @@ class Releasebb(Scraper):
                     self.elysium_url.append([size, quality, url])
                 except:
                     pass
-            print("RELEASEBB PASSED", self.elysium_url)
+            #print("RELEASEBB PASSED", self.elysium_url)
             return self.elysium_url
 
         except:
@@ -142,7 +143,7 @@ class Releasebb(Scraper):
             r = requests.get(query, headers=headers, timeout=10).content
             posts = []
             dupes = []
-            print ("RELEASEBB QUERY", r)
+            #print ("RELEASEBB QUERY", r)
 
             try:
                 posts += json.loads(re.findall('({.+?})$', r)[0])['results']
@@ -156,10 +157,10 @@ class Releasebb(Scraper):
                         raise Exception()
                     dupes.append(url)
                     t = re.sub('(\.|\(|\[|\s)(\d{4}|S\d*E\d*|S\d*|3D)(\.|\)|\]|\s|)(.+|)', '', name)
-                    print ("RELEASEBB 3 TV", t)
+                    #print ("RELEASEBB 3 TV", t)
                     if titlecheck not in clean_title(name):
                         raise Exception()
-                    print ("RELEASEBB 3 PASSED", t)
+                    #print ("RELEASEBB 3 PASSED", t)
                     content = post['post_content']
                     url = [i for i in parse_dom(content, 'a', ret='href')]
 
@@ -169,7 +170,7 @@ class Releasebb(Scraper):
 
                 except:
                     pass
-            print("RELEASEBB PASSED", self.elysium_url)
+            #print("RELEASEBB PASSED", self.elysium_url)
             return self.elysium_url
 
         except:
@@ -181,7 +182,7 @@ class Releasebb(Scraper):
             for size, q, urls in self.elysium_url:
                 for url in urls:
                     try:
-                        print ("RELEASEBB SOURCES", size, q, url)
+                        #print ("RELEASEBB SOURCES", size, q, url)
                         url = url.encode('utf-8')
                         if q == 'getbyurl':
                             quality = quality_tag(url)
@@ -196,6 +197,9 @@ class Releasebb(Scraper):
                         host = replaceHTMLCodes(host)
                         host = host.encode('utf-8')
                         sources.append({'source': host, 'quality': quality, 'provider': 'Releasebb', 'url': url, 'info': size, 'direct': False, 'debridonly': True})
+                        end_time = time.time()
+                        total_time = end_time - self.start_time
+                        print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
                     except:
                         pass
             return sources

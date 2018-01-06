@@ -1,6 +1,6 @@
 import re
 import requests
-import xbmc
+import xbmc,time
 import urllib
 from ..scraper import Scraper
 import urlparse
@@ -18,6 +18,7 @@ class thewatchseries(Scraper):
     def __init__(self):
         self.base_link = 'http://watchseriesmovie.net'
         self.sources = []
+        self.start_time = time.time()
 
     def scrape_movie(self, title, year, imdb, debrid=False):
         try:
@@ -81,20 +82,33 @@ class thewatchseries(Scraper):
             for link in links:
                 #print '::::::::::::::::::::::final link> ' + link
                 if 'vidnode.net' in link:
+                    if 'streaming.php' in link:
+                        continue
                     link = 'http:'+link
                     page = requests.get(link,timeout=3).content
-                    vids = re.compile("<source rel.+?src='(.+?)'",re.DOTALL).findall(page)
-                    for vid_url in vids:
-                        if '=m18' in vid_url:
-                            res='360p'
-                        elif '=m59' in vid_url:
-                            res='480p'
-                        elif 'm=22' in vid_url:
-                            res = '720p'
-                        elif '=m37' in vid_url:
-                            res= '1080p'
-                        else: pass
-                        self.sources.append({'source': 'GoogleLink','quality': res,'scraper': self.name,'url': vid_url,'direct': True})
+                    try:
+                        vids = re.compile("sources.+?file: '(.+?)'",re.DOTALL).findall(page)
+                        for vid_url in vids:
+                            if '=m18' in vid_url:
+                                res='360p'
+                            elif '=m59' in vid_url:
+                                res='480p'
+                            elif 'm=22' in vid_url:
+                                res = '720p'
+                            elif '=m37' in vid_url:
+                                res= '1080p'
+                            else: pass
+                            end_time = time.time()
+                            total_time = end_time - self.start_time
+                            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
+                            self.sources.append({'source': 'GoogleLink','quality': res,'scraper': self.name,'url': vid_url,'direct': True})
+                    except:
+                        vid_url = re.compile("sources.+?file: '(.+?)'",re.DOTALL).findall(page)[0]
+                        vid_url = 'http:'+vid_url
+                        end_time = time.time()
+                        total_time = end_time - self.start_time
+                        print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
+                        self.sources.append({'source': 'GoogleLink','quality': '720p','scraper': self.name,'url': vid_url,'direct': True})
                 elif 'openload' in link:
                     try:
                         chk = requests.get(link).content
@@ -106,14 +120,23 @@ class thewatchseries(Scraper):
                         else:
                             res ='DVD'
                     except: res = 'DVD'
+                    end_time = time.time()
+                    total_time = end_time - self.start_time
+                    print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
                     self.sources.append({'source': 'Openload', 'quality': res, 'scraper': self.name, 'url': link,'direct': False})
                 elif 'streamango.com' in link:
                     get_res=requests.get(link).content
                     res = re.compile('{type:"video/mp4".+?height:(.+?),',re.DOTALL).findall(get_res)[0]
+                    end_time = time.time()
+                    total_time = end_time - self.start_time
+                    print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
                     self.sources.append({'source': 'Streamango', 'quality': res, 'scraper': self.name, 'url': link,'direct': False})
                 else:
                     host = link.split('//')[1].replace('www.','')
                     host = host.split('/')[0].split('.')[0].title()
+                    end_time = time.time()
+                    total_time = end_time - self.start_time
+                    print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
                     self.sources.append({'source': host,'quality': 'DVD','scraper': self.name,'url': link,'direct': False})
         except:
             pass

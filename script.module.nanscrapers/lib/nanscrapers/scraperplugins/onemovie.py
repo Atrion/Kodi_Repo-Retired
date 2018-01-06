@@ -1,6 +1,6 @@
 import re
 import requests
-import xbmc
+import xbmc,time
 from ..scraper import Scraper
 
 class onemovies(Scraper):
@@ -10,11 +10,12 @@ class onemovies(Scraper):
 
     def __init__(self):
         self.base_link = 'http://1movies.im'
+        self.start_time = time.time()
                           
     def scrape_episode(self, title, show_year, year, season, episode, imdb, tvdb, debrid = False):
         try:
             start_url = 'https://search.1movies.im/?q='+title.replace(' ','+')+'+Season+'+season
-            print start_url
+            #print start_url
             ht = requests.get(start_url).content
             match = re.compile('<div class="item_movie">.+?href="(.+?)".+?title="(.+?)".+?<span class="res">(.+?)</span>',re.DOTALL).findall(ht)
             for url,name,qual in match:
@@ -22,7 +23,7 @@ class onemovies(Scraper):
                 if title.lower() in name.lower():
                     if (title.lower())[0]==(name.lower())[0]:
                         if 'Season '+season in name:
-                            print season
+                            #print season
                             html2 = requests.get(url).content
                             block = re.compile('<div class="ep_link full">(.+?)</div>',re.DOTALL).findall(html2)
                             for b in block:
@@ -31,12 +32,12 @@ class onemovies(Scraper):
                                     if episode in ep:
                                         if not '-' in ep:
                                             if len(ep)==len(episode):
-                                                print ep
+                                                #print ep
                                                 self.get_source(u,qual)
                                         else:
                                             ep = re.compile('(.+?) -').findall(str(ep))[0]
                                             if len(ep)==len(episode):
-                                                print ep
+                                                #print ep
                                                 self.get_source(u,qual)
                                             
                         
@@ -48,14 +49,14 @@ class onemovies(Scraper):
     def scrape_movie(self, title, year, imdb, debrid = False):
         try:
             start_url = 'https://search.1movies.im/?q='+title.replace(' ','+')
-            print start_url
+            #print start_url
             ht = requests.get(start_url).content
             m = re.compile('<div class="item_movie">.+?href="(.+?)".+?title="(.+?)".+?<span class="res">(.+?)</span>',re.DOTALL).findall(ht)
             for u,n,qual in m:
                 if title.replace(':','').lower() in n.lower().replace(':',''):
                     if year in n:
                         url = 'http:'+u
-                        print url
+                        #print url
                         self.get_source(url,qual)
             return self.sources
         except:
@@ -65,7 +66,7 @@ class onemovies(Scraper):
     def get_source(self,link,qual):
         try:
             xbmc.log(link,xbmc.LOGNOTICE)
-            print link
+            #print link
             qual = qual
             html = requests.get(link).content
             match = re.compile('load_player\((.+?)\)').findall(html)
@@ -76,7 +77,7 @@ class onemovies(Scraper):
                             "host":"1movies.im"
                            }
                 head_req = requests.post('http://1movies.im/ajax/movie/load_player_v3?&id='+i,headers=headers).json()
-                print head_req
+                #print head_req
                 resp = head_req['value']
                 new_headers = {
                 "referer":link,
@@ -87,9 +88,12 @@ class onemovies(Scraper):
                 response = requests.post(newurl,headers=new_headers).json()
                 results = response["playlist"]
                 for item in results:
-                    print item
+                    #print item
                     playlink = item["file"]
                     playlink = playlink+'|'+'User-Agent=Mozilla/5.0 (Windows NT 6.3; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0&Host=s5.openstream.io&'+'Referer='+link
                     self.sources.append({'source': 'Gvideo', 'quality': qual, 'scraper': self.name, 'url': playlink,'direct': True})
+                end_time = time.time()
+                total_time = end_time - self.start_time
+                print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"    
         except:
             pass

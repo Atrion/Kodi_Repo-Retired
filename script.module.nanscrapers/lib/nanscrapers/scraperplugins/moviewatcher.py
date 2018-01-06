@@ -1,6 +1,6 @@
 import requests
 import re
-import xbmc
+import xbmc,time
 from ..common import clean_title, clean_search
 from ..scraper import Scraper
             
@@ -16,6 +16,7 @@ class moviewatcher(Scraper):
 
     def __init__(self):
         self.base_link = 'http://moviewatcher.is'
+        self.start_time = time.time()
 
     def scrape_movie(self, title, year, imdb, debrid = False):
         try:
@@ -50,6 +51,9 @@ class moviewatcher(Scraper):
                 stream_url = r.headers['location']
                 host = stream_url.split('//')[1].replace('www.','')
                 host = host.split('/')[0].split('.')[0].lower()
-                self.sources.append({'source': host, 'quality': qual, 'scraper': self.name, 'url': stream_url,'direct': False})           
+                self.sources.append({'source': host, 'quality': qual, 'scraper': self.name, 'url': stream_url,'direct': False})
+            end_time = time.time()
+            total_time = end_time - self.start_time
+            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"               
         except:
             pass

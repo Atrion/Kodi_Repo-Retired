@@ -1,7 +1,7 @@
 import re
 import requests
 from ..scraper import Scraper
-import xbmc
+import xbmc,time
 from BeautifulSoup import BeautifulSoup
 from ..common import clean_title, replaceHTMLCodes
 import urlparse
@@ -15,6 +15,7 @@ class toonova(Scraper):
     def __init__(self):
         self.base_link = 'http://http://www.toonova.net/'
         self.search_link = "/toon/search?key=%s"
+        self.start_time = time.time()
 
     def scrape_episode(self, title, show_year, year, season, episode, imdb, tvdb, debrid = False):
         if season == "19":
@@ -67,6 +68,9 @@ class toonova(Scraper):
                                 {'source': playname, 'quality': 'SD',
                                  'scraper': self.name, 'url': playlink,
                                  'direct': True})
+                            end_time = time.time()
+                            total_time = end_time - self.start_time
+                            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"    
                             _url = re.compile('_url = "(.+?)"').findall(html4)
                             for i in _url:
                                 playlink = link.replace('\\', '')
@@ -74,3 +78,6 @@ class toonova(Scraper):
                                     {'source': playname, 'quality': 'SD',
                                      'scraper': self.name, 'url': playlink,
                                      'direct': True})
+                            end_time = time.time()
+                            total_time = end_time - self.start_time
+                            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"    

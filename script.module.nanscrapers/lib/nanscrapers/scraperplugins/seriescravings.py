@@ -1,4 +1,5 @@
-import re,xbmc,urllib,urlparse
+import re,urllib,urlparse
+import xbmc,urlresolver,time
 from ..scraper import Scraper
 import requests
 from ..common import clean_title,clean_search, filter_host
@@ -14,6 +15,7 @@ class seriescravings(Scraper):
     def __init__(self):
         self.base_link = 'http://series-craving.me'
         self.sources = []
+        self.start_time = time.time()
                      
 
     def scrape_episode(self,title, show_year, year, season, episode, imdb, tvdb, debrid = False):
@@ -22,9 +24,10 @@ class seriescravings(Scraper):
             episode_bollox ='-season-%s-episode-%s' %(season,episode)
             
             start_url = "%s/search/%s" % (self.base_link, title.replace(' ','+').lower())
+            #print start_url
             headers = {'User_Agent':User_Agent}
             OPEN = requests.get(start_url,headers=headers,timeout=5).content
-
+            #print OPEN
             content = re.compile('<h1 class="entry-title".+?href="(.+?)" rel="bookmark">(.+?)</a>',re.DOTALL).findall(OPEN)
             for show_url,item_title in content:
 
@@ -32,7 +35,7 @@ class seriescravings(Scraper):
 
                 if clean_title(title).lower() == clean_title(item_title).lower():
                     headers = {'User_Agent':User_Agent}
-                    page = requests.get(show_url,headers=headers,timeout=5).content 
+                    page = requests.get(self.base_link+show_url,headers=headers,timeout=5).content 
                     epis = re.compile('<li>.+?href="(.+?)"',re.DOTALL).findall(page)
                     for url in epis:
                         if episode_bollox in url:
@@ -61,9 +64,11 @@ class seriescravings(Scraper):
                     else:
                         res ='DVD'
                 else: res = 'DVD'
-                if not filter_host(host):
-                    continue
+                
                 self.sources.append({'source': host,'quality': res,'scraper': self.name,'url': final_url,'direct': False})
-
+            end_time = time.time()
+            total_time = end_time - self.start_time
+            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
         except:pass
 
+#seriescravings().scrape_episode('game of thrones', '', '', '7', '7', '', '')

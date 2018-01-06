@@ -1,6 +1,6 @@
 import requests
 import re
-import xbmc
+import xbmc,time
 from ..scraper import Scraper
 from ..common import clean_title,clean_search
 
@@ -17,6 +17,7 @@ class filmapik(Scraper):
 
     def __init__(self):
         self.base_link = 'https://www.filmapik.tv'
+        self.start_time = time.time()
 
                         
 
@@ -60,12 +61,12 @@ class filmapik(Scraper):
             
     def get_source(self,item_url):
         try:
-            print 'cfwd > '+item_url
+            #print 'cfwd > '+item_url
             headers={'User-Agent':User_Agent}
             OPEN = requests.get(item_url,headers=headers,timeout=5).content
             sources = re.compile("Onclick=\"loadPage.+?'(.+?)'",re.DOTALL).findall(OPEN)
             for embFile in sources:
-                print embFile
+                #print embFile
                 if 'dbmovies' in embFile:
                     headers={'User-Agent':User_Agent}
                     getlinks = requests.get(embFile,headers=headers,timeout=5).content
@@ -84,7 +85,10 @@ class filmapik(Scraper):
                     else:
                         host = embFile.split('//')[1].replace('www.','')
                         host = host.split('/')[0].split('.')[0].title()
-                        self.sources.append({'source': host, 'quality': 'DVD', 'scraper': self.name, 'url': embFile,'direct': False})           
+                        self.sources.append({'source': host, 'quality': 'DVD', 'scraper': self.name, 'url': embFile,'direct': False})
+            end_time = time.time()
+            total_time = end_time - self.start_time
+            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"                       
         except:
             pass
 

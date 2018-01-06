@@ -1,6 +1,6 @@
 import requests
 import re
-import xbmc
+import xbmc,time
 from ..scraper import Scraper
 from ..common import clean_title,clean_search,random_agent  
                                            
@@ -13,6 +13,7 @@ class freedownload(Scraper):
         self.base_link = 'http://freemoviedownloads6.com'
         self.goog = 'https://www.google.co.uk'
         self.sources = []
+        self.start_time = time.time()
 
     def scrape_movie(self, title, year, imdb, debrid=False):
         try:
@@ -20,7 +21,7 @@ class freedownload(Scraper):
             scrape = clean_search(title.lower()).replace(' ','+')
 
             start_url = '%s/search?q=freemoviedownloads6.com+%s+%s' %(self.goog,scrape,year)
-            print 'START> '+start_url
+            #print 'START> '+start_url
             headers = {'User-Agent':random_agent()}
 
             html = requests.get(start_url,headers=headers,timeout=3).content
@@ -68,7 +69,10 @@ class freedownload(Scraper):
                     if '.mkv' in link:
                         self.sources.append({'source': 'DirectLink', 'quality': res, 'scraper': self.name, 'url': link,'direct': True})
                     if '.mp4' in link:
-                        self.sources.append({'source': 'DirectLink', 'quality': res, 'scraper': self.name, 'url': link,'direct': True})                    
+                        self.sources.append({'source': 'DirectLink', 'quality': res, 'scraper': self.name, 'url': link,'direct': True})
+            end_time = time.time()
+            total_time = end_time - self.start_time
+            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"                                
         except:
             pass
 

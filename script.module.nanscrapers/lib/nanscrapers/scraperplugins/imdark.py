@@ -1,6 +1,6 @@
 import re
 import requests
-import xbmc
+import xbmc,time
 import urllib
 from ..scraper import Scraper
 from ..common import clean_title,clean_search 
@@ -17,6 +17,7 @@ class imdark(Scraper):
     def __init__(self):
         self.base_link = 'http://imdark.com'
         self.sources = []
+        self.start_time = time.time()
 
     def scrape_movie(self, title, year, imdb, debrid=False):
         try:
@@ -43,7 +44,10 @@ class imdark(Scraper):
             Regex = re.compile('src="(.+?)".+?data-res="(.+?)"',re.DOTALL).findall(links)
             for link,qual in Regex:
                 link = link+'|User-Agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36&Referer='+url
-                self.sources.append({'source': 'DirectLink', 'quality': qual, 'scraper': self.name, 'url': link,'direct': True})           
+                self.sources.append({'source': 'DirectLink', 'quality': qual, 'scraper': self.name, 'url': link,'direct': True})
+            end_time = time.time()
+            total_time = end_time - self.start_time
+            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"               
         except:
             pass
 

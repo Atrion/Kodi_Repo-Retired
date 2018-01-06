@@ -1,12 +1,12 @@
 import re
 import requests
-import xbmc
+import xbmc,time
 import urllib
 from ..scraper import Scraper
 from ..common import clean_title,clean_search
 session = requests.Session()
 
-User_Agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_4 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12H143 Safari/600.1.4'
+User_Agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'
 
 
 class hubmovie(Scraper):
@@ -17,14 +17,15 @@ class hubmovie(Scraper):
     def __init__(self):
         self.base_link = 'http://hubmovie.cc'
         self.sources = []
+        self.start_time = time.time()
 
     def scrape_movie(self, title, year, imdb, debrid=False):
         try:
             search_id = clean_search(title.lower())
             start_url = '%s/pages/search/%s' %(self.base_link,search_id.replace(' ','%20'))
             #print 'SEARCH url > '+start_url
-            headers = {'accept':'*/*','accept-encoding':'gzip, deflate, br','accept-language':'en-US,en;q=0.8','content-type':'text/html; charset=utf-8',
-                       'User-Agent':'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0',
+            headers = {'accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8','accept-encoding':'gzip, deflate','accept-language':'en-US,en;q=0.9','content-type':'text/html',
+                       'User-Agent':User_Agent,
                        'origin':self.base_link,'referer':self.base_link,'x-requested-with':'XMLHttpRequest'}
             response = session.get(self.base_link,headers=headers,timeout=5)
             html = requests.get(start_url,headers=headers,timeout=5).content
@@ -48,8 +49,8 @@ class hubmovie(Scraper):
             search_id = clean_search(title.lower())
             start_url = '%s/pages/search/%s' %(self.base_link,search_id.replace(' ','%20'))
             #print 'SEARCH url > '+start_url
-            headers = {'accept':'*/*','accept-encoding':'gzip, deflate, br','accept-language':'en-US,en;q=0.8','content-type':'text/html; charset=utf-8',
-                       'User-Agent':'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0',
+            headers = {'accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8','accept-encoding':'gzip, deflate','accept-language':'en-US,en;q=0.9','content-type':'text/html',
+                       'User-Agent':User_Agent,
                        'origin':self.base_link,'referer':self.base_link,'x-requested-with':'XMLHttpRequest'}
             response = session.get(self.base_link,headers=headers,timeout=5)
             html = requests.get(start_url,headers=headers,timeout=5).content
@@ -68,8 +69,8 @@ class hubmovie(Scraper):
     def get_source(self,movie_link):
         try:
             #print ':::::::::::::::::::::::'+movie_link
-            headers = {'accept':'*/*','accept-encoding':'gzip, deflate, br','accept-language':'en-US,en;q=0.8','content-type':'text/html; charset=utf-8',
-                       'User-Agent':'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0',
+            headers = {'accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8','accept-encoding':'gzip, deflate','accept-language':'en-US,en;q=0.9','content-type':'text/html',
+                       'User-Agent':User_Agent,
                        'origin':self.base_link,'referer':self.base_link,'x-requested-with':'XMLHttpRequest'}
             response = session.get(self.base_link,headers=headers,timeout=5)
             html = requests.get(movie_link,headers=headers,timeout=5).content
@@ -91,5 +92,8 @@ class hubmovie(Scraper):
                 host = link.split('//')[1].replace('www.','')
                 host = host.split('/')[0].split('.')[0].title()
                 self.sources.append({'source': host,'quality': qual,'scraper': self.name,'url': link,'direct': False})
+            end_time = time.time()
+            total_time = end_time - self.start_time
+            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"    
         except:
             pass

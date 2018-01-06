@@ -34,7 +34,7 @@ class CloudflareScraper(Session):
         resp = super(CloudflareScraper, self).request(method, url, *args, **kwargs)
 	
         # Check if Cloudflare anti-bot is on
-        if resp.status_code == 503 and resp.headers.get("Server") == "cloudflare-nginx":
+        if resp.status_code == 503 and resp.headers.get("Server", "").startswith("cloudflare"):
             return self.solve_cf_challenge(resp, **kwargs)
 
         # Otherwise, no Cloudflare anti-bot detected

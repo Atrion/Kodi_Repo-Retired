@@ -1,4 +1,4 @@
-import re
+import re,time
 import requests
 import HTMLParser
 from ..scraper import Scraper
@@ -15,6 +15,7 @@ class vex(Scraper):
     def __init__(self):
         self.base_link = 'http://vexmovies.org'
         self.sources = []
+        self.start_time = time.time()
 
     def scrape_movie(self, title, year, imdb, debrid=False):
         try:
@@ -61,6 +62,9 @@ class vex(Scraper):
                     host = link.split('//')[1].replace('www.','')
                     host = host.split('/')[0].split('.')[0].title()
                     self.sources.append({'source': host,'quality': res,'scraper': self.name,'url': link,'direct': False})
+                end_time = time.time()
+                total_time = end_time - self.start_time
+                print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"    
             else:pass
         except:
             pass

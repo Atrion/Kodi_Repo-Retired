@@ -1,6 +1,6 @@
 import re
 import requests
-import xbmc
+import xbmc,time
 import urllib
 from ..scraper import Scraper
 from ..common import clean_title,clean_search,filter_host
@@ -16,12 +16,13 @@ class onlinestream(Scraper):
     def __init__(self):
         self.base_link = 'http://www.onlinestreammovies.com'
         self.sources = []
+        self.start_time = time.time()
 
     def scrape_movie(self, title, year, imdb, debrid=False):
         try:
             search_id = clean_search(title.lower())
             start_url = '%s/?s=%s' %(self.base_link,search_id.replace(' ','+'))
-            print 'ARB>>>'+ start_url
+            #print 'ARB>>>'+ start_url
             headers = {'User_Agent':User_Agent}
             html = requests.get(start_url,headers=headers,timeout=5).content
             Regex = re.compile('class="ml-item"><a href="(.+?)".+?oldtitle="(.+?)"',re.DOTALL).findall(html)
@@ -30,7 +31,7 @@ class onlinestream(Scraper):
                 if 'Hindi Dubbed' not in name:
                     if clean_title(title).lower() == clean_title(name).lower():
                         movie_link = item_url
-                        print 'LINK>>>'+ movie_link
+                        #print 'LINK>>>'+ movie_link
                         self.get_source(movie_link,year)
                 
             return self.sources
@@ -62,6 +63,9 @@ class onlinestream(Scraper):
                             if link not in uniques:
                                 uniques.append(link)
                                 self.sources.append({'source': 'Openload','quality': qual,'scraper': self.name,'url': link,'direct': False})
+                            end_time = time.time()
+                            total_time = end_time - self.start_time
+                            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"    
                         elif 'streamango.com' in link:
                             get_res=requests.get(link,headers=headers,timeout=5).content
                             rez = re.compile('{type:"video/mp4".+?height:(.+?),',re.DOTALL).findall(get_res)[0]
@@ -74,8 +78,11 @@ class onlinestream(Scraper):
                             if link not in uniques:
                                 uniques.append(link)
                                 self.sources.append({'source': 'Streamango', 'quality': qual, 'scraper': self.name, 'url': link,'direct': False})
+                            end_time = time.time()
+                            total_time = end_time - self.start_time
+                            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"    
                         else:
-                            print 'OTHER '+link
+                            #print 'OTHER '+link
                             try:
                                 host = link.split('//')[1].replace('www.','')
                                 host = host.split('/')[0].lower()
@@ -84,7 +91,10 @@ class onlinestream(Scraper):
                                 if link not in uniques:
                                     uniques.append(link)
                                     host = host.split('.')[0].title()
-                                    self.sources.append({'source': host, 'quality': 'DVD', 'scraper': self.name, 'url': link,'direct': False}) 
+                                    self.sources.append({'source': host, 'quality': 'DVD', 'scraper': self.name, 'url': link,'direct': False})
+                                end_time = time.time()
+                                total_time = end_time - self.start_time
+                                print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"     
                             except:pass
         except:
             pass

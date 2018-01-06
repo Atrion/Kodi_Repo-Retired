@@ -1,21 +1,23 @@
 import re
 import requests
-import xbmc
+import xbmc,time
 import urllib
 from ..scraper import Scraper
-from ..common import clean_title,clean_search, filter_host, get_rd_domains
+from ..common import clean_title,clean_search
+import urlresolver
 
 User_Agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_4 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12H143 Safari/600.1.4'
 
 
 class iextv(Scraper):
-    domains = ['http://myex.me']
+    domains = ['http://iextv.com']
     name = "iExTV"
     sources = []
 
     def __init__(self):
-        self.base_link = 'http://myex.me'
+        self.base_link = 'http://iextv.com'
         self.sources = []
+        self.start_time = time.time()
 
     def scrape_movie(self, title, year, imdb, debrid=False):
         try:
@@ -74,15 +76,15 @@ class iextv(Scraper):
                         if str(year) in str(item_year):
                             if final_url not in uniques:
                                 uniques.append(final_url)
-                                if not '.rar' in final_url:
-                                    host = final_url.split('//')[1].replace('www.','')
-                                    host = host.split('/')[0].lower()
-                                    rd_domains = get_rd_domains()
+                                if urlresolver.HostedMediaFile(final_url).valid_url():
+                                    if not '.rar' in final_url:
+                                        host = final_url.split('//')[1].replace('www.','')
+                                        host = host.split('/')[0].split('.')[0].title()
 
-                                    if filter_host(host):
                                         self.sources.append({'source': host,'quality': res,'scraper': self.name,'url': final_url,'direct': False})
-                                    elif host in rd_domains:
-                                        self.sources.append({'source': host,'quality': res,'scraper': self.name,'url': final_url,'direct': False,'debridonly': True})
+                                        end_time = time.time()
+                                        total_time = end_time - self.start_time
+                                        print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
 
         except:
             pass
@@ -112,14 +114,14 @@ class iextv(Scraper):
                                 if int(episode) == int(epi):
                                     if final_url not in uniques:
                                         uniques.append(final_url)
-                                        if not '.rar' in final_url:
-                                            host = final_url.split('//')[1].replace('www.','')
-                                            host = host.split('/')[0].lower()
-                                            rd_domains = get_rd_domains()
+                                        if urlresolver.HostedMediaFile(final_url).valid_url():
+                                            if not '.rar' in final_url:
+                                                host = final_url.split('//')[1].replace('www.','')
+                                                host = host.split('/')[0].split('.')[0].title()
 
-                                            if filter_host(host):
                                                 self.sources.append({'source': host,'quality': res,'scraper': self.name,'url': final_url,'direct': False})
-                                            elif host in rd_domains:
-                                                self.sources.append({'source': host,'quality': res,'scraper': self.name,'url': final_url,'direct': False,'debridonly': True})
+                                                end_time = time.time()
+                                                total_time = end_time - self.start_time
+                                                print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
         except:
             pass

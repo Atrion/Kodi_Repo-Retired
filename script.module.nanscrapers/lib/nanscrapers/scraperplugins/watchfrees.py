@@ -1,6 +1,6 @@
 import re
 import requests
-import xbmc
+import xbmc,time
 from ..scraper import Scraper
 
 class WatchFrees(Scraper):
@@ -11,6 +11,7 @@ class WatchFrees(Scraper):
     def __init__(self):
         self.base_link = 'https://watchfrees.com'
         self.search_link = '/search.html?keyword='
+        self.start_time = time.time()
 #        self.scrape_episode('the blacklist', '2000', '2000', '1', '4', '', '')
 #        self.scrape_movie('moana', '2016', '')
 
@@ -75,6 +76,9 @@ class WatchFrees(Scraper):
                     for playlink,qual in link:
                         qual = qual+'p'
                         self.sources.append({'source': 'GVideo', 'quality': qual, 'scraper': self.name, 'url': playlink, 'direct': True})
+                    end_time = time.time()
+                    total_time = end_time - self.start_time
+                    print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"    
                     l = re.compile('<iframe.+?src="(.+?)"').findall(response)
                     for n in l:
                         m = n
@@ -94,14 +98,26 @@ class WatchFrees(Scraper):
                         p = re.compile('(.+?)"').findall(str(s))
                         for playlink in p:
                             self.sources.append({'source': 'GVideo', 'quality': 'HD', 'scraper': self.name, 'url': playlink, 'direct': True})
+                        end_time = time.time()
+                        total_time = end_time - self.start_time
+                        print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"    
                     else:
                         p = re.compile('(.+?)".+?label=\'.+?x(.+?)\'').findall(str(s))
                         for playlink,qual in p:
                             qual = qual+'p'
                             self.sources.append({'source': 'GVideo', 'quality': qual, 'scraper': self.name, 'url': playlink, 'direct': True})
+                        end_time = time.time()
+                        total_time = end_time - self.start_time
+                        print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"    
             elif 'thevideo' in m:
                 self.sources.append({'source': 'thevideo', 'quality': 'SD', 'scraper': self.name, 'url': m, 'direct': False})
+                end_time = time.time()
+                total_time = end_time - self.start_time
+                print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
             elif 'openload' in m:
                 self.sources.append({'source': 'openload', 'quality': 'SD', 'scraper': self.name, 'url': m, 'direct': False})
+                end_time = time.time()
+                total_time = end_time - self.start_time
+                print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
         except:
             pass

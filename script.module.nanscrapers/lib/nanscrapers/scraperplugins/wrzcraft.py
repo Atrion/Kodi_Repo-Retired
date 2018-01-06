@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import re,xbmc,urllib
+import re,xbmc,urllib,time
 from ..scraper import Scraper
 import requests
 from ..common import clean_title,clean_search, filter_host, get_rd_domains
@@ -17,6 +17,7 @@ class Wzrcraft(Scraper):
         self.base_link = 'http://wrzcraft.net'
         #self.search_link = '/search/%s+%s/feed/rss2/'
         self.sources = []
+        self.start_time = time.time()
 
     def scrape_movie(self, title, year, imdb, debrid=False):
         try:
@@ -25,7 +26,7 @@ class Wzrcraft(Scraper):
             search_id = clean_search(title.lower())  
                         
             start_url = "%s/?s=%s+%s" % (self.base_link, search_id.replace(' ','+'),year)
-            print start_url
+            #print start_url
             headers = {'User_Agent':User_Agent}
             OPEN = requests.get(start_url,headers=headers,timeout=5).content
             
@@ -34,7 +35,7 @@ class Wzrcraft(Scraper):
                 if 'truehd' in url:
                     continue
                 if clean_title(title).lower() in clean_title(url).lower():
-                    print 'PASS '+url
+                    #print 'PASS '+url
                     self.get_source(url)                        
             return self.sources
         except Exception, argument:
@@ -50,13 +51,13 @@ class Wzrcraft(Scraper):
             
             search_id = clean_search(title.lower())  
             start_url = "%s/?s=%s+%s" % (self.base_link, search_id.replace(' ','+'),sea_epi)
-            print start_url
+            #print start_url
             headers = {'User_Agent':User_Agent}
             OPEN = requests.get(start_url,headers=headers,timeout=5).content
             content = re.compile('<h2><a href="(.+?)"',re.DOTALL).findall(OPEN)
             for url in content:
                 if clean_title(title).lower() in clean_title(url).lower():
-                    print 'PASS '+url
+                    #print 'PASS '+url
                     self.get_source(url)                        
             return self.sources
         except Exception, argument:
@@ -90,5 +91,8 @@ class Wzrcraft(Scraper):
                         rd_domains = get_rd_domains()
                         if host in rd_domains:
                             self.sources.append({'source': host,'quality': res,'scraper': self.name,'url': url,'direct': False, 'debridonly': True})
+            end_time = time.time()
+            total_time = end_time - self.start_time
+            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"                
 
         except:pass

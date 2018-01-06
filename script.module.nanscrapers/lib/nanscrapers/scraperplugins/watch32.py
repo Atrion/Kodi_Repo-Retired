@@ -1,6 +1,6 @@
 import requests
 import re
-import xbmc
+import xbmc,time
 from ..scraper import Scraper
 from ..common import clean_title,clean_search            
 
@@ -15,6 +15,7 @@ class watch32(Scraper):
 
     def __init__(self):
         self.base_link = 'https://watch32hd.co'
+        self.start_time = time.time()
 
     def scrape_movie(self, title, year, imdb, debrid = False):
         try:
@@ -36,6 +37,9 @@ class watch32(Scraper):
                 else:
                     res='DVD'
                 self.sources.append({'source': 'Googlelink','quality': res,'scraper': self.name,'url': movie_link,'direct': False})
+            end_time = time.time()
+            total_time = end_time - self.start_time
+            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"    
             return self.sources
         except Exception, argument:
             return self.sources

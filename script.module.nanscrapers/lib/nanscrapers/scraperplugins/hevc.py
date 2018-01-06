@@ -1,6 +1,6 @@
 import re
 import requests
-import xbmc
+import xbmc,time
 import urllib
 from ..scraper import Scraper
 from ..common import random_agent, filter_host,get_rd_domains
@@ -16,6 +16,7 @@ class hevc(Scraper):
         self.base_link = 'http://hevcbluray.info'
         self.scraper = cfscrape.create_scraper()
         self.sources = []
+        self.start_time = time.time()
 
     def scrape_movie(self, title, year, imdb, debrid=False):
         try:
@@ -76,6 +77,9 @@ class hevc(Scraper):
                         self.sources.append({'source': HOST,'quality': res,'scraper': self.name,'url': final_url,'direct': False, 'debridonly': True})
                     else:
                         self.sources.append({'source': HOST,'quality': res,'scraper': self.name,'url': final_url,'direct': False})
+                end_time = time.time()
+                total_time = end_time - self.start_time
+                print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"        
             except:
                 pass
             return self.sources

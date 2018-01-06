@@ -1,4 +1,4 @@
-import re
+import re,time
 import urllib
 import requests
 
@@ -15,6 +15,7 @@ class Watchepisodes(Scraper):
     def __init__(self):
         self.base_link = 'http://www.watchepisodes4.com/'
         self.sources = []
+        self.start_time = time.time()
 
     def scrape_episode(self, title, show_year, year, season, episode, imdb, tvdb, debrid=False):
         try:
@@ -58,5 +59,8 @@ class Watchepisodes(Scraper):
                     continue
                 host = host.split('.')[0].title()
                 self.sources.append({'source': host,'quality': 'DVD','scraper': self.name,'url': final_url,'direct': False})
+            end_time = time.time()
+            total_time = end_time - self.start_time
+            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"    
 
         except:pass

@@ -1,6 +1,6 @@
 import re
 import requests
-import xbmc
+import xbmc,time
 import urllib
 from ..scraper import Scraper
 from ..common import clean_title,clean_search
@@ -16,6 +16,7 @@ class sockshare(Scraper):
     def __init__(self):
         self.base_link = 'http://sockshare.online'
         self.sources = []
+        self.start_time = time.time()
 
     def scrape_movie(self, title, year, imdb, debrid=False):
         try:
@@ -47,6 +48,9 @@ class sockshare(Scraper):
                         final_url = re.compile('file: "(.+?)"',re.DOTALL).findall(Open_Vid_Url)[0]   
                     except: pass        
                     self.sources.append({'source': 'vidzstore','quality': 'DVD','scraper': self.name,'url': final_url,'direct': False})
+            end_time = time.time()
+            total_time = end_time - self.start_time
+            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"        
         except:
             pass
 

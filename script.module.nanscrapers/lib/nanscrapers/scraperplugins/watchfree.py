@@ -1,5 +1,5 @@
 import base64
-import re
+import re,time
 import urllib
 import urlparse
 
@@ -18,6 +18,7 @@ class Watchfree(Scraper):
         self.base_link = self.base_link = xbmcaddon.Addon('script.module.nanscrapers').getSetting("%s_baseurl" % (self.name))
         self.moviesearch_link = '/?keyword=%s&search_section=1'
         self.tvsearch_link = '/?keyword=%s&search_section=2'
+        self.start_time = time.time()
 
     def scrape_movie(self, title, year, imdb, debrid = False):
         try:
@@ -144,6 +145,9 @@ class Watchfree(Scraper):
 
                     sources.append(
                         {'source': host, 'quality': quality, 'scraper': self.name, 'url': href, 'direct': False})
+            end_time = time.time()
+            total_time = end_time - self.start_time
+            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"        
         except:
             pass
 

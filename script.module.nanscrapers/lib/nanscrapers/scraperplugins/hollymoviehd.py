@@ -1,6 +1,6 @@
 import requests
 import re
-import xbmc
+import xbmc,time
 from ..scraper import Scraper
 from ..common import clean_title,clean_search,filter_host
 
@@ -17,6 +17,7 @@ class hollymoviehd(Scraper):
 
     def __init__(self):
         self.base_link = 'https://www.hollymoviehd.com'
+        self.start_time = time.time()
 
                         
 
@@ -68,7 +69,7 @@ class hollymoviehd(Scraper):
             
     def get_source(self,item_url):
         try:
-            print 'MOVIE cfwd '+item_url
+            #print 'MOVIE cfwd '+item_url
             headers={'User-Agent':User_Agent}
             OPEN = requests.get(item_url,headers=headers,timeout=5).content
             #print OPEN
@@ -115,7 +116,10 @@ class hollymoviehd(Scraper):
                             if not filter_host(host):
                                 continue
                             host = host.split('.')[0].title()
-                            self.sources.append({'source': host, 'quality': 'DVD', 'scraper': self.name, 'url': link,'direct': False}) 
+                            self.sources.append({'source': host, 'quality': 'DVD', 'scraper': self.name, 'url': link,'direct': False})
+                            end_time = time.time()
+                            total_time = end_time - self.start_time
+                            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"             
                         except:pass          
         except:
             pass

@@ -1,6 +1,6 @@
 import requests
 import re
-import xbmc
+import xbmc,time
 from ..scraper import Scraper
 from ..common import clean_title,clean_search            
 
@@ -15,6 +15,7 @@ class joymovies(Scraper):
 
     def __init__(self):
         self.base_link = 'http://joymovies.com'
+        self.start_time = time.time()
                       
 
     def scrape_movie(self, title, year, imdb, debrid = False):
@@ -52,6 +53,9 @@ class joymovies(Scraper):
                             qual = '720p'
                         else:
                             qual='SD'
-                        self.sources.append({'source': 'GVideo','quality': qual,'scraper': self.name,'url': link,'direct': False})                    
+                        self.sources.append({'source': 'GVideo','quality': qual,'scraper': self.name,'url': link,'direct': False})
+            end_time = time.time()
+            total_time = end_time - self.start_time
+            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"                                
         except:
             pass

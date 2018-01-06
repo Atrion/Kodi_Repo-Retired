@@ -2,7 +2,7 @@ import re
 import requests
 import threading
 from ..common import clean_title,clean_search
-import xbmc
+import xbmc,time
 from ..scraper import Scraper
 sources = []
 
@@ -12,6 +12,7 @@ class scrape_thread(threading.Thread):
         self.match = match
         self.qual = qual
         threading.Thread.__init__(self)
+        self.start_time = time.time()
 		
     def run(self):
         try:
@@ -41,6 +42,9 @@ class scrape_thread(threading.Thread):
                         p = p+'|User-Agent=Mozilla/5.0 (Windows NT 6.3; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0&Host=streaming.lemonstream.me:1443&Referer=https://yesmovies.to'
                     if 'http' in p:
                         sources.append({'source': 'Gvideo', 'quality': qual, 'scraper': 'yesmovies', 'url': p,'direct': True})
+                        end_time = time.time()
+                        total_time = end_time - self.start_time
+                        print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
         except Exception as e:
             xbmc.log('get sources: '+str(e),xbmc.LOGNOTICE)
 

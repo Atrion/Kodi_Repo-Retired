@@ -1,6 +1,6 @@
 import re
 import requests
-import xbmc
+import xbmc,time
 import urllib
 import base64
 from ..common import clean_title,clean_search
@@ -21,6 +21,7 @@ class mydownloadtube(Scraper):
         self.base_tv_link = 'https://www.mydownloadtube.tv/'
         self.scraper = cfscrape.create_scraper()
         self.sources = []
+        self.start_time = time.time()
 
     def scrape_movie(self, title, year, imdb, debrid=False):
         try:
@@ -55,14 +56,14 @@ class mydownloadtube(Scraper):
                         matches = re.compile("sources:(.+?)controlbar",re.DOTALL).findall(links_page)
                         match = re.compile("file:window.atob.+?'(.+?)'.+?label:\"(.+?)\"",re.DOTALL).findall(str(matches))
                         for link,res in match:
-                            print 'LINK B64'+ link
+                            #print 'LINK B64'+ link
                             vid = base64.b64decode(link).replace(' ','%20')
                             res = res.replace('3Dp','3D').replace(' HD','')
                             self.sources.append({'source': 'DirectLink','quality': res,'scraper': self.name,'url': vid,'direct': True})
                         
                         match2 = re.compile('<[iI][fF][rR][aA][mM][eE].+?[sS][rR][cC]="(.+?)"',re.DOTALL).findall(links_page) #other links
                         for link in match2:
-                            print 'Link > '+link 
+                            #print 'Link > '+link 
                             host = link.split('//')[1].replace('www.','')
                             host = host.split('/')[0].split('.')[0].title()
                             if '1080' in link:
@@ -72,6 +73,9 @@ class mydownloadtube(Scraper):
                             else:res = 'SD'
                             if 'flashx' not in link:
                                 self.sources.append({'source': host,'quality': res,'scraper': self.name,'url': link,'direct': False})
+                        end_time = time.time()
+                        total_time = end_time - self.start_time
+                        print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"        
             return self.sources
         except Exception, argument:
             return self.sources
@@ -120,6 +124,7 @@ class mydownloadtube(Scraper):
                             #print 'vid > '+vid
                             res = res.replace('3Dp','3D').replace(' HD','')
                             self.sources.append({'source': 'DirectLink','quality': res,'scraper': self.name,'url': vid,'direct': True})
+                        end_time = time.time()    
                         
                         match2 = re.compile('<[iI][fF][rR][aA][mM][eE].+?[sS][rR][cC]="(.+?)"',re.DOTALL).findall(links_page) #other links
                         for link in match2:
@@ -133,6 +138,9 @@ class mydownloadtube(Scraper):
                             else:res = 'DVD'
                             if 'flashx' not in link:
                                 self.sources.append({'source': host,'quality': res,'scraper': self.name,'url': link,'direct': False})
+                        end_time = time.time()
+                        total_time = end_time - self.start_time
+                        print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"        
             return self.sources
         except Exception, argument:
             return self.sources

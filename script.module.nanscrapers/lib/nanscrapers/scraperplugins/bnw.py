@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
-import re
-import requests
+import requests,re
+import xbmc,time
+from ..common import clean_title,clean_search
 from ..scraper import Scraper
-import xbmc
-from BeautifulSoup import BeautifulSoup
 
-
+User_Agent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36'
 
 class bnw(Scraper):
     name = "BnwMovies"
@@ -14,28 +13,32 @@ class bnw(Scraper):
 
     def __init__(self):
         self.base_link = 'http://www.bnwmovies.com'
-        self.search_link = "/?s="
+        self.start_time = time.time()
         
 
     def scrape_movie(self, title, year, imdb, debrid = False):
         try:
-            start_url= self.base_link+self.search_link+title.replace(' ','+')
-            html = requests.get(start_url,timeout=20).content
-            match = re.compile('<div class="post">.+?<h3>.+?href="(.+?)".+?rel="bookmark">(.+?)</a>',re.DOTALL).findall(html)
+            movie_id = clean_search(title.lower()).replace(' ','+')
+            start_url = '%s/?s=%s' %(self.base_link,movie_id)
+            headers = headers = {'User-Agent':User_Agent}
+            html = requests.get(start_url,headers=headers,timeout=10,allow_redirects=False).content
+            match = re.compile('<div class="post">.+?href="(.+?)".+?rel="bookmark">(.+?)</a>',re.DOTALL).findall(html)
             for url,alt in match:
-                if title.lower() == alt.lower():
+                if clean_title(title).lower() == clean_title(alt).lower():
                     print alt
-                    html2 = requests.get(url).content
+                    html2 = requests.get(url,headers=headers,allow_redirects=False).content
                     match2 = re.compile('<title >(.+?)</title>',re.DOTALL).findall(html2)
                     for rel in match2:
                         if year in rel:
                             Link = re.compile('<source.+?src="(.+?)"',re.DOTALL).findall(html2)[-1] 
                             playlink = Link
                             self.sources.append(
-                            {'source': 'bnw', 'quality': 'unknown',
+                            {'source': self.name, 'quality': 'SD',
                              'scraper': self.name, 'url': playlink,
                              'direct': True})
-                    
+            end_time = time.time()
+            total_time = end_time - self.start_time
+            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"        
             return self.sources
         except Exception as e:
             return []

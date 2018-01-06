@@ -1,6 +1,6 @@
 import requests
 import re
-import xbmc
+import xbmc,time
 from ..scraper import Scraper
 from ..common import clean_title,clean_search
 from nanscrapers.modules import cfscrape          
@@ -16,6 +16,7 @@ class tvmovflix(Scraper):
     def __init__(self):
         self.base_link = 'http://tvmovieflix.com'
         self.scraper = cfscrape.create_scraper()
+        self.start_time = time.time()
   
     def scrape_movie(self, title, year, imdb, debrid = False):
         try:
@@ -54,7 +55,7 @@ class tvmovflix(Scraper):
         try:
             headers={'User-Agent':User_Agent}
             OPEN = self.scraper.get(url,headers=headers,timeout=10).content
-            Regex = re.compile('href="(http://tvmovieflix.com/[me]/.+?)" rel="nofollow"',re.DOTALL).findall(OPEN)
+            Regex = re.compile('href="(http://tvmovieflix.com/m/.+?)" rel="nofollow"',re.DOTALL).findall(OPEN)
             for link in Regex:
                 holder = self.scraper.get(link).content  
                 vid = re.compile('<[iI][fF][rR][aA][mM][eE].+?[sS][rR][cC]="(.+?)"',re.DOTALL).findall(holder)
@@ -64,11 +65,17 @@ class tvmovflix(Scraper):
                         get = re.compile('source src="(.+?)"',re.DOTALL).findall(new)
                         for play in get:
                             self.sources.append({'source': 'DirectLink', 'quality': '720p', 'scraper': self.name, 'url': play,'direct': True})
+                        end_time = time.time()
+                        total_time = end_time - self.start_time
+                        print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"            
                     else:
-                        print 'mechech '+end_url
+                        # print 'mechech '+end_url
                         host = end_url.split('//')[1].replace('www.','')
                         host = host.split('/')[0].split('.')[0].title()
-                        self.sources.append({'source': host, 'quality': 'DVD', 'scraper': self.name, 'url': end_url,'direct': False})           
+                        self.sources.append({'source': host, 'quality': 'DVD', 'scraper': self.name, 'url': end_url,'direct': False})
+                        end_time = time.time()
+                        total_time = end_time - self.start_time
+                        print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"           
         except:
             pass
 

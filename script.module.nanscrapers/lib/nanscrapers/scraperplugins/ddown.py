@@ -1,6 +1,6 @@
 import re
 import requests
-import xbmc
+import xbmc,time
 import urllib
 from ..common import get_rd_domains, filter_host
 from ..scraper import Scraper
@@ -16,6 +16,7 @@ class ddown(Scraper):
     def __init__(self):
         self.base_link = 'https://directdownload.tv/'
         self.sources = []
+        self.start_time = time.time()
            
             
 
@@ -47,6 +48,9 @@ class ddown(Scraper):
                 if host in rd_domains:
                     if 'k2s.cc' not in url:
                         self.sources.append({'source': host,'quality': res,'scraper': self.name,'url': url,'direct': False, 'debridonly': True})
+            end_time = time.time()
+            total_time = end_time - self.start_time
+            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"            
             return self.sources
         except Exception, argument:
             return self.sources  

@@ -1,4 +1,4 @@
-import xbmc
+import xbmc,time
 import json
 import re
 import urllib
@@ -18,8 +18,9 @@ class Mp3Clan(Scraper):
     name = "MP3clan"
 
     def __init__(self):
-        self.base_link = 'https://mp3clan.unblocked.bid'
+        self.base_link = 'https://mp3clan.unblocked.vc'
         self.search_link = '/mp3/%s-%s'
+        self.start_time = time.time()
 
     def scrape_music(self, title, artist, debrid=False):
         try:
@@ -60,6 +61,9 @@ class Mp3Clan(Scraper):
             if not clean_title(artist) == clean_title(link_artist):
                 continue
             label = "%s - %s" % (link_artist, link_title)
+            end_time = time.time()
+            total_time = end_time - self.start_time
+            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
             sources.append(
                     {'source': label, 'quality': 'HD', 'scraper':
                      self.name, 'url': playlink, 'direct': True})

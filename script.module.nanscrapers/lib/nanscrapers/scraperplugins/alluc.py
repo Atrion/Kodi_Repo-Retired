@@ -20,7 +20,7 @@ from ..common import random_agent, clean_title, googletag, filter_host, clean_se
 import requests
 from ..scraper import Scraper
 import xbmcaddon
-import xbmc
+import xbmc,time
 from BeautifulSoup import BeautifulSoup
 
 # alluc_debrid = control.setting('alluc_debrid')
@@ -44,6 +44,7 @@ class Alluc(Scraper):
         self.alluc_pw = xbmcaddon.Addon('script.module.nanscrapers').getSetting("%s_pw" % (self.name))
         self.max_items = int(xbmcaddon.Addon('script.module.nanscrapers').getSetting("%s_max" % (self.name)))
         self.max_result_string = '&count=%s' % self.max_items
+        self.start_time = time.time()
 
     def scrape_movie(self, title, year, imdb, debrid = False):
         try:
@@ -190,6 +191,9 @@ class Alluc(Scraper):
                     sources.append(
                         {'source': host, 'quality': quality, 'provider': 'Alluc', 'url': url, 'direct': False,
                          'debridonly': False})
+            end_time = time.time()
+            total_time = end_time - self.start_time
+            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"        
             return sources
         except:
             return sources

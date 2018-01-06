@@ -1,7 +1,7 @@
 import re
 import requests
 import difflib
-import xbmc
+import xbmc,time
 from ..scraper import Scraper
 
 class serieswatch(Scraper):
@@ -12,6 +12,7 @@ class serieswatch(Scraper):
     def __init__(self):
         self.base_link = 'https://watch-series.io'
         self.search_link = '/search.html?keyword='
+        self.start_time = time.time()
 
 
     def scrape_episode(self, title, show_year, year, season, episode, imdb, tvdb, debrid = False):
@@ -63,7 +64,7 @@ class serieswatch(Scraper):
 
     def get_sources(self,url2):
         try:
-            print url2
+            #print url2
             quality = 'SD'
             html = requests.get(url2).content
             match = re.compile('href="#".+?data-video="(.+?)".+?class=".+?">(.+?)<',re.DOTALL).findall(html)
@@ -84,8 +85,14 @@ class serieswatch(Scraper):
                             else:
                                 quality = 'SD'
                         self.sources.append({'source': source_name, 'quality': quality, 'scraper': self.name, 'url': playlink,'direct': True})
+                    end_time = time.time()
+                    total_time = end_time - self.start_time
+                    print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"    
                 else:
                     self.sources.append({'source': source_name, 'quality': quality, 'scraper': self.name, 'url': url,'direct': False})
+                    end_time = time.time()
+                    total_time = end_time - self.start_time
+                    print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
 
         except:
             pass

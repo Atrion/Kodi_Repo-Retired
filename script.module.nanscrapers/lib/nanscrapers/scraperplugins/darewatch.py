@@ -1,4 +1,4 @@
-import re,requests,base64
+import re,requests,base64,time
 from ..scraper import Scraper
 from ..common import clean_title,clean_search,random_agent,filter_host
 
@@ -11,6 +11,7 @@ class darewatch(Scraper):
         self.base_link = 'http://www.mydarewatch.com'
         self.search_url = self.base_link + '/index.php'
         self.sources = []
+        self.start_time = time.time()
 
     def scrape_movie(self, title, year, imdb, debrid=False):
         try:
@@ -94,5 +95,8 @@ class darewatch(Scraper):
                     if not filter_host(hoster):
                         continue
                     self.sources.append({'source': hoster,'quality': 'DVD','scraper': self.name,'url': link,'direct': False})
+            end_time = time.time()
+            total_time = end_time - self.start_time
+            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"        
         except:
             pass

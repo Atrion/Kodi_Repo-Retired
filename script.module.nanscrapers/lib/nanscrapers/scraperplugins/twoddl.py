@@ -1,4 +1,4 @@
-import re,xbmc,urllib,urlparse
+import re,xbmc,urllib,urlparse,time
 from ..scraper import Scraper
 import requests
 from ..common import clean_title,clean_search, filter_host, get_rd_domains
@@ -14,6 +14,7 @@ class twoddl(Scraper):
     def __init__(self):
         self.base_link = 'http://iiddl.net'
         self.sources = []
+        self.start_time = time.time()
 
     # def scrape_movie(self, title, year, imdb, debrid=False):
         # try:            
@@ -77,6 +78,9 @@ class twoddl(Scraper):
                         rd_domains = get_rd_domains()
                         if host in rd_domains:
                             self.sources.append({'source': host,'quality': res,'scraper': self.name,'url': url,'direct': False, 'debridonly': True})
+            end_time = time.time()
+            total_time = end_time - self.start_time
+            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"                
 
         except:pass
 

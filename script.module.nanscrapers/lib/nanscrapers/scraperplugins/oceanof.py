@@ -1,6 +1,6 @@
 import requests
 import re
-import xbmc
+import xbmc,time
 from ..scraper import Scraper
 from ..common import clean_title,clean_search            
 from nanscrapers.modules import cfscrape     
@@ -17,6 +17,7 @@ class joymovies(Scraper):
     def __init__(self):
         self.base_link = 'http://oceanofmovies.bz'
         self.scraper = cfscrape.create_scraper()
+        self.start_time = time.time()
                       
 
     def scrape_movie(self, title, year, imdb, debrid = False):
@@ -64,6 +65,9 @@ class joymovies(Scraper):
                         except:
                             pass
                         stream_url = stream_url.replace('#038;','')
-                        self.sources.append({'source': 'DirectLink','quality': qual,'scraper': self.name,'url': stream_url,'direct': True})                    
+                        self.sources.append({'source': 'DirectLink','quality': qual,'scraper': self.name,'url': stream_url,'direct': True})
+            end_time = time.time()
+            total_time = end_time - self.start_time
+            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"                                
         except:
             pass

@@ -1,6 +1,6 @@
 import re
 import requests
-import xbmc
+import xbmc,time
 import urllib
 from ..scraper import Scraper
 from ..common import clean_title,clean_search,random_agent
@@ -15,6 +15,7 @@ class cooltv(Scraper):
     def __init__(self):
         self.base_link = 'https://cooltvseries.com'
         self.sources = []
+        self.start_time = time.time()
 
 
     def scrape_episode(self,title, show_year, year, season, episode, imdb, tvdb, debrid = False):
@@ -75,5 +76,8 @@ class cooltv(Scraper):
                         else:
                             res='SD'
                         self.sources.append({'source':'Direct','quality': res,'scraper': self.name,'url': vid_url,'direct': True})
+                    end_time = time.time()
+                    total_time = end_time - self.start_time
+                    print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"    
         except:
             pass

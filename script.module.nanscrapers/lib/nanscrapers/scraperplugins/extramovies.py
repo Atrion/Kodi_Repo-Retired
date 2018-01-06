@@ -1,4 +1,4 @@
-import re,base64
+import re,base64,time
 import xbmc,urlparse
 from ..scraper import Scraper
 from ..common import clean_title,clean_search, filter_host, get_rd_domains           
@@ -13,8 +13,9 @@ class extramovies(Scraper):
 
     def __init__(self):
         self.base_link = 'http://extramovies.cc'
-        self.base_tv_link = 'https://extramovies.biz'  
-        self.scraper = cfscrape.create_scraper()        
+        self.base_tv_link = 'https://extramovies.info'  
+        self.scraper = cfscrape.create_scraper()
+        self.start_time = time.time()        
 
     def scrape_movie(self, title, year, imdb, debrid = False):
         try:
@@ -22,7 +23,7 @@ class extramovies(Scraper):
                 return []
             search_id = clean_search(title.lower())
             start_url = self.base_link + '/?s=' + search_id.replace(' ','+')
-            print '@@@@@'+start_url
+            #print '@@@@@'+start_url
             headers={'User-Agent':User_Agent}
             html = requests.get(start_url,headers=headers,timeout=10).content
             match = re.compile('<div class="thumbnail".+?href="(.+?)" title="(.+?)"',re.DOTALL).findall(html)
@@ -65,6 +66,9 @@ class extramovies(Scraper):
                                 qual = '480p'
                             else:
                                 qual = 'SD'
+                            end_time = time.time()
+                            total_time = end_time - self.start_time
+                            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"    
                             self.sources.append({'source': 'DirectLink', 'quality': qual, 'scraper': self.name, 'url': ep_url,'direct': True})
             return self.sources
         except:
@@ -100,8 +104,14 @@ class extramovies(Scraper):
                         continue
                     rd_domains = get_rd_domains()
                     if host in rd_domains:
+                        end_time = time.time()
+                        total_time = end_time - self.start_time
+                        print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
                         self.sources.append({'source': host,'quality': res,'scraper': self.name,'url': link,'direct': False,'debridonly': True})
                     else:
+                        end_time = time.time()
+                        total_time = end_time - self.start_time
+                        print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
                         self.sources.append({'source': host,'quality': res,'scraper': self.name,'url': link,'direct': False})                  
         except:
             pass

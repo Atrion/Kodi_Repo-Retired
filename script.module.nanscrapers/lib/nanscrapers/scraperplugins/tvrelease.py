@@ -1,6 +1,6 @@
 import re
 import requests
-import xbmc
+import xbmc,time
 import urllib
 from ..common import get_rd_domains
 from ..scraper import Scraper
@@ -17,6 +17,7 @@ class tvrelease(Scraper):
         self.base_link = 'http://tv-release.pw/'
         self.scraper = cfscrape.create_scraper()
         self.sources = []
+        self.start_time = time.time()
 
     def scrape_movie(self, title, year, imdb, debrid=False):
         try:
@@ -85,6 +86,9 @@ class tvrelease(Scraper):
                             host = url.split('//')[1].replace('www.','')
                             host = host.split('/')[0].split('.')[0].title()                        
                             self.sources.append({'source': host,'quality': res,'scraper': self.name,'url': url,'direct': False, 'debridonly': True})
+            end_time = time.time()
+            total_time = end_time - self.start_time
+            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"                
         except:pass
         
 def SEND2LOG(Txt):

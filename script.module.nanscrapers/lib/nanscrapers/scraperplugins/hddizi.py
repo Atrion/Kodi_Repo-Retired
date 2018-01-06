@@ -1,18 +1,22 @@
 import re
 import requests
 from ..scraper import Scraper
-import xbmc
+import xbmc,time
+import urlresolver
 from ..common import clean_title,clean_search
 User_Agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'
 requests.packages.urllib3.disable_warnings()
+from nanscrapers.modules import cfscrape 
 
 class Hddizi(Scraper):
-    name = "hddizi"
+    name = "HDdizi"
     domains = ['hddizifilmbox.com/']
     sources = []
 
     def __init__(self):
         self.base_link = 'https://www.hddizifilmbox.net/'
+        self.scraper = cfscrape.create_scraper()
+        self.start_time = time.time()
 
     def scrape_episode(self, title, show_year, year, season, episode, imdb, tvdb, debrid = False):
         try:
@@ -22,18 +26,18 @@ class Hddizi(Scraper):
             #start2_url = self.base_link+title.replace(' ','-')+'-'+season+'-sezon-izle/'+str(new_no)
             #print '############'+start_url
             headers = {'User-Agent': User_Agent,'Referer':self.base_link}
-            html = requests.get(start_url,headers=headers).content
+            html = self.scraper.get(start_url,headers=headers,timeout=5).content
             #print html
-            match = re.compile('<iframe.+?src="(.+?)"').findall(html)
+            match = re.compile('<[iI][fF][rR][aA][mM][eE].+?[sS][rR][cC]="(.+?)"').findall(html)
             for url in match:
                 if not 'facebook' in url:
-                    print 'xxxxxxxxxx'+url
+                    #print 'xxxxxxxxxx'+url
                     self.get_source(url)                   
-            html2 = requests.get(start_url.replace('-sezon-izle/','-sezon-seyret/')).text 
-            match2 = re.compile('<iframe.+?src="(.+?)"').findall(html2)
+            html2 = self.scraper.get(start_url.replace('-sezon-izle/','-sezon-seyret/'),headers=headers,timeout=5).content 
+            match2 = re.compile('<[iI][fF][rR][aA][mM][eE].+?[sS][rR][cC]="(.+?)"').findall(html2)
             for url in match2:
                 if not 'facebook' in url:
-                    print 'xxxxxxxxxx'+url
+                   #print 'xxxxxxxxxx'+url
                     self.get_source(url)              
             return self.sources
         except:
@@ -41,6 +45,7 @@ class Hddizi(Scraper):
             return []
 
     def get_source(self,url):
+        try:
             if not 'http' in url:
                 url = 'http:'+url
             if 'openload' in url:
@@ -62,23 +67,22 @@ class Hddizi(Scraper):
                 #print ':::::::::::::::'+new_url                
                 self.sources.append({'source': 'HQQ', 'quality': '720P', 'scraper': self.name, 'url': new_url,'direct': False})
             elif 'dailymotion' in url:
-                self.sources.append({'source': 'dailymotion', 'quality': '720P', 'scraper': self.name, 'url': url,'direct': False})
+                self.sources.append({'source': 'Dailymotion', 'quality': '720P', 'scraper': self.name, 'url': url,'direct': False})
             elif 'streamango.com' in url:
                 holder = requests.get(url).content
                 qual = re.compile('type:"video/mp4".+?height:(.+?),',re.DOTALL).findall(holder)[0]
                 self.sources.append({'source': 'Streamango.com', 'quality': qual, 'scraper': self.name, 'url': url,'direct': False})
-            elif 'ok.ru' in url:
-                self.sources.append({'source': 'ok.ru', 'quality': 'SD', 'scraper': self.name, 'url': url,'direct': False})
-            elif 'estream' in url:
-                self.sources.append({'source': 'estream', 'quality': 'SD', 'scraper': self.name, 'url': url,'direct': False})
-            elif 'videomega' in url:
-                print( 'videomega - non direct')
-            elif 'vk' in url:
-                if 'vkpass' in url:
-                    print( 'wont play - '+url)
-                else:
-                    self.sources.append({'source': 'vk', 'quality': 'SD', 'scraper': self.name, 'url': url,'direct': False})
+
             else:
-                print(url)
+                if urlresolver.HostedMediaFile(url).valid_url():
+                    host = url.split('//')[1].replace('www.','')
+                    host = host.split('/')[0].split('.')[0].title()
+                    self.sources.append({'source': host, 'quality': 'SD', 'scraper': self.name, 'url': url,'direct': False})
+            end_time = time.time()
+            total_time = end_time - self.start_time
+            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time" 
+
+        except:pass
+
 
 

@@ -11,12 +11,12 @@ User_Agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_4 like Mac OS X) AppleWebKit/
 
 
 class oneonline(Scraper):
-    domains = ['https://1movies.online/']
+    domains = ['https://1movies.to/']
     name = "OneOnline"
     sources = []
 
     def __init__(self):
-        self.base_link = 'https://1movies.online'
+        self.base_link = 'https://1movies.to'
         self.sources = []
 
     def scrape_movie(self, title, year, imdb, debrid=False):
@@ -68,7 +68,7 @@ class oneonline(Scraper):
 
     def get_source(self,url,quality):
         try:
-            print url
+            #print url
             headers = {'User-Agent':'Mozilla/5.0 (Windows NT 6.3; WOW64; rv:56.0) Gecko/20100101 Firefox/56.0',
                        'Referer':url,
                        'X-Requested-With':'XMLHttpRequest'}

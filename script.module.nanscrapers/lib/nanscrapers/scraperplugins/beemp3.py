@@ -1,6 +1,6 @@
 import xbmc
 import json
-import re
+import re,time
 import urllib
 import urlparse
 
@@ -18,8 +18,9 @@ class BeeMP3(Scraper):
     name = "BeeMP3"
 
     def __init__(self):
-        self.base_link = 'https://beemp3.unblocked.vc'
+        self.base_link = 'https://beemp3.unblocked.bid'
         self.search_link = '/search?query=%s&field=artist'
+        self.start_time = time.time()
 
     def scrape_music(self, title, artist, debrid=False):
         try:
@@ -72,6 +73,9 @@ class BeeMP3(Scraper):
                     sources.append(
                         {'source': link_label, 'quality': 'HD', 'scraper':
                          self.name, 'url': music_link["href"], 'direct': True})
+                end_time = time.time()
+                total_time = end_time - self.start_time
+                print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"    
                 return sources
             except AttributeError:
                 continue
