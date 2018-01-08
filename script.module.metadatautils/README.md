@@ -220,4 +220,3 @@ mutils.audiodb.api_key = 'YOUR API KEY FOR The Audio DB'
     gets all information for the given tvshow from TVDB, including details of the next airing episode, the last aired episoded and air date and time.
     Input is either the imdbid or the tvdbid.
 ```
-

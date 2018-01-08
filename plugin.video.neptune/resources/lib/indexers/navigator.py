@@ -387,7 +387,7 @@ class navigator:
 		self.addDirectoryItem('Serial Killers', 'movies&url=imdb42', 'imdb.jpg', 'playlist.jpg')
 		self.addDirectoryItem('Addiction', 'movies&url=imdb43', 'imdb.jpg', 'playlist.jpg')
 		self.addDirectoryItem('Time Travel', 'movies&url=imdb44', 'imdb.jpg', 'playlist.jpg')
-		self.addDirectoryItem('Self-Loathing', 'movies&url=imdb45', 'imdb.jpg', 'playlist.jpg')
+		self.addDirectoryItem('Puff Puff Pass', 'movies&url=imdb45', 'imdb.jpg', 'playlist.jpg')
 		self.addDirectoryItem('Artists , Painters , Writers', 'movies&url=imdb46', 'imdb.jpg', 'playlist.jpg')
 		self.addDirectoryItem('Love', 'movies&url=imdb47', 'imdb.jpg', 'playlist.jpg')
 		self.addDirectoryItem('Winter Is Here', 'movies&url=imdb48', 'imdb.jpg', 'playlist.jpg')

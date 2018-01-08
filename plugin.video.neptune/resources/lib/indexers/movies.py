@@ -208,7 +208,7 @@ class movies:
 #        self._link = 'http://www.imdb.com/search/title?,desc&count=40&start=1'
         self.imdb1_link = 'http://www.imdb.com/list/ls004043006/?view=detail&sort=alpha,asc&title_type=movie,tvMovie&start=1'
         self.imdb2_link = 'http://www.imdb.com/list/ls054656838/?view=detail&sort=alpha,asc&title_type=movie,tvMovie&start=1'
-        self.imdb3_link = 'http://www.imdb.com/list/ls000721966/?view=detail&sort=title:asc&title_type=feature,short,tv_movie,tv_special,video,documentary,game&start=1'
+        self.imdb3_link = 'http://www.imdb.com/list/ls027849454/?view=detail&sort=alpha,asc&title_type=movie,tvMovie&start=1'
         self.imdb4_link = 'http://www.imdb.com/list/ls076464829/?view=detail&sort=alpha,asc&title_type=movie,tvMovie&start=1'
         self.imdb5_link = 'http://www.imdb.com/list/ls009668082/?view=detail&sort=alpha,asc&title_type=movie,tvMovie&start=1'
         self.imdb6_link = 'http://www.imdb.com/list/ls057039446/?view=detail&sort=alpha,asc&title_type=movie,tvMovie&start=1'
@@ -250,7 +250,7 @@ class movies:
         self.imdb42_link = 'http://www.imdb.com/list/ls063841856/?view=detail&sort=alpha,asc&title_type=movie,tvMovie&start=1'
         self.imdb43_link = 'http://www.imdb.com/list/ls066788382/?view=detail&sort=alpha,asc&title_type=movie,tvMovie&start=1'
         self.imdb44_link = 'http://www.imdb.com/list/ls066184124/?view=detail&sort=alpha,asc&title_type=movie,tvMovie&start=1'
-        self.imdb45_link = 'http://www.imdb.com/list/ls031029913/'
+        self.imdb45_link = 'http://www.imdb.com/list/ls021557769/?view=detail&sort=alpha,asc&title_type=movie,tvMovie&start=1'
         self.imdb46_link = 'http://www.imdb.com/list/ls008462416/?view=detail&sort=alpha,asc&title_type=movie,tvMovie&start=1'
         self.imdb47_link = 'http://www.imdb.com/list/ls057723258/?view=detail&sort=alpha,asc&title_type=movie,tvMovie&start=1'
         self.imdb48_link = 'http://www.imdb.com/list/ls057106830/?view=detail&sort=alpha,asc&title_type=movie,tvMovie&start=1'
@@ -674,10 +674,10 @@ class movies:
             return
 
         try:
-            next = client.parseDOM(result, 'a', ret='href', attrs = {'class': 'lister-page-next next-page'})
+            next = client.parseDOM(result, 'a', ret='href', attrs = {'class': 'flat-button lister-page-next next-page'})
 
             if len(next) == 0:
-                next = client.parseDOM(result, 'div', attrs = {'class': 'pagination'})[0]
+                next = client.parseDOM(result, 'div', attrs = {'class': 'list-pagination'})[0]
                 next = zip(client.parseDOM(next, 'a', ret='href'), client.parseDOM(next, 'a'))
                 next = [i[0] for i in next if 'Next' in i[1]]
 

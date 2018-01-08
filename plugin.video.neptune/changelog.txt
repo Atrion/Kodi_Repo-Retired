@@ -1,3 +1,12 @@
+[B]1.3.1[/B]
+- Fixed next page function in the imdb userlist catagories
+
+
+[B]1.3.0[/B]
+- Removed an un needed Import (should load a little quicker)
+- Fixed and redid Horror of skull posters list
+- Added Puff Puff Pass category to User lists Section
+
 [B]1.2.9[/B]
 - bug fixes
 - Fixed mostly all of the IMDB user lists section
