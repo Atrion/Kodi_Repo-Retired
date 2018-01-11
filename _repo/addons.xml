@@ -197,6 +197,20 @@
     </extension>
 </addon>
 
+<addon id="incursion.repository" name="Incursion Repository" version="0.0.2" provider-name="NixGates">
+	<extension point="xbmc.addon.repository" name="Incursion Repository">
+		<info compressed="false">https://raw.githubusercontent.com/nixgates/Incursion/master/addons.xml</info>
+		<checksum>https://raw.githubusercontent.com/nixgates/Incursion/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.githubusercontent.com/nixgates/Incursion/master/repo</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Incursion Video Repo</summary>
+		<description>A Covenant Fork</description>
+		<disclaimer></disclaimer>
+		<platform>all</platform>
+	</extension>
+</addon>
+
 <addon id="script.module.myconnpy"
        name="MySQL Connector/Python"
        version="1.1.7"
@@ -215,7 +229,7 @@
     </extension>
 </addon>
 
-<addon id="plugin.video.neptune" version="1.3.1" name=" Neptune Rising" provider-name="Mr.Blamo">
+<addon id="plugin.video.neptune" version="1.3.2" name=" Neptune Rising" provider-name="Mr.Blamo">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.neptune.artwork" />
@@ -657,6 +671,32 @@
   </extension>
 </addon>
 
+<addon id="plugin.program.ftgmaint"
+	     name="[COLOR blue][B]--[COLOR yellow]FTG Maintenance[COLOR blue]--[/COLOR][/B]"
+	     version="1.1.0"
+	     provider-name="FTG">
+  <requires>
+  	<import addon="xbmc.python" version="2.1.0"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.service" library="service.py" start="startup">
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <summary lang="en">[COLOR red]LAST MAINTENANCE TOOL Y'All WILL EVER NEED!!![/COLOR]</summary>
+    <description lang="en"> Does all the Maint needed for a smooth kodi with out all the fluff. Notifies you when package and thumbs get full (Sizes are changable) cuts down on your devices read/writes on the ROM. Also has tons of Backup/Restore Options and a Speed test, plus other great features!! THX goes to surfacingx and NaN for the code used </description>
+    <disclaimer lang="en"></disclaimer>
+    <language></language>
+    <platform>all</platform>
+    <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+    <forum></forum>
+    <website></website>
+    <email></email>
+  </extension>
+</addon>
+
 <addon id="repository.jacktirol_kodi17" name="Jack's Repo Kodi17" version="1.0.0" provider-name="JackTirol">
     <requires>
 	<import addon="xbmc.gui" version="5.12.0"/>
@@ -845,6 +885,18 @@
 		<summary lang="en">Collection of modules used by Elysium</summary>
 		<description lang="en">Collection of modules used by Elysium</description>
 		<license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+	</extension>
+</addon>
+
+<addon id="script.module.incursion" name="Incursion Module" version="1.08" provider-name="Incursion">
+	<requires>
+		<import addon="xbmc.python" version="2.1.0" />
+		<import addon="script.module.beautifulsoup4"/>
+	</requires>
+	<extension point="xbmc.python.module" library="lib" />
+	<extension point="xbmc.addon.metadata">
+		<platform>all</platform>
+		<summary lang="en">Incursion</summary>
 	</extension>
 </addon>
 
@@ -1125,8 +1177,13 @@ v5.0.15 (2016-11-26) by amet
 	</extension>
 </addon>
 
-<addon id="repository.noobsandnerds" name="noobsandnerds Repository" version="2.3.2" provider-name="noobsandnerds">
+<addon id="repository.noobsandnerds" name="noobsandnerds Repository" version="2.3.3" provider-name="noobsandnerds">
         <extension point="xbmc.addon.repository" name="noobsandnerds Repository">
+                <dir>
+                        <info compressed="false">https://raw.githubusercontent.com/totalrevolution/python-koding/master/zips/addons.xml</info>
+                        <checksum>https://raw.githubusercontent.com/totalrevolution/python-koding/master/zips/addons.xml.md5</checksum>
+                        <datadir zip="true">https://raw.githubusercontent.com/totalrevolution/python-koding/master/zips/</datadir>
+                </dir>
                 <dir>
                         <info compressed="false">https://raw.githubusercontent.com/noobsandnerds/modules4all/master/zips/addons.xml</info>
                         <checksum>https://raw.githubusercontent.com/noobsandnerds/modules4all/master/zips/addons.xml.md5</checksum>
@@ -1181,6 +1238,40 @@ v5.0.15 (2016-11-26) by amet
                 <description>Visit www.noobsandnerds.com and become a part of our great family, you get to choose what The Community Portal holds!</description>
                 <platform>all</platform>
         </extension>
+</addon>
+
+<addon id="plugin.video.incursion" version="0.1.7" name="Incursion" provider-name="Incursion">
+	<requires>
+		<import addon="xbmc.python" version="2.19.0" />
+		<import addon="script.module.incursion" />
+		<import addon="script.incursion.artwork" />
+		<import addon="script.incursion.metadata" />
+		<import addon="script.module.urlresolver" />
+		<import addon="script.module.requests" />
+		<import addon="script.module.metahandler" version="1.0.0" />
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="incursion.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.service" library="service.py" start="startup" />
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Incursion</summary>
+		<description lang="en">[I]New Resistance[/I][CR][CR][B]Incursion - Media for the Masses[/B][CR][CR]This addon does not form part of the Kodi Media Centre. Please do not seek assistance with this addon from any of the Official Kodi Support Channels.[CR][CR]The author does not host any of the content in this addon and takes no responsibility for content found.</description>
+		<platform>all</platform>
+		<license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
+		<forum></forum>
+		<website></website>
+		<source></source>
+		<disclaimer lang="en">The author of this addon do not host any of the content which is found and have no affiliation with any of the content providers. This addon simply searches websites for content. Use at your own risk!</disclaimer>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
+    			<screenshot>resources/screenshots/screenshot-01.jpg</screenshot>
+    			<screenshot>resources/screenshots/screenshot-02.jpg</screenshot>
+    			<screenshot>resources/screenshots/screenshot-03.jpg</screenshot>
+		</assets>
+		<news></news>
+	</extension>
 </addon>
 
 <addon id="script.module.musicbrainz"
@@ -1445,6 +1536,18 @@ v5.0.15 (2016-11-26) by amet
 			<screenshot>resources/screenshot-09.jpg</screenshot>
 		</assets>
     </extension>
+</addon>
+
+<addon id="script.incursion.artwork" version="1.0.7" name="Incursion Artwork" provider-name="Incursion">
+	<requires>
+		<import addon="xbmc.python" version="2.19.0"/>
+	</requires>
+	<extension point="xbmc.python.module" library="lib" />
+	<extension point="xbmc.addon.metadata">
+		<summary>Themes for the Incursion Addon</summary>
+		<description></description>
+		<platform>all</platform>
+	</extension>
 </addon>
 
 <addon id="script.module.routing" name="Plugin routing" version="0.2.0" provider-name="takoi">
@@ -1961,7 +2064,7 @@ v5.0.15 (2016-11-26) by amet
   </extension>
 </addon>
 
-    <addon id="repository.Firestickplusman" name="Firestickplusman Addons" version="0.1.2" provider-name="Firestickplusman">
+    <addon id="repository.Firestickplusman" name="Firestickplusman Addons" version="0.1.3" provider-name="Firestickplusman">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -2157,6 +2260,37 @@ v5.0.15 (2016-11-26) by amet
     <website></website>
     <email></email>
     <source></source>
+  </extension>
+</addon>
+
+<addon id="script.incursion.metadata" version="1.0.3" name="Incursion Metadata" provider-name="Incursion">
+	<requires>
+		<import addon="xbmc.python" version="2.19.0"/>
+	</requires>
+	<extension point="xbmc.python.module" library="lib" />
+	<extension point="xbmc.addon.metadata">
+		<summary>Metadata for the Incursion Addon</summary>
+		<description>Metadata for Incursion are maintained separately to make distribution of the the addon itself easier/faster.</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
+<addon id="script.module.beautifulsoup4"
+       name="BeautifulSoup4"
+       version="4.5.3"
+       provider-name="Leonard Richardson (leonardr@segfault.org)">
+  <requires>
+    <import addon="xbmc.python"
+             version="2.25.0"/>
+  </requires>
+  <extension point="xbmc.python.module"
+             library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <summary>HTML/XML parser for quick-turnaround applications like screen-scraping</summary>
+    <description>Beautiful Soup parses arbitrarily invalid SGML and provides a variety of methods and Pythonic idioms for iterating and searching the parse tree.</description>
+    <license>BSD</license>
+    <platform>all</platform>
+    <website>http://www.crummy.com/software/BeautifulSoup/</website>
   </extension>
 </addon>
 
@@ -2394,7 +2528,7 @@ v5.0.15 (2016-11-26) by amet
 	</extension>
 </addon>
 
-<addon id="script.common.plugin.cache" name="Common plugin cache" provider-name="TheCollective" version="2.5.8">
+<addon id="script.common.plugin.cache" name="Common plugin cache" provider-name="TheCollective" version="2.5.9">
   <requires>
     <import addon="xbmc.python" version="2.24.0" />
   </requires>
@@ -2426,6 +2560,19 @@ v5.0.15 (2016-11-26) by amet
         <email>AddonScriptorDE at yahoo dot de</email>
         <website></website>
     </extension>
+</addon>
+
+<addon id="repository.firetvguru" name="Fire TV Guru Repo" version="0.0.5" provider-name="Fire TV Guru Repo">
+	<extension point="xbmc.addon.repository" name="Fire TV Guru Repo">
+		<info compressed="false">https://raw.github.com/Firetvguru/fire-tv/master/addons.xml</info>
+		<checksum>https://raw.github.com/Firetvguru/fire-tv/master/addons.xml.md5</checksum>
+		<datadir zip="true">https://raw.github.com/Firetvguru/fire-tv/master/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary>Fire TV Guru Repo</summary>
+		<description>My Repository</description>
+		<platform>all</platform>
+	</extension>
 </addon>
 
 <addon id="script.globalsearch" name="Global Search" version="7.4.7" provider-name="ronie">
@@ -2599,7 +2746,7 @@ v5.0.15 (2016-11-26) by amet
 	</extension>
 </addon>
 
-    <addon id="repository.Atrion" name="Atrions Repo" version="0.2.10" provider-name="AtrionDarnay">
+    <addon id="repository.Atrion" name="Atrions Repo" version="0.2.11" provider-name="AtrionDarnay">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -2661,7 +2808,7 @@ Kodi is a registered trademark of the XBMC Foundation. We are not connected to o
   </extension>
 </addon>
 
-    <addon id="repository.Atrion2" name="Atrions Repo2" version="0.2.10" provider-name="AtrionDarnay">
+    <addon id="repository.Atrion2" name="Atrions Repo2" version="0.2.11" provider-name="AtrionDarnay">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
