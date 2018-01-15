@@ -1,4 +1,8 @@
 
+[B]4.2.0 (2018.01.13)[/B]
+[B]Final Release[/B]
+[B]Long Live Gaia (https://gaiakodi.com)[/B]
+
 [B]2.5.0 (2017.12.17)[/B]
 - New version upgrade.
 

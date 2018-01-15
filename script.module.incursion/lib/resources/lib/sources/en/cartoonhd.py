@@ -1,7 +1,7 @@
 
 '''
     Incursion Add-on
-    Copyright (C) 2016 Incursion
+    Copyright (C) 2018 Incursion
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -22,7 +22,6 @@ import json,sys
 from bs4 import BeautifulSoup
 import re
 from resources.lib.modules import cleantitle
-from resources.lib.modules import directstream
 
 class source:
 
@@ -42,7 +41,13 @@ class source:
     def episode(self, url, imdb, tvdb, title, premiered, season, episode):
         with requests.Session() as s:
             url = cleantitle.geturl(url)
-            link = self.search_link + url + '/season/' + season + "/episode/" + episode
+            link = self.search_link + url + '/season/' + season
+            p = s.get(link)
+            soup = BeautifulSoup(p.text, 'html.parser').find_all('a', title=True)
+            for i in soup:
+                if re.sub(r'\W+', '', title).lower() in re.sub(r'\W+', '' , i.text).lower():
+                    link = i['href']
+            if link == self.search_link + url + '/season/' + season: return ''
             p = s.get(link)
             soup = BeautifulSoup(p.text, 'html.parser')
             soup = soup.find_all('script', src=False, type=False)
@@ -85,11 +90,11 @@ class source:
                     {'source': "vidcdn.pro", 'quality': "SD", 'language': "en",
                      'url': i, 'info': "",
                      'direct': False, 'debridonly': False})
-
         return sources
 
     def resolve(self, url):
-        if 'google' in url:
-            return directstream.googlepass(url)
-        else:
-            return url
+        return url
+
+#url = source.tvshow(source(), '', '', 'Vikings','','' '','2016')
+#url = source.episode(source(),url,'', '', 'A Good Treason', '', '4', '1')
+#sources = source.sources(source(),url,'','')

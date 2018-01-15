@@ -20,7 +20,7 @@
 
 
 import re,base64, requests, sys, urllib
-from resources.lib.modules import jsunpack,cleantitle,directstream
+from resources.lib.modules import jsunpack,cleantitle
 from bs4 import BeautifulSoup
 
 
@@ -128,7 +128,8 @@ class source:
                     p = s.get(self.search_link + search_text)
                     soup = BeautifulSoup(p.text, 'html.parser')
                     soup = soup.find_all('div', {'class': 'ml-item'})[0].find_all('a', href=True)[0]
-                    if re.sub(r'\W+', '', soup['title'].lower()) == re.sub(r'\W+', '', ((i['title'] + " - season " + season).lower())):
+                    if re.sub(r'\W+', '', soup['title'].lower()) \
+                            == re.sub(r'\W+', '', ((i['title'] + " - season " + season).lower())):
                         break
                     else:
                         soup = None
@@ -139,8 +140,7 @@ class source:
             soup = BeautifulSoup(p.text, 'html.parser').find_all('a', {'class': 'btn-eps'})
             episode_links = []
             for i in soup:
-                if ("episode " + episode).lower() == i.text.lower().split(':')[0] \
-                        or ('episode ' + episode) == i.text.lower().split(':')[0]:
+                if re.sub(r'\W+','',title.lower()) in re.sub(r'\W+', '', i.text.lower()):
                     episode_links.append(i['href'])
             for i in episode_links:
                 p = s.get(i)
@@ -168,10 +168,8 @@ class source:
 
 
     def resolve(self, url):
-        if 'google' in url:
-            return directstream.googlepass(url)
-        else:
-            return url
+        return url
 
-#url = source.movie('', '', 'The Autopsy of Jane Doe', '', '','2016')
-#sources = source.sources('',url,'','')
+#url = source.tvshow(source(), '', '', 'Vikings','',[],'2016')
+#url = source.episode(source(),url,'', '', 'A Good Treason', '', '4', '1')
+#url = source.sources(source(),url,'','')

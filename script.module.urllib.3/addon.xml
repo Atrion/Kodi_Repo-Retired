@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.module.urllib.3" version="1.22.0" name="Python Urllib 3" provider-name="Urllib">
+<addon id="script.module.urllib.3" version="1.22.2" name="Python Urllib 3" provider-name="Urllib">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 	</requires>

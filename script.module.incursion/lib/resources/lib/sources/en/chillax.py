@@ -35,22 +35,6 @@ class source:
         self.tv_link = 'http://chillax.ws/series/getTvLink?'
         self.login_payload = {'username': control.setting('chillax.username'),'password':control.setting('chillax.password')}
 
-    def movie(self, imdb, title, localtitle, aliases, year):
-        with requests.Session() as s:
-            try:
-                if (self.login_payload['username'] == '' and self.login_payload['password'] == ''): return ''
-                p = s.post(self.login_link, self.login_payload)
-                search_text = title
-                p = s.get(self.search_link + search_text)
-                show_dict = json.loads(p.text)[0]
-                url = {'title': search_text, 'id': show_dict['id']}
-                p = s.post(self.movie_link + "id=" + url["id"])
-                url = json.loads(p.text)
-                return url
-            except:
-                print("Unexpected error in Chillax Script:", sys.exc_info()[0])
-                return ""
-
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
         try:
             url = tvshowtitle

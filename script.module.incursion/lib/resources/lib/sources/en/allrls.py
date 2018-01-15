@@ -34,16 +34,23 @@ class source:
         self.search_link = 'http://allrls.pw/?s='
         self.headers = {'Referer':'http://allrls.pw/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'}
 
+    def movie(self, imdb, title, localtitle, aliases, year):
+        try:
+            title = cleantitle.clean_search_query(title)
+            url = {'title': title, 'year': year}
+            return url
+
+        except Exception:
+            return
+
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
-        url = tvshowtitle
+        url = cleantitle.clean_search_query(tvshowtitle)
         return url
 
     def episode(self, url, imdb, tvdb, title, premiered, season, episode):
         try:
-            print(url)
             if url == None: return url
             tvshowtitle = url
-            cleaned_title = cleantitle.geturl(tvshowtitle)
             if len(episode) == 1:
                 episode = "0" + episode
             if len(season) == 1:
@@ -61,11 +68,16 @@ class source:
             sources = []
             if not url:
                 return sources
-            tvshowtitle = url['cleaned_title']
-            episode = url['episode']
-            season = url['season']
             with requests.Session() as s:
-                url = (self.search_link + "%s+s%se%s" % (tvshowtitle,season,episode)).lower()
+                if 'episode' in url:
+                    tvshowtitle = url['cleaned_title']
+                    episode = url['episode']
+                    season = url['season']
+                    url = (self.search_link + "%s+s%se%s" % (tvshowtitle, season, episode)).lower()
+                else:
+                    title, year = url['title'], url['year']
+                    url = self.search_link + "%s+%s&go=Search" % (title, year)
+
                 p = s.get(url, headers=self.headers)
                 soup = BeautifulSoup(p.text, 'html.parser')
                 content = soup.find_all('h2', {'class': 'entry-title'})
@@ -128,9 +140,6 @@ class source:
                                  'url': i,
                                  'direct': False,
                                  'debridonly': True})
-            for i in sources:
-
-                print(i)
             return sources
 
         except:
@@ -145,3 +154,4 @@ class source:
 #url = source.tvshow(source(), '', '', 'Vikings','','' '','2016')
 #url = source.episode(source(),url,'', '', '', '', '5', '1')
 #sources = source.sources(source(),url,'','')
+

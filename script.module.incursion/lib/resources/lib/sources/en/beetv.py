@@ -20,7 +20,7 @@
 
 import requests
 import sys
-from resources.lib.modules import directstream, cleantitle
+from resources.lib.modules import cleantitle
 from bs4 import BeautifulSoup
 
 class source:
@@ -31,10 +31,8 @@ class source:
         self.base_link = 'http://beetv.to/'
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
-        print(123)
         try:
-            url = tvshowtitle.replace(' ', '-')
-            print(url)
+            url = tvshowtitle
         except:
             print("Unexpected error in Beetv Script:", sys.exc_info()[0])
             return url
@@ -78,13 +76,14 @@ class source:
                 print(i)
             return sources
         except:
-            print("Unexpected error in Beetv Script: episode", sys.exc_info()[0])
+            print("Unexpected error in Beetv Script: source", sys.exc_info()[0])
             exc_type, exc_obj, exc_tb = sys.exc_info()
             print(exc_type, exc_tb.tb_lineno)
             return url
 
     def resolve(self, url):
-        if 'google' in url:
-            return directstream.googlepass(url)
-        else:
             return url
+
+#url = source.tvshow(source(), '', '', 'Vikings','','' '','2016')
+#url = source.episode(source(),url,'', '', '', '', '5', '1')
+#sources = source.sources(source(),url,'','')

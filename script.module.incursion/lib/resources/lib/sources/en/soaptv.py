@@ -67,14 +67,12 @@ class source:
                     {'source': 'depfile.us', 'quality': 'HD', 'language': 'en', 'url': p.url, 'direct': False, 'debridonly': True})
                 return sources
             except Exception as e:
-                print("Unexpected error in SoupTV episode Script:")
+                print("Unexpected error in SoapTV episode Script:")
                 exc_type, exc_obj, exc_tb = sys.exc_info()
                 print(exc_type, exc_tb.tb_lineno)
                 return ""
 
     def sources(self, url, hostDict, hostprDict):
-        for i in url:
-            print(i)
         return url
 
     def resolve(self, url):

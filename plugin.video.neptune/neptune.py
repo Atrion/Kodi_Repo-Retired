@@ -19,8 +19,7 @@
 '''
 
 
-import urlparse,urlresolver,sys,urllib,xbmc,os,xbmcaddon,xbmcgui
-from resources.lib.modules  import sources
+import urlparse,sys,urllib,xbmc,os,xbmcaddon,xbmcgui
 
 dialog = xbmcgui.Dialog()						 
 params = dict(urlparse.parse_qsl(sys.argv[2].replace('?','')))

@@ -45,10 +45,9 @@
         <setting type="sep" />
 		<setting id="provider.123hulu" type="bool" label="123HULU" default="true" />
 		<setting id="provider.123netflix" type="bool" label="123NETFLIX" default="true" />
-		<setting id="provider.allrls" type="bool" label="ALLRLS" default="true" />
-		<setting id="provider.beetv" type="bool" label="BEETV" default="true" />
-		<setting id="provider.bestmoviez" type="bool" label="BEETV" default="true" />
         <setting id="provider.2dll" type="bool" label="2DLL" default="true" />
+        <setting id="provider.allrls" type="bool" label="ALLRLS" default="true" />
+		<setting id="provider.bestmoviez" type="bool" label="BEETV" default="true" />
         <setting id="provider.afdah" type="bool" label="AFDAH" default="true" />
         <setting id="provider.animeultima" type="bool" label="ANIMEULTIMA" default="true" />
         <setting id="provider.beetv" type="bool" label="BEETV" default="true" />

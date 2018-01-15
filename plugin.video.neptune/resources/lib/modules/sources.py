@@ -745,6 +745,9 @@ class sources:
                                 elif "560" in q:
                                     counthd += 1
                                     scraper_link["quality"] = "HD"
+                                elif "DVD" in q:
+                                    counthd += 1
+                                    scraper_link["quality"] = "HD"
                                 else:
                                     countSD += 1
                         except:

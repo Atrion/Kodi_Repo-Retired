@@ -37,7 +37,10 @@ class TunePkResolver(UrlResolver):
         html = response.content
         if 'Not Found' in html:
             raise ResolverError('File Removed')
-
+        
+        headers['Referer'] = web_url
+        cust_hdrs = json.loads(re.findall("headers':\s*([^\n]+),", html)[0])
+        headers.update(cust_hdrs)
         web_url = re.findall("requestURL = '(.*?)'", html)[0]
         response = self.net.http_GET(web_url, headers=headers)
         jdata = json.loads(response.content)

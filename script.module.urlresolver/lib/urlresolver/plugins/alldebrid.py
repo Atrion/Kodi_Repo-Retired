@@ -29,6 +29,7 @@ logger.disable()
 
 AGENT = 'URLResolver.Kodi'
 
+
 class AllDebridResolver(UrlResolver):
     name = "AllDebrid"
     domains = ['*']
@@ -48,7 +49,8 @@ class AllDebridResolver(UrlResolver):
         try:
             token = self.get_setting('token')
             url = 'https://api.alldebrid.com/link/unlock?agent=%s&token=%s&link=%s' % (AGENT, token, media_id)
-            result = self.net.http_GET(url).content
+            if token:
+                result = self.net.http_GET(url).content
         except urllib2.HTTPError as e:
             if e.code == 401:
                 try:
@@ -68,6 +70,7 @@ class AllDebridResolver(UrlResolver):
             js_result = json.loads(result)
             logger.log_debug('AllDebrid resolve: [%s]' % js_result)
             if 'error' in js_result:
+                common.kodi.notify(msg=js_result['error'], duration=5000)
                 raise ResolverError('AllDebrid Error: %s (%s)' % (js_result['error'], js_result['errorCode']))
             elif js_result['success']:
                 if js_result['infos']['link']:
@@ -118,14 +121,17 @@ class AllDebridResolver(UrlResolver):
 
     def authorize_resolver(self):
         try:
+            logger.log_debug('Debug build 2')
             self.reset_authorization()
             username = self.get_setting('username')
             password = self.get_setting('password')
-            url = 'https://api.alldebrid.com/user/login?agent=%s&username=%s&password=%s' % (AGENT, username, password)
-            logger.log_debug('Authorizing AllDebrid')
-            js_result = json.loads(self.net.http_GET(url).content)
+            if username and password:
+                url = 'https://api.alldebrid.com/user/login?agent=%s&username=%s&password=%s' % (AGENT, username, password)
+                logger.log_debug('Authorizing AllDebrid')
+                js_result = json.loads(self.net.http_GET(url).content)
         except urllib2.HTTPError as e:
             if e.code == 401:
+                common.kodi.notify(msg='Invalid username or password', duration=5000)
                 try:
                     js_result = json.loads(e.read())
                     if 'error' in js_result:
@@ -135,6 +141,9 @@ class AllDebridResolver(UrlResolver):
                 except:
                     msg = 'Unknown Error (2)'
                 raise ResolverError('AllDebrid Error: %s (%s)' % (msg, e.code))
+            elif e.code == 429:
+                common.kodi.notify(msg='Please login on the Alldebrid website', duration=5000)
+                raise ResolverError('AllDebrid Error: blocked login (flood)')
             else:
                 raise ResolverError('AllDebrid Error: Unknown Error (3)')
         except Exception as e:

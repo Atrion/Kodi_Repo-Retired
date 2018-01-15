@@ -674,7 +674,9 @@ class movies:
             return
 
         try:
-            next = client.parseDOM(result, 'a', ret='href', attrs = {'class': 'flat-button lister-page-next next-page'})
+            next = client.parseDOM(result, 'a', ret='href', attrs = {'class': 'lister-page-next .+?'})
+            if len(next) == 0:
+                next = client.parseDOM(result, 'a', ret='href', attrs = {'class': '.+?lister-page-next .+?'})
 
             if len(next) == 0:
                 next = client.parseDOM(result, 'div', attrs = {'class': 'list-pagination'})[0]
