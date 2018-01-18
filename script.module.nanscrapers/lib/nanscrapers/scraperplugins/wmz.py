@@ -1,11 +1,7 @@
-import requests
-import re
-import xbmc,time
-from ..common import clean_title, clean_search,filter_host
+import requests,re,time,xbmcaddon
+from ..common import clean_title, clean_search,filter_host,send_log,error_log
 from ..scraper import Scraper
-            
-
-s = requests.session()
+dev_log = xbmcaddon.Addon('script.module.nanscrapers').getSetting("dev_log")
 User_Agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'
                                            
 class wmz(Scraper):
@@ -15,7 +11,8 @@ class wmz(Scraper):
 
     def __init__(self):
         self.base_link = 'http://www.watchmovieszone.com'
-        self.start_time = time.time()
+        if dev_log=='true':
+            self.start_time = time.time()
 
     def scrape_movie(self, title, year, imdb, debrid = False):
         try:
@@ -27,25 +24,30 @@ class wmz(Scraper):
 
             match = re.compile('"ID":"(.+?)","movieName":"(.+?)"',re.DOTALL).findall(html)
             for ID,item_name in match:
-
-                if clean_title(title).lower() in clean_title(item_name).lower():
-                    if year in item_name:
-                        item_name = item_name.replace(' ','_')
-                        url = '%s/Movie/Index/%s/%s' %(self.base_link,ID,item_name)
-                        self.get_source(url,ID)
+                if 'dubbed' not in item_name.lower(): 
+                    if clean_title(title).lower() in clean_title(item_name).lower():
+                        if year in item_name:
+                            item_name = item_name.replace(' ','_')
+                            url = '%s/Movie/Index/%s/%s' %(self.base_link,ID,item_name)
+                            print 'wmz Movie pass '+url
+                            print 'wmz ID ' +ID
+                            self.get_source(url,ID)
             
             return self.sources
-        except:
-            pass
-            return[]
+        except Exception, argument:        
+            if dev_log == 'true':
+                error_log(self.name,'Check Search')
+            return self.sources
 
     def get_source(self,url,ID):
         try:
             # url not needed
-            new_url = '%s/Movie/getLinks/?movID=%s' %(self.base_link,ID) 
+            new_url = '%s/Movie/getAllLinks/?movID=%s' %(self.base_link,ID) 
+            
             headers={'User-Agent':User_Agent}
             OPEN = requests.get(new_url,headers=headers,timeout=5).content
             Regex = re.compile('"picLink":"(.+?)"',re.DOTALL).findall(OPEN)
+            count = 0
             for link in Regex:
                 host = link.split('//')[1].replace('www.','')
                 host = host.split('/')[0].lower()
@@ -53,9 +55,7 @@ class wmz(Scraper):
                     holder = requests.get(link).content
                     vid = re.compile('type:"video/mp4".+?height:(.+?),',re.DOTALL).findall(holder)
                     for qual in vid:
-                        end_time = time.time()
-                        total_time = end_time - self.start_time
-                        print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
+                        count +=1
                         self.sources.append({'source': host, 'quality': qual, 'scraper': self.name, 'url': link,'direct': False})            
                 elif 'openload' in link:
                     try:
@@ -70,17 +70,16 @@ class wmz(Scraper):
                         elif '720' in link:
                             res = '720p'  
                     except: res = 'DVD'
-                    end_time = time.time()
-                    total_time = end_time - self.start_time
-                    print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
+                    count +=1
                     self.sources.append({'source': 'Openload', 'quality': res, 'scraper': self.name, 'url': link,'direct': False})              
                 else:
                     if not filter_host(host):
                         continue
                     host = host.split('.')[0].title()
-                    end_time = time.time()
-                    total_time = end_time - self.start_time
-                    print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
-                    self.sources.append({'source': host, 'quality': 'DVD', 'scraper': self.name, 'url': link,'direct': False})           
+                    count +=1
+                    self.sources.append({'source': host, 'quality': 'DVD', 'scraper': self.name, 'url': link,'direct': False}) 
+            if dev_log=='true':
+                end_time = time.time() - self.start_time
+                send_log(self.name,end_time,count)                    
         except:
             pass

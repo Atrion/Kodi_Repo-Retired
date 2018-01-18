@@ -1,10 +1,8 @@
-import re
-import urllib
-import requests
-import time
-
-from ..common import clean_title,clean_search, random_agent
+import re,time,xbmcaddon,requests
+from ..common import clean_title,clean_search, random_agent,send_log,error_log
 from ..scraper import Scraper
+from nanscrapers.modules import cfscrape
+dev_log = xbmcaddon.Addon('script.module.nanscrapers').getSetting("dev_log")
 
 class filepursuit(Scraper):
     domains = ['filepursuit.com']
@@ -12,25 +10,41 @@ class filepursuit(Scraper):
 
     def __init__(self):
         self.base_link = 'https://filepursuit.com'
+        if dev_log=='true':
+            self.start_time = time.time() 
+        self.scraper = cfscrape.create_scraper()
         self.sources = []
-        self.start_time = time.time()
 
     def scrape_movie(self, title, year, imdb, debrid = False):
         try:
-            scrape = clean_search(title.lower()) + year
-            start_url = '%s/search/%s/type/video' %(self.base_link,scrape.replace(' ','%20'))
+            scrape = clean_search(title.lower())
+            start_url = '%s/search/%s+%s/type/video' %(self.base_link,scrape.replace(' ','%20'),year)
             
             #print "filepursuit start>>> " + start_url
             headers = {'User_Agent':random_agent()}
-            results_page = requests.get(start_url, headers=headers,timeout=5).content
+            results_page = self.scraper.get(start_url, headers=headers,timeout=10).content
 
             grab_html = re.compile('<a href="(/file/.+?)">(.+?)</a>',re.DOTALL).findall(results_page)
+            count = 0 
             for item_url,title_info in grab_html:
                 name_chk = clean_title(title).lower()+year 
-                if name_chk in clean_title(title_info).lower():
-                    item_url = self.base_link + item_url
-                    #print 'Pass this filepursuit> '+ item_url
-                    self.get_source(item_url)
+                if not name_chk in clean_title(title_info).lower():
+                    continue
+                item_url = self.base_link + item_url
+                #print 'Pass this filepursuit> '+ item_url
+                link = self.get_source(item_url)
+                if '1080' in link:
+                    res = '1080p'
+                elif '720' in link:
+                    res  = '720p'
+                else:
+                    res='DVD'
+                count +=1
+                self.sources.append({'source': 'IndexLink','quality': res,'scraper': self.name,'url': link,'direct': True})
+            if dev_log=='true':
+                end_time = time.time()
+                total_time = end_time - self.start_time 
+                send_log(self.name,total_time,count)
             return self.sources
         except Exception, argument:
             return self.sources 
@@ -42,40 +56,53 @@ class filepursuit(Scraper):
             episode_pull = "e0%s"%episode if len(episode)<2 else 'e'+episode        
             BOTH=season_pull+episode_pull
             
-            scrape = clean_search(title.lower()) + BOTH
+            scrape = clean_search(title.lower()) 
             
-            start_url = '%s/search/%s/type/video' %(self.base_link,scrape.replace(' ','%20'))
+            start_url = '%s/search/%s+%s/type/video' %(self.base_link,scrape.replace(' ','%20'),BOTH)
             
-            #print "filepursuit start>>> " + start_url
+            print "filepursuit start>>> " + start_url
             headers = {'User_Agent':random_agent()}
-            results_page = requests.get(start_url, headers=headers,timeout=5).content
+            results_page = self.scraper.get(start_url, headers=headers,timeout=5).content
 
             grab_html = re.compile('<a href="(/file/.+?)">(.+?)</a>',re.DOTALL).findall(results_page)
+            count = 0 
             for item_url,title_info in grab_html:
 
                 name_chk = clean_title(title).lower()+BOTH 
-                if name_chk in clean_title(title_info).lower():
-                    item_url = self.base_link + item_url
-                    #print 'Pass this filepursuit> '+ item_url
-                    self.get_source(item_url)
+                if not name_chk in clean_title(title_info).lower():
+                    continue
+                item_url = self.base_link + item_url
+                #print 'Pass this filepursuit> '+ item_url
+                link = self.get_source(item_url)
+                if '1080' in link:
+                    res = '1080p'
+                elif '720' in link:
+                    res  = '720p'
+                else:
+                    res='DVD'
+                count +=1
+                self.sources.append({'source': 'IndexLink','quality': res,'scraper': self.name,'url': link,'direct': True})
+            if dev_log=='true':
+                end_time = time.time()
+                total_time = end_time - self.start_time 
+                send_log(self.name,total_time,count)
             return self.sources
         except Exception, argument:
-            return self.sources 
+            return self.sources
 
     def get_source(self,item_url):
         try:
             headers = {'User_Agent':random_agent()}
-            linkpage = requests.get(item_url, headers=headers, timeout=5).content
-            link = re.compile('data-clipboard-text="(.+?)"',re.DOTALL).findall(linkpage)[0]
-            if '1080' in link:
-                res = '1080p'
-            elif '720' in link:
-                res  = '720p'
-            else:
-                res='DVD'
-            end_time = time.time()
-            total_time = end_time - self.start_time
-            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"    
-            self.sources.append({'source': 'IndexLink','quality': res,'scraper': self.name,'url': link,'direct': True})
+            linkpage = self.scraper.get(item_url, headers=headers, timeout=5).content
+            url = re.compile('data-clipboard-text="(.+?)"',re.DOTALL).findall(linkpage)[0]
+            
+            # if '1080' in link:
+                # res = '1080p'
+            # elif '720' in link:
+                # res  = '720p'
+            # else:
+                # res='DVD'
+            # self.sources.append({'source': 'IndexLink','quality': res,'scraper': self.name,'url': link,'direct': True})
 
         except:pass
+        return url

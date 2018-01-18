@@ -26,7 +26,21 @@ def clean_search(title):
     title = ' '.join(title.split())
     return title
 
-
+def send_log(name,Txt,count):
+    if count ==0:
+        count = 'Check Scrapper/NoLinks'
+    print ':######################################################'
+    print '#        NanScraper: %s' %(str(name))
+    print '#        Links returned: %s' %(str(count))
+    print '#        Time to Complete: %s' %(str(round(Txt,2)))
+    print '#######################################################'  
+    return 
+    
+def error_log(name,Txt):
+    print ':>>>>        Scraper: %s' %(str(name))
+    print ':>>>>        LogNotice: %s' %(str(Txt))
+    return 
+    
 def random_agent():
     BR_VERS = [
         ['%s.0' % i for i in xrange(18, 43)],

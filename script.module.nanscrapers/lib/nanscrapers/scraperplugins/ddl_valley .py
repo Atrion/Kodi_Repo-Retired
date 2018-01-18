@@ -1,8 +1,9 @@
-import re,xbmc,urllib,time
+import re,xbmc,xbmcaddon,urllib,time
 from ..scraper import Scraper
 import urlresolver
 import requests
-from ..common import clean_title,clean_search
+from ..common import clean_title,clean_search,send_log,error_log
+dev_log = xbmcaddon.Addon('script.module.nanscrapers').getSetting("dev_log")
 User_Agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'
 from nanscrapers.modules import cfscrape 
 # kept movies off
@@ -16,7 +17,8 @@ class ddl_valley(Scraper):
         self.base_link = 'http://www.ddlvalley.me'
         self.scraper = cfscrape.create_scraper()
         self.sources = []
-        self.start_time = time.time()
+        if dev_log=='true':
+            self.start_time = time.time()
 
     # def scrape_movie(self, title, year, imdb, debrid=False):
         # try:            
@@ -49,11 +51,14 @@ class ddl_valley(Scraper):
             content = re.compile('<h2><a href="([^"]+)"',re.DOTALL).findall(OPEN)
             for url in content:
                 
-                if clean_title(title).lower() in clean_title(url).lower():
-                    #print 'me test ' +url
-                    self.get_source(url)                        
+                if not clean_title(title).lower() in clean_title(url).lower():
+                    continue
+                #print 'me test ' +url
+                self.get_source(url)                        
             return self.sources
-        except Exception, argument:
+        except Exception, argument:        
+            if dev_log == 'true':
+                error_log(self.name,'Check Search')
             return self.sources  
 
             
@@ -64,7 +69,7 @@ class ddl_valley(Scraper):
             links = self.scraper.get(url,headers=headers,timeout=3).content 
             #print links
             LINK = re.compile('href="([^"]+)" rel="nofollow"',re.DOTALL).findall(links)
-                        
+            count = 0            
             for url in LINK:
                 #print 'DDL link >'+url
                 if '1080' in url:
@@ -81,15 +86,13 @@ class ddl_valley(Scraper):
                             host = url.split('//')[1].replace('www.','')
                             host = host.split('/')[0].split('.')[0].title()
                             if 'openload' in url:
-                                end_time = time.time()
-                                total_time = end_time - self.start_time
-                                print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
+                                count +=1
                                 self.sources.append({'source': host,'quality': res,'scraper': self.name,'url': url,'direct': False})
                             else:
-                                end_time = time.time()
-                                total_time = end_time - self.start_time
-                                print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
+                                count +=1
                                 self.sources.append({'source': host,'quality': res,'scraper': self.name,'url': url,'direct': False, 'debridonly': True})
-
+            if dev_log=='true':
+                end_time = time.time() - self.start_time
+                send_log(self.name,end_time,count)
         except:pass
 

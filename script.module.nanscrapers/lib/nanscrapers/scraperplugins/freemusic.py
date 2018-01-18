@@ -1,15 +1,11 @@
-import xbmc,time
-import json
+import xbmc,xbmcaddon,time
 import re
-import urllib
-import urlparse
-
 import requests
-from BeautifulSoup import BeautifulSoup as BS
-from nanscrapers.common import clean_title, random_agent, replaceHTMLCodes
+from nanscrapers.common import clean_title,clean_search,random_agent,send_log,error_log
 from ..scraper import Scraper
 
-session = requests.Session()
+dev_log = xbmcaddon.Addon('script.module.nanscrapers').getSetting("dev_log")
+
 headers = {"User-Agent": random_agent()}
 
 class freemusic(Scraper):
@@ -21,15 +17,17 @@ class freemusic(Scraper):
     def __init__(self):
         self.base_link = 'http://down.freemusicdownloads.world/'
         self.sources = []
-        self.start_time = time.time()
+        if dev_log=='true':
+            self.start_time = time.time()
     
     def scrape_music(self, title, artist, debrid=False):
         try:
             song_search = clean_title(title.lower()).replace(' ','+')
             artist_search = clean_title(artist.lower()).replace(' ','+')
-            start_url = '%sresults?search=%s+%s'    %(self.base_link,artist_search,song_search)
+            start_url = '%sresults?search_query=%s+%s'    %(self.base_link,artist_search,song_search)
             html = requests.get(start_url, headers=headers, timeout=20).content
-            match = re.compile('<h4 class="card-title">(.+?)</h4>.+?<button type="submit".+?value="MP3@(.+?)"',re.DOTALL).findall(html)
+            match = re.compile('<h4 class="card-title">(.+?)</h4>.+?id="(.+?)"',re.DOTALL).findall(html)
+            count = 0
             for m, link in match:
                 match4 = m.replace('\n','').replace('\t','').replace('  ',' ').replace('   ',' ').replace('    ',' ').replace('     ',' ')
                 match5 = re.sub('&#(\d+);', '', match4)
@@ -40,10 +38,12 @@ class freemusic(Scraper):
                 match2 = m.replace('\n','').replace('\t','').replace(' ','')
                 if clean_title(title).lower() in clean_title(match2).lower():
                     if clean_title(artist).lower() in clean_title(match2).lower():
-                        self.sources.append({'source':self.name, 'quality':'SD', 'scraper':match5, 'url':link, 'direct': True})
-            end_time = time.time()
-            total_time = end_time - self.start_time
-            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"             
+                        final_link = 'https://www.youtube.com/watch?v='+link
+                        count +=1
+                        self.sources.append({'source':self.name, 'quality':'SD', 'scraper':match5, 'url':final_link, 'direct': False})
+            if dev_log=='true':
+                end_time = time.time() - self.start_time
+                send_log(self.name,end_time,count)             
 
             return self.sources    
         except Exception, argument:

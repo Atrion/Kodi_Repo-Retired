@@ -1,7 +1,57 @@
-v0.5.47
-- 
+V0.5.48
+
+Added
+- hdmovieswatch9
+- iwannawatch (blocked UK)
+- azmovies
+- youmovies
+- openloadmovies
+- myvideolinks
+- allmovies4
 
 Fixed
+- extramovies (TV)
+- mydownloadtube (TV)
+- primewire
+- zoocinema
+- bnw
+- iextv
+- movie4u
+- filepursuit
+- ten80p
+- hollymoviehd
+- BobMovies
+- uwatchfree
+- watchfrees
+- thewatchseries 
+- hddizi 
+- oneonline (movies)  
+
+Removed
+- ImDark
+- tvmovieflix
+- watchmoviesforever
+- watchmoviesonline
+- series9
+- Fullmovies24
+- 1movies
+- Fanmoviesshow
+- Cinemamkv
+- iextv
+- joymovies
+- Hevc Bluray
+- shockshare
+- watchstream
+- onemovie
+- serieswatch 
+- beemp3
+- mp3clan
+- filmxy 
+- sceper
+
+v0.5.47
+
+- Fixed
 - iextv
 - animetoon
 - hddizi

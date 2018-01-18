@@ -1,8 +1,10 @@
 import requests
 import re
-import xbmc,time
+import xbmc,xbmcaddon,time
 from ..scraper import Scraper
-from ..common import clean_title,clean_search,random_agent  
+from ..common import clean_title,clean_search,random_agent,send_log,error_log
+
+dev_log = xbmcaddon.Addon('script.module.nanscrapers').getSetting("dev_log")  
                                            
 class freedownload(Scraper):
     domains = ['http://freemoviedownloads6.com']
@@ -13,7 +15,8 @@ class freedownload(Scraper):
         self.base_link = 'http://freemoviedownloads6.com'
         self.goog = 'https://www.google.co.uk'
         self.sources = []
-        self.start_time = time.time()
+        if dev_log=='true':
+            self.start_time = time.time()
 
     def scrape_movie(self, title, year, imdb, debrid=False):
         try:
@@ -37,9 +40,10 @@ class freedownload(Scraper):
                         self.get_source(url,title,year)
 
             return self.sources
-        except:
-            pass
-            return[]
+        except Exception, argument:        
+            if dev_log == 'true':
+                error_log(self.name,'Check Search')
+            return self.sources
 
     def get_source(self,url,title,year):
         try:
@@ -57,6 +61,7 @@ class freedownload(Scraper):
                 #print 'This Movie + '+getTit
                 OPEN = OPEN.split("type='video/mp4'")[1]
                 Regex = re.compile('href="(.+?)"',re.DOTALL).findall(OPEN)
+                count = 0
                 for link in Regex:
                     if '1080' in link:
                         res = '1080p'
@@ -67,12 +72,14 @@ class freedownload(Scraper):
                     else:
                         res = 'SD'                
                     if '.mkv' in link:
+                        count +=1
                         self.sources.append({'source': 'DirectLink', 'quality': res, 'scraper': self.name, 'url': link,'direct': True})
                     if '.mp4' in link:
+                        count +=1
                         self.sources.append({'source': 'DirectLink', 'quality': res, 'scraper': self.name, 'url': link,'direct': True})
-            end_time = time.time()
-            total_time = end_time - self.start_time
-            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"                                
+            if dev_log=='true':
+                end_time = time.time() - self.start_time
+                send_log(self.name,end_time,count)                                
         except:
             pass
 

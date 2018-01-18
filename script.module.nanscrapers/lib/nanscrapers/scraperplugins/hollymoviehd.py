@@ -1,9 +1,10 @@
 import requests
 import re
-import xbmc,time
+import xbmc,xbmcaddon,time
 from ..scraper import Scraper
-from ..common import clean_title,clean_search,filter_host
+from ..common import clean_title,clean_search,filter_host,send_log,error_log
 
+dev_log = xbmcaddon.Addon('script.module.nanscrapers').getSetting("dev_log")
             
 requests.packages.urllib3.disable_warnings()
 
@@ -17,29 +18,33 @@ class hollymoviehd(Scraper):
 
     def __init__(self):
         self.base_link = 'https://www.hollymoviehd.com'
-        self.start_time = time.time()
+        if dev_log=='true':
+            self.start_time = time.time()
 
                         
 
     def scrape_movie(self, title, year, imdb, debrid = False):
         try:
             search_id = clean_search(title.lower())
-            start_url = '%s/?ac=search&s=%s' %(self.base_link,search_id.replace(' ','+'))
+            start_url = '%s/?rs=search&s=%s' %(self.base_link,search_id.replace(' ','+'))
             #print ':::::::::::::######################## '+start_url
             headers={'User-Agent':User_Agent,'referer':self.base_link}
             html = requests.get(start_url,headers=headers,timeout=5).content
             #print ':::::::::::::######################## '+html
             match = re.compile('data-movie-id=.+?href="(.+?)".+?class="mli-info"><h2>(.+?)</h2>',re.DOTALL).findall(html)
             for item_url, name in match:
-                if year in name:
-                    name=name.split('(')[0]
-                    if clean_title(search_id).lower() == clean_title(name).lower():
+                if not year in name:
+                    continue
+                name=name.split('(')[0]
+                if not clean_title(title).lower() == clean_title(name).lower():
+                    continue
                         
-                        self.get_source(item_url)
+                self.get_source(item_url)
             return self.sources
-        except:
-            pass
-            return[]
+        except Exception, argument:        
+            if dev_log == 'true':
+                error_log(self.name,'Check Search')
+            return self.sources
 
     # def scrape_episode(self,title, show_year, year, season, episode, imdb, tvdb, debrid = False):
         # try:
@@ -73,7 +78,8 @@ class hollymoviehd(Scraper):
             headers={'User-Agent':User_Agent}
             OPEN = requests.get(item_url,headers=headers,timeout=5).content
             #print OPEN
-            holder = re.compile('data-lazy-src="(.+?)"',re.DOTALL).findall(OPEN)
+            holder = re.compile('<iframe.+?src="(.+?)"',re.DOTALL).findall(OPEN)
+            count = 0
             for sources in holder:
                 if sources.startswith('//'):
                     sources = 'https:' + sources
@@ -82,7 +88,9 @@ class hollymoviehd(Scraper):
                 headers={'User-Agent':User_Agent,'referer':item_url}
 
                 Page = requests.get(sources,headers=headers,timeout=5).content
-                Endlinks = re.compile("<iframe src='(.+?)'",re.DOTALL).findall(Page)
+                #print 'page1234'+Page
+                Endlinks = re.compile("<iframe src=['\"](.+?)['\"]",re.DOTALL).findall(Page)
+                
                 for link in Endlinks:
                     #print 'TRY ME > '+link
                     if 'openload' in link:
@@ -96,7 +104,8 @@ class hollymoviehd(Scraper):
                                 qual='720p'
                             else:
                                 qual='DVD'
-                        except: qual='DVD' 
+                        except: qual='DVD'
+                        count +=1 
                         self.sources.append({'source': 'Openload','quality': qual,'scraper': self.name,'url': link,'direct': False})
                     elif 'streamango.com' in link:
                         get_res=requests.get(link,headers=headers,timeout=5).content
@@ -107,20 +116,24 @@ class hollymoviehd(Scraper):
                             qual='720p'
                         else:
                             qual='DVD'
+                        count +=1
                         self.sources.append({'source': 'Streamango', 'quality': qual, 'scraper': self.name, 'url': link,'direct': False})
                     else:
                         #print 'OTHER '+link
                         try:
+                            link = link.replace('/preview','/edit')
                             host = link.split('//')[1].replace('www.','')
                             host = host.split('/')[0].lower()
                             if not filter_host(host):
                                 continue
                             host = host.split('.')[0].title()
+                            count +=1
                             self.sources.append({'source': host, 'quality': 'DVD', 'scraper': self.name, 'url': link,'direct': False})
-                            end_time = time.time()
-                            total_time = end_time - self.start_time
-                            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"             
-                        except:pass          
+             
+                        except:pass
+            if dev_log=='true':
+                end_time = time.time() - self.start_time
+                send_log(self.name,end_time,count)                                  
         except:
             pass
 

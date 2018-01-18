@@ -1,11 +1,13 @@
 import re
-import urllib,time
+import urllib,time,xbmcaddon
 import requests,base64
 
-from ..common import clean_title,clean_search, random_agent,filter_host
+from ..common import clean_title,clean_search, random_agent,filter_host,send_log,error_log
 from ..scraper import Scraper
 
-User_Agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_4 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12H143 Safari/600.1.4'
+dev_log = xbmcaddon.Addon('script.module.nanscrapers').getSetting("dev_log")
+
+User_Agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'
 
 
 class mywatchseries(Scraper):
@@ -15,7 +17,8 @@ class mywatchseries(Scraper):
     def __init__(self):
         self.base_link = 'http://dwatchseries.to'
         self.sources = []
-        self.start_time = time.time()
+        if dev_log=='true':
+            self.start_time = time.time() 
 
     def scrape_episode(self, title, show_year, year, season, episode, imdb, tvdb, debrid=False):
         try:
@@ -28,13 +31,16 @@ class mywatchseries(Scraper):
             link = link.split('Search results')[1:]
             links = re.findall(r'<a href="([^"]+)" title=".*?" target="_blank"><strong>([^<>]*)</strong></a>', str(link), re.I|re.DOTALL)
             for media_url, media_title in links:
-                if clean_title(title).lower() in clean_title(media_title).lower():
-                    #print 'mywatchseries >>>> ' +media_url
-                    self.get_sources(media_url,season, episode)
+                if not clean_title(title).lower() == clean_title(media_title).lower():
+                    continue
+                #print 'mywatchseries >>>> ' +media_url
+                self.get_sources(media_url,season, episode)
  
             return self.sources
-        except Exception, argument:
-            return self.sources 
+        except Exception, argument:        
+            if dev_log == 'true':
+                error_log(self.name,'Check Search')
+            return self.sources
 
     def get_sources(self,url,season, episode):
         #print '::::::::::::::'+episode_url
@@ -42,6 +48,7 @@ class mywatchseries(Scraper):
             headers = {'User_Agent':User_Agent}
             link = requests.get(url, headers=headers, timeout=10).content
             links = link.split('<li id="episode')[1:]
+            count = 0
             for p in links:
                 media_url = re.compile('href="([^"]+)"').findall(p)[0]
                 sep = 's%s_e%s' %(season, episode)
@@ -59,9 +66,10 @@ class mywatchseries(Scraper):
                             if not filter_host(host):
                                 continue
                             host = host.split('.')[0].title()
-                            end_time = time.time()
-                            total_time = end_time - self.start_time
-                            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
+                            count +=1
                             self.sources.append({'source': host,'quality': 'DVD','scraper': self.name,'url': final_url,'direct': False})
+            if dev_log=='true':
+                end_time = time.time() - self.start_time
+                send_log(self.name,end_time,count)                            
 
         except:pass

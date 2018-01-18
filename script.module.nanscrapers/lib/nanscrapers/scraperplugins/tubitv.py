@@ -1,9 +1,11 @@
 import requests
 import re
-import xbmc
+import xbmc,xbmcaddon,time
 import time
 from ..scraper import Scraper
-from ..common import clean_title,clean_search,random_agent
+from ..common import clean_title,clean_search,random_agent,send_log,error_log
+
+dev_log = xbmcaddon.Addon('script.module.nanscrapers').getSetting("dev_log")
 
   
 class tubitv(Scraper):
@@ -13,7 +15,8 @@ class tubitv(Scraper):
 
     def __init__(self):
         self.base_link = 'https://tubitv.com'
-        self.start_time = time.time()                                                   
+        if dev_log=='true':
+            self.start_time = time.time()                                                    
 
 
     def scrape_movie(self, title, year, imdb, debrid = False):
@@ -35,9 +38,10 @@ class tubitv(Scraper):
                         #print 'Send this URL> ' + item_url
                         self.get_source(item_url)
             return self.sources
-        except:
-            pass
-            return[]
+        except Exception, argument:        
+            if dev_log == 'true':
+                error_log(self.name,'Check Search')
+            return self.sources
 
             
     def get_source(self,item_url):
@@ -46,6 +50,7 @@ class tubitv(Scraper):
             OPEN = requests.get(item_url,headers=headers,timeout=5).content
 
             Endlinks = re.compile('"video":.+?"url":"(.+?)"',re.DOTALL).findall(OPEN)
+            count = 0
             for link in Endlinks:
                 link = 'https:'+link.replace('\u002F','/')
                 if '1080' in link:
@@ -54,11 +59,12 @@ class tubitv(Scraper):
                     label = '720p'
                 else:
                     label = 'HD'
+                count +=1    
                 self.sources.append({'source': 'TubiTv', 'quality': label, 'scraper': self.name, 'url': link,'direct': True})
-            end_time = time.time()  # stops the timer
-            total_time = end_time - self.start_time   # finds the total time the scraper ran
-            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"         
+            if dev_log=='true':
+                end_time = time.time() - self.start_time
+                send_log(self.name,end_time,count)        
         except:
             pass
 #tubitv().scrape_movie('bullet boy', '2005','') 
-# you will need to regex/split or rename to get host name if required from link unless available on page it self 
+ 

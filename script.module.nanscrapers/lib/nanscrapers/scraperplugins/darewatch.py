@@ -1,6 +1,8 @@
-import re,requests,base64,time
+import re,requests,base64,time,xbmcaddon
 from ..scraper import Scraper
-from ..common import clean_title,clean_search,random_agent,filter_host
+from ..common import clean_title,clean_search,random_agent,filter_host,send_log,error_log 
+
+dev_log = xbmcaddon.Addon('script.module.nanscrapers').getSetting("dev_log")
 
 class darewatch(Scraper):
     domains = ['mydarewatch.com']
@@ -11,7 +13,8 @@ class darewatch(Scraper):
         self.base_link = 'http://www.mydarewatch.com'
         self.search_url = self.base_link + '/index.php'
         self.sources = []
-        self.start_time = time.time()
+        if dev_log=='true':
+            self.start_time = time.time()
 
     def scrape_movie(self, title, year, imdb, debrid=False):
         try:
@@ -30,13 +33,17 @@ class darewatch(Scraper):
             Regex = re.compile('<h4>.+?class="link" href="(.+?)" title="(.+?)"',re.DOTALL).findall(page)
             for item_url,name in Regex:
                 #print '(grabbed url) %s  (title) %s' %(item_url,name)
-                if clean_title(title).lower() == clean_title(name).lower():
-                    if year in name:
-                        #print 'Darewatch URL check> ' + item_url
-                        self.get_source(item_url)
+                if not clean_title(title).lower() == clean_title(name).lower():
+                    continue
+                if not year in name:
+                    continue
+                #print 'Darewatch URL check> ' + item_url
+                self.get_source(item_url)
                 
             return self.sources
-        except Exception, argument:
+        except Exception, argument:        
+            if dev_log == 'true':
+                error_log(self.name,'Check Search')
             return self.sources
 
     def scrape_episode(self,title, show_year, year, season, episode, imdb, tvdb, debrid = False):
@@ -56,14 +63,17 @@ class darewatch(Scraper):
             Regex = re.compile('<h4>.+?class="link" href="(.+?)" title="(.+?)"',re.DOTALL).findall(page)
             for item_url,name in Regex:
                 #print '(grabbed url) %s  (title) %s' %(item_url,name)
-                if clean_title(title).lower() == clean_title(name).lower():
-                    if '/watchm/' not in item_url:
-                        item_url = item_url + '/season/%s/episode/%s' %(season, episode)
-                        #print 'Darewatch URL check> ' + item_url
-                        self.get_source(item_url)
+                if not clean_title(title).lower() == clean_title(name).lower():
+                    continue
+                if '/watchm/' not in item_url:
+                    item_url = item_url + '/season/%s/episode/%s' %(season, episode)
+                    #print 'Darewatch URL check> ' + item_url
+                    self.get_source(item_url)
                 
             return self.sources
-        except Exception, argument:
+        except Exception, argument:        
+            if dev_log == 'true':
+                error_log(self.name,'Check Search')
             return self.sources
 
 
@@ -74,6 +84,7 @@ class darewatch(Scraper):
             html = requests.get(item_url,headers=headers,timeout=10).content
 
             match = re.compile("] = '(.+?)'",re.DOTALL).findall(html)
+            count = 0
             for vid in match:
                 host = base64.b64decode(vid)
                 link=re.compile('.+?="(.+?)"',re.DOTALL).findall(host)[0]
@@ -88,15 +99,17 @@ class darewatch(Scraper):
                         else:
                             qual='DVD'
                     except:qual='DVD'
+                    count +=1
                     self.sources.append({'source': 'Openload','quality': qual,'scraper': self.name,'url': link,'direct': False})
                 else: 
                     hoster = link.split('//')[1].replace('www.','')
                     hoster = hoster.split('/')[0].lower()
                     if not filter_host(hoster):
                         continue
+                    count +=1    
                     self.sources.append({'source': hoster,'quality': 'DVD','scraper': self.name,'url': link,'direct': False})
-            end_time = time.time()
-            total_time = end_time - self.start_time
-            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"        
+            if dev_log=='true':
+                end_time = time.time() - self.start_time
+                send_log(self.name,end_time,count)        
         except:
             pass

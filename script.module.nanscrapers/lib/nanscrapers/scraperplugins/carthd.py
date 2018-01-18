@@ -1,9 +1,11 @@
 import re,time,base64
 import requests
-import xbmc
+import xbmc,xbmcaddon
 import urllib
 from ..scraper import Scraper
-from ..common import clean_title,clean_search
+from ..common import clean_title,clean_search,send_log,error_log
+
+dev_log = xbmcaddon.Addon('script.module.nanscrapers').getSetting("dev_log")
 
 requests.packages.urllib3.disable_warnings()
 
@@ -18,7 +20,8 @@ class carthd(Scraper):
     def __init__(self):
         self.base_link = 'https://cartoonhd.zone'
         self.sources = []
-        self.start_time = time.time()
+        if dev_log=='true':
+            self.start_time = time.time()
 
     def scrape_movie(self, title, year, imdb, debrid=False):
         try:
@@ -68,12 +71,13 @@ class carthd(Scraper):
                         links = requests.post(request_url, data=postdata,verify=False, headers=headers).content
                         #print 'post> '+links
                         match = re.compile('"type":"(.+?)".+?[iI][fF][rR][aA][mM][eE].+?[sS][rR][cC].+?"(.+?)"',re.DOTALL).findall(links)
+                        count = 0
                         for source_base,link in match:
                             link = link.replace('\\','')
                             if 'blogspot' in source_base:
                                 source = source_base.split(' -')[0]
                                 quality = source_base.split(' - ')[1]
-                                end_time = time.time()
+                                count +=1
                                 self.sources.append({'source': source,'quality': quality,'scraper': self.name,'url': link,'direct': True})
                             elif 'googleuser' in source_base:
                                 if '1080' in source_base:
@@ -82,39 +86,32 @@ class carthd(Scraper):
                                     qual='720p'
                                 else:
                                     qual='DVD'
-                                end_time = time.time()
-                                total_time = end_time - self.start_time
-                                print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"    
+                                count +=1    
                                 self.sources.append({'source': 'GoogleLink','quality': qual,'scraper': self.name,'url': link,'direct': True})
                             elif 'googleapis' in source_base:
-                                end_time = time.time()
-                                total_time = end_time - self.start_time
-                                print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
+                                count +=1
                                 self.sources.append({'source': 'GoogleLink','quality': '720P','scraper': self.name,'url': link,'direct': True})
                             elif 'streamango.com' in link:
                                 get_res=requests.get(link,headers=headers,timeout=5).content
                                 qual = re.compile('{type:"video/mp4".+?height:(.+?),',re.DOTALL).findall(get_res)[0]
-                                end_time = time.time()
-                                total_time = end_time - self.start_time
-                                print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
+                                count +=1
                                 self.sources.append({'source': source_base, 'quality': qual, 'scraper': self.name, 'url': link,'direct': False})
                             elif 'openload' in link:
-                                end_time = time.time()
-                                total_time = end_time - self.start_time
-                                print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
+                                count +=1
                                 self.sources.append({'source': source_base,'quality': 'DVD','scraper': self.name,'url': link,'direct': False})
                             elif 'vidnodessl' in link:
-                                end_time = time.time()
-                                total_time = end_time - self.start_time
-                                print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
+                                count +=1
                                 self.sources.append({'source': 'VidnodeSSL','quality': '720p','scraper': self.name,'url': link,'direct': True})
                             else:
-                                end_time = time.time()
-                                total_time = end_time - self.start_time
-                                print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
-                                self.sources.append({'source': source_base,'quality': 'Unknown','scraper': self.name,'url': link,'direct': False})            
+                                count +=1
+                                self.sources.append({'source': source_base,'quality': 'Unknown','scraper': self.name,'url': link,'direct': False})
+                        if dev_log=='true':
+                            end_time = time.time() - self.start_time
+                            send_log(self.name,end_time,count)                                            
             return self.sources
-        except Exception, argument:
+        except Exception, argument:        
+            if dev_log == 'true':
+                error_log(self.name,'Check Search')
             return self.sources
 
     def scrape_episode(self,title, show_year, year, season, episode, imdb, tvdb, debrid = False):
@@ -169,12 +166,13 @@ class carthd(Scraper):
                     links = requests.post(request_url, data=postdata,verify=False, headers=headers).content
                     #print 'post> '+links
                     match = re.compile('"type":"(.+?)".+?[iI][fF][rR][aA][mM][eE].+?[sS][rR][cC].+?"(.+?)"',re.DOTALL).findall(links)
+                    count = 0
                     for source_base,link in match:
                         link = link.replace('\\','')
                         if 'blogspot' in source_base:
                             source = source_base.split(' -')[0]
                             quality = source_base.split(' - ')[1]
-                            end_time = time.time()
+                            count +=1
                             self.sources.append({'source': source,'quality': quality,'scraper': self.name,'url': link,'direct': True})
                         elif 'googleuser' in source_base:
                             if '1080' in source_base:
@@ -183,40 +181,30 @@ class carthd(Scraper):
                                 qual='720p'
                             else:
                                 qual='DVD'
-                            end_time = time.time()
-                            total_time = end_time - self.start_time
-                            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"    
+                            count +=1
                             self.sources.append({'source': 'GoogleLink','quality': qual,'scraper': self.name,'url': link,'direct': True})
                         elif 'googleapis' in source_base:
-                            end_time = time.time()
-                            total_time = end_time - self.start_time
-                            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
+                            count +=1
                             self.sources.append({'source': 'GoogleLink','quality': '720P','scraper': self.name,'url': link,'direct': True})                        
                         elif 'streamango.com' in link:
-                            end_time = time.time()
-                            total_time = end_time - self.start_time
-                            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
                             get_res=requests.get(link,headers=headers,timeout=5).content
                             qual = re.compile('{type:"video/mp4".+?height:(.+?),',re.DOTALL).findall(get_res)[0]
-                            end_time = time.time()
-                            total_time = end_time - self.start_time
-                            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
+                            count +=1
                             self.sources.append({'source': source_base, 'quality': qual, 'scraper': self.name, 'url': link,'direct': False})
                         elif 'openload' in link:
-                            end_time = time.time()
-                            total_time = end_time - self.start_time
-                            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
+                            count +=1
                             self.sources.append({'source': source_base,'quality': 'DVD','scraper': self.name,'url': link,'direct': False})
                         elif 'vidnodessl' in link:
-                            end_time = time.time()
-                            total_time = end_time - self.start_time
-                            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
+                            count +=1
                             self.sources.append({'source': 'VidnodeSSL','quality': '720p','scraper': self.name,'url': link,'direct': True})
                         else:
-                            end_time = time.time()
-                            total_time = end_time - self.start_time
-                            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
-                            self.sources.append({'source': source_base,'quality': 'Unknown','scraper': self.name,'url': link,'direct': False})              
+                            count +=1
+                            self.sources.append({'source': source_base,'quality': 'Unknown','scraper': self.name,'url': link,'direct': False})
+                    if dev_log=='true':
+                        end_time = time.time() - self.start_time
+                        send_log(self.name,end_time,count)                                          
             return self.sources
-        except Exception, argument:
+        except Exception, argument:        
+            if dev_log == 'true':
+                error_log(self.name,'Check Search')
             return self.sources

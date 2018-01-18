@@ -1,13 +1,11 @@
-import re
 import requests
-import xbmc,time
+import re,xbmcaddon,time    
 import urllib
 from ..scraper import Scraper
-import urlparse
-from ..common import random_agent, clean_title, filter_host, clean_search
+from ..common import random_agent, clean_title, filter_host, clean_search,send_log,error_log
 #requests.packages.urllib3.disable_warnings()
-
-User_Agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'
+dev_log = xbmcaddon.Addon('script.module.nanscrapers').getSetting("dev_log")
+User_Agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'
 
 
 class thewatchseries(Scraper):
@@ -18,7 +16,8 @@ class thewatchseries(Scraper):
     def __init__(self):
         self.base_link = 'http://watchseriesmovie.net'
         self.sources = []
-        self.start_time = time.time()
+        if dev_log=='true':
+            self.start_time = time.time() 
 
     def scrape_movie(self, title, year, imdb, debrid=False):
         try:
@@ -26,11 +25,12 @@ class thewatchseries(Scraper):
             start_url = '%s/search.html?keyword=%s' %(self.base_link,scrape)
             #print 'SEARCH  > '+start_url
             headers = {'User_Agent':User_Agent}
-            html = requests.get(start_url, headers=headers,timeout=5).content
+            html = requests.get(start_url, headers=headers,timeout=10).content
             thumbs = re.compile('<ul class="listing items">(.+?)</ul> ',re.DOTALL).findall(html)
             thumb = re.compile('href="(.+?)".+?alt="(.+?)"',re.DOTALL).findall(str(thumbs))  
             for link,link_title in thumb:
                 if clean_title(title).lower() == clean_title(link_title).lower():
+                    #print "<<<<<<<<<<<<<link>>>>>>>>>>"+link
                     page_link = self.base_link+link
                     headers = {'User_Agent':User_Agent}
                     holdpage = requests.get(page_link, headers=headers,timeout=5).content
@@ -42,7 +42,9 @@ class thewatchseries(Scraper):
                         self.get_source(movie_link)
                     else:pass
             return self.sources
-        except Exception, argument:
+        except Exception, argument:        
+            if dev_log == 'true':
+                error_log(self.name,'Check Search')
             return self.sources
 
     def scrape_episode(self,title, show_year, year, season, episode, imdb, tvdb, debrid = False):
@@ -51,7 +53,7 @@ class thewatchseries(Scraper):
             start_url = '%s/search.html?keyword=%s' %(self.base_link,scrape)
             #print 'SEARCH  > '+start_url
             headers = {'User_Agent':User_Agent}
-            html = requests.get(start_url, headers=headers,timeout=5).content
+            html = requests.get(start_url, headers=headers,timeout=10).content
             thumbs = re.compile('<ul class="listing items">(.+?)</ul> ',re.DOTALL).findall(html)
             thumb = re.compile('href="(.+?)".+?alt="(.+?)"',re.DOTALL).findall(str(thumbs))  
             for link,link_title in thumb:
@@ -72,43 +74,39 @@ class thewatchseries(Scraper):
                                 self.get_source(movie_link)
                     else:pass
             return self.sources
-        except Exception, argument:
+        except Exception, argument:        
+            if dev_log == 'true':
+                error_log(self.name,'Check Search')
             return self.sources
 
     def get_source(self,movie_link):
         try:
             html = requests.get(movie_link).content
             links = re.compile('data-video="(.+?)"',re.DOTALL).findall(html)
+            count = 0 
             for link in links:
                 #print '::::::::::::::::::::::final link> ' + link
                 if 'vidnode.net' in link:
-                    if 'streaming.php' in link:
+                    if not 'load.php' in link:
                         continue
                     link = 'http:'+link
-                    page = requests.get(link,timeout=3).content
+                    page = requests.get(link,timeout=10).content
                     try:
-                        vids = re.compile("sources.+?file: '(.+?)'",re.DOTALL).findall(page)
-                        for vid_url in vids:
-                            if '=m18' in vid_url:
-                                res='360p'
-                            elif '=m59' in vid_url:
-                                res='480p'
-                            elif 'm=22' in vid_url:
-                                res = '720p'
-                            elif '=m37' in vid_url:
-                                res= '1080p'
-                            else: pass
-                            end_time = time.time()
-                            total_time = end_time - self.start_time
-                            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
-                            self.sources.append({'source': 'GoogleLink','quality': res,'scraper': self.name,'url': vid_url,'direct': True})
-                    except:
-                        vid_url = re.compile("sources.+?file: '(.+?)'",re.DOTALL).findall(page)[0]
-                        vid_url = 'http:'+vid_url
-                        end_time = time.time()
-                        total_time = end_time - self.start_time
-                        print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
-                        self.sources.append({'source': 'GoogleLink','quality': '720p','scraper': self.name,'url': vid_url,'direct': True})
+                        grab = re.compile("sources.+?file: '(.+?)',label: '(.+?)'",re.DOTALL).findall(page)
+                        for end_link,rez in grab:
+                            if '1080' in rez:
+                                res = '1080p'
+                            elif '720' in rez:
+                                res= '720p'
+                            else: res = 'SD'
+
+                            count +=1
+                            self.sources.append({'source': 'GoogleLink','quality': res,'scraper': self.name,'url': end_link,'direct': True})
+                    except:pass
+                        # vid_url = re.compile("sources.+?file: '(.+?)'",re.DOTALL).findall(page)[0]
+                        # vid_url = 'http:'+vid_url
+                        # #count +=1
+                        # self.sources.append({'source': 'GoogleLink','quality': '720p','scraper': self.name,'url': vid_url,'direct': True})
                 elif 'openload' in link:
                     try:
                         chk = requests.get(link).content
@@ -120,23 +118,20 @@ class thewatchseries(Scraper):
                         else:
                             res ='DVD'
                     except: res = 'DVD'
-                    end_time = time.time()
-                    total_time = end_time - self.start_time
-                    print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
+                    count +=1
                     self.sources.append({'source': 'Openload', 'quality': res, 'scraper': self.name, 'url': link,'direct': False})
                 elif 'streamango.com' in link:
                     get_res=requests.get(link).content
                     res = re.compile('{type:"video/mp4".+?height:(.+?),',re.DOTALL).findall(get_res)[0]
-                    end_time = time.time()
-                    total_time = end_time - self.start_time
-                    print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
+                    count +=1
                     self.sources.append({'source': 'Streamango', 'quality': res, 'scraper': self.name, 'url': link,'direct': False})
                 else:
                     host = link.split('//')[1].replace('www.','')
                     host = host.split('/')[0].split('.')[0].title()
-                    end_time = time.time()
-                    total_time = end_time - self.start_time
-                    print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
+                    count +=1
                     self.sources.append({'source': host,'quality': 'DVD','scraper': self.name,'url': link,'direct': False})
+            if dev_log=='true':
+                end_time = time.time() - self.start_time
+                send_log(self.name,end_time,count)
         except:
             pass

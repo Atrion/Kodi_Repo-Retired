@@ -21,11 +21,11 @@
 
 
 import re,urllib,urlparse,json
-from ..common import clean_title, random_agent, clean_search, replaceHTMLCodes, filter_host, get_rd_domains
+from ..common import clean_title, random_agent, clean_search, replaceHTMLCodes, filter_host, get_rd_domains,send_log,error_log 
 from ..scraper import Scraper
 import requests
-import xbmc,time
-
+import xbmc,xbmcaddon,time  
+dev_log = xbmcaddon.Addon('script.module.nanscrapers').getSetting("dev_log")
 
 class Releasebb(Scraper):
     domains = ['rlsbb.com']
@@ -37,7 +37,8 @@ class Releasebb(Scraper):
         self.search_header_link = {'X-Requested-With': 'XMLHttpRequest', 'Cookie': 'serach_mode=light'}
         self.search_link = '/lib/search526049.php?phrase=%s&pindex=1&content=true'
         self.search_link2 = '/search/%s'
-        self.start_time = time.time()
+        if dev_log=='true':
+            self.start_time = time.time() 
 
     def scrape_movie(self, title, year, imdb, debrid=False):
         try:
@@ -178,6 +179,7 @@ class Releasebb(Scraper):
 
     def sources(self, url, hostDict, hostprDict):
         try:
+            count = 0 
             sources = []
             for size, q, urls in self.elysium_url:
                 for url in urls:
@@ -196,12 +198,14 @@ class Releasebb(Scraper):
                         host = re.findall('([\w]+[.][\w]+)$', urlparse.urlparse(url.strip().lower()).netloc)[0]
                         host = replaceHTMLCodes(host)
                         host = host.encode('utf-8')
+                        count +=1
                         sources.append({'source': host, 'quality': quality, 'provider': 'Releasebb', 'url': url, 'info': size, 'direct': False, 'debridonly': True})
-                        end_time = time.time()
-                        total_time = end_time - self.start_time
-                        print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
+
                     except:
                         pass
+            if dev_log=='true':
+                end_time = time.time() - self.start_time
+                send_log(self.name,end_time,count)
             return sources
         except:
             return sources

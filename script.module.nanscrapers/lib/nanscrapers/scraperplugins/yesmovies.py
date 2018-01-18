@@ -1,9 +1,10 @@
 import re
 import requests
 import threading
-from ..common import clean_title,clean_search
-import xbmc,time
+from ..common import clean_title,clean_search,send_log,error_log 
+import xbmc,xbmcaddon,time 
 from ..scraper import Scraper
+dev_log = xbmcaddon.Addon('script.module.nanscrapers').getSetting("dev_log")
 sources = []
 
 class scrape_thread(threading.Thread):
@@ -12,7 +13,8 @@ class scrape_thread(threading.Thread):
         self.match = match
         self.qual = qual
         threading.Thread.__init__(self)
-        self.start_time = time.time()
+        if dev_log=='true':
+            self.start_time = time.time() 
 		
     def run(self):
         try:
@@ -23,6 +25,7 @@ class scrape_thread(threading.Thread):
             fin_url = 'https://yesmovies.to/ajax/movie_sources/'+self.m+'?x='+x+'&y='+y
             h = requests.get(fin_url).content
             playlink = re.findall('"file":"(.+?)"(.+?)}',h)
+            count = 0
             for p,rest in playlink:
                 try:
                     qual = re.findall('"label":"(.+?)"',str(rest))[0]
@@ -41,10 +44,11 @@ class scrape_thread(threading.Thread):
                     if 'lemon' in p:
                         p = p+'|User-Agent=Mozilla/5.0 (Windows NT 6.3; WOW64; rv:55.0) Gecko/20100101 Firefox/55.0&Host=streaming.lemonstream.me:1443&Referer=https://yesmovies.to'
                     if 'http' in p:
+                        count +=1
                         sources.append({'source': 'Gvideo', 'quality': qual, 'scraper': 'yesmovies', 'url': p,'direct': True})
-                        end_time = time.time()
-                        total_time = end_time - self.start_time
-                        print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
+            if dev_log=='true':
+                end_time = time.time() - self.start_time
+                send_log(self.name,end_time,count)
         except Exception as e:
             xbmc.log('get sources: '+str(e),xbmc.LOGNOTICE)
 

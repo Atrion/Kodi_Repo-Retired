@@ -1,11 +1,12 @@
 import re,time
 import requests,urlresolver
-import xbmc
+import xbmc,xbmcaddon
 import urllib
 from ..scraper import Scraper
-from ..common import clean_title,clean_search
+from ..common import clean_title,clean_search,send_log,error_log
 from ..modules import cfscrape
 
+dev_log = xbmcaddon.Addon('script.module.nanscrapers').getSetting("dev_log")
 
 User_Agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'
 
@@ -19,7 +20,8 @@ class full4movies(Scraper):
         self.base_link = 'http://www.full4movies.co'
         self.sources = []
         self.scraper = cfscrape.create_scraper()
-        self.start_time = time.time()
+        if dev_log=='true':
+            self.start_time = time.time()
 
     def scrape_movie(self, title, year, imdb, debrid=False):
         try:
@@ -35,15 +37,18 @@ class full4movies(Scraper):
             for item_url,name in Regex:
                 if 'English' in name:
                     xbmc.log('passed'+repr(item_url),xbmc.LOGNOTICE)
-                    if clean_title(title).lower() == clean_title(name).lower():
-                        movie_link = item_url
-                        #print movie_link
-                        xbmc.log('passed'+repr(movie_link),xbmc.LOGNOTICE)
-                        self.get_source(movie_link,year)
+                    if not clean_title(title).lower() == clean_title(name).lower():
+                        continue
+                    movie_link = item_url
+                    #print movie_link
+
+                    self.get_source(movie_link,year)
             
                 
             return self.sources
-        except Exception, argument:
+        except Exception, argument:        
+            if dev_log == 'true':
+                error_log(self.name,'Check Search')
             return self.sources
 
     def get_source(self,movie_link,year):
@@ -51,16 +56,19 @@ class full4movies(Scraper):
             html = self.scraper.get(movie_link).content
             chkdate = re.compile('<span itemprop="contentRating".+?rel="tag">(.+?)</a>',re.DOTALL).findall(html)
             for date in chkdate:
-                if year==date:
-                    links = re.compile('<a class="myButton" href="(.+?)"',re.DOTALL).findall(html)
-                    for link in links:
-                        if urlresolver.HostedMediaFile(link).valid_url():
-                            host = link.split('//')[1].replace('www.','')
-                            host = host.split('/')[0].split('.')[0].title()
-                            self.sources.append({'source': host,'quality': 'DVD','scraper': self.name,'url': link,'direct': False})
-            end_time = time.time()
-            total_time = end_time - self.start_time
-            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
+                if not year==date:
+                    continue
+                links = re.compile('<a class="myButton" href="(.+?)"',re.DOTALL).findall(html)
+                count = 0
+                for link in links:
+                    if urlresolver.HostedMediaFile(link).valid_url():
+                        host = link.split('//')[1].replace('www.','')
+                        host = host.split('/')[0].split('.')[0].title()
+                        count +=1
+                        self.sources.append({'source': host,'quality': 'DVD','scraper': self.name,'url': link,'direct': False})
+            if dev_log=='true':
+                end_time = time.time() - self.start_time
+                send_log(self.name,end_time,count)
         except:
             pass
 

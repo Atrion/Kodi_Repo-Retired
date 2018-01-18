@@ -169,6 +169,7 @@ def _update_settings_xml():
         '<settings>', '\t <category label = "General">',
         '\t\t<setting id="cache_enabled" '
         'type="bool" label="Enable Caching" default="true"/>',
+        '\t\t<setting id="dev_log" ''type="bool" label="Enable Scrapper Log [DEV]" default="false"/>',
         '\t\t<setting label="Disable All" type="action" option="close" action="RunPlugin(plugin://script.module.nanscrapers/?mode=DisableAll)"/>',
         '\t\t<setting label="Enable All" type="action" option="close" action="RunPlugin(plugin://script.module.nanscrapers/?mode=EnableAll)"/>',
         '\t</category>', '\t<category label="Scrapers 1">'

@@ -1,12 +1,12 @@
 import base64
-import re,time
+import re,time,xbmcaddon
 
 import requests
-from ..common import clean_title,clean_search,random_agent,filter_host
+from ..common import clean_title,clean_search,random_agent,filter_host,send_log,error_log
 from ..scraper import Scraper
 import xbmcaddon
 
-
+dev_log = xbmcaddon.Addon('script.module.nanscrapers').getSetting("dev_log")
 
 class primealt(Scraper):
     domains = ['primewire.io']
@@ -16,7 +16,8 @@ class primealt(Scraper):
     def __init__(self):
         self.base_link = 'http://www.primewire.io'
         self.sources = []
-        self.start_time = time.time()
+        if dev_log=='true':
+            self.start_time = time.time()
 
     def scrape_movie(self, title, year, imdb, debrid=False):        
         try:                       
@@ -31,12 +32,16 @@ class primealt(Scraper):
             content = re.compile('<p><b><a href="(.+?)".+?FONTSIZE.+?>(.+?)<font color="#8B4513">(.+?)</font>',re.DOTALL).findall(OPEN)
             for show_url,item_title,date in content:
 
-                if clean_title(title).lower() == clean_title(item_title).lower():
-                    if year in date:  
-                        self.get_source(show_url)   
+                if not clean_title(title).lower() == clean_title(item_title).lower():
+                    continue
+                if not year in date:
+                    continue
+                self.get_source(show_url)   
                         
             return self.sources
-        except Exception, argument:
+        except Exception, argument:        
+            if dev_log == 'true':
+                error_log(self.name,'Check Search')
             return self.sources
 
     def scrape_episode(self, title, show_year, year, season, episode, imdb, tvdb, debrid = False):
@@ -67,7 +72,9 @@ class primealt(Scraper):
                                 continue
                             self.get_source(episode_url)                        
             return self.sources
-        except Exception, argument:
+        except Exception, argument:        
+            if dev_log == 'true':
+                error_log(self.name,'Check Search')
             return self.sources  
 
 
@@ -82,6 +89,7 @@ class primealt(Scraper):
             content = requests.get(episode_url,headers=headers,timeout=3).content 
 
             links = re.compile('data-height="460">(.+?)<',re.DOTALL).findall(content)
+            count = 0
             for host_url in links:
                 if self.base_link in host_url:
                     host = re.compile('movie=(.+?)&',re.DOTALL).findall(host_url)[0]
@@ -94,10 +102,11 @@ class primealt(Scraper):
                 if not filter_host(host):
                     continue
                 host = host.split('.')[0].title()
-                end_time = time.time()
-                total_time = end_time - self.start_time
-                print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
+                count +=1
                 self.sources.append({'source': host,'quality': 'SD','scraper': self.name,'url': final_url,'direct': False})
+            if dev_log=='true':
+                end_time = time.time() - self.start_time
+                send_log(self.name,end_time,count)                
 
         except:pass
 

@@ -1,9 +1,12 @@
 import re
 import requests
 from ..scraper import Scraper
-import xbmc,time
-from ..common import clean_title
+import xbmc,xbmcaddon,time
+from ..common import clean_title,send_log,error_log
 import urlparse
+
+dev_log = xbmcaddon.Addon('script.module.nanscrapers').getSetting("dev_log")
+
 User_Agent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36'
 
 
@@ -15,7 +18,8 @@ class Animetoon(Scraper):
     def __init__(self):
         self.base_link_cartoons = 'http://www.animetoon.org/cartoon'
         self.dubbed_link_cartoons = 'http://www.animetoon.org/dubbed-anime'
-
+        if dev_log=='true':
+            self.start_time = time.time()
 
     def scrape_episode(self, title, show_year, year, season, episode, imdb, tvdb, debrid = False):
         if season == "19":
@@ -73,8 +77,10 @@ class Animetoon(Scraper):
                                         self.check_for_play(link)
 
             return self.sources
-        except Exception as e:
-            return []
+        except Exception, argument:        
+            if dev_log == 'true':
+                error_log(self.name,'Check Search')
+            return self.sources
 
 
     def check_for_play(self, link):
@@ -82,17 +88,23 @@ class Animetoon(Scraper):
             #print 'Pass url '+ link   
             frame_page = requests.get(link).content
             links = re.compile('class="playlist".+?src="(.+?)"',re.DOTALL).findall(frame_page)
+            count = 0
             for url in links:
                 url = url.replace('videozoo.me/embed.php','videozoo.me/videojs/').replace('playbb.me/embed.php','playbb.me/new/').replace('easyvideo.me/gogo/','easyvideo.me/gogo/new/').replace('play44.net/embed.php','play44.net/new/').replace('&file=','&vid=')
                 host = url.split('//')[1].replace('www.','')
                 host = host.split('/')[0].split('.')[0].title()
                 
                 url = self.resolve(url)
+                count +=1
                 self.sources.append({'source': host, 'quality': 'SD', 'scraper': self.name, 'url': url, 'direct': True})
                 #print 'PASSED for PLAY '+url
+            if dev_log=='true':
+                end_time = time.time() - self.start_time
+                send_log(self.name,end_time,count)
 
         except:
             pass
+            
             
     def resolve(self, url):
         print 'resolveME url '+ url

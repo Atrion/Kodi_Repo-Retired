@@ -16,7 +16,7 @@
 '''
 
 import re, urllib, urlparse, hashlib, random, string, json, base64
-from ..common import random_agent, clean_title, googletag, filter_host, clean_search, get_rd_domains
+from ..common import random_agent, clean_title, googletag, filter_host, clean_search, get_rd_domains,send_log,error_log
 import requests
 from ..scraper import Scraper
 import xbmcaddon
@@ -28,7 +28,7 @@ alluc_debrid = False
 # alluc_status = control.setting('enable_alluc')
 alluc_status = 'true'
 host_string = 'host%3Arapidgator.net%2Cuploaded.net%2Cfilefactory.com'
-
+dev_log = xbmcaddon.Addon('script.module.nanscrapers').getSetting("dev_log")
 
 # %s&query=%s+host%3Arapidgator.net%2Cuploaded.net%2Cfilefactory.com&count=%s'
 class Alluc(Scraper):
@@ -40,11 +40,13 @@ class Alluc(Scraper):
             self.api_link = 'http://www.alluc.ee/api/search/download/?user=%s&password=%s&query=%s'
         else:
             self.api_link = 'http://www.alluc.ee/api/search/stream/?user=%s&password=%s&query=%s'
+        if dev_log=='true':
+            self.start_time = time.time() 
         self.alluc_user = xbmcaddon.Addon('script.module.nanscrapers').getSetting("%s_user" % (self.name))
         self.alluc_pw = xbmcaddon.Addon('script.module.nanscrapers').getSetting("%s_pw" % (self.name))
         self.max_items = int(xbmcaddon.Addon('script.module.nanscrapers').getSetting("%s_max" % (self.name)))
         self.max_result_string = '&count=%s' % self.max_items
-        self.start_time = time.time()
+
 
     def scrape_movie(self, title, year, imdb, debrid = False):
         try:
@@ -64,7 +66,7 @@ class Alluc(Scraper):
         self.zen_url = []
         try:
             if not alluc_status == 'true': raise Exception()
-            print ("ALLUC STARTED", self.alluc_user, self.alluc_pw, self.max_items)
+            #print ("ALLUC STARTED", self.alluc_user, self.alluc_pw, self.max_items)
             headers = {'User-Agent': random_agent()}
             search_title = clean_search(title)
             #search_title = title
@@ -91,7 +93,7 @@ class Alluc(Scraper):
                 stream_title = clean_search(stream_title)
                 if cleanmovie in clean_title(stream_title):
                     self.zen_url.append([stream_url, stream_title])
-                    print ("ALLUC r3", self.zen_url)
+                    #print ("ALLUC r3", self.zen_url)
             return self.zen_url
         except:
             return
@@ -137,13 +139,13 @@ class Alluc(Scraper):
             ep_check = "s%02de%02d" % (season_id, ep_id)
             cleanmovie = (clean_title(title) + ep_check).translate(None, '\/:*?"\'<>|!,').replace(' ', '-').replace('--', '-').lower()
             query = "%s+%s" % (urllib.quote_plus(search_title), ep_check)
-            print ("ALLUC r1", query)
+            #print ("ALLUC r1", query)
             query = self.api_link % (self.alluc_user, self.alluc_pw, query)
             if alluc_debrid == 'true':
                 query = query + self.max_result_string
             else:
                 query = query + '+%23newlinks' + self.max_result_string
-            print ("ALLUC r2", query)
+            #print ("ALLUC r2", query)
             html = requests.get(query, headers=headers, timeout=15).json()
             for result in html['result']:
                 if len(result['hosterurls']) > 1: continue
@@ -161,6 +163,7 @@ class Alluc(Scraper):
 
     def sources(self, url, hostDict, hostprDict):
         try:
+            count = 0
             sources = []
             for url, quality in self.zen_url:
                 if "1080" in quality:
@@ -181,19 +184,22 @@ class Alluc(Scraper):
                             continue
                     else:
                         continue
-                print ("ALLUC SOURCES", url, quality)
+                    count +=1
+                #print ("ALLUC SOURCES", url, quality)
                 # if not host in hostDict: continue
                 if alluc_debrid == 'true':
+                    count +=1
                     sources.append(
                         {'source': host, 'quality': quality, 'provider': 'Alluc', 'url': url, 'direct': False,
                          'debridonly': True})
                 else:
+                    count +=1
                     sources.append(
                         {'source': host, 'quality': quality, 'provider': 'Alluc', 'url': url, 'direct': False,
                          'debridonly': False})
-            end_time = time.time()
-            total_time = end_time - self.start_time
-            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"        
+            if dev_log=='true':
+                end_time = time.time() - self.start_time
+                send_log(self.name,end_time,count)    
             return sources
         except:
             return sources

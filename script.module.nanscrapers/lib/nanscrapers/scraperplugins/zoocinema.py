@@ -1,13 +1,10 @@
-import re
-import requests
-import xbmc
-import urllib,base64
+import re,requests,xbmc,urllib,base64,xbmcaddon,time 
 from ..scraper import Scraper
-from ..common import clean_title,clean_search, filter_host, get_rd_domains  
+from ..common import clean_title,clean_search, filter_host, get_rd_domains,send_log,error_log  
 from nanscrapers.modules import cfscrape 
 
-User_Agent = 'Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.71 Safari/537.36'
-
+User_Agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'
+dev_log = xbmcaddon.Addon('script.module.nanscrapers').getSetting("dev_log")
 
 class zoocinema(Scraper):
     domains = ['http://zoocine.net/']
@@ -17,6 +14,8 @@ class zoocinema(Scraper):
     def __init__(self):
         self.base_link = 'http://zoocine.net/'
         self.scraper = cfscrape.create_scraper()
+        if dev_log=='true':
+            self.start_time = time.time() 
         self.sources = []
 
     def scrape_movie(self, title, year, imdb, debrid=False):
@@ -24,9 +23,9 @@ class zoocinema(Scraper):
             name = clean_search(title.lower())
             
             search = {'do':'search', 'subaction':'search', 'story':name}
-            headers = {'User_Agent':User_Agent}
+            headers = {'User_Agent':User_Agent,'Referer':self.base_link}
             link = self.scraper.post(self.base_link, data=search,headers=headers, timeout=3).content
-            print 'xmxmx'+link
+            #print 'xmxmx'+link
             links = link.split('-in">')[1:]
             
             for p in links:
@@ -37,12 +36,14 @@ class zoocinema(Scraper):
                 media_title = re.compile('title="(.+?)"').findall(p)[0]
                 if name in clean_search(media_title).lower():
                     if year in media_title:
-                        print '###########zoo#####################'+str(media_url)
+                        #print '###########zoo#####################'+str(media_url)
             
                         self.get_source(media_url)
                 
             return self.sources
-        except Exception, argument:
+        except Exception, argument:        
+            if dev_log == 'true':
+                error_log(self.name,'Check Search')
             return self.sources
 
     def scrape_episode(self,title, show_year, year, season, episode, imdb, tvdb, debrid = False):
@@ -54,8 +55,8 @@ class zoocinema(Scraper):
             sep = 'S%sE%s' %(season_pull,episode_pull)
 
             search = {'do':'search', 'subaction':'search', 'story':'%s %s' %(name,sep)}            
-
-            link = self.scraper.post(self.base_link, data=search, timeout=3).content
+            headers = {'User_Agent':User_Agent,'Referer':self.base_link}
+            link = self.scraper.post(self.base_link, data=search,headers=headers, timeout=3).content
             
             links = link.split('-in">')[1:]
             
@@ -72,12 +73,15 @@ class zoocinema(Scraper):
                         self.get_source(media_url)
                 
             return self.sources
-        except Exception, argument:
+        except Exception, argument:        
+            if dev_log == 'true':
+                error_log(self.name,'Check Search')
             return self.sources
 
     def get_source(self,movie_url):
         try:
             #print ':::::::::::::::::::::::'+movie_url
+            count = 0
             link = self.scraper.get(movie_url, timeout=3).content
             qual = link.split('>Source:<')[1:]
             for p in qual:
@@ -90,7 +94,7 @@ class zoocinema(Scraper):
                     res='DVD'
                 else:
                     res='SD'
-                print 'quality ######## = ' + res
+                #print 'quality ######## = ' + res
             try:
 
                 iframe = link.split('"video-responsive"')[1:]
@@ -99,16 +103,21 @@ class zoocinema(Scraper):
                     iframe_url = re.findall(r'iframe.*?src="([^"]+)"', p, re.I|re.DOTALL)[0]
                     if 'goo.gl' not in iframe_url:
                         if 'youtube' not in iframe_url:
+                            #print 'BLOBK  '+iframe_url
                             host = iframe_url.split('//')[1].replace('www.','')
                             host = host.split('/')[0].lower()
                             if not filter_host(host):
                                 continue
                             rd_domains = get_rd_domains()
                             if host in rd_domains:
+                                count +=1
                                 self.sources.append({'source': host,'quality': res,'scraper': self.name,'url': iframe_url,'direct': False,'debridonly': True})
                             else:
+                                count +=1
                                 self.sources.append({'source': host,'quality': res,'scraper': self.name,'url': iframe_url,'direct': False})
-
+                if dev_log=='true':
+                    end_time = time.time() - self.start_time
+                    send_log(self.name,end_time,count) 
             except:pass
 
             try:
@@ -127,8 +136,10 @@ class zoocinema(Scraper):
                         rd_domains = get_rd_domains()
                         
                         if host in rd_domains:
+                            count +=1
                             self.sources.append({'source': host,'quality': res,'scraper': self.name,'url': base64_url,'direct': False,'debridonly': True})
                         else:
+                            count +=1
                             self.sources.append({'source': host,'quality': res,'scraper': self.name,'url': base64_url,'direct': False})
                     else:
                         host = a.split('//')[1].replace('www.','')
@@ -137,11 +148,15 @@ class zoocinema(Scraper):
                             continue
                         rd_domains = get_rd_domains()
                         if host in rd_domains:
+                            count +=1
                             self.sources.append({'source': host,'quality': res,'scraper': self.name,'url': a,'direct': False, 'debridonly': True})
                         else:
+                            count +=1
                             self.sources.append({'source': host,'quality': res,'scraper': self.name,'url': a,'direct': False})
-
+                if dev_log=='true':
+                    end_time = time.time() - self.start_time
+                    send_log(self.name,end_time,count) 
             except:pass
-                    
+       
         except:
             pass

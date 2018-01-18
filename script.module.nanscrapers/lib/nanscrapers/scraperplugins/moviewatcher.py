@@ -1,13 +1,9 @@
-import requests
-import re
-import xbmc,time
-from ..common import clean_title, clean_search
+import requests,xbmcaddon,time,re,urlresolver
+from ..common import clean_title, clean_search,send_log,error_log
 from ..scraper import Scraper
-            
-requests.packages.urllib3.disable_warnings()
+dev_log = xbmcaddon.Addon('script.module.nanscrapers').getSetting("dev_log")            
 
-s = requests.session()
-User_Agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'
+User_Agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'
                                            
 class moviewatcher(Scraper):
     domains = ['http://moviewatcher.is/']
@@ -16,7 +12,8 @@ class moviewatcher(Scraper):
 
     def __init__(self):
         self.base_link = 'http://moviewatcher.is'
-        self.start_time = time.time()
+        if dev_log=='true':
+            self.start_time = time.time()
 
     def scrape_movie(self, title, year, imdb, debrid = False):
         try:
@@ -25,35 +22,71 @@ class moviewatcher(Scraper):
             headers={'User-Agent':User_Agent}
             r = requests.get(start_url,headers=headers,timeout=5)
             page = r.url
-            if 'search?query' in page:
-                match = re.compile('class="movie-title" href="(.+?)">(.+?)</a>.+?<span class="qual" data-title="Quality">(.+?)</span>',re.DOTALL).findall(r.content)
-                for url,name,qual in match:
-                    if clean_title(title).lower() in clean_title(name).lower():
-                        if year in url:
-                            url = self.base_link + url
-                            self.get_source(url,qual)
+            if 'search?query' in page:   #why this ?
+                match = re.compile('class="movie-title" href="(.+?)">(.+?)</a>',re.DOTALL).findall(r.content)
+                for url,name in match:
+                    if not clean_title(title).lower() == clean_title(name).lower():
+                        continue
+                    if not year in url:
+                        continue
+                    url = self.base_link + url
+                    self.get_source(url)
             else:
                 self.get_source(page,'unknown')
             
             return self.sources
-        except:
-            pass
-            return[]
+        except Exception, argument:        
+            if dev_log == 'true':
+                error_log(self.name,'Check Search')
+            return self.sources
 
-    def get_source(self,url,qual):
+    # def scrape_episode(self, title, show_year, year, season, episode, imdb, tvdb, debrid = False):
+        # try:
+        
+            # season_pull = "0%s"%season if len(season)<2 else season
+            # episode_pull = "0%s"%episode if len(episode)<2 else episode
+            # sep = 's%se%s' %(season_pull,episode_pull)
+        
+            # search_id = clean_search(title.lower())
+            # start_url = '%s/search?query=%s' %(self.base_link,search_id.replace(' ','+'))
+            # headers={'User-Agent':User_Agent}
+            # r = requests.get(start_url,headers=headers,timeout=5)
+            # page = r.url
+            # if 'search?query' in page:   #why this ?
+                # match = re.compile('class="movie-title" href="(.+?)">(.+?)</a>',re.DOTALL).findall(r.content)
+                # for url,name in match:
+                    # if not clean_title(title).lower() == clean_title(name).lower():
+                        # continue
+                    # if '-tv-' in url:
+                        # url = self.base_link + url +'/%s' %(sep)
+                        # print 'pass_moviewatcherURL> '+url
+
+                        # self.get_source(url)
+            # else:
+                # self.get_source(page,'unknown')
+        # except Exception, argument:        
+            # if dev_log == 'true':
+                # error_log(self.name,'Check Search')
+            # return self.sources
+            
+    def get_source(self,url):
         try:
             OPEN = requests.get(url).content
             Regex = re.compile("Version.+?window.open.+?'(.+?)'",re.DOTALL).findall(OPEN)
+            count = 0
             for link in Regex:
                 link = self.base_link + link
                 headers={'User-Agent':User_Agent}
                 r = requests.get(link,headers=headers,allow_redirects=False)
                 stream_url = r.headers['location']
+                if not urlresolver.HostedMediaFile(stream_url).valid_url():
+                    continue
                 host = stream_url.split('//')[1].replace('www.','')
-                host = host.split('/')[0].split('.')[0].lower()
-                self.sources.append({'source': host, 'quality': qual, 'scraper': self.name, 'url': stream_url,'direct': False})
-            end_time = time.time()
-            total_time = end_time - self.start_time
-            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"               
+                host = host.split('/')[0].split('.')[0].title()
+                count +=1
+                self.sources.append({'source': host, 'quality': 'SD', 'scraper': self.name, 'url': stream_url,'direct': False})
+            if dev_log=='true':
+                end_time = time.time() - self.start_time
+                send_log(self.name,end_time,count)               
         except:
             pass

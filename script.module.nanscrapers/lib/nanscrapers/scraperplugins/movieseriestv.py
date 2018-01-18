@@ -1,21 +1,22 @@
 # -*- coding: utf-8 -*-
 
-import re,xbmc,urllib
+import re,xbmcaddon,requests,time
 from ..scraper import Scraper
-import requests,time
-from ..common import clean_title,clean_search, filter_host, get_rd_domains,random_agent
+from ..common import clean_title,clean_search, filter_host, get_rd_domains,random_agent,send_log,error_log
 
+dev_log = xbmcaddon.Addon('script.module.nanscrapers').getSetting("dev_log")
 
-class sceper(Scraper):
+class movieseriestv(Scraper):
     domains = ['movieseriestv.net']
     name = "MovieSeriesTV"
     sources = []
     
     def __init__(self):
-        self.domains = ['sceper.ws']
+        self.domains = ['movieseriestv.net']
         self.base_link = 'http://www.movieseriestv.net'
         self.sources = []
-        self.start_time = time.time()
+        if dev_log=='true':
+            self.start_time = time.time()
 
     def scrape_movie(self, title, year, imdb, debrid=False):
         try:
@@ -29,13 +30,17 @@ class sceper(Scraper):
             #print html
             results = re.compile('<h2 class="title".+?href="(.+?)"',re.DOTALL).findall(html)
             for url in results:
-                if clean_title(title).lower() in clean_title(url).lower():
-                    if year  in url:
-                        #print ' pass this> '+ url
+                if not clean_title(title).lower() in clean_title(url).lower():
+                    continue
+                if not year  in url:
+                    continue
+                #print ' pass this> '+ url
                         
-                        self.get_source(url)                     
+                self.get_source(url)                     
             return self.sources
-        except Exception, argument:
+        except Exception, argument:        
+            if dev_log == 'true':
+                error_log(self.name,'Check Search')
             return self.sources  
 
     # not lot tv on site
@@ -78,7 +83,8 @@ class sceper(Scraper):
                   
             LINK = re.compile('target="_blank" href="([^"]+)"',re.DOTALL).findall(links) 
             try:
-                uniques = []    
+                uniques = []
+                count = 0    
                 for url in LINK:
                     if '.rar' not in url:
                         if '.keeplinks' not in url:
@@ -101,10 +107,11 @@ class sceper(Scraper):
                                 if url not in uniques:
                                     uniques.append(url)
                                     #print '####movieseries passed final url check > '+url
-                                    end_time = time.time()
-                                    total_time = end_time - self.start_time
-                                    print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
+                                    count +=1
                                     self.sources.append({'source': host,'quality': res,'scraper': self.name,'url': url,'direct': False, 'debridonly': True})
+                if dev_log=='true':
+                    end_time = time.time() - self.start_time
+                    send_log(self.name,end_time,count)                                    
             except:pass
         except:pass
 

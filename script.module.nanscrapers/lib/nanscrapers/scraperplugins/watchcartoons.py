@@ -1,9 +1,11 @@
 import re,time
-import requests
-import xbmc
+import requests,xbmcaddon
 from ..scraper import Scraper
 
-from ..common import clean_title,clean_search
+from ..common import clean_title,clean_search,send_log,error_log
+
+dev_log = xbmcaddon.Addon('script.module.nanscrapers').getSetting("dev_log")
+
 requests.packages.urllib3.disable_warnings()
 User_Agent = 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36'
 
@@ -17,6 +19,8 @@ class Watchcartoons(Scraper):
         self.base_link_cartoons = 'http://www.watchcartoononline.io/cartoon-list'
         self.dubbed_link_cartoons = 'https://www.watchcartoononline.io/dubbed-anime-list'
         self.base_link_movies = 'https://www.watchcartoononline.io/movie-list'
+        if dev_log=='true':
+            self.start_time = time.time()
         
     def scrape_episode(self, title, show_year, year, season, episode, imdb, tvdb, debrid = False):
         try:
@@ -68,10 +72,10 @@ class Watchcartoons(Scraper):
                                         #print 'Pass this episode_url watchcartoon>> ' + link
                                         self.check_for_play(link)
             return self.sources
-
-        except:
-            return []
-            pass
+        except Exception, argument:        
+            if dev_log == 'true':
+                error_log(self.name,'Check Search')
+            return self.sources
 
     def scrape_movie(self, title, year, imdb, debrid = False):
         try:
@@ -89,10 +93,10 @@ class Watchcartoons(Scraper):
                         #print 'Pass this episode_url watchcartoon>> ' + link
                         self.check_for_play(link)
             return self.sources
-
-        except:
-            return []
-            pass
+        except Exception, argument:        
+            if dev_log == 'true':
+                error_log(self.name,'Check Search')
+            return self.sources
 
 
     def check_for_play(self, link):
@@ -110,24 +114,18 @@ class Watchcartoons(Scraper):
             xml_list = requests.get(list,headers=headers,timeout=5).content
             #print 'xml list' +xml_list
             REGEX = re.compile('<jwplayer:image>(.+?)</jwplayer:image>.+?source file="(.+?)"',re.DOTALL).findall(xml_list)
-
+            count = 0
             for play_episode,final_url in REGEX:
                 
                 if clean_title(episodeREQ).lower() in clean_title(play_episode).lower():
                     final_url = final_url.replace('amp;','')
                     #print 'got Ep '+ play_episode
                     #print 'send url '+ final_url
+                    count +=1
                     self.sources.append({'source': 'watchcartoons', 'quality': 'SD', 'scraper': self.name, 'url': final_url, 'direct': True})
-            end_time = time.time()
-            total_time = end_time - self.start_time 
-            SEND2LOG(self.name,total_time)
+            if dev_log=='true':
+                end_time = time.time() - self.start_time
+                send_log(self.name,end_time,count)
         except:
             pass
 
-def SEND2LOG(name,Txt):
-    print '#################################################################################'
-    print '#'
-    print '#  Scraper : %s   Time for Completion: %s  ' %(name,(str(Txt)))
-    print '#'
-    print '#################################################################################'  
-    return 

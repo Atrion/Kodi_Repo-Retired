@@ -1,13 +1,15 @@
 import re
 import requests
-import xbmc,time
+import xbmc,xbmcaddon,time
 import urllib
-from ..common import get_rd_domains
+from ..common import get_rd_domains,send_log,error_log
 from ..scraper import Scraper
 from nanscrapers.modules import cfscrape
 
-User_Agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'
+dev_log = xbmcaddon.Addon('script.module.nanscrapers').getSetting("dev_log")
 
+User_Agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'
+##Multi log returns
 class tvrelease(Scraper):
     domains = ['http://tv-release.pw']
     name = "TVRelease"
@@ -17,7 +19,8 @@ class tvrelease(Scraper):
         self.base_link = 'http://tv-release.pw/'
         self.scraper = cfscrape.create_scraper()
         self.sources = []
-        self.start_time = time.time()
+        if dev_log=='true':
+            self.start_time = time.time()
 
     def scrape_movie(self, title, year, imdb, debrid=False):
         try:
@@ -37,7 +40,9 @@ class tvrelease(Scraper):
                     self.get_source(result)  
                 else:pass
             return self.sources
-        except Exception, argument:
+        except Exception, argument:        
+            if dev_log == 'true':
+                error_log(self.name,'Check Search')
             return self.sources            
             
 
@@ -63,8 +68,10 @@ class tvrelease(Scraper):
                     self.get_source(result)  
                 else:pass    
             return self.sources
-        except Exception, argument:
-            return self.sources  
+        except Exception, argument:        
+            if dev_log == 'true':
+                error_log(self.name,'Check Search')
+            return self.sourcess  
 
             
     def get_source(self,url):
@@ -72,7 +79,8 @@ class tvrelease(Scraper):
             res_check=url
             headers = {'User_Agent':User_Agent}
             links = self.scraper.get(url,headers=headers,verify=False).content   
-            link = re.compile("class=\"td_cols\".+?href='(.+?)'").findall(links)  
+            link = re.compile("class=\"td_cols\".+?href='(.+?)'").findall(links)
+            count = 0  
             for url in link:
                 if '720' in res_check.lower():
                     res = '720p'
@@ -84,17 +92,18 @@ class tvrelease(Scraper):
                     if not 'go4up.com' in url:
                         if not 'multiup' in url: 
                             host = url.split('//')[1].replace('www.','')
-                            host = host.split('/')[0].split('.')[0].title()                        
+                            host = host.split('/')[0].split('.')[0].title()
+                            count +=1                        
                             self.sources.append({'source': host,'quality': res,'scraper': self.name,'url': url,'direct': False, 'debridonly': True})
-            end_time = time.time()
-            total_time = end_time - self.start_time
-            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"                
+            if dev_log=='true':
+                end_time = time.time() - self.start_time
+                send_log(self.name,end_time,count)                
         except:pass
         
-def SEND2LOG(Txt):
-    print ':::::::::::::::::::::::::::::::::::::::::::::::::'
-    print ':'
-    print ': LOG string: ' + (str(Txt))
-    print ':'
-    print ':::::::::::::::::::::::::::::::::::::::::::::::::'
-    return 
+# def SEND2LOG(Txt):
+#     print ':::::::::::::::::::::::::::::::::::::::::::::::::'
+#     print ':'
+#     print ': LOG string: ' + (str(Txt))
+#     print ':'
+#     print ':::::::::::::::::::::::::::::::::::::::::::::::::'
+#     return 

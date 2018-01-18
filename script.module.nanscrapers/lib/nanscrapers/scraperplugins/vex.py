@@ -1,8 +1,9 @@
-import re,time
+import re,xbmcaddon,time
 import requests
 import HTMLParser
 from ..scraper import Scraper
-from ..common import clean_title,clean_search
+from ..common import clean_title,clean_search,send_log,error_log 
+dev_log = xbmcaddon.Addon('script.module.nanscrapers').getSetting("dev_log")
 requests.packages.urllib3.disable_warnings()
 User_Agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_4 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12H143 Safari/600.1.4'
 clean_up = HTMLParser.HTMLParser()
@@ -15,7 +16,8 @@ class vex(Scraper):
     def __init__(self):
         self.base_link = 'http://vexmovies.org'
         self.sources = []
-        self.start_time = time.time()
+        if dev_log=='true':
+            self.start_time = time.time()
 
     def scrape_movie(self, title, year, imdb, debrid=False):
         try:
@@ -28,13 +30,17 @@ class vex(Scraper):
             for item_url,name,date in Regex:
                 #print 'name' + name
                 #print 'SCRAP_DATE>> '+date
-                if clean_title(title).lower() == clean_title(name).lower():
-                    if year in date:
-                        movie_link = item_url
-                        self.get_source(movie_link)
+                if not clean_title(title).lower() == clean_title(name).lower():
+                    continue
+                if not year in date:
+                    continue
+                movie_link = item_url
+                self.get_source(movie_link)
                 
             return self.sources
-        except Exception, argument:
+        except Exception, argument:        
+            if dev_log == 'true':
+                error_log(self.name,'Check Search')
             return self.sources
 
 
@@ -50,6 +56,7 @@ class vex(Scraper):
                 page = re.compile(""":title=["'](.+?)["']\>""").findall(holder)[0]
                 decode = clean_up.unescape(page)
                 sources= re.compile('"sources.+?"(http.+?)"',re.DOTALL).findall(decode)
+                count = 0
                 for link in sources:
                     link=link.replace('\\','')
                     #print 'link chk '+ link
@@ -61,10 +68,11 @@ class vex(Scraper):
                         res = 'DVD'
                     host = link.split('//')[1].replace('www.','')
                     host = host.split('/')[0].split('.')[0].title()
+                    count +=1
                     self.sources.append({'source': host,'quality': res,'scraper': self.name,'url': link,'direct': False})
-                end_time = time.time()
-                total_time = end_time - self.start_time
-                print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"    
+                if dev_log=='true':
+                    end_time = time.time() - self.start_time
+                    send_log(self.name,end_time,count)    
             else:pass
         except:
             pass
