@@ -115,7 +115,7 @@ class movies:
         self.steven_link = 'http://www.imdb.com/list/ls064544420/?view=detail&sort=title:asc&title_type=feature,short,tv_movie,tv_special,video,documentary,game&start=1'
         self.james_link = 'http://www.imdb.com/list/ls064538686/?view=detail&sort=title:asc&title_type=feature,short,tv_movie,tv_special,video,documentary,game&start=1'
         self.quentin_link = 'http://www.imdb.com/list/ls064581875/?view=detail&sort=title:asc&title_type=feature,short,tv_movie,tv_special,video,documentary,game&start=1'
-        self.mel_link = 'http://www.imdb.com/list/ls064145343/?view=detail&sort=title:asc&title_type=feature,short,tv_movie,tv_special,video,documentary,game&start=1'
+        self.mel_link = 'http://www.imdb.com/list/ls021173887/?view=detail&sort=alpha,asc&title_type=movie,tvMovie&start=1'
         self.ben_link = 'http://www.imdb.com/list/ls064146888/?view=detail&sort=title:asc&title_type=feature,short,tv_movie,tv_special,video,documentary,game&start=1'
         self.martin_link = 'http://www.imdb.com/list/ls064562971/?view=detail&sort=title:asc&title_type=feature,short,tv_movie,tv_special,video,documentary,game&start=1'
         self.bond_link = 'http://www.imdb.com/search/title?count=100&keywords=official-james-bond-series'
@@ -139,7 +139,7 @@ class movies:
         self.romance_link = 'http://www.imdb.com/search/title?count=100&keywords=may-december-romance&sort=user_rating,desc&mode=detail&page=1&title_type=movie&ref_=kw_ref_typ'
         self.dc_link = 'http://www.imdb.com/search/title?count=100&keywords=dc-comics&sort=alpha,asc&mode=detail&page=1&title_type=movie%2CtvMovie&ref_=kw_ref_typ=dc-comics%2Csuperhero&mode=detail&page=1&title_type=video%2Cmovie%2CtvMovie&ref_=kw_ref_typ&sort=alpha,asc'
         self.marvel_link = 'http://www.imdb.com/search/title?count=100&keywords=marvel-comics&mode=detail&page=1&title_type=movie,tvMovie&sort=alpha,asc&ref_=kw_ref_typ'
-        self.disney_link = 'http://www.imdb.com/search/title?count=100&keywords=marvel-comics&mode=detail&mode=detail&page=1&page=1&title_type=movie,tvMovie&title_type=movie,tvMovie&sort=alpha,asc&ref_=kw_ref_typ%3Ddisney'
+        self.disney_link = 'http://www.imdb.com/list/ls000013316/?view=detail&sort=alpha,asc&title_type=movie,tvMovie&start=1'
 
 
 		

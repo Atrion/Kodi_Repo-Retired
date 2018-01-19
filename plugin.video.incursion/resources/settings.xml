@@ -47,7 +47,7 @@
 		<setting id="provider.123netflix" type="bool" label="123NETFLIX" default="true" />
         <setting id="provider.2dll" type="bool" label="2DLL" default="true" />
         <setting id="provider.allrls" type="bool" label="ALLRLS" default="true" />
-		<setting id="provider.bestmoviez" type="bool" label="BEETV" default="true" />
+		<setting id="provider.bestmoviez" type="bool" label="BESTMOVIEZ" default="true" />
         <setting id="provider.afdah" type="bool" label="AFDAH" default="true" />
         <setting id="provider.animeultima" type="bool" label="ANIMEULTIMA" default="true" />
         <setting id="provider.beetv" type="bool" label="BEETV" default="true" />
@@ -61,7 +61,6 @@
         <setting id="provider.divxcrawler" type="bool" label="DIVXCRAWLER" default="true" />
         <setting id="provider.dizigold" type="bool" label="DIZIGOLD" default="true" />
         <setting id="provider.einthusan" type="bool" label="EINTHUSAN" default="true" />
-        <setting id="provider.filepursuit" type="bool" label="FILEPURSUIT" default="true" />
 		<setting id="provider.flixanity" type="bool" label="FLIXANITY" default="true" />
         <setting id="provider.genvideos" type="bool" label="GENVIDEOS" default="true" />
         <setting id="provider.gogoanime" type="bool" label="GOGOANIME" default="true" />
@@ -84,7 +83,6 @@
         <setting id="provider.plocker" type="bool" label="PLOCKER" default="true" />
         <setting id="provider.popcorn" type="bool" label="POPCORN" default="true" />
 		<setting id="provider.primewire" type="bool" label="PRIMEWIRE" default="true" />
-        <setting id="provider.releasebb" type="bool" label="RELEASEBB" default="true" />
         <setting id="provider.rlsbb" type="bool" label="RLSBB" default="true" />
         <setting id="provider.rlsmovies" type="bool" label="RLSMOVIES" default="true" />
         <setting id="provider.seriescr" type="bool" label="SERIESCR" default="true" />
@@ -245,11 +243,6 @@
         <setting type="lsep" label="Your login details are not protected" />
         <setting id="chillax.username" type="text" label="32303" default="" />
         <setting id="chillax.password" type="text" option="hidden" label="32307" default="" />
-        <setting type="sep" />
-        <setting type="lsep" label="FILEPURSUIT" />
-        <setting type="lsep" label="FilePursuit app available on the google play store" />
-        <setting type="lsep" label="https://play.google.com/store/apps/details?id=com.filepursuit.filepursuit" />
-        <setting type="sep" />
     </category>
     <category label="32541">
         <setting id="library.movie" type="folder" label="32543" default="special://userdata/addon_data/plugin.video.incursion/Movies" />
