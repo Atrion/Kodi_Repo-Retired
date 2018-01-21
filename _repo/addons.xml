@@ -504,7 +504,7 @@
   </extension>
 </addon>
 
-<addon id="repository.StreamArmy" name="[COLOR crimson]S[COLOR silver]tream Army Repo[/COLOR]" version="7.2" provider-name="@Nemzzy668 / @_Manc_">
+<addon id="repository.StreamArmy" name="[COLOR crimson]S[COLOR silver]tream Army Repo[/COLOR]" version="7.3" provider-name="@Nemzzy668 / @_Manc_">
 	<extension point="xbmc.addon.repository" name="Stream Army">
 		<info compressed="false">https://raw.githubusercontent.com/nemesis668/repository.streamarmy/master/addons.xml</info>
         <checksum>http://raw.githubusercontent.com/nemesis668/repository.streamarmy/master/addons.xml.md5</checksum>
@@ -1719,12 +1719,12 @@ v5.0.15 (2016-11-26) by amet
 
 <addon id="metadata.themoviedb.org"
        name="The Movie Database"
-       version="5.0.3"
+       version="5.1.1"
        provider-name="Team Kodi">
   <requires>
     <import addon="xbmc.metadata" version="2.1.0"/>
     <import addon="metadata.common.imdb.com" version="2.9.2"/>
-    <import addon="metadata.common.themoviedb.org" version="2.17.6"/>
+    <import addon="metadata.common.themoviedb.org" version="3.1.0"/>
     <import addon="plugin.video.youtube" version="4.4.10" optional="true"/>
   </requires>
   <extension point="xbmc.metadata.scraper.movies"
@@ -1855,7 +1855,7 @@ v5.0.15 (2016-11-26) by amet
 
 <addon id="script.module.python.koding.aio"
    name="Python Koding AIO"
-   version="0.9.9.2"
+   version="0.9.9.3.3"
    provider-name="Total Revolution">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -2109,7 +2109,7 @@ v5.0.15 (2016-11-26) by amet
   </extension>
 </addon>
 
-    <addon id="repository.Firestickplusman" name="Firestickplusman Addons" version="0.1.6" provider-name="Firestickplusman">
+    <addon id="repository.Firestickplusman" name="Firestickplusman Addons" version="0.1.7" provider-name="Firestickplusman">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -2359,7 +2359,7 @@ v5.0.15 (2016-11-26) by amet
 
 <addon id="metadata.common.themoviedb.org"
        name="The Movie Database Scraper Library"
-       version="3.0.3"
+       version="3.1.1"
        provider-name="Team Kodi">
   <requires>
     <import addon="xbmc.metadata" version="2.1.0"/>
@@ -2397,7 +2397,7 @@ v5.0.15 (2016-11-26) by amet
   </extension>
 </addon>
 
-<addon id="script.module.urllib.3" version="1.22.2" name="Python Urllib 3" provider-name="Urllib">
+<addon id="script.module.urllib.3" version="1.22.3" name="urllib3" provider-name="urllib3">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 	</requires>
@@ -2791,7 +2791,7 @@ v5.0.15 (2016-11-26) by amet
 	</extension>
 </addon>
 
-    <addon id="repository.Atrion" name="Atrions Repo" version="0.2.14" provider-name="AtrionDarnay">
+    <addon id="repository.Atrion" name="Atrions Repo" version="0.2.15" provider-name="AtrionDarnay">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -2853,7 +2853,7 @@ Kodi is a registered trademark of the XBMC Foundation. We are not connected to o
   </extension>
 </addon>
 
-    <addon id="repository.Atrion2" name="Atrions Repo2" version="0.2.14" provider-name="AtrionDarnay">
+    <addon id="repository.Atrion2" name="Atrions Repo2" version="0.2.15" provider-name="AtrionDarnay">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>

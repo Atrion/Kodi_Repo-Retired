@@ -1,3 +1,16 @@
+v.0.9.9.3.3:
+- Fixed bad indentation in addon.xml
+
+v.0.9.9.3.2:
+- Added extra security checks in Move_Tree, esp. for OE/LE devices.
+
+v.0.9.9.3.1:
+- Bug fix with Move_Tree, some platforms it was corrupting files on move
+
+v.0.9.9.3:
+- Bug fix with adult enable
+- Move_Tree can now accept special paths.
+
 v.0.9.9.2:
 - Tidied up the README file, now matches what's in the add-on and every function has been tested
 - Fixed some example code
