@@ -53,7 +53,8 @@ class navigator:
             self.addDirectoryItem(32006, 'tvWidget', 'latest-episodes.png', 'DefaultRecentlyAddedEpisodes.png')
 
         self.addDirectoryItem(32007, 'channels', 'channels.png', 'DefaultMovies.png')
-
+        if not control.setting('furk.api') == '':
+            self.addDirectoryItem('Furk.net', 'furkNavigator', 'movies.png', 'movies.png')
         self.addDirectoryItem(32008, 'toolNavigator', 'tools.png', 'DefaultAddonProgram.png')
 
         downloads = True if control.setting('downloads') == 'true' and (len(control.listDir(control.setting('movie.download.path'))[0]) > 0 or len(control.listDir(control.setting('tv.download.path'))[0]) > 0) else False
@@ -64,6 +65,10 @@ class navigator:
 
         self.endDirectory()
 
+    def furk(self):
+        self.addDirectoryItem('User Files', 'furkUserFiles', 'mytvnavigator.png', 'mytvnavigator.png')
+        self.addDirectoryItem('Search', 'furkSearch', 'search.png', 'search.png')
+        self.endDirectory()
 
     def movies(self, lite=False):
         self.addDirectoryItem(32011, 'movieGenres', 'genres.png', 'DefaultMovies.png')

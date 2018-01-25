@@ -165,8 +165,6 @@ class source:
                                     'direct': False, 'debridonly': True})
                 except:
                     pass
-            for i in sources:
-                print(i)
             return sources
         except:
             print("Unexpected error in RLSBB Source Script:")

@@ -50,12 +50,10 @@ class source:
 
     def sources(self, url, hostDict, hostprDict):
         sources = []
-        print(url)
         try:
             with requests.Session() as s:
                 episode_link = "http://beetv.to/" + cleantitle.geturl(url['tvshowtitle']) + "-s" + url['season'] + "-e" + url[
                     'episode']
-                print(episode_link)
                 p = s.get(episode_link)
                 soup = BeautifulSoup(p.text, 'html.parser')
                 iframes = soup.findAll('iframe')
@@ -72,8 +70,6 @@ class source:
                         sources.append(
                             {'source': "vshare.eu", 'quality': 'SD', 'language': "en", 'url': i['src'], 'info': '',
                              'direct': False, 'debridonly': False})
-            for i in sources:
-                print(i)
             return sources
         except:
             print("Unexpected error in Beetv Script: source", sys.exc_info()[0])

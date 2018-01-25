@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 '''
-    Covenant Add-on
+    Incursion Add-on
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -17,12 +17,12 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-
 import re,json,urllib,urlparse
 
 from resources.lib.modules import cleantitle
 from resources.lib.modules import client
 from resources.lib.modules import directstream
+from resources.lib.modules import dom_parser2
 
 
 class source:
@@ -51,32 +51,25 @@ class source:
 
             data = urlparse.parse_qs(url)
             data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
-
-            title = data['title'] ; year = data['year']
-
+            year = data['year']
             h = {'User-Agent': client.randomagent()}
-
-            v = '%s_%s' % (cleantitle.geturl(title).replace('-', '_'), year)
-
-            url = '/watch_%s.html' % v
-            url = urlparse.urljoin(self.base_link, url)
-
-            c = client.request(url, headers=h, output='cookie')
-            c = client.request(urlparse.urljoin(self.base_link, '/av'), cookie=c, output='cookie', headers=h, referer=url)
-            #c = client.request(url, cookie=c, headers=h, referer=url, output='cookie')
-
-            post = urllib.urlencode({'v': v})
-            u = urlparse.urljoin(self.base_link, '/video_info/frame')
-
-            #r = client.request(u, post=post, cookie=c, headers=h, XHR=True, referer=url)
-            r = client.request(u, post=post, headers=h, XHR=True, referer=url)
-            r = json.loads(r).values()
-            r = [urllib.unquote(i.split('url=')[-1])  for i in r]
-
+            title = cleantitle.geturl(data['title']).replace('-', '_')
+            url = urlparse.urljoin(self.base_link, self.search_link %(title, year))
+            r = client.request(url, headers=h)
+            vidlink = re.findall('d\/(.+)"',r)
+            r = dom_parser2.parse_dom(r, 'div', {'class': 'title'})
+            if '1080p' in r[0].content:
+                quality = '1080p'
+            elif '720p' in r[0].content:
+                quality = '720p'
+            else:
+                quality = 'SD'
+            u = 'https://vidlink.org/streamdrive/info/%s' % vidlink[0]
+            r = client.request(u, headers=h)
+            r = json.loads(r)
             for i in r:
-                try: sources.append({'source': 'gvideo', 'quality': directstream.googletag(i)[0]['quality'], 'language': 'en', 'url': i, 'direct': True, 'debridonly': False})
+                try: sources.append({'source': 'gvideo', 'quality': quality, 'language': 'en', 'url': i['url'], 'direct': True, 'debridonly': False})
                 except: pass
-
             return sources
         except:
             return sources

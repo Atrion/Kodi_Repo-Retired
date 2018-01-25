@@ -28,13 +28,16 @@
         <setting id="hosts.mode" type="enum" label="32331" lvalues="32332|32333|32334" default="1" />
         <setting id="progress.dialog" type="enum" label="32335" lvalues="32336|32337" default="0" />
         <setting id="prem.identify" type="enum" label="32588" lvalues="32589|32590|32591|32592|32593|32594|32595|32596|32597|32598" default="0" />
+        <setting id="preemptive.termination" type="bool" label="Pre-emptive Termination" default="False" />
+        <setting id="preemptive.limit" type="slider" label="Pre-emptive Limit" default="10" range="1,50" option="int" />
         <setting type="lsep" label="32338" />
         <setting id="hosts.quality" type="enum" label="32339" values="4K|1440p|1080p|720p|480p" default="0" />
-        <setting id="autoplay.sd" type="bool" label="32340" default="false" />
+        <setting id="autoplay.sd" type="bool" label="Autoplay SD Quality only" default="false" />
         <setting id="sources.extrainfo" type="bool" label="32587" default="true" />
         <setting id="HEVC" type="bool" label="32363" default="true" />
         <setting id="hosts.captcha" type="bool" label="32341" default="true" />
         <setting id="hosts.sort.provider" type="bool" label="32342" default="false" />
+        <setting id="debrid.only" type="bool" label="Debrid Sources Only" default="false" />
         <setting type="lsep" label="32343" />
         <setting id="bookmarks" type="bool" label="32344" default="true" />
         <setting type="lsep" label="32372" />
@@ -52,7 +55,6 @@
         <setting id="provider.animeultima" type="bool" label="ANIMEULTIMA" default="true" />
         <setting id="provider.beetv" type="bool" label="BEETV" default="true" />
         <setting id="provider.bestmoviez" type="bool" label="BESTMOVIEZ" default="true" />
-        <setting id="provider.cartoonhd" type="bool" label="CARTOONHD" default="true" />
         <setting id="provider.chillax" type="bool" label="CHILLAX" default="true" />
         <setting id="provider.cmovies" type="bool" label="CMOVIES" default="true" />
         <setting id="provider.ddls" type="bool" label="DDLS" default="true" />
@@ -62,9 +64,11 @@
         <setting id="provider.dizigold" type="bool" label="DIZIGOLD" default="true" />
         <setting id="provider.einthusan" type="bool" label="EINTHUSAN" default="true" />
 		<setting id="provider.flixanity" type="bool" label="FLIXANITY" default="true" />
+		<setting id="provider.furk" type="bool" label="FURK" default="true" />
         <setting id="provider.genvideos" type="bool" label="GENVIDEOS" default="true" />
         <setting id="provider.gogoanime" type="bool" label="GOGOANIME" default="true" />
         <setting id="provider.hevcfilm" type="bool" label="HEVCFILM" default="true" />
+        <setting id="provider.icefilms" type="bool" label="ICEFILMS" default="true" />
         <setting id="provider.imdark" type="bool" label="IMDARK" default="true" />
         <setting id="provider.kingmovies" type="bool" label="KINGMOVIES" default="true" />
         <setting id="provider.library" type="bool" label="LIBRARY" default="true" />
@@ -76,6 +80,7 @@
         <setting id="provider.mywatchseries" type="bool" label="MYWATCHSERIES" default="true" />
         <setting id="provider.mzmovies" type="bool" label="MZMOVIES" default="true" />
         <setting id="provider.ninemovies" type="bool" label="NINEMOVIES" default="true" />
+        <setting id="provider.onetwothree" type="bool" label="ONETWOTHREE" default="true" />
         <setting id="provider.onlinedizi" type="bool" label="ONLINEDIZI" default="true" />
         <setting id="provider.openloadmovies" type="bool" label="OPENLOADMOVIES" default="true" />
         <setting id="provider.ororo" type="bool" label="ORORO" default="true" />
@@ -243,6 +248,7 @@
         <setting type="lsep" label="Your login details are not protected" />
         <setting id="chillax.username" type="text" label="32303" default="" />
         <setting id="chillax.password" type="text" option="hidden" label="32307" default="" />
+        <setting id="furk.api" type="text" label="Furk API Key" default="" />
     </category>
     <category label="32541">
         <setting id="library.movie" type="folder" label="32543" default="special://userdata/addon_data/plugin.video.incursion/Movies" />

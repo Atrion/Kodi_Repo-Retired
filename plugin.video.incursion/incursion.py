@@ -70,6 +70,26 @@ if action == None:
     cache.cache_version_check()
     navigator.navigator().root()
 
+elif action == "furkNavigator":
+    from resources.lib.indexers import navigator
+    navigator.navigator().furk()
+
+elif action == "furkMetaSearch":
+    from resources.lib.indexers import furk
+    furk.furk().furk_meta_search(url)
+
+elif action == "furkSearch":
+    from resources.lib.indexers import furk
+    furk.furk().search()
+
+elif action == "furkUserFiles":
+    from resources.lib.indexers import furk
+    furk.furk().user_files()
+
+elif action == "furkSearchNew":
+    from resources.lib.indexers import furk
+    furk.furk().search_new()
+
 elif action == 'movieNavigator':
     from resources.lib.indexers import navigator
     navigator.navigator().movies()

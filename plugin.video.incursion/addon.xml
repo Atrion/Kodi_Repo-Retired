@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.incursion" version="0.1.9" name="Incursion" provider-name="Incursion">
+<addon id="plugin.video.incursion" version="0.1.11" name="Incursion" provider-name="Incursion">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.module.incursion" />
@@ -29,9 +29,8 @@
     			<screenshot>resources/screenshots/screenshot-02.jpg</screenshot>
     			<screenshot>resources/screenshots/screenshot-03.jpg</screenshot>
 		</assets>
-		<news>v0.1.9 (Jan-2018)
-		- Fixed RLSBB Source
-		- Fixed DDLS Source
+		<news>v0.1.11 (Jan-2018)
+		- Added Highly Experimental Furk Support
 		</news>
 	</extension>
 </addon>
