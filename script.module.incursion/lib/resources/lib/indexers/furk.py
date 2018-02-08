@@ -63,8 +63,6 @@ class furk:
                     self.addDirectoryItem(name , url_dl, thumb, '', False)
 
                 else:
-                    #print(i['name'])
-                    #self.addDirectoryItem(i['name'].encode('utf-8'), i['url_dl'], '', '')
                     pass
             self.endDirectory()
             return ''

@@ -35,18 +35,17 @@ class carthd(Scraper):
                        'Origin':self.base_link, 'Referer':self.base_link,
                        'User-Agent':User_Agent, 'X-Requested-With':'XMLHttpRequest'}
             
-            OPEN = requests.get(start_url,headers=headers,verify=False,timeout=5).content
-            
+            OPEN = requests.get(start_url,headers=headers,verify=False,allow_redirects=True,timeout=5).content
+            #print 'cart OPEN'+OPEN
             if 'OOPS, ' in OPEN:
                 start_url = '%s-%s' %(start_url,year)
                 OPEN = requests.get(start_url,headers=headers,verify=False,timeout=5).content
-            try:
-                item_title = re.compile('<h2><b><a href=.+?>([^<>]*)</').findall(OPEN)[0]
-            except:
-                item_title = re.compile('<h2><a href=.*?title="([^"]*)"').findall(OPEN)[0]
+            
+            item_title = re.compile('class="indent">(.+?)</span>').findall(OPEN)[0]
             
             item_year = re.compile('class="dat">([^<>]*)</').findall(OPEN)[0]
-            
+            #print item_title
+            #print item_year
 
             if clean_title(item_title).lower() == clean_title(title).lower():
                     if item_year in year:
@@ -94,17 +93,22 @@ class carthd(Scraper):
                             elif 'streamango.com' in link:
                                 get_res=requests.get(link,headers=headers,timeout=5).content
                                 qual = re.compile('{type:"video/mp4".+?height:(.+?),',re.DOTALL).findall(get_res)[0]
+                                if '1080' in qual:
+                                    rez='1080p'
+                                elif '720' in qual:
+                                    rez = '720p'
+                                else:rez= 'DVD'
                                 count +=1
-                                self.sources.append({'source': source_base, 'quality': qual, 'scraper': self.name, 'url': link,'direct': False})
+                                self.sources.append({'source': source_base, 'quality': rez, 'scraper': self.name, 'url': link,'direct': False})
                             elif 'openload' in link:
                                 count +=1
                                 self.sources.append({'source': source_base,'quality': 'DVD','scraper': self.name,'url': link,'direct': False})
-                            elif 'vidnodessl' in link:
+                            elif 'vidcdn' in link:
                                 count +=1
                                 self.sources.append({'source': 'VidnodeSSL','quality': '720p','scraper': self.name,'url': link,'direct': True})
                             else:
                                 count +=1
-                                self.sources.append({'source': source_base,'quality': 'Unknown','scraper': self.name,'url': link,'direct': False})
+                                self.sources.append({'source': source_base,'quality': 'DVD','scraper': self.name,'url': link,'direct': False})
                         if dev_log=='true':
                             end_time = time.time() - self.start_time
                             send_log(self.name,end_time,count)                                            
@@ -131,12 +135,11 @@ class carthd(Scraper):
             if 'OOPS, ' in OPEN:
                 start_url = '%s-%s' %(start_url,year)
                 OPEN = requests.get(start_url,headers=headers,verify=False,timeout=5).content
-            try:
-                item_title = re.compile('<h2><b><a href=.+?>([^<>]*)</').findall(OPEN)[0]
-            except:
-                item_title = re.compile('<h2><a href=.*?title="([^"]*)"').findall(OPEN)[0]
-
+            
+            item_title = re.compile('class="indent">(.+?)</span>').findall(OPEN)[0]
+            item_title = item_title.replace('Watch','')
             item_year = re.compile('class="dat">([^<>]*)</').findall(OPEN)[0]
+            #print item_title
             #print 'item_year >> '+item_year
             
             item_url = '%s/season/%s/episode/%s' %(start_url,season,episode)
@@ -144,7 +147,7 @@ class carthd(Scraper):
             content = requests.get(item_url,headers=headers,verify=False,timeout=5).content
             
             if clean_title(item_title).lower() == clean_title(title).lower():
-                if item_year in show_year:                
+                #if item_year in show_year:                
                     TIME = time.time()- 3600
                     TIME = str(TIME).split('.')[0]
                     TIME = base64.b64encode(TIME,'strict')
@@ -161,7 +164,7 @@ class carthd(Scraper):
                                 'x-requested-with':'XMLHttpRequest'}
                         
                     request_url = '%s/ajax/vsozrflxcw.php' %self.base_link
-                    postdata={'action':'getMovieEmb','idEl':id, 'nopop': '','token':token,'elid':TIME}
+                    postdata={'action':'getEpisodeEmb','idEl':id, 'nopop': '','token':token,'elid':TIME}
                         
                     links = requests.post(request_url, data=postdata,verify=False, headers=headers).content
                     #print 'post> '+links
@@ -169,6 +172,7 @@ class carthd(Scraper):
                     count = 0
                     for source_base,link in match:
                         link = link.replace('\\','')
+                        #print '####'+link
                         if 'blogspot' in source_base:
                             source = source_base.split(' -')[0]
                             quality = source_base.split(' - ')[1]
@@ -189,17 +193,22 @@ class carthd(Scraper):
                         elif 'streamango.com' in link:
                             get_res=requests.get(link,headers=headers,timeout=5).content
                             qual = re.compile('{type:"video/mp4".+?height:(.+?),',re.DOTALL).findall(get_res)[0]
+                            if '1080' in qual:
+                                rez='1080p'
+                            elif '720' in qual:
+                                rez = '720p'
+                            else:rez= 'DVD'
                             count +=1
-                            self.sources.append({'source': source_base, 'quality': qual, 'scraper': self.name, 'url': link,'direct': False})
+                            self.sources.append({'source': source_base, 'quality': rez, 'scraper': self.name, 'url': link,'direct': False})
                         elif 'openload' in link:
                             count +=1
                             self.sources.append({'source': source_base,'quality': 'DVD','scraper': self.name,'url': link,'direct': False})
-                        elif 'vidnodessl' in link:
+                        elif 'vidcdn' in link:
                             count +=1
                             self.sources.append({'source': 'VidnodeSSL','quality': '720p','scraper': self.name,'url': link,'direct': True})
                         else:
                             count +=1
-                            self.sources.append({'source': source_base,'quality': 'Unknown','scraper': self.name,'url': link,'direct': False})
+                            self.sources.append({'source': source_base,'quality': 'DVD','scraper': self.name,'url': link,'direct': False})
                     if dev_log=='true':
                         end_time = time.time() - self.start_time
                         send_log(self.name,end_time,count)                                          

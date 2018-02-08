@@ -14,7 +14,7 @@ class mvlinks(Scraper):
     sources = []
 
     def __init__(self):
-        self.base_link = 'http://get.newmyvideolink.xyz'
+        self.base_link = 'http://dl.newmyvideolink.xyz'
         if dev_log=='true':
             self.start_time = time.time()        
 

@@ -327,9 +327,9 @@ elif action == 'authTrakt':
     trakt.authTrakt()
 
 elif action == 'smuSettings':
-    try: import urlresolver
+    try: import resolveurl
     except: pass
-    urlresolver.display_settings()
+    resolveurl.display_settings()
 
 elif action == 'download':
     import json

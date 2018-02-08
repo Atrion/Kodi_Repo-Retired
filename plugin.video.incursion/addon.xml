@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.incursion" version="0.1.11" name="Incursion" provider-name="Incursion">
+<addon id="plugin.video.incursion" version="0.1.13" name="Incursion" provider-name="Incursion">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.module.incursion" />
 		<import addon="script.incursion.artwork" />
 		<import addon="script.incursion.metadata" />
-		<import addon="script.module.urlresolver" />
+		<import addon="script.module.resolveurl" />
 		<import addon="script.module.requests" />
 		<import addon="script.module.metahandler" version="1.0.0" />
 	</requires>
@@ -29,8 +29,13 @@
     			<screenshot>resources/screenshots/screenshot-02.jpg</screenshot>
     			<screenshot>resources/screenshots/screenshot-03.jpg</screenshot>
 		</assets>
-		<news>v0.1.11 (Jan-2018)
-		- Added Highly Experimental Furk Support
+		<news>v0.1.13 (Feb-2018)
+		- Re-added Filepursuit scraper
+		- Changes to Furk Scraper - better link identification
+		- Moved Away from TVA URLResolver to Jsergios ResolveURL
+		- Fixed 24 hour delay option
+		- Removed URLResolver from Repo
+		- Removed BeautifulSoup from Repo
 		</news>
 	</extension>
 </addon>

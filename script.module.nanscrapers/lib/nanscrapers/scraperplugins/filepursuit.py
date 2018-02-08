@@ -17,13 +17,17 @@ class filepursuit(Scraper):
 
     def scrape_movie(self, title, year, imdb, debrid = False):
         try:
-            scrape = clean_search(title.lower())
-            start_url = '%s/search/%s+%s/type/video' %(self.base_link,scrape.replace(' ','%20'),year)
+            headers = {'User_Agent':random_agent(),'referer':self.base_link}
+            grab_token = self.scraper.get(self.base_link, headers=headers,timeout=10).content
+            cftok = re.compile(',petok:"(.+?)"',re.DOTALL).findall(grab_token)[0]
+            #print 'check Token= '+cftok
             
+            scrape = clean_search(title.lower())
+            start_url = '%s/search/%s+%s/' %(self.base_link,scrape.replace(' ','%20'),year)
             #print "filepursuit start>>> " + start_url
-            headers = {'User_Agent':random_agent()}
+            headers = {'User_Agent':random_agent(),'referer':self.base_link,'cf_clearance':cftok}
             results_page = self.scraper.get(start_url, headers=headers,timeout=10).content
-
+            #print 'search page '+results_page
             grab_html = re.compile('<a href="(/file/.+?)">(.+?)</a>',re.DOTALL).findall(results_page)
             count = 0 
             for item_url,title_info in grab_html:
@@ -56,12 +60,18 @@ class filepursuit(Scraper):
             episode_pull = "e0%s"%episode if len(episode)<2 else 'e'+episode        
             BOTH=season_pull+episode_pull
             
+            headers = {'User_Agent':random_agent(),'referer':self.base_link}
+            grab_token = self.scraper.get(self.base_link, headers=headers,timeout=10).content
+            cftok = re.compile(',petok:"(.+?)"',re.DOTALL).findall(grab_token)[0]
+            #print 'check Token= '+cftok
+            
+            
             scrape = clean_search(title.lower()) 
             
-            start_url = '%s/search/%s+%s/type/video' %(self.base_link,scrape.replace(' ','%20'),BOTH)
+            start_url = '%s/search/%s+%s/' %(self.base_link,scrape.replace(' ','%20'),BOTH)
             
-            print "filepursuit start>>> " + start_url
-            headers = {'User_Agent':random_agent()}
+            #print "filepursuit start>>> " + start_url
+            headers = {'User_Agent':random_agent(),'referer':self.base_link,'cf_clearance':cftok}
             results_page = self.scraper.get(start_url, headers=headers,timeout=5).content
 
             grab_html = re.compile('<a href="(/file/.+?)">(.+?)</a>',re.DOTALL).findall(results_page)

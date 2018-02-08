@@ -1,13 +1,10 @@
-import requests
-import re
-import xbmc,time
+import requests,re,xbmcaddon,time 
 from ..scraper import Scraper
-from ..common import clean_title,clean_search
-from nanscrapers.modules import cfscrape          
+from ..common import clean_title,clean_search,send_log,error_log         
 requests.packages.urllib3.disable_warnings()
-
+dev_log = xbmcaddon.Addon('script.module.nanscrapers').getSetting("dev_log")
 s = requests.session()
-User_Agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'
+User_Agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'
                                            
 class Movie321(Scraper):
     domains = ['321movies.cc']
@@ -16,72 +13,92 @@ class Movie321(Scraper):
 
     def __init__(self):
         self.base_link = 'https://321movies.cc'
-        self.search_url = '/?s='
-        self.scraper = cfscrape.create_scraper()
-        self.start_time = time.time()
+        if dev_log=='true':
+            self.start_time = time.time() 
 
     def scrape_episode(self, title, show_year, year, season, episode, imdb, tvdb, debrid = False):
         try:
-            start_url = self.base_link + '/episodes/' + title.replace(' ','-') + '-' + season + 'x' + episode
-            #print 'GW> '+start_url
+            movie_id= clean_search(title.lower().replace(' ','-'))
+            show_url = '%s/episodes/%s-%sx%s' %(self.base_link,movie_id,season,episode)
+            
+            #print '321tv url> '+show_url
+            
             headers={'User-Agent':User_Agent}
-            html = self.scraper.get(start_url,headers=headers,timeout=5).content
-            #print 'PAGE > '+html
+            html = requests.get(show_url,headers=headers,timeout=5).content
+
             match = re.compile('class="metaframe rptss" src="(.+?)"').findall(html)
+            count = 0
             for link in match: 
                 host = link.split('//')[1].replace('www.','')
                 host = host.split('/')[0].split('.')[0].title()
                 if 'streamango.com' in link:
-                    holder = self.scraper.get(link).content
+                    holder = requests.get(link).content
                     qual = re.compile('type:"video/mp4".+?height:(.+?),',re.DOTALL).findall(holder)[0]
-                    self.sources.append({'source': host, 'quality': qual, 'scraper': self.name, 'url': link,'direct': False})            
+                    count +=1
+                    self.sources.append({'source': host, 'quality': qual+'p', 'scraper': self.name, 'url': link,'direct': False})
+                elif 'goo.gl' in link:
+                    headers = {'User-Agent': User_Agent}
+                    r = requests.get(link,headers=headers,allow_redirects=False)
+                    link = r.headers['location'] 
+                    count +=1
+                    self.sources.append({'source': 'Waaw', 'quality': '720p', 'scraper': self.name, 'url': link,'direct': False})
+                
                 else:
-                    self.sources.append({'source': host, 'quality': '720', 'scraper': self.name, 'url': link,'direct': False})
-                                    
-  
+                    count +=1
+                    self.sources.append({'source': host, 'quality': '720p', 'scraper': self.name, 'url': link,'direct': False})
+            if dev_log=='true':
+                end_time = time.time() - self.start_time
+                send_log(self.name,end_time,count)                       
             return self.sources
-        except Exception, argument:
+        except Exception, argument:        
+            if dev_log == 'true':
+                error_log(self.name,'Check Search')
             return self.sources                          
 
     def scrape_movie(self, title, year, imdb, debrid = False):
         try:
-            search_id = clean_search(title.lower())
-            start_url = self.base_link + '/?s=' + search_id.replace(' ','+')
-            #print 'GW> '+start_url
-            headers={'User-Agent':User_Agent}
-            html = self.scraper.get(start_url,headers=headers,timeout=5).content
-            match = re.compile('class="thumbnail.+?href="(.+?)">.+?alt="(.+?)".+?class="year">(.+?)</span>',re.DOTALL).findall(html)
-            for url,name,date in match:
-                #print 'CHK>>'+name
-                if search_id in name.lower():
-                    if date.replace(' ','') == year.replace(' ',''):
-                        xbmc.log('year:'+year,xbmc.LOGNOTICE)
-                        self.get_source(url)
-            
+            mock_ID = clean_search(title.lower())
+            print mock_ID
+            loop_url = ['online-free','for-free','free','']
+            for attempt in loop_url:
+                movie_url = '%s/film/watch-%s-%s' %(self.base_link,mock_ID.replace(' ','-'),attempt)
+                if movie_url.endswith('-'):
+                    movie_url=movie_url.replace('watch-','')[:-1]
+                #print 'allurls '+movie_url
+                headers={'User-Agent':User_Agent}
+                html = requests.get(movie_url,headers=headers,timeout=5).content
+                #print 'PAGE > '+html
+                match = re.compile('name="title" value="(.+?)"',re.DOTALL).findall(html)
+                for item_title in match:
+                    if not clean_title(title.lower()) == clean_title(item_title.lower()):
+                        continue
+                    print 'clean321movie pass '+ movie_url
+                    Regex = re.compile('</iframe>.+?class="metaframe rptss" src="(.+?)"',re.DOTALL).findall(html)
+                    count = 0
+                    for link in Regex: 
+                        host = link.split('//')[1].replace('www.','')
+                        host = host.split('/')[0].split('.')[0].title()
+                        if 'streamango.com' in link:
+                            holder = requests.get(link).content
+                            qual = re.compile('type:"video/mp4".+?height:(.+?),',re.DOTALL).findall(holder)[0]
+                            count +=1
+                            self.sources.append({'source': host, 'quality': qual + 'p', 'scraper': self.name, 'url': link,'direct': False})
+                        elif 'goo.gl' in link:
+                            headers = {'User-Agent': User_Agent}
+                            r = requests.get(link,headers=headers,allow_redirects=False)
+                            link = r.headers['location']
+                            count +=1                            
+                            self.sources.append({'source': 'Waaw', 'quality': '720p', 'scraper': self.name, 'url': link,'direct': False})
+                        else:
+                            count +=1
+                            self.sources.append({'source': host, 'quality': '720p', 'scraper': self.name, 'url': link,'direct': False})
+                    if dev_log=='true':
+                        end_time = time.time() - self.start_time
+                        send_log(self.name,end_time,count)  
             return self.sources
-        except:
-            pass
-            return[]
+        except Exception, argument:        
+            if dev_log == 'true':
+                error_log(self.name,'Check Search')
+            return self.sources
 
-    def get_source(self,url):
-        try:
-            
-            #print 'FILM_URL= '+url
-            headers={'User-Agent':User_Agent}
-            OPEN = self.scraper.get(url,headers=headers,timeout=5).content
-            Regex = re.compile('</iframe>.+?class="metaframe rptss" src="(.+?)"',re.DOTALL).findall(OPEN)
-            for link in Regex: 
-                host = link.split('//')[1].replace('www.','')
-                host = host.split('/')[0].split('.')[0].title()
-                if 'streamango.com' in link:
-                    holder = self.scraper.get(link).content
-                    qual = re.compile('type:"video/mp4".+?height:(.+?),',re.DOTALL).findall(holder)[0]
-                    self.sources.append({'source': host, 'quality': qual, 'scraper': self.name, 'url': link,'direct': False})              
-                else:
-                    self.sources.append({'source': host, 'quality': '720', 'scraper': self.name, 'url': link,'direct': False})
-            end_time = time.time()
-            total_time = end_time - self.start_time
-            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"                   
-        except:
-            pass
 

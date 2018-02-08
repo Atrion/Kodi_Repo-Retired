@@ -7,6 +7,13 @@
     <orderEntry type="module" module-name="plugin.video.incursion" />
     <orderEntry type="module" module-name="script.incursion.metadata" />
     <orderEntry type="module" module-name="script.incursion.artwork" />
+    <orderEntry type="module" module-name="script.module.resolveurl" />
+    <orderEntry type="module" module-name="plugin.video.incursion" />
+    <orderEntry type="module" module-name="plugin.video.incursion" />
+    <orderEntry type="module" module-name="plugin.video.incursion" />
+    <orderEntry type="module" module-name="plugin.video.incursion" />
+    <orderEntry type="module" module-name="plugin.video.incursion" />
+    <orderEntry type="module" module-name="plugin.video.incursion" />
   </component>
   <component name="TestRunnerService">
     <option name="PROJECT_TEST_RUNNER" value="Unittests" />

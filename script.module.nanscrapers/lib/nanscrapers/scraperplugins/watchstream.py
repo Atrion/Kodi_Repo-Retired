@@ -1,11 +1,10 @@
-import requests
-import re
-import xbmc,time
+import re,xbmcaddon,time,requests
 from ..scraper import Scraper
+from ..common import random_agent,send_log,error_log
 requests.packages.urllib3.disable_warnings()
 s = requests.session()
-User_Agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'
-                                           
+dev_log = xbmcaddon.Addon('script.module.nanscrapers').getSetting("dev_log")
+
 class watchstream(Scraper):
     domains = ['https://putlockers.movie']
     name = "Watchstream"
@@ -13,14 +12,19 @@ class watchstream(Scraper):
 
     def __init__(self):
         self.base_link = 'https://putlockers.movie/embed/'
-        self.start_time = time.time()
+        if dev_log=='true':
+            self.start_time = time.time() 
                       
     def scrape_movie(self, title, year, imdb, debrid = False):
         try:
             get_link = self.base_link + '%s/' %(imdb)
-            headers={'User-Agent':User_Agent}
-            html = requests.get(get_link,headers=headers,verify=False,timeout=5).content
+            headers={'User-Agent':random_agent(),'referrer':get_link}
+            data = {'tmp_chk':'1'}
+            html = requests.post(get_link,headers=headers,data=data,verify=False,timeout=5).content
+            #print html
             link = re.compile('<iframe src="(.+?)"',re.DOTALL).findall(html)[0]
+            #print link
+            count = 0
             try:
                 chk = requests.get(link).content
                 rez = re.compile('"description" content="(.+?)"',re.DOTALL).findall(chk)[0]
@@ -31,12 +35,14 @@ class watchstream(Scraper):
                 else:
                     res ='DVD'
             except: res = 'DVD'
+            count +=1
             self.sources.append({'source': 'Openload', 'quality': res, 'scraper': self.name, 'url': link,'direct': False})
-            end_time = time.time()
-            total_time = end_time - self.start_time
-            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
+            if dev_log=='true':
+                end_time = time.time() - self.start_time
+                send_log(self.name,end_time,count)
             
             return self.sources
-        except:
-            pass
-            return[]
+        except Exception, argument:        
+            if dev_log == 'true':
+                error_log(self.name,'Check Search')
+            return self.sources

@@ -1,11 +1,13 @@
-import re,time
+import re,time,urlresolver
 import xbmc,urlparse
 from ..scraper import Scraper
-from ..common import clean_title,clean_search, filter_host, get_rd_domains           
+from ..common import clean_title,clean_search
 import requests
 from nanscrapers.modules import cfscrape
 
 User_Agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'
+ 
+# search returning nothing found on site
  
 class cinemamkv(Scraper):
     domains = ['http://cinemamkv.net']
@@ -25,6 +27,7 @@ class cinemamkv(Scraper):
             #print '@@@@@cinemamkv'+start_url
             headers={'User-Agent':User_Agent}
             html = self.scraper.get(start_url,headers=headers,timeout=5).content
+            #print html
             match = re.compile('<h2><a href="(.+?)".+?>(.+?)</a></h2>',re.DOTALL).findall(html)
             for url,item_name in match:
                 #print '@@@@@@@url@@'+url
@@ -51,17 +54,16 @@ class cinemamkv(Scraper):
                 res = 'DVD'
             headers={'User-Agent':User_Agent}
             OPEN = self.scraper.get(url,headers=headers,timeout=5).content
-            # OPEN
-            Regex2 = re.compile('<a href="(.+?)"',re.DOTALL).findall(OPEN)
+            #print OPEN
+            Regex2 = re.compile('="(http.+?)"',re.DOTALL).findall(OPEN)
             for link in Regex2:
-                if 'facebook' not in link:
-                    #print 'this '+link
+                if 'youtube' not in link:
+                    if not urlresolver.HostedMediaFile(link).valid_url():
+                        continue
                     try:
                         host = link.split('//')[1].replace('www.','')
                         host = host.split('/')[0].lower()
                     except:pass
-                    if not filter_host(host):
-                        continue
                     if '1080' in link:
                         qual = '1080p'
                     elif '720' in link:
@@ -69,9 +71,7 @@ class cinemamkv(Scraper):
                     else:
                         qual = res
                     self.sources.append({'source': host,'quality': qual,'scraper': self.name,'url': link,'direct': False})
-            end_time = time.time()
-            total_time = end_time - self.start_time
-            print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"         
+
                  
         except:
             pass

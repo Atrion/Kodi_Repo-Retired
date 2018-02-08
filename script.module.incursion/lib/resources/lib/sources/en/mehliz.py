@@ -64,7 +64,6 @@ class source:
             data = url
 
             if 'tvshowtitle' in data:
-                print("TEST " + data['tvshowtitle'])
                 url = self.__get_episode_url(data, hostDict)
             else:
                 url = self.__get_movie_url(data, hostDict)
@@ -86,7 +85,6 @@ class source:
         try:
             value = "/seasons/" + cleantitle.geturl(data['tvshowtitle']) + '-season-' + data['season']
             url = self.base_link + value
-            print("INFO - " + url)
             html = scraper.get(self.base_link)
             html = scraper.get(url)
             page_list = BeautifulSoup(html.text, 'html.parser')
@@ -147,7 +145,6 @@ class source:
         try:
             html = scraper.get(self.base_link +"/movies/"+cleantitle.geturl(data['title']))
             embeds = re.findall('play-box-iframe.+\s<iframe.+?src=\"(.+?)\"', html.text)[0]
-            print("INFO - " + embeds)
             url = embeds
             sources = []
             if 'mehliz' in url:

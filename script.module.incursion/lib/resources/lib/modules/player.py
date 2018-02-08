@@ -375,7 +375,6 @@ class bookmarks:
             match = dbcur.fetchone()
             self.offset = str(match[1])
             dbcon.commit()
-
             if self.offset == '0': raise Exception()
 
             minutes, seconds = divmod(float(self.offset), 60) ; hours, minutes = divmod(minutes, 60)
@@ -403,7 +402,6 @@ class bookmarks:
             for i in name: idFile.update(str(i))
             for i in year: idFile.update(str(i))
             idFile = str(idFile.hexdigest())
-
             control.makeFile(control.dataPath)
             dbcon = database.connect(control.bookmarksFile)
             dbcur = dbcon.cursor()

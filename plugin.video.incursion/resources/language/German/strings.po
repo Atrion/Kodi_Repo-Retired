@@ -1,6 +1,7 @@
 # Translators:
-# Addon id: plugin.video.covenant
-# Addon Provider: Covenant
+# Addon Name: Incursion
+# Addon id: plugin.video.incursion
+# Addon Provider: Nixgates
 # Translators:
 # Translators:
 # Translators:

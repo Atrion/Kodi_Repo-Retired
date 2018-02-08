@@ -7,7 +7,7 @@ from ..common import clean_title,clean_search
 
 
 session = requests.Session()
-User_Agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'
+User_Agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'
 
 class imdark(Scraper):
     domains = ['http://imdark.com']
@@ -21,8 +21,12 @@ class imdark(Scraper):
 
     def scrape_movie(self, title, year, imdb, debrid=False):
         try:
+            headers={'User-Agent':User_Agent}
+            get_search_value = requests.get(self.base_link,headers=headers,timeout=5).content
+            search_value = re.compile('id="darkestsearch".+?value="(.+?)"',re.DOTALL).findall(get_search_value)[0]
+            #print search_value
             search_id = clean_search(title.lower())
-            start_url = '%s/?s=%s&lang=en' %(self.base_link,search_id.replace(' ','+'))
+            start_url = '%s/?s=%s&darkestsearch=%s&_wp_http_referer=/&quality=&genre=&year=&lang=en' %(self.base_link,search_id.replace(' ','+'),search_value)
             headers={'User-Agent':User_Agent}
             html = requests.get(start_url,headers=headers,timeout=5).content
             
@@ -31,7 +35,8 @@ class imdark(Scraper):
                 check_name = name.split('(')[0]
                 if clean_title(title).lower() == clean_title(check_name).lower():
                     if year in name:
-                         self.get_source(url)
+                        print 'pass >>>>>>>> '+url
+                        self.get_source(url)
             return self.sources
         except Exception, argument:
             return self.sources
@@ -40,11 +45,19 @@ class imdark(Scraper):
         try:
             headers={'User-Agent':User_Agent}
             OPEN = requests.get(url,headers=headers,timeout=5).content
-            links = OPEN.split('video id=')[1]
-            Regex = re.compile('src="(.+?)".+?data-res="(.+?)"',re.DOTALL).findall(links)
+            uniques = []
+            Regex = re.compile('"src":"(.+?)".+?"data-res":"(.+?)"',re.DOTALL).findall(OPEN)
             for link,qual in Regex:
-                link = link+'|User-Agent=Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36&Referer='+url
-                self.sources.append({'source': 'DirectLink', 'quality': qual, 'scraper': self.name, 'url': link,'direct': True})
+                link = link+'|Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36&Referer='+url
+                if '1080' in qual:
+                    rez='1080p'
+                elif '720' in qual:
+                    rez = '720p'
+                else:
+                    rez = 'SD'
+                if link not in uniques:
+                    uniques.append(link)
+                    self.sources.append({'source': 'DirectLink', 'quality': rez, 'scraper': self.name, 'url': link,'direct': True})
             end_time = time.time()
             total_time = end_time - self.start_time
             print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"               

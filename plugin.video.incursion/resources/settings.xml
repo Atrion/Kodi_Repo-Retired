@@ -9,20 +9,23 @@
         <setting id="indicators" type="enum" label="32313" lvalues="32314" default="0" visible="eq(-2,)" />
         <setting id="api.language" type="select" label="32316" values="AUTO|Bulgarian|Chinese|Croatian|Czech|Danish|Dutch|English|Finnish|French|German|Greek|Hebrew|Hungarian|Italian|Japanese|Korean|Norwegian|Polish|Portuguese|Romanian|Russian|Serbian|Slovak|Slovenian|Spanish|Swedish|Thai|Turkish|Ukrainian" default="AUTO" />
         <setting id="providers.lang" type="select" label="32360" values="English|German|German+English|French|French+English|Polish|Polish+English|Korean|Korean+English|Russian|Russian+English|Spanish|Spanish+English|Italian|Italian+English|Greek|Greek+English" default="English" />
-        <setting id="flatten.tvshows" type="bool" label="32317" default="false" />
         <setting id="fanart" type="bool" label="32318" default="true" />
         <setting id="showunaired" type="bool" label="32570" default="true" />
         <setting id="hidecinema" type="bool" label="32571" default="false" />
         <setting type="lsep" label="32319" />
         <setting id="movie.widget" type="enum" label="32320" lvalues="32302|32321|32322|32323|32324|32580" default="1" />
-        <setting id="tv.widget.alt" type="enum" label="32325" lvalues="32302|32326|32327|32328" default="2" visible="!eq(-11,)" />  
-        <setting id="tv.widget" type="enum" label="32325" lvalues="32302|32326" default="1" visible="eq(-12,)" />
         <setting id="prgr.sortorder" type="enum" label="32584" lvalues="32585|32586" default="1" visible="!eq(-13,)" />
         <setting id="lists.widget" type="enum" label="32329" lvalues="32302|32301" default="1" />
         <setting type="lsep" label="Auto Trakt Collections Syncing" />
         <setting id="autoTraktOnStart" type="bool" label="Sync on Kodi Start" default="False" />
         <setting id="schedTraktTime" type="slider" label="Schedule Updates Every - Hour/s" default="0" range="0,24" option="int" />
         <setting type="lsep" label="0 Value Disables Scheduling" />
+    </category>
+    <category label="TV Shows">
+        <setting id="flatten.tvshows" type="bool" label="32317" default="false" />
+        <setting id="tv.widget.alt" type="enum" label="32325" lvalues="32302|32326|32327|32328" default="2" visible="!eq(-11,)" />
+        <setting id="tv.widget" type="enum" label="32325" lvalues="32302|32326" default="1" visible="eq(-12,)" />
+        <setting id="tv.specials" type="bool" label="Include Special Episodes" default="false" />
     </category>
     <category label="32330">
         <setting id="hosts.mode" type="enum" label="32331" lvalues="32332|32333|32334" default="1" />
@@ -63,6 +66,7 @@
         <setting id="provider.divxcrawler" type="bool" label="DIVXCRAWLER" default="true" />
         <setting id="provider.dizigold" type="bool" label="DIZIGOLD" default="true" />
         <setting id="provider.einthusan" type="bool" label="EINTHUSAN" default="true" />
+        <setting id="provider.filepursuit" type="bool" label="FILEPURSUIT" default="true" />
 		<setting id="provider.flixanity" type="bool" label="FLIXANITY" default="true" />
 		<setting id="provider.furk" type="bool" label="FURK" default="true" />
         <setting id="provider.genvideos" type="bool" label="GENVIDEOS" default="true" />
@@ -248,7 +252,10 @@
         <setting type="lsep" label="Your login details are not protected" />
         <setting id="chillax.username" type="text" label="32303" default="" />
         <setting id="chillax.password" type="text" option="hidden" label="32307" default="" />
+        <setting type="sep" />
+        <setting type="lsep" label="Furk.net" />
         <setting id="furk.api" type="text" label="Furk API Key" default="" />
+        <setting id="furk.limit" label="Limit results" type="slider" default="25" range="5,5,200" option="int" />
     </category>
     <category label="32541">
         <setting id="library.movie" type="folder" label="32543" default="special://userdata/addon_data/plugin.video.incursion/Movies" />
@@ -261,6 +268,7 @@
         <setting id="library.update" type="bool" label="32547" default="true" />
         <setting id="library.check" type="bool" label="32548" default="true" />
         <setting type="sep" />
+        <setting id="library.importdelay" type="bool" label="24HR delay before import" default="true" />
         <setting id="library.check_movie" type="bool" label="32549" default="false" />
         <setting id="library.check_episode" type="bool" label="32550" default="false" />
         <setting id="library.include_unknown" type="bool" label="32565" default="true" />

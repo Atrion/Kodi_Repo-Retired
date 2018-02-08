@@ -3,10 +3,10 @@ import requests
 import xbmc,xbmcaddon,time
 from ..scraper import Scraper
 from ..common import clean_title,clean_search,send_log,error_log 
-
+from nanscrapers.modules import cfscrape 
 dev_log = xbmcaddon.Addon('script.module.nanscrapers').getSetting("dev_log")
 
-User_Agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_4 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12H143 Safari/600.1.4'
+User_Agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'
 
 
 class OpenLoadMovie(Scraper):
@@ -16,6 +16,7 @@ class OpenLoadMovie(Scraper):
 
     def __init__(self):
         self.base_link = 'https://openloadmovie.me'
+        self.scraper = cfscrape.create_scraper()
         if dev_log=='true':
             self.start_time = time.time()
 
@@ -24,7 +25,7 @@ class OpenLoadMovie(Scraper):
             search_id = clean_search(title.lower())
             start_url = '%s/?s=%s' %(self.base_link,search_id.replace(' ','+'))
             headers = {'User_Agent':User_Agent}
-            html = requests.get(start_url,headers=headers,timeout=5).content
+            html = self.scraper.get(start_url,headers=headers,timeout=5).content
             #xbmc.log('************ Passed'+repr(html),xbmc.LOGNOTICE)
             Regex = re.compile('class="result-item".+?href="(.+?)".+?alt="(.+?)"',re.DOTALL).findall(html)   
             for item_url,name in Regex:    # removed date as date isnt seperate
@@ -47,7 +48,7 @@ class OpenLoadMovie(Scraper):
             search_id = clean_search(title.lower())
             start_url = '%s/?s=%s' %(self.base_link,search_id.replace(' ','+'))
             headers = {'User_Agent':User_Agent}
-            html = requests.get(start_url,headers=headers,timeout=5).content
+            html = self.scraper.get(start_url,headers=headers,timeout=5).content
             Regex = re.compile('class="result-item".+?href="(.+?)".+?alt="(.+?)"',re.DOTALL).findall(html)
             for item_url,name in Regex:
                 if not clean_title(title).lower() == clean_title(name).lower():
@@ -66,29 +67,11 @@ class OpenLoadMovie(Scraper):
     def get_source(self,movie_link):
         try:
             #print 'passed show '+movie_link
-            html = requests.get(movie_link).content
-            links = re.compile('data-lazy-src="(.+?)"',re.DOTALL).findall(html) # edit for url in tis case openload link
+            html = self.scraper.get(movie_link).content
+            links = re.compile('data-lazy-src="(.+?)"',re.DOTALL).findall(html)
             count = 0
-            for link in links:
-                ##usually open openload to get res but shown in url on this site
-                # if 'openload' in link:                  
-                    # try:
-                        # headers = {'User_Agent':User_Agent}
-                        # get_res=requests.get(link,headers=headers,timeout=5).content
-                        # rez = re.compile('"description" content="(.+?)"',re.DOTALL).findall(get_res)[0]
-                        # if '1080p' in rez:
-                            # qual = '1080p'
-                        # elif '720p' in rez:
-                            # qual='720p'
-                        # else:
-                            # qual='DVD'
-                    # except: qual='DVD'        
-                    # self.sources.append({'source': 'Openload','quality': qual,'scraper': self.name,'url': link,'direct': False})
-                    # end_time = time.time()
-                    # total_time = end_time - self.start_time
-                    # print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
-                
-                if 'youtube' not in link:    # miss trailers
+            for link in links:                
+                if 'youtube' not in link:   
                     if '1080p' in link:
                         qual = '1080p'
                     elif '720p' in link:

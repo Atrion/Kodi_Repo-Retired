@@ -59,22 +59,13 @@ def get_raw(url, headers=None, data=None):
 
 def get_proxy_url():
     return random.choice([
-        
-        'http://proxite.net/browse.php?u=%s&b=20',   #(yes)
-        'http://dontfilter.us/browse.php?b=20&u=%s',  #(yes)
-        'http://unblockthatsite.net/browse.php?u=%s&b=0', #(yes)
-
-        #'http://www.justproxy.co.uk/index.php?q=%s',
-        #'http://www.englandproxy.co.uk/%s/',
-        #'http://free-webproxy.com/browse.php?u=%s&b=29',
-        #'http://protectproxy.com/browse.php?u=%s&b=20',
-        #'http://free-proxyserver.com/browse.php?b=20&u=%s',
-        #'http://www.freeopenproxy.com/browse.php?b=20&u=%s',
-        #'http://www.justproxy.co.uk/index.php?hl=2e5&q=%s',
-        #'http://alter-ip.com/index.php?hl=3c0&q=%s',
-        #'http://www.proxythis.info/index.php?hl=2e5&q=%s',
-        #'http://quickprox.com/browse.php?b=20&u=%s',
-        #'https://unblock-proxy.com/browse.php?b=20&u=%s&b=0&f=norefer',
-        #'http://www.unblockmyweb.com/browse.php?b=20&u=%s',
-        #'http://unblocksite.org/view.php?b=20&u=%s',
+        'http://www.ultrabestproxy.com/index.php?q=%s'
+        'http://proxite.net/browse.php?u=%s&b=20',   
+        'http://unblockthatsite.net/browse.php?u=%s&b=0',
+        'http://ocaspro.com/browse.php?u=%s&b=12',
+        'http://coolbits.org/browse.php?u=%s&&b=0&f=norefer',
+        'http://www.agorafunfa.com/browse.php?u=%s&b=28&f=norefer',
+        'http://www.ultrabestproxy.com/index.php?q=%s',
+        'http://www.englandproxy.co.uk/%s/',
+         
     ])

@@ -18,7 +18,7 @@
 # Petar Stefanov, 2017
 msgid ""
 msgstr ""
-"Project-Id-Version: Covenant\n"
+"Project-Id-Version: Incursion\n"
 "POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "PO-Revision-Date: 2017-05-30 09:11+0000\n"
 "Last-Translator: Viper2k4\n"
@@ -291,12 +291,12 @@ msgid "Queue item"
 msgstr "Изчакващ елемент"
 
 msgctxt "#32066"
-msgid "Watched in Covenant"
-msgstr "Гледан в Covenant"
+msgid "Watched in Incursion"
+msgstr "Гледан в Incursion"
 
 msgctxt "#32067"
-msgid "Unwatched in Covenant"
-msgstr "Не гледан в Covenant"
+msgid "Unwatched in Incursion"
+msgstr "Не гледан в Incursion"
 
 msgctxt "#32068"
 msgid "Watched in Trakt"
@@ -571,8 +571,8 @@ msgid "No stream available"
 msgstr "Няма налично видео"
 
 msgctxt "#32402"
-msgid "Playback outside Covenant is not allowed"
-msgstr "Възпроизвеждане извън Covenant не е разрешено"
+msgid "Playback outside Incursion is not allowed"
+msgstr "Възпроизвеждане извън Incursion не е разрешено"
 
 msgctxt "#32403"
 msgid "Download"

@@ -102,13 +102,14 @@ class Watchcartoons(Scraper):
     def check_for_play(self, link):
         try:
             #print 'Pass url '+ link
-            episodeREQ = link.replace('https://www.watchcartoononline.io/','')
+            episodeREQ = link.replace('https://www.watchcartoononline.io/','')[:-4]
             #print 'episode REQ ' + episodeREQ
             OPEN = requests.get(link).content   
             getplaylist = re.compile('class="wcobtn".+?href="(.+?)"',re.DOTALL).findall(OPEN)[0]
             #print 'getplay '+ getplaylist
             listpage = requests.get(getplaylist).content
             list = re.compile('playlist: "(.+?)"',re.DOTALL).findall(listpage)[0]
+            list = 'https://www.watchcartoononline.io' + list
             #print 'List url xml ' + list
             headers = {'User_Agent':User_Agent}
             xml_list = requests.get(list,headers=headers,timeout=5).content

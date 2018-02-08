@@ -19,18 +19,21 @@
 '''
 
 import requests, json, sys
-from resources.lib.modules import cleantitle, control, source_utils
+from resources.lib.modules import source_utils, cleantitle, control
 
-accepted_extensions = ['mkv','mp4','avi', 'm4v']
+
 
 class source:
     def __init__(self):
+        self.accepted_extensions = ['mkv','mp4','avi', 'm4v', 'mpg', 'mpeg', 'webm']
         self.priority = 0
         self.language = ['en']
         self.domain = 'furk.net/'
-        self.meta_search_link = "/api/plugins/metasearch?api_key=%s&q=%s"
+        self.meta_search_link = "/api/plugins/metasearch?api_key=%s&q=%s&cached=yes&moderated=yes" \
+                                "&match=all&sort=cached&type=video&offset=0&limit=%s"
         self.base_link = 'https://www.furk.net'
         self.api_key = control.setting('furk.api')
+        self.search_limit = control.setting('furk.limit')
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
         try:
@@ -49,40 +52,38 @@ class source:
     def sources(self, url, hostDict, hostprDict):
         sources = []
         try:
-            if len(url['episode']) == 1:
-                url['episode'] = "0" + url['episode']
-            if len(url['season']) == 1:
-                url['season'] = "0" + url['season']
+            if len(url['episode']) == 1: url['episode'] = "0" + url['episode']
+            if len(url['season']) == 1: url['season'] = "0" + url['season']
             s = requests.Session()
-            url = url['tvshowtitle'] + "+S" + url['season'] + "e" + url['episode']
-            url = (self.base_link + self.meta_search_link % (self.api_key, url.replace(' ', '+')))
-            print("info - " + url)
-            p = s.get(url)
+            link = url['tvshowtitle'] + "+S" + url['season'] + "e" + url['episode']
+            link = (self.base_link + self.meta_search_link % (self.api_key, link.replace(' ', '+'), self.search_limit))
+            p = s.get(link)
             p = json.loads(p.text)
             files = p['files']
             for i in files:
-                if not int(i['files_num_video_player']) > 1:
+                if int(i['files_num_video']) == 1:
                     name = i['name']
-                    id = i['id']
                     url_dl = ''
-                    for x in accepted_extensions:
+                    for x in self.accepted_extensions:
                         if 'url_dl' in i:
                             if i['url_dl'].endswith(x):
+                                if 'FRENCH' in i['url_dl']:
+                                    continue
                                 url_dl = i['url_dl']
                                 quality = source_utils.get_release_quality(name , url_dl)
-                                print('info - ' + str(quality) + " link " + url_dl + " name " + name)
-                                sources.append({'source': "CDN", 'quality': quality[0], 'language': "en", 'url': url_dl, 'info': quality[1],
-                             'direct': True, 'debridonly': False})
+                                sources.append({'source': "CDN",
+                                                'quality': quality[0],
+                                                'language': "en",
+                                                'url': url_dl,
+                                                'info': quality[1],
+                                                'direct': True,
+                                                'debridonly': False})
                             else:
                                 continue
                         else:
                             continue
                     if url_dl == '':
                         continue
-                else:
-                    continue
-            for i in sources:
-                print("info - sources - " + str(i))
             return sources
         except:
             print("Unexpected error in Furk Script: source", sys.exc_info()[0])

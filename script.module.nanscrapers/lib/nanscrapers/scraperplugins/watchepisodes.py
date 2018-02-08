@@ -34,7 +34,7 @@ class Watchepisodes(Scraper):
                     continue
                 show_page = self.base_link + link_title
                     
-                format_grab = 'season-%s-episode-%s' %(season, episode)
+                format_grab = 'season-%s-episode-%s-' %(season, episode)
                 #print 'format ' + format_grab
                 headers = {'User_Agent':User_Agent}
                 linkspage = requests.get(show_page, headers=headers,timeout=5).content
@@ -42,7 +42,7 @@ class Watchepisodes(Scraper):
                 for episode_url in series_links:
                     if not format_grab in episode_url:
                         continue
-                    #print 'PASS ME >>>>>>>> '+episode_url
+                    print 'PASS ME >>>>>>>> '+episode_url
                     self.get_sources(episode_url)
  
             return self.sources

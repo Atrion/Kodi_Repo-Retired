@@ -1,9 +1,11 @@
 import requests
 import re
-import xbmc
+import xbmc,xbmcaddon,time
 from ..scraper import Scraper
-from ..common import clean_title,clean_search
-from nanscrapers.modules import cfscrape            
+from ..common import clean_title,clean_search,send_log,error_log
+from nanscrapers.modules import cfscrape
+
+dev_log = xbmcaddon.Addon('script.module.nanscrapers').getSetting("dev_log")            
 requests.packages.urllib3.disable_warnings()
 
 s = requests.session()
@@ -17,7 +19,8 @@ class Dudmovies(Scraper):
     def __init__(self):
         self.base_link = 'http://dudmovies.com'
         self.scraper = cfscrape.create_scraper()
-        
+        if dev_log=='true':
+            self.start_time = time.time()        
 
     # def scrape_episode(self, title, show_year, year, season, episode, imdb, tvdb, debrid = False):
     #     try:
@@ -46,39 +49,44 @@ class Dudmovies(Scraper):
         try:
             search_id = clean_search(title.lower())
             start_url = self.base_link + '/?s=' + search_id.replace(' ','+')
-            #print 'GW> '+start_url
-            headers={'User-Agent':User_Agent}
+            #print 'dud_search> '+start_url
+            headers={'User-Agent':User_Agent,'referer':'https://dudmovies.com/'}
             html = self.scraper.get(start_url,headers=headers,timeout=5).content
-            #links = html.split('data-movie-id')[1]
-            try:
-                match = re.compile('data-movie-id=.+?href="(.+?)".+?oldtitle="(.+?)".+?rel="tag">(.+?)</a>',re.DOTALL).findall(html)
-                for url,name,date in match:
-                    if clean_title(name).lower() == clean_title(title).lower():
-                        if year in date:
-                            self.get_source(url)
-            except:  
-                match2 = re.compile('data-movie-id=.+?href="(.+?)".+?oldtitle="(.+?)"',re.DOTALL).findall(html)
-                for url,name in match2:
-                    if clean_title(name).lower() == clean_title(title).lower():
-                        self.get_source(url)
-
-            
+            #print html
+            match = re.compile('class="ml-item".+?href="(.+?)".+?oldtitle="(.+?)"',re.DOTALL).findall(html)
+            uniques = []
+            for url,name in match:
+                if clean_title(title).lower() in clean_title(name).lower():
+                    url = 'https:'+url
+                    if url not in uniques:
+                        uniques.append(url)
+                        self.get_source(url,year)
             return self.sources
-        except:
-            pass
-            return[]
+        except Exception, argument:        
+            if dev_log == 'true':
+                error_log(self.name,'Check Search')
+            return self.sources
 
-    def get_source(self,url):
+    def get_source(self,url,year):
         try:
             #print 'CHECK #################################### '+url
             headers={'User-Agent':User_Agent}
             OPEN = self.scraper.get(url,headers=headers,timeout=10).content
-            Regex = re.compile('<iframe src="(.+?)"',re.DOTALL).findall(OPEN)
-            qual = re.compile('<span class="quality">(.+?)</span>',re.DOTALL).findall(OPEN)[0]
-            for link in Regex:
-                host = link.split('//')[1].replace('www.','')
-                host = host.split('/')[0].split('.')[0].title()
-                self.sources.append({'source': host, 'quality': qual, 'scraper': self.name, 'url': link,'direct': False})           
+            check = re.compile('<span class="quality">(.+?)</span>.+?rel="tag">(.+?)</a>',re.DOTALL).findall(OPEN)
+            for qual,date in check:
+                if year in date:
+                    Regex = re.compile('<div class="movieplay.+?src="(.+?)"',re.DOTALL).findall(OPEN)
+                    count = 0
+                    for link in Regex:
+                        link = 'https:'+link
+                        host = link.split('//')[1].replace('www.','')
+                        host = host.split('/')[0].split('.')[0].title()
+                        count +=1
+
+                        self.sources.append({'source': host, 'quality': qual, 'scraper': self.name, 'url': link,'direct': False})
+                    if dev_log=='true':
+                        end_time = time.time() - self.start_time
+                        send_log(self.name,end_time,count)               
         except:
             pass
 

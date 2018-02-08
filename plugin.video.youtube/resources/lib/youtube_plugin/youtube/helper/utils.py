@@ -183,7 +183,8 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
         # set the title
         video_item.set_title(snippet['title'])
 
-        if not video_item.use_dash() and video_item.get_headers() and video_item.get_uri().startswith('http'):
+        if not video_item.use_dash() and not settings.is_support_alternative_player_enabled() and \
+                video_item.get_headers() and video_item.get_uri().startswith('http'):
             video_item.set_uri(video_item.get_uri() + '|' + video_item.get_headers())
 
         """
@@ -315,7 +316,7 @@ def update_video_infos(provider, context, video_id_dict, playlist_item_id_dict=N
                                               is_logged_in=provider.is_logged_in(),
                                               refresh_container=refresh_container)
 
-        if len(context_menu) > 0:
+        if len(context_menu) > 0 and context.get_path() != '/play/':
             video_item.set_context_menu(context_menu, replace=replace_context_menu)
 
 

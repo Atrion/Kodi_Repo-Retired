@@ -22,10 +22,14 @@ class zoocinema(Scraper):
         try:
             name = clean_search(title.lower())
             
-            search = {'do':'search', 'subaction':'search', 'story':name}
             headers = {'User_Agent':User_Agent,'Referer':self.base_link}
+            grab_token = self.scraper.get(self.base_link,headers=headers, timeout=3).content
+            token = re.compile('name="token" value="(.+?)"',re.DOTALL).findall(grab_token)[0]
+            #print 'zooTOKEN '+token
+            
+            search = {'do':'search', 'subaction':'search','token':token, 'story':name}
             link = self.scraper.post(self.base_link, data=search,headers=headers, timeout=3).content
-            #print 'xmxmx'+link
+            #print 'ZOOO post '+link
             links = link.split('-in">')[1:]
             
             for p in links:
@@ -54,8 +58,13 @@ class zoocinema(Scraper):
             episode_pull = '0%s' %episode if len(episode) <2 else episode
             sep = 'S%sE%s' %(season_pull,episode_pull)
 
-            search = {'do':'search', 'subaction':'search', 'story':'%s %s' %(name,sep)}            
             headers = {'User_Agent':User_Agent,'Referer':self.base_link}
+            grab_token = self.scraper.get(self.base_link,headers=headers, timeout=3).content
+            token = re.compile('name="token" value="(.+?)"',re.DOTALL).findall(grab_token)[0]
+            #print 'zooTOKEN '+token
+                       
+            search = {'do':'search', 'subaction':'search','token':token, 'story':'%s %s' %(name,sep)}            
+
             link = self.scraper.post(self.base_link, data=search,headers=headers, timeout=3).content
             
             links = link.split('-in">')[1:]

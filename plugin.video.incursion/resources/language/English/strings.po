@@ -1,6 +1,6 @@
-# Addon Name: Covenant
-# Addon id: plugin.video.covenant
-# Addon Provider: Covenant
+# Addon Name: Incurison
+# Addon id: plugin.video.Incursion
+# Addon Provider: Nixgates
 # Translators:
 # Translators:
 # Translators:
@@ -716,7 +716,7 @@ msgid "Library"
 msgstr ""
 
 msgctxt "#32542"
-msgid "Covenant folders will be imported to library if they are added to media sources."
+msgid "Incursion folders will be imported to library if they are added to media sources."
 msgstr ""
 
 msgctxt "#32543"

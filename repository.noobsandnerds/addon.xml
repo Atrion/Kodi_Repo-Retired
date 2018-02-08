@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.noobsandnerds" name="noobsandnerds Repository" version="2.3.3" provider-name="noobsandnerds">
+<addon id="repository.noobsandnerds" name="noobsandnerds Repository" version="2.3.4" provider-name="noobsandnerds">
         <extension point="xbmc.addon.repository" name="noobsandnerds Repository">
                 <dir>
                         <info compressed="false">https://raw.githubusercontent.com/totalrevolution/python-koding/master/zips/addons.xml</info>
@@ -20,21 +20,21 @@
                         <info compressed="false">https://raw.githubusercontent.com/bromerzz/repository.bromcy/master/zips/addons.xml</info>
                         <checksum>https://raw.githubusercontent.com/bromerzz/repository.bromcy/master/zips/addons.xml.md5</checksum>
                         <datadir zip="true">https://raw.githubusercontent.com/bromerzz/repository.bromcy/master/zips/</datadir>
-                        </dir>
-                <dir>
-                        <info compressed="false">https://github.com/OpenELEQ/repository.elysium/raw/master/elysium.xml</info>
-                        <checksum>https://github.com/OpenELEQ/repository.elysium/raw/master/elysium.xml.md5</checksum>
-                        <datadir zip="true">https://raw.github.com/OpenELEQ/repository.elysium/master/</datadir>
                 </dir>
-                        <dir>
+                <dir minversion="14.0.0">
+                        <info compressed="false">https://raw.githubusercontent.com/OpenELEQ/repository.elysium/master/elysium.xml</info>
+                        <checksum>https://raw.githubusercontent.com/OpenELEQ/repository.elysium/master/elysium.xml.md5</checksum>
+                        <datadir zip="true">https://raw.githubusercontent.com/OpenELEQ/repository.elysium/master/zips/</datadir>
+                </dir>
+                <dir>
                         <info compressed="true">https://raw.githubusercontent.com/catchup4kodi/catchup4kodi/master/zips/addons.xml</info>
                         <checksum>https://raw.githubusercontent.com/catchup4kodi/catchup4kodi/master/zips/addons.xml.md5</checksum>
                         <datadir zip="true">https://raw.githubusercontent.com/catchup4kodi/catchup4kodi/master/zips/</datadir>
                 </dir>
                 <dir>
-                        <info compressed="false">https://raw.githubusercontent.com/midraal/repository.midraal/master/zips/addons.xml</info>
-                        <checksum>https://raw.githubusercontent.com/midraal/repository.midraal/master/zips/addons.xml.md5</checksum>
-                        <datadir zip="true">https://raw.github.com/midraal/repository.midraal/master/zips/</datadir>
+                        <info compressed="false">https://gitlab.com/midaddon/repository.midraal/raw/master/zips/addons.xml</info>
+                        <checksum>https://gitlab.com/midaddon/repository.midraal/raw/master/zips/addons.xml.md5</checksum>
+                        <datadir zip="true">https://gitlab.com/midaddon/repository.midraal/raw/master/zips/</datadir>
                 </dir>
                 <dir minversion="14.0.0">
                         <info compressed="false">https://github.com/OpenELEQ/repository.q/raw/master/openeleq-addons.xml</info>

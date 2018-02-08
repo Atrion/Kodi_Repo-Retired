@@ -14,7 +14,7 @@ class thewatchseries(Scraper):
     sources = []
 
     def __init__(self):
-        self.base_link = 'http://watchseriesmovie.net'
+        self.base_link = 'https://gowatchseries.io'
         self.sources = []
         if dev_log=='true':
             self.start_time = time.time() 
@@ -67,10 +67,11 @@ class thewatchseries(Scraper):
                         holdpage = requests.get(page_link, headers=headers,timeout=5).content
                         series_links = re.compile('<li class="child_episode".+?href="(.+?)"',re.DOTALL).findall(holdpage)
                         for movie_link in series_links:
-                            episode_chk = '-episode-%s' %episode
-                            #print 'episode chk% '+episode_chk
-                            if episode_chk in movie_link:
+                            episode_chk = '-episode-%sBOLLOX' %episode
+                            spoof_link = movie_link + 'BOLLOX'
+                            if episode_chk in spoof_link:
                                 movie_link = self.base_link + movie_link
+                                print 'pass TWS episode check: '+movie_link
                                 self.get_source(movie_link)
                     else:pass
             return self.sources

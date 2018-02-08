@@ -164,8 +164,12 @@ class seasons:
             item = result[0] ; item2 = result2[0]
 
             episodes = [i for i in result if '<EpisodeNumber>' in i]
-            episodes = [i for i in episodes if not '<SeasonNumber>0</SeasonNumber>' in i]
-            episodes = [i for i in episodes if not '<EpisodeNumber>0</EpisodeNumber>' in i]
+
+            if control.setting('tv.specials') == 'true':
+                episodes = [i for i in episodes]
+            else:
+                episodes = [i for i in episodes if not '<SeasonNumber>0</SeasonNumber>' in i]
+                episodes = [i for i in episodes if not '<EpisodeNumber>0</EpisodeNumber>' in i]
 
             seasons = [i for i in episodes if '<EpisodeNumber>1</EpisodeNumber>' in i]
 
