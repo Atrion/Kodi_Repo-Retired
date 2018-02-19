@@ -33,7 +33,7 @@ from resources.lib.modules import debrid
 from resources.lib.modules import realdebrid
 from resources.lib.modules import workers
 from resources.lib.modules import unshorten
-import nanscrapers
+import universalscrapers
 debridstatus = control.setting('debridsources')
 
 
@@ -49,7 +49,7 @@ import xbmcvfs
 try: from sqlite3 import dbapi2 as database
 except: from pysqlite2 import dbapi2 as database
 
-try: import urlresolver
+try: import resolveurl
 except: pass
 
 try: import xbmc
@@ -574,7 +574,7 @@ class sources:
             pass
         self.timeout = timeout
         allow_debrid = control.setting("debridsources") == "true"
-        scraper = nanscrapers.scrape_episode_with_dialog
+        scraper = universalscrapers.scrape_episode_with_dialog
         link, rest = scraper(
             self.tvshowtitle,
             self.year,
@@ -600,7 +600,7 @@ class sources:
             pass
         self.timeout = timeout
         allow_debrid = control.setting("debridsources") == "true"
-        scraper = nanscrapers.scrape_movie_with_dialog
+        scraper = universalscrapers.scrape_movie_with_dialog
         link, rest = scraper(
             self.title,
             self.year,
@@ -662,7 +662,7 @@ class sources:
 
         if content == 'movie':
             title = self.getTitle(title)
-            scraper = nanscrapers.scrape_movie
+            scraper = universalscrapers.scrape_movie
             links_scraper = scraper(
                     title,
                     year,
@@ -671,7 +671,7 @@ class sources:
                     enable_debrid=allow_debrid)
         else:
             tvshowtitle = self.getTitle(tvshowtitle)
-            scraper = nanscrapers.scrape_episode
+            scraper = universalscrapers.scrape_episode
             links_scraper = scraper(
                     tvshowtitle,
                     year,
@@ -710,7 +710,7 @@ class sources:
         return self.sources
 
     def get_nan_sources(self, links_scraper, progressDialog):
-        num_scrapers = len(nanscrapers.relevant_scrapers())
+        num_scrapers = len(universalscrapers.relevant_scrapers())
         index = 0
         string1 = "Time Elapsed %s"
         string2 = control.lang(32405).encode('utf-8')
@@ -1087,8 +1087,8 @@ class sources:
 
             if not direct == True:
 
-                                if not debridstatus == 'true': hmf = urlresolver.HostedMediaFile(url=u, include_disabled=True, include_universal=False)
-                                else: hmf = urlresolver.HostedMediaFile(url=u, include_disabled=True, include_universal=True)
+                                if not debridstatus == 'true': hmf = resolveurl.HostedMediaFile(url=u, include_disabled=True, include_universal=False)
+                                else: hmf = resolveurl.HostedMediaFile(url=u, include_disabled=True, include_universal=True)
                                 if hmf.valid_url() == True: url = hmf.resolve()
 
             if url == False or url == None: raise Exception()
@@ -1361,7 +1361,7 @@ class sources:
         self.metaProperty = 'plugin.video.neptune.container.meta'
 
         try:
-            self.hostDict = urlresolver.relevant_resolvers(order_matters=True)
+            self.hostDict = resolveurl.relevant_resolvers(order_matters=True)
             self.hostDict = [i.domains for i in self.hostDict if not '*' in i.domains]
             self.hostDict = [i.lower() for i in reduce(lambda x, y: x+y, self.hostDict)]
             self.hostDict = [x for y,x in enumerate(self.hostDict) if x not in self.hostDict[:y]]

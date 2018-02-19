@@ -18,7 +18,7 @@ class carthd(Scraper):
     sources = []
 
     def __init__(self):
-        self.base_link = 'https://cartoonhd.zone'
+        self.base_link = 'https://cartoonhd.biz'
         self.sources = []
         if dev_log=='true':
             self.start_time = time.time()
@@ -72,7 +72,7 @@ class carthd(Scraper):
                         match = re.compile('"type":"(.+?)".+?[iI][fF][rR][aA][mM][eE].+?[sS][rR][cC].+?"(.+?)"',re.DOTALL).findall(links)
                         count = 0
                         for source_base,link in match:
-                            link = link.replace('\\','')
+                            link = link.replace('\\','').replace(' ','%20')
                             if 'blogspot' in source_base:
                                 source = source_base.split(' -')[0]
                                 quality = source_base.split(' - ')[1]
@@ -101,11 +101,28 @@ class carthd(Scraper):
                                 count +=1
                                 self.sources.append({'source': source_base, 'quality': rez, 'scraper': self.name, 'url': link,'direct': False})
                             elif 'openload' in link:
+                                get_res=requests.get(link,headers=headers,timeout=5).content
+                                rez = re.compile('description" content="(.+?)"',re.DOTALL).findall(get_res)[0]
+                                if '1080p' in rez:
+                                    qual = '1080p'
+                                elif '720p' in rez:
+                                    qual='720p'
+                                else:
+                                    qual='DVD'
                                 count +=1
-                                self.sources.append({'source': source_base,'quality': 'DVD','scraper': self.name,'url': link,'direct': False})
+                                self.sources.append({'source': 'Openload','quality': qual,'scraper': self.name,'url': link,'direct': False})
                             elif 'vidcdn' in link:
                                 count +=1
-                                self.sources.append({'source': 'VidnodeSSL','quality': '720p','scraper': self.name,'url': link,'direct': True})
+                                self.sources.append({'source': 'Vidncdn','quality': '720p','scraper': self.name,'url': link,'direct': True})
+                            elif 'megaup' in link:
+                                pass
+                                #self.sources.append({'source': 'Megaup','quality': '720p','scraper': self.name,'url': link,'direct': False})
+                            elif 'm4ukido' in link:
+                                count +=1
+                                self.sources.append({'source': 'M4Ukido','quality': '720p','scraper': self.name,'url': link,'direct': True})
+                            elif 'bjdobr14' in link:
+                                count +=1
+                                self.sources.append({'source': 'BjDobr','quality': '720p','scraper': self.name,'url': link,'direct': True})
                             else:
                                 count +=1
                                 self.sources.append({'source': source_base,'quality': 'DVD','scraper': self.name,'url': link,'direct': False})
@@ -171,7 +188,7 @@ class carthd(Scraper):
                     match = re.compile('"type":"(.+?)".+?[iI][fF][rR][aA][mM][eE].+?[sS][rR][cC].+?"(.+?)"',re.DOTALL).findall(links)
                     count = 0
                     for source_base,link in match:
-                        link = link.replace('\\','')
+                        link = link.replace('\\','').replace(' ','%20')
                         #print '####'+link
                         if 'blogspot' in source_base:
                             source = source_base.split(' -')[0]
@@ -201,11 +218,31 @@ class carthd(Scraper):
                             count +=1
                             self.sources.append({'source': source_base, 'quality': rez, 'scraper': self.name, 'url': link,'direct': False})
                         elif 'openload' in link:
+                            get_res=requests.get(link,headers=headers,timeout=5).content
+                            rez = re.compile('description" content="(.+?)"',re.DOTALL).findall(get_res)[0]
+                            if '1080p' in rez:
+                                qual = '1080p'
+                            elif '720p' in rez:
+                                qual='720p'
+                            else:
+                                qual='DVD'
                             count +=1
-                            self.sources.append({'source': source_base,'quality': 'DVD','scraper': self.name,'url': link,'direct': False})
+                            self.sources.append({'source': source_base,'quality': qual,'scraper': self.name,'url': link,'direct': False})
                         elif 'vidcdn' in link:
                             count +=1
-                            self.sources.append({'source': 'VidnodeSSL','quality': '720p','scraper': self.name,'url': link,'direct': True})
+                            self.sources.append({'source': 'Vidcdn','quality': '720p','scraper': self.name,'url': link,'direct': True})
+                        elif 'megaup' in link:
+                            pass
+                            #self.sources.append({'source': 'Megaup','quality': '720p','scraper': self.name,'url': link,'direct': True})
+                        elif 'm4ukido' in link:
+                            count +=1
+                            self.sources.append({'source': 'M4Ukido','quality': '720p','scraper': self.name,'url': link,'direct': True})
+                        elif 'bjdobr14' in link:
+                            count +=1
+                            self.sources.append({'source': 'BjDobr','quality': '720p','scraper': self.name,'url': link,'direct': True})
+                        elif '192.' in link:
+                            count +=1
+                            self.sources.append({'source': 'GoogleLink','quality': '720p','scraper': self.name,'url': link,'direct': True})
                         else:
                             count +=1
                             self.sources.append({'source': source_base,'quality': 'DVD','scraper': self.name,'url': link,'direct': False})

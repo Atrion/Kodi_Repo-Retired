@@ -1,4 +1,5 @@
-import requests,urlresolver
+import requests
+import resolveurl as urlresolver
 import urlparse
 import re,xbmcaddon,time 
 from ..scraper import Scraper

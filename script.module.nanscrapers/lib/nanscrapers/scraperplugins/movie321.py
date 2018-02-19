@@ -58,7 +58,7 @@ class Movie321(Scraper):
     def scrape_movie(self, title, year, imdb, debrid = False):
         try:
             mock_ID = clean_search(title.lower())
-            print mock_ID
+            #print mock_ID
             loop_url = ['online-free','for-free','free','']
             for attempt in loop_url:
                 movie_url = '%s/film/watch-%s-%s' %(self.base_link,mock_ID.replace(' ','-'),attempt)
@@ -72,7 +72,7 @@ class Movie321(Scraper):
                 for item_title in match:
                     if not clean_title(title.lower()) == clean_title(item_title.lower()):
                         continue
-                    print 'clean321movie pass '+ movie_url
+                    #print 'clean321movie pass '+ movie_url
                     Regex = re.compile('</iframe>.+?class="metaframe rptss" src="(.+?)"',re.DOTALL).findall(html)
                     count = 0
                     for link in Regex: 

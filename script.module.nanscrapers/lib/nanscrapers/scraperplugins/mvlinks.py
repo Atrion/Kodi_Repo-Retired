@@ -1,5 +1,5 @@
 import re,xbmcaddon,time 
-import urlresolver
+import resolveurl as urlresolver
 import requests 
 from ..scraper import Scraper
 from ..common import clean_title,clean_search,send_log,error_log
@@ -14,7 +14,7 @@ class mvlinks(Scraper):
     sources = []
 
     def __init__(self):
-        self.base_link = 'http://dl.newmyvideolink.xyz'
+        self.base_link = 'http://to.newmyvideolink.xyz'
         if dev_log=='true':
             self.start_time = time.time()        
 

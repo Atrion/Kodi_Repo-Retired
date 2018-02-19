@@ -44,7 +44,7 @@ class putlockerhd(Scraper):
                 else:
                     res='DVD'
                 count +=1    
-                self.sources.append({'source': 'Googlelink','quality': res,'scraper': self.name,'url':link,'direct': False})
+                self.sources.append({'source': 'Googlelink','quality': res,'scraper': self.name,'url':link,'direct': True})
             if dev_log=='true':
                 end_time = time.time() - self.start_time
                 send_log(self.name,end_time,count)    

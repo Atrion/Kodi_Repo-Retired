@@ -449,6 +449,10 @@
 		<setting id="SprutoResolver_priority" type="number" label="Priority" default="100"/>
 		<setting id="SprutoResolver_enabled" type="bool" label="Enabled" default="true"/>
 		<setting id="SprutoResolver_login" type="bool" label="login" default="true" visible="false"/>
+		<setting label="ssfiles.com" type="lsep"/>
+		<setting id="SsfilesResolver_priority" type="number" label="Priority" default="100"/>
+		<setting id="SsfilesResolver_enabled" type="bool" label="Enabled" default="true"/>
+		<setting id="SsfilesResolver_login" type="bool" label="login" default="true" visible="false"/>
 		<setting label="Streamable" type="lsep"/>
 		<setting id="StreamableResolver_priority" type="number" label="Priority" default="100"/>
 		<setting id="StreamableResolver_enabled" type="bool" label="Enabled" default="true"/>
@@ -473,12 +477,12 @@
 		<setting id="StreamMoeResolver_priority" type="number" label="Priority" default="100"/>
 		<setting id="StreamMoeResolver_enabled" type="bool" label="Enabled" default="true"/>
 		<setting id="StreamMoeResolver_login" type="bool" label="login" default="true" visible="false"/>
+	</category>
+	<category label="Resolvers 6">
 		<setting label="streamplay" type="lsep"/>
 		<setting id="StreamplayResolver_priority" type="number" label="Priority" default="100"/>
 		<setting id="StreamplayResolver_enabled" type="bool" label="Enabled" default="true"/>
 		<setting id="StreamplayResolver_login" type="bool" label="login" default="true" visible="false"/>
-	</category>
-	<category label="Resolvers 6">
 		<setting label="SyFy" type="lsep"/>
 		<setting id="SyFyResolver_priority" type="number" label="Priority" default="100"/>
 		<setting id="SyFyResolver_enabled" type="bool" label="Enabled" default="true"/>
@@ -551,12 +555,12 @@
 		<setting id="UploadXResolver_priority" type="number" label="Priority" default="100"/>
 		<setting id="UploadXResolver_enabled" type="bool" label="Enabled" default="true"/>
 		<setting id="UploadXResolver_login" type="bool" label="login" default="true" visible="false"/>
+	</category>
+	<category label="Resolvers 7">
 		<setting label="uploadz.org" type="lsep"/>
 		<setting id="UploadzResolver_priority" type="number" label="Priority" default="100"/>
 		<setting id="UploadzResolver_enabled" type="bool" label="Enabled" default="true"/>
 		<setting id="UploadzResolver_login" type="bool" label="login" default="true" visible="false"/>
-	</category>
-	<category label="Resolvers 7">
 		<setting label="uptobox" type="lsep"/>
 		<setting id="UpToBoxResolver_priority" type="number" label="Priority" default="100"/>
 		<setting id="UpToBoxResolver_enabled" type="bool" label="Enabled" default="true"/>
@@ -631,12 +635,12 @@
 		<setting id="VideowoodResolver_priority" type="number" label="Priority" default="100"/>
 		<setting id="VideowoodResolver_enabled" type="bool" label="Enabled" default="true"/>
 		<setting id="VideowoodResolver_login" type="bool" label="login" default="true" visible="false"/>
+	</category>
+	<category label="Resolvers 8">
 		<setting label="videozoo" type="lsep"/>
 		<setting id="VideoZooResolver_priority" type="number" label="Priority" default="100"/>
 		<setting id="VideoZooResolver_enabled" type="bool" label="Enabled" default="true"/>
 		<setting id="VideoZooResolver_login" type="bool" label="login" default="true" visible="false"/>
-	</category>
-	<category label="Resolvers 8">
 		<setting label="vidfile" type="lsep"/>
 		<setting id="VidFileResolver_priority" type="number" label="Priority" default="100"/>
 		<setting id="VidFileResolver_enabled" type="bool" label="Enabled" default="true"/>
@@ -709,12 +713,12 @@
 		<setting id="VivosxResolver_priority" type="number" label="Priority" default="100"/>
 		<setting id="VivosxResolver_enabled" type="bool" label="Enabled" default="true"/>
 		<setting id="VivosxResolver_login" type="bool" label="login" default="true" visible="false"/>
+	</category>
+	<category label="Resolvers 9">
 		<setting label="VK.com" type="lsep"/>
 		<setting id="VKResolver_priority" type="number" label="Priority" default="100"/>
 		<setting id="VKResolver_enabled" type="bool" label="Enabled" default="true"/>
 		<setting id="VKResolver_login" type="bool" label="login" default="true" visible="false"/>
-	</category>
-	<category label="Resolvers 9">
 		<setting label="vodlock" type="lsep"/>
 		<setting id="VodLockResolver_priority" type="number" label="Priority" default="100"/>
 		<setting id="VodLockResolver_enabled" type="bool" label="Enabled" default="true"/>

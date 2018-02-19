@@ -227,7 +227,7 @@ msgstr "Renombrar"
 
 msgctxt "#30114"
 msgid "Confirm delete"
-msgstr "Confirmación para borrar"
+msgstr "Confirmación para eliminar"
 
 msgctxt "#30115"
 msgid "Confirm remove"
@@ -235,7 +235,7 @@ msgstr "Confirmación para quitar"
 
 msgctxt "#30116"
 msgid "Delete \"%s\"?"
-msgstr "¿Esta seguro de que desea borrar \"%s\"?"
+msgstr "¿Esta seguro de que desea eliminar \"%s\"?"
 
 msgctxt "#30117"
 msgid "Remove \"%s\"?"
@@ -385,7 +385,7 @@ msgstr "Seleccione el idioma"
 
 msgctxt "#30525"
 msgid "Select region"
-msgstr "Seleccione región"
+msgstr "Seleccione una región"
 
 msgctxt "#30526"
 msgid "Adjust"
@@ -625,7 +625,7 @@ msgstr "Mis Suscripciones (Filtrado)"
 
 msgctxt "#30585"
 msgid "Filtered channel list (comma delimited)"
-msgstr "Lista de canales filtrados (separados por comas)"
+msgstr "Lista de canales filtrados (separado por comas)"
 
 msgctxt "#30586"
 msgid "Blacklist"
@@ -697,7 +697,7 @@ msgstr "Sin autogenerado"
 
 msgctxt "#30603"
 msgid "Age gate"
-msgstr Activar restricciones por edad"
+msgstr "Activar restricciones por edad"
 
 msgctxt "#30604"
 msgid "Allow offensive content"
@@ -705,11 +705,11 @@ msgstr "Permitir contenido ofensivo"
 
 msgctxt "#30605"
 msgid "Quick Search"
-msgstr "Búsqueda rápida"
+msgstr "Búsqueda Rápida"
 
 msgctxt "#30606"
 msgid "Quick Search (Incognito)"
-msgstr "Búsqueda rápida (Incógnito)"
+msgstr "Búsqueda Rápida (Incógnito)"
 
 msgctxt "#30607"
 msgid "Audio only"
@@ -757,16 +757,108 @@ msgstr ""
 
 msgctxt "#30618"
 msgid "Enable mpeg-dash proxy"
-msgstr ""
+msgstr "Habilitar proxy mpeg-dash"
 
 msgctxt "#30619"
-msgid "Proxy port"
-msgstr ""
+msgid "Port"
+msgstr "Puerto"
 
 msgctxt "#30620"
-msgid "Port %s already in use. Cannot start proxy server."
-msgstr ""
+msgid "Port %s already in use. Cannot start http server."
+msgstr "Puerto %s ya en uso. No se ha podido iniciar el servidor HTTP"
 
 msgctxt "#30621"
 msgid "Proxy is required for mpeg-dash vods"
+msgstr "Para VODs mpeg-dash es necesario proxy"
+
+msgctxt "#30622"
+msgid "Purchases"
+msgstr "Compras"
+
+msgctxt "#30623"
+msgid "Install InputStream Helper"
+msgstr "Instalar InputStream Helper"
+
+msgctxt "#30624"
+msgid "Requires Kodi 17+"
+msgstr "Necesario Kodi 17 o superior"
+
+msgctxt "#30625"
+msgid "InputStream Helper is already installed."
+msgstr "InputStream Helper ya está instalado"
+
+msgctxt "#30626"
+msgid "Delete temporary files"
+msgstr "Eliminar archivos temporales"
+
+msgctxt "#30627"
+msgid "Rate video after watching"
+msgstr "Calificar video después de ver"
+
+msgctxt "#30628"
+msgid "HTTP Server"
+msgstr "Server HTTP"
+
+msgctxt "#30629"
+msgid "IP whitelist (comma delimited)"
+msgstr "Lista blanca IP (separado por comas)"
+
+msgctxt "#30630"
+msgid "Save"
+msgstr "Guardar"
+
+msgctxt "#30631"
+msgid "Successfully updated: %s"
+msgstr "Actualizado correctamente: %s"
+
+msgctxt "#30632"
+msgid "Enable API configuration page"
+msgstr "Habilitar página de configuración de API"
+
+msgctxt "#30633"
+msgid "http://<ipaddress>:<port>/api (see HTTP Server)"
+msgstr ""
+
+msgctxt "#30634"
+msgid "YouTube Add-on API Configuration"
+msgstr ""
+
+msgctxt "#30635"
+msgid "No changes detected, API keys were not updated."
+msgstr ""
+
+msgctxt "#30636"
+msgid "Personal API keys are enabled."
+msgstr ""
+
+msgctxt "#30637"
+msgid "Personal API keys are disabled."
+msgstr ""
+
+msgctxt "#30638"
+msgid "Bookmark this page to quickly add your keys in the future."
+msgstr ""
+
+msgctxt "#30639"
+msgid "Found personal API keys in api_keys.json, would you like to restore them? Choosing no will overwrite them."
+msgstr ""
+
+msgctxt "#30640"
+msgid "Restore"
+msgstr ""
+
+msgctxt "#30641"
+msgid "Delete api_keys.json"
+msgstr ""
+
+msgctxt "#30642"
+msgid "Delete access_manager.json"
+msgstr ""
+
+msgctxt "#30643"
+msgid "Listen on IP"
+msgstr ""
+
+msgctxt "#30644"
+msgid "Select listen IP"
 msgstr ""

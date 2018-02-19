@@ -4,7 +4,7 @@ from ..common import random_agent,send_log,error_log
 requests.packages.urllib3.disable_warnings()
 s = requests.session()
 dev_log = xbmcaddon.Addon('script.module.nanscrapers').getSetting("dev_log")
-
+from nanscrapers.modules import cfscrape 
 class watchstream(Scraper):
     domains = ['https://putlockers.movie']
     name = "Watchstream"
@@ -12,6 +12,7 @@ class watchstream(Scraper):
 
     def __init__(self):
         self.base_link = 'https://putlockers.movie/embed/'
+        self.scraper = cfscrape.create_scraper()
         if dev_log=='true':
             self.start_time = time.time() 
                       
@@ -20,7 +21,7 @@ class watchstream(Scraper):
             get_link = self.base_link + '%s/' %(imdb)
             headers={'User-Agent':random_agent(),'referrer':get_link}
             data = {'tmp_chk':'1'}
-            html = requests.post(get_link,headers=headers,data=data,verify=False,timeout=5).content
+            html = self.scraper.post(get_link,headers=headers,data=data,verify=False,timeout=5).content
             #print html
             link = re.compile('<iframe src="(.+?)"',re.DOTALL).findall(html)[0]
             #print link

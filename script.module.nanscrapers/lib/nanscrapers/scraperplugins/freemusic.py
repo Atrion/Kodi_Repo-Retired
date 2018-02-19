@@ -26,7 +26,7 @@ class freemusic(Scraper):
             artist_search = clean_title(artist.lower()).replace(' ','+')
             start_url = '%sresults?search_query=%s+%s'    %(self.base_link,artist_search,song_search)
             html = requests.get(start_url, headers=headers, timeout=20).content
-            match = re.compile('<h4 class="card-title">(.+?)</h4>.+?id="(.+?)"',re.DOTALL).findall(html)
+            match = re.compile('<h4 class="card-title">.+?</i>(.+?)</h4>.+?id="(.+?)"',re.DOTALL).findall(html)
             count = 0
             for m, link in match:
                 match4 = m.replace('\n','').replace('\t','').replace('  ',' ').replace('   ',' ').replace('    ',' ').replace('     ',' ')

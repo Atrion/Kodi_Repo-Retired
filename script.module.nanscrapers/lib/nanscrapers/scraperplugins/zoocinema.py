@@ -24,10 +24,10 @@ class zoocinema(Scraper):
             
             headers = {'User_Agent':User_Agent,'Referer':self.base_link}
             grab_token = self.scraper.get(self.base_link,headers=headers, timeout=3).content
-            token = re.compile('name="token" value="(.+?)"',re.DOTALL).findall(grab_token)[0]
+            token = re.compile('name="tok" value="(.+?)"',re.DOTALL).findall(grab_token)[0]
             #print 'zooTOKEN '+token
             
-            search = {'do':'search', 'subaction':'search','token':token, 'story':name}
+            search = {'do':'search', 'subaction':'search','tok':token, 'story':name}
             link = self.scraper.post(self.base_link, data=search,headers=headers, timeout=3).content
             #print 'ZOOO post '+link
             links = link.split('-in">')[1:]
@@ -60,10 +60,10 @@ class zoocinema(Scraper):
 
             headers = {'User_Agent':User_Agent,'Referer':self.base_link}
             grab_token = self.scraper.get(self.base_link,headers=headers, timeout=3).content
-            token = re.compile('name="token" value="(.+?)"',re.DOTALL).findall(grab_token)[0]
+            token = re.compile('name="tok" value="(.+?)"',re.DOTALL).findall(grab_token)[0]
             #print 'zooTOKEN '+token
                        
-            search = {'do':'search', 'subaction':'search','token':token, 'story':'%s %s' %(name,sep)}            
+            search = {'do':'search', 'subaction':'search','tok':token, 'story':'%s %s' %(name,sep)}            
 
             link = self.scraper.post(self.base_link, data=search,headers=headers, timeout=3).content
             

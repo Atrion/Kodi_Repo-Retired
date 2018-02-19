@@ -1,5 +1,6 @@
 import requests,re,time,xbmcaddon
-from ..common import clean_title, clean_search,filter_host,send_log,error_log
+import resolveurl as urlresolver
+from ..common import clean_title, clean_search,send_log,error_log
 from ..scraper import Scraper
 dev_log = xbmcaddon.Addon('script.module.nanscrapers').getSetting("dev_log")
 User_Agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'
@@ -29,8 +30,8 @@ class wmz(Scraper):
                         if year in item_name:
                             item_name = item_name.replace(' ','_')
                             url = '%s/Movie/Index/%s/%s' %(self.base_link,ID,item_name)
-                            print 'wmz Movie pass '+url
-                            print 'wmz ID ' +ID
+                            #print 'wmz Movie pass '+url
+                            #print 'wmz ID ' +ID
                             self.get_source(url,ID)
             
             return self.sources
@@ -42,42 +43,45 @@ class wmz(Scraper):
     def get_source(self,url,ID):
         try:
             # url not needed
-            new_url = '%s/Movie/getAllLinks/?movID=%s' %(self.base_link,ID) 
-            
+            new_url = '%s/Movie/getmyLinks/?movID=%s' %(self.base_link,ID) 
+            #print '###### '+new_url
             headers={'User-Agent':User_Agent}
             OPEN = requests.get(new_url,headers=headers,timeout=5).content
+            #print OPEN
             Regex = re.compile('"picLink":"(.+?)"',re.DOTALL).findall(OPEN)
             count = 0
             for link in Regex:
-                host = link.split('//')[1].replace('www.','')
-                host = host.split('/')[0].lower()
+                #print link
                 if 'streamango.com' in link:
-                    holder = requests.get(link).content
-                    vid = re.compile('type:"video/mp4".+?height:(.+?),',re.DOTALL).findall(holder)
-                    for qual in vid:
-                        count +=1
-                        self.sources.append({'source': host, 'quality': qual, 'scraper': self.name, 'url': link,'direct': False})            
-                elif 'openload' in link:
                     try:
-                        chk = requests.get(url).content
+                        get_res=requests.get(link,timeout=5).content
+                        qual = re.compile('{type:"video/mp4".+?height:(.+?),',re.DOTALL).findall(get_res)[0]
+                        if '1080' in qual:
+                            rez='1080p'
+                        elif '720' in qual:
+                            rez = '720p'
+                        else:rez= 'DVD'
+                    except:rez='DVD'
+                    count +=1
+                    self.sources.append({'source': 'Streamango', 'quality': rez, 'scraper': self.name, 'url': link,'direct': False})            
+                if 'openload' in link:
+                    try:
+                        chk = requests.get(link).content
                         rez = re.compile('"description" content="(.+?)"',re.DOTALL).findall(chk)[0]
                         if '1080' in rez:
                             res='1080p'
                         elif '720' in rez:
                             res='720p'
-                        elif '1080' in link:
-                            res = '1080p'
-                        elif '720' in link:
-                            res = '720p'  
+                        else:res='DVD' 
                     except: res = 'DVD'
                     count +=1
                     self.sources.append({'source': 'Openload', 'quality': res, 'scraper': self.name, 'url': link,'direct': False})              
                 else:
-                    if not filter_host(host):
-                        continue
-                    host = host.split('.')[0].title()
-                    count +=1
-                    self.sources.append({'source': host, 'quality': 'DVD', 'scraper': self.name, 'url': link,'direct': False}) 
+                    if urlresolver.HostedMediaFile(link).valid_url():
+                        host = link.split('//')[1].replace('www.','')
+                        host = host.split('/')[0].split('.')[0].title()
+                        count +=1
+                        self.sources.append({'source': host, 'quality': 'DVD', 'scraper': self.name, 'url': link,'direct': False})
             if dev_log=='true':
                 end_time = time.time() - self.start_time
                 send_log(self.name,end_time,count)                    

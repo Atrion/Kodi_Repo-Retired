@@ -334,9 +334,9 @@ elif action == 'authTrakt':
     trakt.authTrakt()
 
 elif action == 'smuSettings':
-    try: import urlresolver
+    try: import resolveurl
     except: pass
-    urlresolver.display_settings()
+    resolveurl.display_settings()
 
 elif action == 'download':
     import json
@@ -444,4 +444,4 @@ elif action == 'service':
     from resources.lib.modules import libtools
     libtools.libepisodes().service()
 
-elif action == 'nanscrapersettings'    : xbmcaddon.Addon('script.module.nanscrapers').openSettings()
+elif action == 'nanscrapersettings'    : xbmcaddon.Addon('script.module.universalscrapers').openSettings()

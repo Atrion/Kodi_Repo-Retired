@@ -194,10 +194,10 @@ class HostedLink:
             if check_url:
                 noresolver = False
                 try:
-                    import urlresolver
+                    import resolveurl as urlresolver
                 except:
                     try:
-                        import urlresolver9 as urlresolver
+                        import urlresolver as urlresolver
                     except:
                         noresolver = True
                 new_sources = []

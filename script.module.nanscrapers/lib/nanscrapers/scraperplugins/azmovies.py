@@ -1,5 +1,6 @@
 import re
-import requests,urlresolver
+import requests
+import resolveurl as urlresolver
 import xbmc,xbmcaddon,time
 import urllib
 from ..scraper import Scraper

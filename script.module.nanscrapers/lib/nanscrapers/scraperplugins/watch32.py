@@ -37,7 +37,7 @@ class watch32(Scraper):
                 else:
                     res='DVD'
                 count +=1    
-                self.sources.append({'source': 'Googlelink','quality': res,'scraper': self.name,'url': movie_link,'direct': False})
+                self.sources.append({'source': 'Googlelink','quality': res,'scraper': self.name,'url': movie_link,'direct': True})
             if dev_log=='true':
                 end_time = time.time() - self.start_time
                 send_log(self.name,end_time,count)   

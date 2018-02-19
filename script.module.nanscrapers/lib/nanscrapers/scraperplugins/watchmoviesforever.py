@@ -1,23 +1,25 @@
 import re
 import requests
-import xbmc,time
+import xbmc,time,xbmcaddon
 import urllib
 from ..scraper import Scraper
-from ..common import clean_title,clean_search
+from ..common import clean_title,clean_search,send_log,error_log 
 from nanscrapers.modules import cfscrape
+dev_log = xbmcaddon.Addon('script.module.nanscrapers').getSetting("dev_log")
+User_Agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'
 
-User_Agent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 8_4 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12H143 Safari/600.1.4'
 
 
 class watchmoviesforever(Scraper):
     domains = ['watchmoviesforever.com']
-    name = "watchmoviesforever"
+    name = "WatchMoviesForever"
     sources = []
 
     def __init__(self):
         self.base_link = 'http://watchmoviesforever.com'
         self.scraper = cfscrape.create_scraper()
-        self.start_time = time.time()
+        if dev_log=='true':
+            self.start_time = time.time() 
 
     def scrape_movie(self, title, year, imdb, debrid=False):
         try:
@@ -39,7 +41,8 @@ class watchmoviesforever(Scraper):
     def get_source(self,movie_link):
         try:
             html = self.scraper.get(movie_link).content
-            links = re.compile('<div class="movieplay">.+?<a href="(.+?)"',re.DOTALL).findall(html)
+            links = re.compile('<div class="movieplay".+?href="(.+?)"',re.DOTALL).findall(html)
+            count = 0
             for link in links:
                 if 'openload' in link:
                     try:
@@ -52,27 +55,24 @@ class watchmoviesforever(Scraper):
                             qual='720p'
                         else:
                             qual='DVD'
-                    except: qual='DVD'        
+                    except: qual='DVD'
+                    count +=1                    
                     self.sources.append({'source': 'Openload','quality': qual,'scraper': self.name,'url': link,'direct': False})
-                    end_time = time.time()
-                    total_time = end_time - self.start_time
-                    print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
                 elif 'streamango' in link:
                     try:
                         headers = {'User_Agent':User_Agent}
                         get_res=self.scraper.get(link,headers=headers,timeout=5).content
-                        rez = re.compile('description" content="(.+?)"',re.DOTALL).findall(get_res)[0]
-                        if '1080p' in rez:
+                        rez = re.compile('{type:"video/mp4".+?height:(.+?),',re.DOTALL).findall(get_res)[0]
+                        if '1080' in rez:
                             qual = '1080p'
-                        elif '720p' in rez:
+                        elif '720' in rez:
                             qual='720p'
                         else:
                             qual='DVD'
-                    except: qual='DVD'        
+                    except: qual='DVD'    
+                    count +=1
                     self.sources.append({'source': 'Streamango','quality': qual,'scraper': self.name,'url': link,'direct': False})
-                    end_time = time.time()
-                    total_time = end_time - self.start_time
-                    print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
+
                 elif 'vidoza' in link:
                     try:
                         headers = {'User_Agent':User_Agent}
@@ -84,11 +84,9 @@ class watchmoviesforever(Scraper):
                             qual='720p'
                         else:
                             qual='DVD'
-                    except: qual='DVD'        
+                    except: qual='DVD'
+                    count +=1                    
                     self.sources.append({'source': 'Vidoza','quality': qual,'scraper': self.name,'url': link,'direct': False})
-                    end_time = time.time()
-                    total_time = end_time - self.start_time
-                    print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
                 elif 'rapidvideo' in link:
                     try:
                         headers = {'User_Agent':User_Agent}
@@ -100,19 +98,19 @@ class watchmoviesforever(Scraper):
                             qual='720p'
                         else:
                             qual='DVD'
-                    except: qual='DVD'        
+                    except: qual='DVD'  
+                    count +=1
                     self.sources.append({'source': 'Rapidvideo','quality': qual,'scraper': self.name,'url': link,'direct': False})
-                    end_time = time.time()
-                    total_time = end_time - self.start_time
-                    print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
                 else:
                     qual = 'DVD'
                     host = link.split('//')[1].replace('www.','')
                     host = host.split('/')[0].split('.')[0].title()
+                    count +=1
                     self.sources.append({'source': host,'quality': qual,'scraper': self.name,'url': link,'direct': False})
-                    end_time = time.time()
-                    total_time = end_time - self.start_time
-                    print (repr(total_time))+"<<<<<<<<<<<<<<<<<<<<<<<<<"+self.name+">>>>>>>>>>>>>>>>>>>>>>>>>total_time"
+            if dev_log=='true':
+                end_time = time.time() - self.start_time
+                send_log(self.name,end_time,count)
+
         except:
             pass
 

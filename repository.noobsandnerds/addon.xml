@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.noobsandnerds" name="noobsandnerds Repository" version="2.3.4" provider-name="noobsandnerds">
+<addon id="repository.noobsandnerds" name="noobsandnerds Repository" version="2.3.5" provider-name="noobsandnerds">
         <extension point="xbmc.addon.repository" name="noobsandnerds Repository">
                 <dir>
                         <info compressed="false">https://raw.githubusercontent.com/totalrevolution/python-koding/master/zips/addons.xml</info>
@@ -50,6 +50,11 @@
                         <info compressed="false">https://github.com/OpenELEQ/repository.q.krypton/raw/master/openeleq-addons.xml</info>
                         <checksum>https://github.com/OpenELEQ/repository.q.krypton/raw/master/openeleq-addons.xml.md5</checksum>
                         <datadir zip="true">https://raw.github.com/OpenELEQ/repository.q.krypton/master/zips/</datadir>
+                </dir>
+                <dir>
+                        <info compressed="false">https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml</info>
+                        <checksum>https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml.md5</checksum>
+                        <datadir zip="true">https://raw.githubusercontent.com/jsergio123/zips/master/</datadir>
                 </dir>
                 <info compressed="false">https://raw.githubusercontent.com/noobsandnerds/noobsandnerds/master/zips/addons.xml</info>
                 <checksum>https://raw.githubusercontent.com/noobsandnerds/noobsandnerds/master/zips/addons.xml.md5</checksum>

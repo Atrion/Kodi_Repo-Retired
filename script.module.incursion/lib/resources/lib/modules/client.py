@@ -46,7 +46,14 @@ def request(url, close=True, redirect=True, error=False, proxy=None, post=None, 
             opener = urllib2.build_opener(*handlers)
             opener = urllib2.install_opener(opener)
 
-        if (2, 7, 8) < sys.version_info < (2, 7, 12):
+        try:
+            import platform
+            node = platform.node().lower()
+        except:
+            node = ''
+
+
+        if (2, 7, 8) < sys.version_info < (2, 7, 12) or node == 'xboxone':
             try:
                 import ssl; ssl_context = ssl.create_default_context()
                 ssl_context.check_hostname = False

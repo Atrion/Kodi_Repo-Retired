@@ -1,3 +1,39 @@
+[B]Version 5.0.06b (Feb 17, 2018)[/B]
+- Code Base Changes:
+    - Additional fixes for iOS and Xbox One
+- Resolvers Added:
+    - ssfiles
+- Resolvers Fixed/Updated:
+    - tunepk
+- Resolvers Removed
+    - none
+- Languages Added/Updated
+    - None
+
+
+[B]Version 5.0.06 (Feb 08, 2018)[/B]
+- Code Base Changes:
+    - New artwork(thanks to jokstergfx)
+    - Include jsunfuck
+- Resolvers Added:
+    - none
+- Resolvers Fixed/Updated:
+    - powvideo
+    - streamplay
+    - speedvid
+    - thevid
+    - thevideo
+    - userscloud
+    - vidlox
+- Resolvers Removed
+    - none
+- Languages Added/Updated
+    - None
+
+
+[B]Version 5.0.05 (Feb 06, 2018)[/B]
+- Public Release
+
 [B]Version 5.0.04 (Jan 14, 2018)[/B]
 - Code Base Changes:
     - Fix for SSL Context

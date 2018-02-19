@@ -555,7 +555,7 @@ class episodes:
         self.progress_link = 'http://api.trakt.tv/users/me/watched/shows'
         self.hiddenprogress_link = 'http://api.trakt.tv/users/hidden/progress_watched?limit=1000&type=show'
         self.calendar_link = 'http://api.tvmaze.com/schedule?date=%s'
-
+        self.onDeck_link = 'http://api.trakt.tv/sync/playback/shows?limit=10'
         self.traktlists_link = 'http://api.trakt.tv/users/me/lists'
         self.traktlikedlists_link = 'http://api.trakt.tv/users/likes/lists?limit=1000000'
         self.traktlist_link = 'http://api.trakt.tv/users/%s/lists/%s/items'
@@ -584,9 +584,15 @@ class episodes:
 
     def calendar(self, url):
         try:
+            print("INFO OPENED EPISODES SCRIPTS")
             try: url = getattr(self, url + '_link')
             except: pass
-
+            print("INFO - " + url)
+            if self.trakt_link in url and url == self.onDeck_link:
+                print("INFO ENETERED WHERE I WATN")
+                self.blist = cache.get(self.trakt_progress_list, 720, url, self.trakt_user, self.lang)
+                self.list = []
+                self.list = cache.get(self.trakt_progress_list, 0, url, self.trakt_user, self.lang)
 
             if self.trakt_link in url and url == self.progress_link:
                 self.blist = cache.get(self.trakt_progress_list, 720, url, self.trakt_user, self.lang)

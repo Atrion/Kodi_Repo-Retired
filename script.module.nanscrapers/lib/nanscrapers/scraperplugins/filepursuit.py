@@ -23,28 +23,33 @@ class filepursuit(Scraper):
             #print 'check Token= '+cftok
             
             scrape = clean_search(title.lower())
-            start_url = '%s/search/%s+%s/' %(self.base_link,scrape.replace(' ','%20'),year)
+            start_url = '%s/search2/%s+%s/type/videos' %(self.base_link,scrape.replace(' ','+'),year)
             #print "filepursuit start>>> " + start_url
             headers = {'User_Agent':random_agent(),'referer':self.base_link,'cf_clearance':cftok}
             results_page = self.scraper.get(start_url, headers=headers,timeout=10).content
             #print 'search page '+results_page
             grab_html = re.compile('<a href="(/file/.+?)">(.+?)</a>',re.DOTALL).findall(results_page)
             count = 0 
+            pass_count = 0
             for item_url,title_info in grab_html:
                 name_chk = clean_title(title).lower()+year 
                 if not name_chk in clean_title(title_info).lower():
                     continue
-                item_url = self.base_link + item_url
-                #print 'Pass this filepursuit> '+ item_url
-                link = self.get_source(item_url)
-                if '1080' in link:
-                    res = '1080p'
-                elif '720' in link:
-                    res  = '720p'
-                else:
-                    res='DVD'
-                count +=1
-                self.sources.append({'source': 'IndexLink','quality': res,'scraper': self.name,'url': link,'direct': True})
+                if 'trailer' not in item_url.lower():
+                        if 'sample' not in item_url.lower():
+                            item_url = self.base_link + item_url
+                            pass_count +=1
+                            if pass_count <=4:
+                                #print 'Pass this filepursuit> '+ item_url
+                                link = self.get_source(item_url)
+                                if '1080' in link:
+                                    res = '1080p'
+                                elif '720' in link:
+                                    res  = '720p'
+                                else:
+                                    res='DVD'
+                                count +=1
+                                self.sources.append({'source': 'IndexLink','quality': res,'scraper': self.name,'url': link,'direct': True})
             if dev_log=='true':
                 end_time = time.time()
                 total_time = end_time - self.start_time 
@@ -68,7 +73,7 @@ class filepursuit(Scraper):
             
             scrape = clean_search(title.lower()) 
             
-            start_url = '%s/search/%s+%s/' %(self.base_link,scrape.replace(' ','%20'),BOTH)
+            start_url = '%s/search2/%s+%s/' %(self.base_link,scrape.replace(' ','+'),BOTH)
             
             #print "filepursuit start>>> " + start_url
             headers = {'User_Agent':random_agent(),'referer':self.base_link,'cf_clearance':cftok}
@@ -76,6 +81,7 @@ class filepursuit(Scraper):
 
             grab_html = re.compile('<a href="(/file/.+?)">(.+?)</a>',re.DOTALL).findall(results_page)
             count = 0 
+            pass_count = 0
             for item_url,title_info in grab_html:
 
                 name_chk = clean_title(title).lower()+BOTH 
@@ -83,15 +89,17 @@ class filepursuit(Scraper):
                     continue
                 item_url = self.base_link + item_url
                 #print 'Pass this filepursuit> '+ item_url
-                link = self.get_source(item_url)
-                if '1080' in link:
-                    res = '1080p'
-                elif '720' in link:
-                    res  = '720p'
-                else:
-                    res='DVD'
-                count +=1
-                self.sources.append({'source': 'IndexLink','quality': res,'scraper': self.name,'url': link,'direct': True})
+                pass_count +=1
+                if pass_count <=4:
+                    link = self.get_source(item_url)
+                    if '1080' in link:
+                        res = '1080p'
+                    elif '720' in link:
+                        res  = '720p'
+                    else:
+                        res='DVD'
+                    count +=1
+                    self.sources.append({'source': 'IndexLink','quality': res,'scraper': self.name,'url': link,'direct': True})
             if dev_log=='true':
                 end_time = time.time()
                 total_time = end_time - self.start_time 

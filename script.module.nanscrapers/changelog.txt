@@ -1,12 +1,73 @@
-v0.5.49
+v0.5.51
+resolveurl no longer optional
+v0.5.50
 
+switched out urlresolver for resolveurl
 
 Added
- - dudmovies - filmfrantic -Coolmoviezone - One23Movies
-- SolarMovies
-- Playdk - new proxy.py 
+- Movie25org
+- Hugemoviesdb
+- kakitube
+- couchturner
 
-Fixed openloadmovies - thewatchseries- watchepisodes -carthd
+Fixed
+- mvlinks
+- mydownloadtube 
+- releasebb
+- file pursuit 
+- watch32hd
+- PutlockerHD 
+- watchmoviesforever 
+- iextv 
+- zoocinema 
+- openloadmovie
+- freemusic
+- cartoonhd
+- wmz
+- filmaipk
+- fanmovieshow
+- ten80
+- openloadmovie
+- movietv
+- moviewatcher
+- watchstream
+- hollymovie
+
+Removed 
+- Sceper
+- Uwatchfree 
+- hdmoviewatch9
+- youmovies
+- flenix
+- playdk
+- hddizi
+- dudmovies
+- cinemamkv
+- solarmovie
+- oneonline
+- ddl valley
+- filmxy
+- mydownloadtube
+- imdark
+- Iwannawatch
+- Hasthd
+
+v0.5.49
+
+Added
+- dudmovies 
+- filmfrantic 
+- Coolmoviezone 
+- One23Movies
+- SolarMovies
+- Playdk 
+- new proxy.py 
+
+Fixed 
+- openloadmovies 
+- thewatchseries
+- watchepisodes 
+- carthd
 - mvlinks
 - ImDark
 - Watchcartoon
@@ -16,7 +77,6 @@ Fixed openloadmovies - thewatchseries- watchepisodes -carthd
 - ddlvalley 
 - file Pursuit 
 - Cinemamkv 
-
 - allmovies4
 - bnw
 

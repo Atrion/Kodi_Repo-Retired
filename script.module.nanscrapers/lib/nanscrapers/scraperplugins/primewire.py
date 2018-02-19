@@ -57,11 +57,11 @@ class Primewire(Scraper):
 
                 except:
                     continue
-            return self.sources
+            return []
         except Exception, argument:        
             if dev_log == 'true':
                 error_log(self.name,'Check Search')
-            return self.sources
+            return []
 
 
     def scrape_episode(self, title, show_year, year, season, episode, imdb, tvdb, debrid = False):
@@ -111,11 +111,11 @@ class Primewire(Scraper):
                                                 return self.sources(episode_href)
                 except:
                     continue
-            return self.sources
+            return []
         except Exception, argument:        
             if dev_log == 'true':
                 error_log(self.name,'Check Search')
-            return self.sources
+            return []
 
 
     def get_key(self):

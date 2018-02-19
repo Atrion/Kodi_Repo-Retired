@@ -1,4 +1,5 @@
-import requests,xbmcaddon,time,re,urlresolver
+import requests,xbmcaddon,time,re
+import resolveurl as urlresolver
 from ..common import clean_title, clean_search,send_log,error_log
 from ..scraper import Scraper
 dev_log = xbmcaddon.Addon('script.module.nanscrapers').getSetting("dev_log")            
@@ -19,21 +20,19 @@ class moviewatcher(Scraper):
         try:
             search_id = clean_search(title.lower())
             start_url = '%s/search?query=%s' %(self.base_link,search_id.replace(' ','+'))
+            #print start_url
             headers={'User-Agent':User_Agent}
-            r = requests.get(start_url,headers=headers,timeout=5)
-            page = r.url
-            if 'search?query' in page:   #why this ?
-                match = re.compile('class="movie-title" href="(.+?)">(.+?)</a>',re.DOTALL).findall(r.content)
-                for url,name in match:
-                    if not clean_title(title).lower() == clean_title(name).lower():
-                        continue
-                    if not year in url:
-                        continue
-                    url = self.base_link + url
-                    self.get_source(url)
-            else:
-                self.get_source(page,'unknown')
-            
+            r = requests.get(start_url,headers=headers,timeout=5).content
+            #print r
+            match = re.compile('<a class="movie-title" href="(.+?)">(.+?)</a>',re.DOTALL).findall(r)
+            for url,name in match:
+                if not clean_title(title).lower() == clean_title(name).lower():
+                    continue
+                if not year in url:
+                    continue
+                url = self.base_link + url
+                #print 'Pass '+url
+                self.get_source(url)            
             return self.sources
         except Exception, argument:        
             if dev_log == 'true':
@@ -72,9 +71,10 @@ class moviewatcher(Scraper):
     def get_source(self,url):
         try:
             OPEN = requests.get(url).content
-            Regex = re.compile("Version.+?window.open.+?'(.+?)'",re.DOTALL).findall(OPEN)
+            Regex = re.compile(">Play:.+?window.open.+?'(/redirect/.+?)'",re.DOTALL).findall(OPEN)
             count = 0
             for link in Regex:
+                #print link
                 link = self.base_link + link
                 headers={'User-Agent':User_Agent}
                 r = requests.get(link,headers=headers,allow_redirects=False)

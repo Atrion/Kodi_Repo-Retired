@@ -71,7 +71,7 @@ def __getTrakt(url, post=None):
         result = utils.json_loads_as_str(result)
 
         token, refresh = result['access_token'], result['refresh_token']
-
+        print('Info - ' + str(token))
         control.setSetting(id='trakt.token', value=token)
         control.setSetting(id='trakt.refresh', value=refresh)
 
@@ -134,7 +134,7 @@ def authTrakt():
         result = utils.json_loads_as_str(result)
 
         user = result['username']
-
+        print('info - ' + token)
         control.setSetting(id='trakt.user', value=user)
         control.setSetting(id='trakt.token', value=token)
         control.setSetting(id='trakt.refresh', value=refresh)

@@ -5,11 +5,11 @@ from ..scraper import Scraper
 from ..common import clean_title,clean_search,filter_host,send_log,error_log
 
 dev_log = xbmcaddon.Addon('script.module.nanscrapers').getSetting("dev_log")
-            
+from nanscrapers.modules import cfscrape           
 requests.packages.urllib3.disable_warnings()
 
 s = requests.session()
-User_Agent = 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36'
+User_Agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'
                                            
 class hollymoviehd(Scraper):
     domains = ['https://www.hollymoviehd.com']
@@ -18,6 +18,7 @@ class hollymoviehd(Scraper):
 
     def __init__(self):
         self.base_link = 'https://www.hollymoviehd.com'
+        self.scraper = cfscrape.create_scraper()
         if dev_log=='true':
             self.start_time = time.time()
 
@@ -29,7 +30,7 @@ class hollymoviehd(Scraper):
             start_url = '%s/?rs=search&s=%s' %(self.base_link,search_id.replace(' ','+'))
             #print ':::::::::::::######################## '+start_url
             headers={'User-Agent':User_Agent,'referer':self.base_link}
-            html = requests.get(start_url,headers=headers,timeout=5).content
+            html = self.scraper.get(start_url,headers=headers,timeout=5).content
             #print ':::::::::::::######################## '+html
             match = re.compile('data-movie-id=.+?href="(.+?)".+?class="mli-info"><h2>(.+?)</h2>',re.DOTALL).findall(html)
             for item_url, name in match:
@@ -76,7 +77,7 @@ class hollymoviehd(Scraper):
         try:
             #print 'MOVIE cfwd '+item_url
             headers={'User-Agent':User_Agent}
-            OPEN = requests.get(item_url,headers=headers,timeout=5).content
+            OPEN = self.scraper.get(item_url,headers=headers,timeout=5).content
             #print OPEN
             holder = re.compile('<iframe.+?src="(.+?)"',re.DOTALL).findall(OPEN)
             count = 0
@@ -87,7 +88,7 @@ class hollymoviehd(Scraper):
             
                 headers={'User-Agent':User_Agent,'referer':item_url}
 
-                Page = requests.get(sources,headers=headers,timeout=5).content
+                Page = self.scraper.get(sources,headers=headers,timeout=5).content
                 #print 'page1234'+Page
                 Endlinks = re.compile("<iframe src=['\"](.+?)['\"]",re.DOTALL).findall(Page)
                 

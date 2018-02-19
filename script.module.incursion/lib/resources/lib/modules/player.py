@@ -374,6 +374,7 @@ class bookmarks:
             dbcur.execute("SELECT * FROM bookmark WHERE idFile = '%s'" % idFile)
             match = dbcur.fetchone()
             self.offset = str(match[1])
+            print("INFO - OFFSET" + self.offset)
             dbcon.commit()
             if self.offset == '0': raise Exception()
 

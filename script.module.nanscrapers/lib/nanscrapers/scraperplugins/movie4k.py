@@ -1,6 +1,6 @@
 import re,time,xbmcaddon
 import requests
-import urlresolver
+import resolveurl as urlresolver
 from ..scraper import Scraper
 from ..common import clean_title,clean_search,random_agent,send_log,error_log
 

@@ -30,7 +30,7 @@ class pinoytva(Scraper):
                     html2 = requests.get(link).content
                     block = re.compile('var playerInstance.+?file: "(.+?)"',re.DOTALL).findall(html2)
                     #match2 = re.compile('file.+?"(.+?)"',re.DOTALL).findall(str(block))
-                    print block
+                    #print block
                     for link2 in block:
                         count +=1
                         final_link = link2.replace("\\","")

@@ -1,5 +1,6 @@
 import re,time
-import requests,urlresolver
+import requests
+import resolveurl as urlresolver
 import xbmc,xbmcaddon
 import urllib
 from ..scraper import Scraper
@@ -31,12 +32,12 @@ class full4movies(Scraper):
             headers = {'User_Agent':User_Agent}
             html = self.scraper.get(start_url,headers=headers,timeout=5).content
             #print html
-            xbmc.log('passed'+repr(html),xbmc.LOGNOTICE)
+            #xbmc.log('passed'+repr(html),xbmc.LOGNOTICE)
             
             Regex = re.compile('<div class="boxinfo">.+?<a href="(.+?)">.+?<span class="tt">(.+?)</span>',re.DOTALL).findall(html)
             for item_url,name in Regex:
                 if 'English' in name:
-                    xbmc.log('passed'+repr(item_url),xbmc.LOGNOTICE)
+                    #xbmc.log('passed'+repr(item_url),xbmc.LOGNOTICE)
                     if not clean_title(title).lower() == clean_title(name).lower():
                         continue
                     movie_link = item_url

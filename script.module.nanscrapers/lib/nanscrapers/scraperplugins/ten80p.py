@@ -19,14 +19,15 @@ class ten80p(Scraper):
     def scrape_movie(self, title, year, imdb, debrid = False):
         try:
             search_id = clean_search(title.lower())
-            start_url = self.base_link + '/wp-json/wp/v2/posts?search=%s' %search_id.replace(' ','%20')
+            start_url = self.base_link + '/?s=%s' %search_id.replace(' ','+')
             #print 'STARTURL:::::::::::::::: '+start_url
             headers={'User-Agent':User_Agent}
             html = requests.get(start_url,headers=headers,timeout=5).content
-            Links = re.compile('"post","link":"(.+?)","title".+?"rendered":"(.+?)"',re.DOTALL).findall(html)
+
+            Links = re.compile('class="video-item" href="(.+?)".+?<h4>(.+?)</h4>',re.DOTALL).findall(html)
             count = 0
             for link,name in Links:
-                link = link.replace('\\','')
+
                 if not clean_title(title).lower() == clean_title(name).lower(): 
                     continue
                 if not year in name:

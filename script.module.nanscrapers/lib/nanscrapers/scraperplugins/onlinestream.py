@@ -25,7 +25,7 @@ class onlinestream(Scraper):
         try:
             search_id = clean_search(title.lower())
             start_url = '%s/?s=%s' %(self.base_link,search_id.replace(' ','+'))
-            print 'ARB>>>'+ start_url
+            #print 'ARB>>>'+ start_url
             headers = {'User_Agent':User_Agent, 'Referer':'http://www.onlinestreammovies.com'}
             html = requests.get(start_url,headers=headers,timeout=20).content
             Regex = re.compile('class="ml-item"><a href="(.+?)".+?oldtitle="(.+?)"',re.DOTALL).findall(html)
@@ -34,7 +34,7 @@ class onlinestream(Scraper):
                 if 'Hindi Dubbed' not in name:
                     if clean_title(title).lower() == clean_title(name).lower():
                         movie_link = item_url
-                        print 'LINK>>>'+ movie_link
+                        #print 'LINK>>>'+ movie_link
                         self.get_source(movie_link,year)
                 
             return self.sources

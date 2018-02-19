@@ -103,7 +103,12 @@ class Releasebb(Scraper):
                     url = [i for i in parse_dom(content, 'a', ret='href')]
 
                     size = get_size(content)
+                    print 'first grab size ' + size
+                    filter_size = int(size.split('.')[0])
+                    if filter_size >5: 
+                        raise Exception()
                     quality = quality_tag(name)
+                    
                     self.elysium_url.append([size, quality, url])
                 except:
                     pass
@@ -182,7 +187,9 @@ class Releasebb(Scraper):
             count = 0 
             sources = []
             for size, q, urls in self.elysium_url:
+
                 for url in urls:
+
                     try:
                         #print ("RELEASEBB SOURCES", size, q, url)
                         url = url.encode('utf-8')
@@ -199,7 +206,9 @@ class Releasebb(Scraper):
                         host = replaceHTMLCodes(host)
                         host = host.encode('utf-8')
                         count +=1
-                        sources.append({'source': host, 'quality': quality, 'provider': 'Releasebb', 'url': url, 'info': size, 'direct': False, 'debridonly': True})
+                        if '.rar' not in url:
+                            print 'final url '+url
+                            sources.append({'source': host, 'quality': quality, 'provider': 'Releasebb', 'url': url, 'info': size, 'direct': False, 'debridonly': True})
 
                     except:
                         pass
