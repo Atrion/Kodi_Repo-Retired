@@ -43,6 +43,8 @@
         <setting id="debrid.only" type="bool" label="Debrid Sources Only" default="false" />
         <setting type="lsep" label="32343" />
         <setting id="bookmarks" type="bool" label="32344" default="true" />
+        <setting id="bookmarks.trakt" type="bool" label="Trakt Bookmarks" default="false" enable="!eq(-1,false)"/>
+        <setting id="bookmarks.auto" type="bool" label="Auto Resume" default="false" enable="!eq(-2,false)" />
         <setting type="lsep" label="32372" />
         <setting id="crefresh" type="bool" label="32373" default="false" />
     </category>
@@ -256,7 +258,6 @@
         <setting type="lsep" label="Furk.net" />
         <setting id="furk.api" type="text" label="Furk API Key" default="" />
         <setting id="furk.limit" label="Limit results" type="slider" default="25" range="5,5,200" option="int" />
-        <setting id="furk.packs" label="Include Season Packs (Slower)" type="bool" default="false" />
     </category>
     <category label="32541">
         <setting id="library.movie" type="folder" label="32543" default="special://userdata/addon_data/plugin.video.incursion/Movies" />

@@ -55,6 +55,12 @@ class LoginClient(object):
         else:
             print(text)
 
+    def set_access_token(self, access_token=''):
+        self._access_token = access_token
+
+    def set_access_token_tv(self, access_token_tv=''):
+        self._access_token_tv = access_token_tv
+
     def revoke(self, refresh_token):
         # https://developers.google.com/youtube/v3/guides/auth/devices
         headers = {'Host': 'accounts.google.com',

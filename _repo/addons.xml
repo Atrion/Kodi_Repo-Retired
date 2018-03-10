@@ -61,7 +61,7 @@
 	</extension>
 </addon>
 
-<addon id="script.module.youtube.dl" name="youtube-dl Control" version="17.1231.0" provider-name="Rick Phillips (ruuk)">
+<addon id="script.module.youtube.dl" name="youtube-dl Control" version="18.225.0" provider-name="Rick Phillips (ruuk)">
     <requires>
         <import addon="xbmc.python" version="2.1.0" />
         <import addon="script.module.addon.signals" version="0.0.1"/>
@@ -514,7 +514,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
   </extension>
 </addon>
 
-<addon id="repository.StreamArmy" name="[COLOR crimson]S[COLOR silver]tream Army Repo[/COLOR]" version="8.0" provider-name="@Nemzzy668 / @_Manc_">
+<addon id="repository.StreamArmy" name="[COLOR crimson]S[COLOR silver]tream Army Repo[/COLOR]" version="9.0" provider-name="@Nemzzy668 / @_Manc_">
     <extension point="xbmc.addon.repository" name="Stream Army">
         <info compressed="false">https://raw.githubusercontent.com/nemesis668/repository.streamarmy/master/addons.xml</info>
         <checksum>http://raw.githubusercontent.com/nemesis668/repository.streamarmy/master/addons.xml.md5</checksum>
@@ -945,7 +945,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
 	</extension>
 </addon>
 
-<addon id="script.module.incursion" name="Incursion Module" version="1.16" provider-name="Incursion">
+<addon id="script.module.incursion" name="Incursion Module" version="1.17" provider-name="Incursion">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 		<import addon="script.module.beautifulsoup4"/>
@@ -1146,7 +1146,7 @@ v5.0.15 (2016-11-26) by amet
     </extension>
 </addon>
 
-<addon id="plugin.video.youtube" name="YouTube" version="6.0.0~alpha6" provider-name="bromix">
+<addon id="plugin.video.youtube" name="YouTube" version="6.0.0~beta3" provider-name="bromix">
     <requires>
         <import addon="xbmc.python" version="2.20.0"/>
         <import addon="script.module.six"/>
@@ -1165,18 +1165,23 @@ v5.0.15 (2016-11-26) by amet
 [add] Settings -> API -> Enable API configuration page
         - when enabled, visit http://ipaddress:port/api to configure API keys from a web browser
         - port is configured in Settings - HTTP Server - Port
-[add] Storing personal api keys in api_keys.json, restore keys from json on settings loss
-[add] Storing login tokens in access_manager.json, restore tokens from json on settings loss
+[chg] Storing personal api keys in api_keys.json
+[chg] Storing login tokens in access_manager.json
 [add] youtube_registration module, register developer keys and use them by appending an addon_id=:addon_id parameter to youtube add-on plugin urls
 [add] screensaver=true parameter to /play route - no suggested videos, no post play events, don't ask for quality
+[add] play route for channel live streams
+        - plugin://plugin.video.youtube/play/?channel_id=UCLA_DiR1FfKNvjuUpBHmylQ&amp;live=1
+[fix] search input, now works with Yatse
 [fix] Signature deciphering
 [fix] context menu after playback
 [fix] alternative player, do not append headers
 [fix/upd] post play events happen post play
 [fix/upd] set title from metadata on play
+[upd] Use monitor to track api key changes
 [upd] Dutch strings [MB1968]
 [upd] French strings [bubuleur]
 [upd] Greek strings [twilight0]
+[upd] Spanish strings [roliverosc]
         </news>
         <assets>
             <icon>icon.png</icon>
@@ -1195,6 +1200,7 @@ v5.0.15 (2016-11-26) by amet
         <description lang="hu_hu">A YouTube világ egyik legnagyobb videómegosztó weboldala.</description>
         <summary lang="es_es">Plugin para YouTube</summary>
         <description lang="es_es">YouTube es uno de los mayores sitios web de intercambio de vídeos del mundo.</description>
+        <disclaimer lang="es_es">Este add-on no esta respaldado por Google</disclaimer>
         <summary lang="ru_ru">Видеодополнение YouTube</summary>
         <description lang="ru_ru">Данное дополнение позволяет находить и смотреть видео на всеми любимом сайте.</description>
         <summary lang="fr_fr">Plugin pour YouTube</summary>
@@ -1317,7 +1323,7 @@ v5.0.15 (2016-11-26) by amet
         </extension>
 </addon>
 
-<addon id="plugin.video.incursion" version="0.1.14" name="Incursion" provider-name="Incursion">
+<addon id="plugin.video.incursion" version="0.1.15" name="Incursion" provider-name="Incursion">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.module.incursion" />
@@ -1348,10 +1354,11 @@ v5.0.15 (2016-11-26) by amet
     			<screenshot>resources/screenshots/screenshot-03.jpg</screenshot>
 		</assets>
 		<news>
-			v0.1.14 (FEB-2018)
-			- Furk scraper now supports t_files and season 			packs.
-			- Added Trakt On Deck menu item
-			- Increased support for Xbox One Console.
+v0.1.15 (FEB-2018)
+Fixed "Trakt - Mark as Watched" Issues
+Added Trakt Bookmarks Function
+Added Auto Resume Option
+Trakt On Deck - Reversed to show last played first.
 		</news>
 	</extension>
 </addon>
@@ -1494,7 +1501,7 @@ v5.0.15 (2016-11-26) by amet
   </extension>
 </addon>
 
-<addon id="script.module.resolveurl" name="ResolveURL" version="5.0.06b" provider-name="jsergio">
+<addon id="script.module.resolveurl" name="ResolveURL" version="5.0.07" provider-name="jsergio">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 		<import addon="plugin.video.youtube" optional="true" />
@@ -2191,7 +2198,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
 
 <addon id="script.module.metahandler"
      name="metahandler"
-     version="3.0.2"
+     version="3.0.3"
      provider-name="Eldorado, jsergio">
   <requires>
     <import addon="xbmc.python" version="2.1.0" />
@@ -2402,7 +2409,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
   </extension>
 </addon>
 
-<addon id="script.module.universalscrapers" name="Universal Scrapers" version="1.0.0" provider-name="Team Universal">
+<addon id="script.module.universalscrapers" name="Universal Scrapers" version="1.0.2" provider-name="Team Universal">
         <requires>
                 <import addon="xbmc.python" version="2.1.0"/>
                 <import addon="script.module.beautifulsoup" version="3.2.1"/>
@@ -2848,15 +2855,17 @@ This is a Non-profit resource, organized solely for educational purposes which i
   </extension>
 </addon>
 
-    <addon id="repository.blamo" name="[COLOR red]Blamo Repo[/COLOR]" version="0.1.1" provider-name="Mr Blamo">
+    <addon id="repository.blamo" name="[COLOR red]Blamo Repo[/COLOR]" version="0.1.2" provider-name="Mr Blamo">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
         <extension point="xbmc.addon.repository" name="[COLOR red]Blamo Repo[/COLOR]">
-            <info compressed="false">https://raw.githubusercontent.com/MrBlamo420/Project/master/zips/addons.xml</info>
+            <dir>
+			<info compressed="false">https://raw.githubusercontent.com/MrBlamo420/Project/master/zips/addons.xml</info>
             <checksum>https://raw.githubusercontent.com/MrBlamo420/Project/master/zips/addons.xml.md5</checksum>
             <datadir zip="true">https://raw.githubusercontent.com/MrBlamo420/Project/master/zips/</datadir>
             <hashes>false</hashes>
+			</dir>
             <dir>
                 <info compressed="false">https://raw.githubusercontent.com/marcelveldt/repository.marcelveldt/master/addons.xml</info>
                 <checksum>https://raw.githubusercontent.com/marcelveldt/repository.marcelveldt/master/addons.xml.md5</checksum>
@@ -2886,7 +2895,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
         </extension>
     </addon>
 
-    <addon id="repository.Atrion" name="Atrions Repo" version="0.2.18" provider-name="AtrionDarnay">
+    <addon id="repository.Atrion" name="Atrions Repo" version="0.2.19" provider-name="AtrionDarnay">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -2948,7 +2957,7 @@ Kodi is a registered trademark of the XBMC Foundation. We are not connected to o
   </extension>
 </addon>
 
-    <addon id="repository.Atrion2" name="Atrions Repo2" version="0.2.18" provider-name="AtrionDarnay">
+    <addon id="repository.Atrion2" name="Atrions Repo2" version="0.2.19" provider-name="AtrionDarnay">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -3322,21 +3331,20 @@ Kodi is a registered trademark of the XBMC Foundation. We are not connected to o
     </extension>
 </addon>
 
-<addon id="script.module.httplib2" name="httplib2" provider-name=" Joe Gregorio" version="0.8.0">
+<addon id="script.module.httplib2" name="httplib2" provider-name="Joe Gregorio" version="0.10.3">
   <requires>
-    <import addon="xbmc.python" version="2.1.0" />
+    <import addon="xbmc.python" version="2.14.0" />
   </requires>
   <extension library="lib" point="xbmc.python.module" />
   <extension point="xbmc.addon.metadata">
         <description lan="en">httplib2 module</description>
         <summary lang="en">httplib2 module</summary>
-        <disclaimer lang="en">Visit https://pypi.python.org/pypi/httplib2</disclaimer>
         <license>MIT</license>
         <platform>all</platform>
         <email></email>
         <website>https://pypi.python.org/pypi/httplib2</website>
         <forum></forum>
-        <source>https://pypi.python.org/pypi/httplib2</source>
+        <source>https://github.com/httplib2/httplib2</source>
         <language></language>
    </extension>
 </addon>

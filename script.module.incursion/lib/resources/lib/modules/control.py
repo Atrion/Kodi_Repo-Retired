@@ -311,7 +311,8 @@ def getCurrentViewId():
     win = xbmcgui.Window(xbmcgui.getCurrentWindowId())
     return str(win.getFocusId())
 
-
+def refresh():
+    return execute('Container.Refresh')
 
 def busy():
     return execute('ActivateWindow(busydialog)')

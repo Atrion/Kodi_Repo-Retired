@@ -18,9 +18,27 @@ from . import JSONStore
 
 
 class LoginTokenStore(JSONStore):
-    def __init__(self, context):
-        JSONStore.__init__(self, context, 'access_manager.json')
+    def __init__(self):
+        JSONStore.__init__(self, 'access_manager.json')
 
     def set_defaults(self):
-        if 'access_manager' not in self._data:
-            self.save({'access_manager': {'access_token': '', 'refresh_token': '', 'token_expires': -1}})
+        data = self.get_data()
+        if 'access_manager' not in data:
+            data = {'access_manager': {'default': {'access_token': '', 'refresh_token': '', 'token_expires': -1, 'last_key_hash': ''}}}
+        if 'default' not in data['access_manager']:
+            data['access_manager']['default'] = {'access_token': '', 'refresh_token': '', 'token_expires': -1, 'last_key_hash': ''}
+        if 'current_user' not in data['access_manager']:
+            data['access_manager']['current_user'] = 'default'
+        if 'last_origin' not in data['access_manager']:
+            data['access_manager']['last_origin'] = 'plugin.video.youtube'
+
+        # clean up
+        if 'access_token' in data['access_manager']:
+            del data['access_manager']['access_token']
+        if 'refresh_token' in data['access_manager']:
+            del data['access_manager']['refresh_token']
+        if 'token_expires' in data['access_manager']:
+            del data['access_manager']['token_expires']
+        # end clean up
+
+        self.save(data)
