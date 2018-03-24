@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-    <addon id="repository.blamo" name="[COLOR red]Blamo Repo[/COLOR]" version="0.1.2" provider-name="Mr Blamo">
+    <addon id="repository.blamo" name="[COLOR red]Blamo Repo[/COLOR]" version="0.1.3" provider-name="Mr Blamo">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -26,10 +26,10 @@
                 <datadir zip="true">https://raw.githubusercontent.com/totalrevolution/python-koding/master/zips/</datadir>
             </dir>
 			<dir>
-				<info compressed="false">http://teamuniversal.xyz/modules4all/addons.xml</info>
-				<checksum>http://teamuniversal.xyz/modules4all/addons.xml.md5</checksum>
-				<datadir zip="true">http://teamuniversal.xyz/modules4all/</datadir>
-			</dir>
+                <info compressed="false">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml</info>
+                <checksum>https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml.md5</checksum>
+                <datadir zip="true">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/</datadir>
+            </dir>
         </extension>
         <extension point="xbmc.addon.metadata">
             <summary>The Official Repo for Mr Blamo</summary>
@@ -38,3 +38,5 @@
             <genre>movies,usa</genre>
         </extension>
     </addon>
+	
+			

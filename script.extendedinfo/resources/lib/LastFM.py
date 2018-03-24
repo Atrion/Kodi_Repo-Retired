@@ -3,125 +3,259 @@
 # Copyright (C) 2015 - Philipp Temminghoff <phil65@kodi.tv>
 # This program is Free Software see LICENSE file for details
 
-import urllib
-import re
-
-from kodi65 import utils
-from kodi65 import ItemList
+import xbmc
+from Utils import *
 
 LAST_FM_API_KEY = 'd942dd5ca4c9ee5bd821df58cf8130d4'
 GOOGLE_MAPS_KEY = 'AIzaSyBESfDvQgWtWLkNiOYXdrA9aU-2hv_eprY'
-BASE_URL = 'http://ws.audioscrobbler.com/2.0/?'
+BASE_URL = 'http://ws.audioscrobbler.com/2.0/?api_key=%s&format=json&' % (LAST_FM_API_KEY)
 
 
-def handle_albums(results):
-    albums = ItemList(content_type="albums")
+def handle_lastfm_events(results):
+    events = []
     if not results:
-        return albums
+        return []
+    if "error" in results:
+        notify("Error", results["message"])
+        return []
+    if "@attr" not in results["events"]:
+        return []
+    if not isinstance(results['events']['event'], list):
+        results['events']['event'] = [results['events']['event']]
+    for event in results['events']['event']:
+        artists = event['artists']['artist']
+        if isinstance(artists, list):
+            my_arts = ' / '.join(artists)
+        else:
+            my_arts = artists
+        try:
+            if event['venue']['location']['geo:point']['geo:long']:
+                lon = event['venue']['location']['geo:point']['geo:long']
+                lat = event['venue']['location']['geo:point']['geo:lat']
+                search_str = lat + "," + lon
+            elif event['venue']['location']['street']:
+                search_str = url_quote(event['venue']['location']['city'] + " " + event['venue']['location']['street'])
+            elif event['venue']['location']['city']:
+                search_str = url_quote(event['venue']['location']['city'] + " " + event['venue']['name'])
+            else:
+                search_str = url_quote(event['venue']['name'])
+        except:
+            search_str = ""
+        if xbmc.getCondVisibility("System.HasAddon(script.maps.browser)"):
+            builtin = 'RunScript(script.maps.browser,info=eventinfo,id=%s)' % (str(event['id']))
+        else:
+            builtin = "Notification(Please install script.maps.browser)"
+        googlemap = 'http://maps.googleapis.com/maps/api/staticmap?&sensor=false&scale=2&maptype=roadmap&center=%s&zoom=13&markers=%s&size=640x640&key=%s' % (search_str, search_str, GOOGLE_MAPS_KEY)
+        event = {'date': event['startDate'][:-3],
+                 'name': event['venue']['name'],
+                 'id': event['venue']['id'],
+                 'venue_id': event['venue']['id'],
+                 'event_id': event['id'],
+                 'street': event['venue']['location']['street'],
+                 'eventname': event['title'],
+                 'website': event['website'],
+                 'description': clean_text(event['description']),
+                 'postalcode': event['venue']['location']['postalcode'],
+                 'city': event['venue']['location']['city'],
+                 'country': event['venue']['location']['country'],
+                 'lat': event['venue']['location']['geo:point']['geo:lat'],
+                 'lon': event['venue']['location']['geo:point']['geo:long'],
+                 'artists': my_arts,
+                 'googlemap': googlemap,
+                 'path': "plugin://script.extendedinfo/?info=action&id=" + builtin,
+                 'artist_image': event['image'][-1]['#text'],
+                 'thumb': event['image'][-1]['#text'],
+                 'venue_image': event['venue']['image'][-1]['#text'],
+                 'headliner': event['artists']['headliner']}
+        events.append(event)
+    return events
+
+
+def handle_lastfm_albums(results):
+    albums = []
+    if not results:
+        return []
     if 'topalbums' in results and "album" in results['topalbums']:
         for album in results['topalbums']['album']:
-            albums.append({'artist': album['artist']['name'],
-                           'mbid': album.get('mbid', ""),
-                           'mediatype': "album",
-                           'thumb': album['image'][-1]['#text'],
-                           'label': "%s - %s" % (album['artist']['name'], album['name']),
-                           'title': album['name']})
+            album = {'artist': album['artist']['name'],
+                     'mbid': album.get('mbid', ""),
+                     'thumb': album['image'][-1]['#text'],
+                     'name': album['name']}
             albums.append(album)
+    else:
+        log("No Info in JSON answer:")
+        prettyprint(results)
     return albums
 
 
-def handle_artists(results):
-    artists = ItemList(content_type="artists")
+def handle_lastfm_shouts(results):
+    shouts = []
     if not results:
-        return artists
+        return []
+    for shout in results['shouts']['shout']:
+        newshout = {'comment': shout['body'],
+                    'author': shout['author'],
+                    'date': shout['date'][4:]}
+        shouts.append(newshout)
+    return shouts
+
+
+def handle_lastfm_tracks(results):
+    if not results:
+        return {}
+    if "wiki" in results['track']:
+        summary = clean_text(results['track']['wiki']['summary'])
+    else:
+        summary = ""
+    TrackInfo = {'playcount': str(results['track']['playcount']),
+                 'thumb': str(results['track']['playcount']),
+                 'summary': summary}
+    return TrackInfo
+
+
+def handle_lastfm_artists(results):
+    artists = []
+    if not results:
+        return []
     for artist in results['artist']:
-        if 'name' not in artist:
-            continue
-        artist = {'title': artist['name'],
-                  'label': artist['name'],
-                  'mediatype': "artist",
-                  'mbid': artist.get('mbid'),
-                  'thumb': artist['image'][-1]['#text'],
-                  'Listeners': format(int(artist.get('listeners', 0)), ",d")}
-        artists.append(artist)
+        try:
+            if 'name' in artist:
+                listeners = int(artist.get('listeners', 0))
+                artist = {'title': artist['name'],
+                          'name': artist['name'],
+                          'mbid': artist['mbid'],
+                          'thumb': artist['image'][-1]['#text'],
+                          'Listeners': format(listeners, ",d")}
+                artists.append(artist)
+        except:
+            prettyprint(artist)
     return artists
 
 
+def get_events(id, past_events=False):
+    if past_events:
+        url = 'method=Artist.getPastEvents&mbid=%s' % (id)
+    else:
+        url = 'method=Artist.getEvents&mbid=%s' % (id)
+    results = get_JSON_response(url=BASE_URL + url,
+                                cache_days=1,
+                                folder="LastFM")
+    return handle_lastfm_events(results)
+
+
+def get_artist_podcast(artist):  # todo
+    results = get_JSON_response(url=BASE_URL + "method=Artist.getPodcast&limit=100",
+                                folder="LastFM")
+    return handle_lastfm_artists(results['artists'])
+
+
+def get_hyped_artists():
+    results = get_JSON_response(url=BASE_URL + "method=Chart.getHypedArtists&limit=100",
+                                folder="LastFM")
+    return handle_lastfm_artists(results['artists'])
+
+
 def get_top_artists():
-    results = get_data(method="Chart.getTopArtists",
-                       params={"limit": "100"})
-    return handle_artists(results['artists'])
+    results = get_JSON_response(url=BASE_URL + "method=Chart.getTopArtists&limit=100",
+                                folder="LastFM")
+    return handle_lastfm_artists(results['artists'])
+
+
+def get_album_shouts(artist_name, album_title):
+    url = 'method=Album.getShouts&artist=%s&album=%s' % (url_quote(artist_name), url_quote(album_title))
+    results = get_JSON_response(url=BASE_URL + url,
+                                folder="LastFM")
+    return handle_lastfm_shouts(results)
+
+
+def get_artist_shouts(artist_name):
+    url = 'method=Artist.GetShouts&artist=%s' % (url_quote(artist_name))
+    results = get_JSON_response(url=BASE_URL + url,
+                                folder="LastFM")
+    return handle_lastfm_shouts(results)
+
+
+def get_artist_images(artist_mbid):
+    url = 'method=Artist.getImages&mbid=%s' % (artist_mbid)
+    results = get_JSON_response(url=BASE_URL + url,
+                                cache_days=0,
+                                folder="LastFM")
+    return handle_lastfm_events(results)
+
+
+def get_track_shouts(artist_name, track_title):
+    url = 'method=Track.getShouts&artist=%s&track=%s' % (url_quote(artist_name), url_quote(track_title))
+    results = get_JSON_response(url=BASE_URL + url,
+                                folder="LastFM")
+    return handle_lastfm_shouts(results)
+
+
+def get_event_shouts(event_id):
+    url = 'method=event.GetShouts&event=%s' % (event_id)
+    results = get_JSON_response(url=BASE_URL + url,
+                                folder="LastFM")
+    return handle_lastfm_shouts(results)
+
+
+def get_venue_id(venue_name=""):
+    url = '&method=Venue.search&venue=%s' % (url_quote(venue_name))
+    results = get_JSON_response(url=BASE_URL + url,
+                                folder="LastFM")
+    if "results" in results:
+        matches = results["results"]["matches"]
+        if "venue" in matches and matches["venue"]:
+            if isinstance(matches["venue"], list):
+                return matches["venue"][0]["id"]
+            else:
+                return matches["venue"]["id"]
+    return []
 
 
 def get_artist_albums(artist_mbid):
-    if not artist_mbid:
-        return ItemList(content_type="albums")
-    results = get_data(method="Artist.getTopAlbums",
-                       params={"mbid": artist_mbid})
-    return handle_albums(results)
+    url = 'method=Artist.getTopAlbums&mbid=%s' % (artist_mbid)
+    results = get_JSON_response(url=BASE_URL + url,
+                                folder="LastFM")
+    return handle_lastfm_albums(results)
 
 
 def get_similar_artists(artist_mbid):
-    if not artist_mbid:
-        return ItemList(content_type="artists")
-    params = {"mbid": artist_mbid,
-              "limit": "400"}
-    results = get_data(method="Artist.getSimilar",
-                       params=params)
-    if results and "similarartists" in results:
-        return handle_artists(results['similarartists'])
+    url = 'method=Artist.getSimilar&mbid=%s&limit=400' % (artist_mbid)
+    results = get_JSON_response(url=BASE_URL + url,
+                                folder="LastFM")
+    if results is not None and "similarartists" in results:
+        return handle_lastfm_artists(results['similarartists'])
 
 
-def get_track_info(artist_name="", track=""):
-    if not artist_name or not track:
-        return {}
-    params = {"artist": artist_name,
-              "track": track}
-    results = get_data(method="track.getInfo",
-                       params=params)
-    if not results:
-        return {}
-    summary = results['track']['wiki']['summary'] if "wiki" in results['track'] else ""
-    return {'playcount': str(results['track']['playcount']),
-            'thumb': str(results['track']['playcount']),
-            'summary': clean_text(summary)}
+def get_near_events(tag=False, festivals_only=False, lat="", lon="", location="", distance=""):
+    if festivals_only:
+        festivals_only = "1"
+    else:
+        festivals_only = "0"
+    url = 'method=geo.getEvents&festivalsonly=%s&limit=40' % (festivals_only)
+    if tag:
+        url += '&tag=%s' % (url_quote(tag))
+    if lat and lon:
+        url += '&lat=%s&long=%s' % (str(lat), str(lon))  # &distance=60
+    if location:
+        url += '&location=%s' % (url_quote(location))
+    if distance:
+        url += '&distance=%s' % (distance)
+    results = get_JSON_response(url=BASE_URL + url,
+                                cache_days=0.5,
+                                folder="LastFM")
+    return handle_lastfm_events(results)
 
 
-def get_data(method, params=None, cache_days=0.5):
-    params = params if params else {}
-    params["method"] = method
-    params["api_key"] = LAST_FM_API_KEY
-    params["format"] = "json"
-    params = {k: unicode(v).encode('utf-8') for k, v in params.iteritems() if v}
-    url = "{base_url}{params}".format(base_url=BASE_URL,
-                                      params=urllib.urlencode(params))
-    return utils.get_JSON_response(url=url,
-                                   cache_days=cache_days,
-                                   folder="LastFM")
+def get_venue_events(venueid=""):
+    url = 'method=Venue.getEvents&venue=%s' % (venueid)
+    results = get_JSON_response(url=BASE_URL + url,
+                                cache_days=0.5,
+                                folder="LastFM")
+    return handle_lastfm_events(results)
 
 
-def clean_text(text):
-    if not text:
-        return ""
-    text = re.sub('(From Wikipedia, the free encyclopedia)|(Description above from the Wikipedia.*?Wikipedia)', '', text)
-    text = re.sub('<(.|\n|\r)*?>', '', text)
-    text = text.replace('<br \/>', '[CR]')
-    text = text.replace('<em>', '[I]').replace('</em>', '[/I]')
-    text = text.replace('&amp;', '&')
-    text = text.replace('&gt;', '>').replace('&lt;', '<')
-    text = text.replace('&#39;', "'").replace('&quot;', '"')
-    text = re.sub("\n\\.$", "", text)
-    text = text.replace('User-contributed text is available under the Creative Commons By-SA License and may also be available under the GNU FDL.', '')
-    removals = {u'\u200b', " ", "\n"}
-    while text:
-        s = text[0]
-        e = text[-1]
-        if s in removals:
-            text = text[1:]
-        elif e in removals:
-            text = text[:-1]
-        elif s.startswith(".") and not s.startswith(".."):
-            text = text[1:]
-        else:
-            break
-    return text.strip()
+def get_track_info(artist="", track=""):
+    url = 'method=track.getInfo&artist=%s&track=%s' % (url_quote(artist), url_quote(track))
+    results = get_JSON_response(url=BASE_URL + url,
+                                folder="LastFM")
+    return handle_lastfm_tracks(results)

@@ -19,7 +19,6 @@ import os
 import re
 import urllib2
 import json
-from lib import helpers
 from urlresolver import common
 from urlresolver.common import i18n
 from urlresolver.resolver import UrlResolver, ResolverError
@@ -70,7 +69,7 @@ class AllDebridResolver(UrlResolver):
             js_result = json.loads(result)
             logger.log_debug('AllDebrid resolve: [%s]' % js_result)
             if 'error' in js_result:
-                common.kodi.notify(msg=js_result['error'], duration=5000)
+                common.kodi.notify(msg=str(js_result['error']), duration=5000)
                 raise ResolverError('AllDebrid Error: %s (%s)' % (js_result['error'], js_result['errorCode']))
             elif js_result['success']:
                 if js_result['infos']['link']:
@@ -121,7 +120,6 @@ class AllDebridResolver(UrlResolver):
 
     def authorize_resolver(self):
         try:
-            logger.log_debug('Debug build 2')
             self.reset_authorization()
             username = self.get_setting('username')
             password = self.get_setting('password')

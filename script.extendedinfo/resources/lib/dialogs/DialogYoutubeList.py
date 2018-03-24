@@ -3,80 +3,58 @@
 # Copyright (C) 2015 - Philipp Temminghoff <phil65@kodi.tv>
 # This program is Free Software see LICENSE file for details
 
-import datetime
-
 import xbmcgui
+from ..Utils import *
+from ..YouTube import *
+from DialogBaseList import DialogBaseList
+from ..WindowManager import wm
+from .. import VideoPlayer
+from ..OnClickHandler import OnClickHandler
 
-from resources.lib.WindowManager import wm
-
-from kodi65 import youtube
-from kodi65 import addon
-from kodi65 import windows
-from kodi65 import busy
-from kodi65 import DialogBaseList
-from kodi65 import ActionHandler
-
-ch = ActionHandler()
-
-ID_BUTTON_SORTTYPE = 5001
-ID_BUTTON_PUBLISHEDFILTER = 5002
-ID_BUTTON_LANGUAGEFILTER = 5003
-ID_BUTTON_DIMENSIONFILTER = 5006
-ID_BUTTON_DURATIONFILTER = 5008
-ID_BUTTON_CAPTIONFILTER = 5009
-ID_BUTTON_DEFINITIONFILTER = 5012
-ID_BUTTON_TYPEFILTER = 5013
+PLAYER = VideoPlayer.VideoPlayer()
+ch = OnClickHandler()
 
 
-def get_window(window_type):
+TRANSLATIONS = {"video": LANG(157),
+                "playlist": LANG(559),
+                "channel": LANG(19029)}
+SORTS = {"video": {"date": LANG(552),
+                   "rating": LANG(563),
+                   "relevance": LANG(32060),
+                   "title": LANG(369),
+                   "viewCount": LANG(567)},
+         "playlist": {"date": LANG(552),
+                      "rating": LANG(563),
+                      "relevance": LANG(32060),
+                      "title": LANG(369),
+                      "videoCount": LANG(32068),
+                      "viewCount": LANG(567)},
+         "channel": {"date": LANG(552),
+                     "rating": LANG(563),
+                     "relevance": LANG(32060),
+                     "title": LANG(369),
+                     "videoCount": LANG(32068),
+                     "viewCount": LANG(567)}}
+
+
+def get_youtube_window(window_type):
 
     class DialogYoutubeList(DialogBaseList, window_type):
 
-        TYPES = ["video", "playlist", "channel"]
-
-        FILTERS = {"channelId": addon.LANG(19029),
-                   "publishedAfter": addon.LANG(172),
-                   "regionCode": addon.LANG(248),
-                   "videoDimension": addon.LANG(32057),
-                   "videoDuration": addon.LANG(180),
-                   "videoCaption": addon.LANG(287),
-                   "videoDefinition": addon.LANG(32058),
-                   "videoType": "Type",
-                   "relatedToVideoId": addon.LANG(32058)}
-
-        TRANSLATIONS = {"video": addon.LANG(157),
-                        "playlist": addon.LANG(559),
-                        "channel": addon.LANG(19029)}
-
-        SORTS = {"video": {"date": addon.LANG(552),
-                           "rating": addon.LANG(563),
-                           "relevance": addon.LANG(32060),
-                           "title": addon.LANG(369),
-                           "viewCount": addon.LANG(567)},
-                 "playlist": {"date": addon.LANG(552),
-                              "rating": addon.LANG(563),
-                              "relevance": addon.LANG(32060),
-                              "title": addon.LANG(369),
-                              "videoCount": addon.LANG(32068),
-                              "viewCount": addon.LANG(567)},
-                 "channel": {"date": addon.LANG(552),
-                             "rating": addon.LANG(563),
-                             "relevance": addon.LANG(32060),
-                             "title": addon.LANG(369),
-                             "videoCount": addon.LANG(32068),
-                             "viewCount": addon.LANG(567)}}
-
-        LABEL2 = {"date": lambda x: x.get_info("date"),
-                  "relevance": lambda x: x.get_property("relevance"),
-                  "title": lambda x: x.get_info("title"),
-                  "viewCount": lambda x: x.get_property("viewCount"),
-                  "videoCount": lambda x: x.get_property("videoCount"),
-                  "rating": lambda x: x.get_info("rating")}
-
-        @busy.set_busy
+        @busy_dialog
         def __init__(self, *args, **kwargs):
-            self.type = kwargs.get('type', "video")
             super(DialogYoutubeList, self).__init__(*args, **kwargs)
+            self.type = kwargs.get('type', "video")
+            self.filter_url = ""
+            self.page_token = ""
+            self.next_page_token = ""
+            self.prev_page_token = ""
+            self.sort = kwargs.get('sort', "relevance")
+            self.sort_label = kwargs.get('sort_label', LANG(32060))
+            self.page = int(kwargs.get('page', 1))
+            self.order = kwargs.get('order', "desc")
+            force = kwargs.get('force', False)
+            self.update_content(force_update=force)
 
         def onClick(self, control_id):
             super(DialogYoutubeList, self).onClick(control_id)
@@ -86,152 +64,199 @@ def get_window(window_type):
             super(DialogYoutubeList, self).onAction(action)
             ch.serve_action(action, self.getFocusId(), self)
 
-        @ch.click_by_type("video")
-        def main_list_click(self, control_id):
-            listitem = self.FocusedItem(control_id)
-            youtube_id = listitem.getProperty("youtube_id")
-            media_type = listitem.getProperty("type")
-            if media_type == "channel":
-                filter_ = [{"id": youtube_id,
-                            "type": "channelId",
-                            "label": listitem.getLabel().decode("utf-8")}]
-                wm.open_youtube_list(filters=filter_)
+        @ch.click(500)
+        def main_list_click(self):
+            self.last_position = self.control.getSelectedPosition()
+            youtube_id = self.listitem.getProperty("youtube_id")
+            if self.type == "channel":
+                channel_filter = [{"id": youtube_id,
+                                   "type": "channelId",
+                                   "typelabel": LANG(19029),
+                                   "label": youtube_id}]
+                wm.open_youtube_list(filters=channel_filter)
+            elif self.type == "playlist":
+                PLAYER.play_youtube_playlist(youtube_id=youtube_id,
+                                          listitem=self.listitem,
+                                          window=self)
             else:
-                wm.play_youtube_video(youtube_id=youtube_id,
-                                      listitem=listitem)
+                PLAYER.play_youtube_video(youtube_id=youtube_id,
+                                          listitem=self.listitem,
+                                          window=self)
 
-        @ch.click(ID_BUTTON_PUBLISHEDFILTER)
-        def set_published_filter(self, control_id):
-            options = [(1, addon.LANG(32062)),
-                       (7, addon.LANG(32063)),
-                       (31, addon.LANG(32064)),
-                       (365, addon.LANG(32065)),
-                       ("custom", addon.LANG(636))]
-            deltas = [i[0] for i in options]
-            labels = [i[1] for i in options]
-            index = xbmcgui.Dialog().select(heading=addon.LANG(32151),
-                                            list=labels)
+        @ch.click(5002)
+        def set_published_filter(self):
+            label_list = [LANG(32062), LANG(32063), LANG(32064), LANG(32065), LANG(636)]
+            deltas = [1, 7, 31, 365, "custom"]
+            index = xbmcgui.Dialog().select(heading=LANG(32151),
+                                            list=label_list)
             if index == -1:
                 return None
             delta = deltas[index]
             if delta == "custom":
-                delta = xbmcgui.Dialog().input(heading=addon.LANG(32067),
+                delta = xbmcgui.Dialog().input(heading=LANG(32067),
                                                type=xbmcgui.INPUT_NUMERIC)
-            if not delta:
-                return None
-            d = datetime.datetime.now() - datetime.timedelta(int(delta))
-            self.add_filter(key="publishedAfter",
-                            value=d.isoformat('T')[:-7] + "Z",
-                            label=labels[index])
+            if delta:
+                d = datetime.datetime.now() - datetime.timedelta(int(delta))
+                date_str = d.isoformat('T')[:-7] + "Z"
+                self.add_filter("publishedAfter", date_str, LANG(172).replace(":",""), str(label_list[index]))
+                self.update()
 
-        @ch.click(ID_BUTTON_LANGUAGEFILTER)
-        def set_language_filter(self, control_id):
-            options = [("en", "en"),
-                       ("de", "de"),
-                       ("fr", "fr")]
-            self.choose_filter("regionCode", 32151, options)
+        @ch.click(5003)
+        def set_language_filter(self):
+            label_list = ["DE", "ES", "FR", "NL", "US", LANG(1047)]
+            secondary_list = ["AD", "AE", "AF", "AG", "AI", "AL", "AM", "AO", "AQ", "AR", "AS", "AT", "AU", "AW", "AX", "AZ", "BA", "BB", "BD", "BE", "BF", "BG", "BH", "BI", "BJ", "BL", "BM", "BN", "BO", "BQ", "BR", "BS", "BT", "BV", "BW", "BY", "BZ", "CA", "CC", "CD", "CF", "CG", "CH", "CI", "CK", "CL", "CM", "CN", "CO", "CR", "CU", "CV", "CW", "CX", "CY", "CZ", "DJ", "DK", "DM", "DO", "DZ", "EC", "EE", "EG", "EH", "ER", "ET", "FI", "FJ", "FK", "FM", "FO", "GA", "GB", "GD", "GE", "GF", "GG", "GH", "GI", "GL", "GM", "GN", "GP", "GQ", "GR", "GS", "GT", "GU", "GW", "GY", "HK", "HM", "HN", "HR", "HT", "HU", "ID", "IE", "IL", "IM", "IN", "IO", "IQ", "IR", "IS", "IT", "JE", "JM", "JO", "JP", "KE", "KG", "KH", "KI", "KM", "KN", "KP", "KR", "KW", "KY", "KZ", "LA", "LB", "LC", "LI", "LK", "LR", "LS", "LT", "LU", "LV", "LY", "MA", "MC", "MD", "ME", "MF", "MG", "MH", "MK", "ML", "MM", "MN", "MO", "MP", "MQ", "MR", "MS", "MT", "MU", "MV", "MW", "MX", "MY", "MZ", "NA", "NC", "NE", "NF", "NG", "NI", "NO", "NP", "NR", "NU", "NZ", "OM", "PA", "PE", "PF", "PG", "PH", "PK", "PL", "PM", "PN", "PR", "PS", "PT", "PW", "PY", "QA", "RE", "RO", "RS", "RU", "RW", "SA", "SB", "SC", "SD", "SE", "SG", "SH", "SI", "SJ", "SK", "SL", "SM", "SN", "SO", "SR", "SS", "ST", "SV", "SX", "SY", "SZ", "TC", "TD", "TF", "TG", "TH", "TJ", "TK", "TL", "TM", "TN", "TO", "TR", "TT", "TV", "TW", "TZ", "UA", "UG", "UM", "UY", "UZ", "VA", "VC", "VE", "VG", "VI", "VN", "VU", "WF", "WS", "YE", "YT", "ZA", "ZM", "ZW"]
+            index = xbmcgui.Dialog().select(heading=LANG(32151), list=label_list)
+            if index == len(label_list) - 1:
+                index = xbmcgui.Dialog().select(heading=LANG(32151), list=secondary_list)
+                if index > -1:
+                    self.add_filter("regionCode", secondary_list[index], LANG(20026), str(secondary_list[index]))
+                    self.update()
+            elif index > -1:
+                self.add_filter("regionCode", label_list[index], LANG(20026), str(label_list[index]))
+                self.update()
 
-        @ch.click(ID_BUTTON_DIMENSIONFILTER)
-        def set_dimension_filter(self, control_id):
-            options = [("2d", "2D"),
-                       ("3d", "3D"),
-                       ("any", addon.LANG(593))]
-            self.choose_filter("videoDimension", 32151, options)
+        @ch.click(5006)
+        def set_dimension_filter(self):
+            value_list = ["2d", "3d", "any"]
+            label_list = ["2D", "3D", LANG(593)]
+            index = xbmcgui.Dialog().select(heading=LANG(32151),
+                                            list=label_list)
+            if index > -1:
+                self.add_filter("videoDimension", value_list[index], "Dimensions", str(label_list[index]))
+                self.update()
 
-        @ch.click(ID_BUTTON_DURATIONFILTER)
-        def set_duration_filter(self, control_id):
-            options = [("long", addon.LANG(33013)),
-                       ("medium", addon.LANG(601)),
-                       ("short", addon.LANG(33012)),
-                       ("any", addon.LANG(593))]
-            self.choose_filter("videoDuration", 32151, options)
+        @ch.click(5008)
+        def set_duration_filter(self):
+            value_list = ["long", "medium", "short", "any"]
+            label_list = [LANG(33013), LANG(601), LANG(33012), LANG(593)]
+            index = xbmcgui.Dialog().select(heading=LANG(32151),
+                                            list=label_list)
+            if index > -1:
+                self.add_filter("videoDuration", value_list[index], LANG(180), str(label_list[index]))
+                self.update()
 
-        @ch.click(ID_BUTTON_CAPTIONFILTER)
-        def set_caption_filter(self, control_id):
-            options = [("closedCaption", addon.LANG(107)),
-                       ("none", addon.LANG(106)),
-                       ("any", addon.LANG(593))]
-            self.choose_filter("videoCaption", 287, options)
+        @ch.click(5009)
+        def set_caption_filter(self):
+            value_list = ["closedCaption", "none", "any"]
+            label_list = [LANG(107), LANG(106), LANG(593)]
+            index = xbmcgui.Dialog().select(heading=LANG(287),
+                                            list=label_list)
+            if index > -1:
+                self.add_filter("videoCaption", value_list[index], LANG(287), str(label_list[index]))
+                self.update()
 
-        @ch.click(ID_BUTTON_DEFINITIONFILTER)
-        def set_definition_filter(self, control_id):
-            options = [("high", addon.LANG(419)),
-                       ("standard", addon.LANG(602)),
-                       ("any", addon.LANG(593))]
-            self.choose_filter("videoDefinition", 169, options)
+        @ch.click(5012)
+        def set_definition_filter(self):
+            value_list = ["high", "standard", "any"]
+            label_list = [LANG(419), LANG(602), LANG(593)]
+            index = xbmcgui.Dialog().select(heading=LANG(169),
+                                            list=label_list)
+            if index > -1:
+                self.add_filter("videoDefinition", value_list[index], LANG(169), str(label_list[index]))
+                self.update()
 
-        @ch.click(ID_BUTTON_TYPEFILTER)
-        def set_type_filter(self, control_id):
-            options = [("movie", addon.LANG(20338)),
-                       ("episode", addon.LANG(20359)),
-                       ("any", addon.LANG(593))]
-            self.choose_filter("videoType", 32151, options)
-
-        @ch.click(ID_BUTTON_SORTTYPE)
-        def get_sort_type(self, control_id):
-            if not self.choose_sort_method(self.type):
-                return None
+        @ch.click(5007)
+        def toggle_type(self):
+            self.filters = []
+            self.page = 1
+            self.mode = "filter"
+            types = {"video": "playlist",
+                     "playlist": "channel",
+                     "channel": "video"}
+            if self.type in types:
+                self.type = types[self.type]
+            if self.sort not in SORTS[self.type].keys():
+                self.sort = "relevance"
+                self.sort_label = LANG(32060)
             self.update()
 
-        @ch.context("video")
-        def context_menu(self, control_id):
-            listitem = self.FocusedItem(control_id)
-            if self.type == "video":
-                more_vids = "{} [B]{}[/B]".format(addon.LANG(32081),
-                                                  listitem.getProperty("channel_title"))
-                index = xbmcgui.Dialog().contextmenu(list=[addon.LANG(32069), more_vids])
-                if index < 0:
-                    return None
-                elif index == 0:
-                    filter_ = [{"id": listitem.getProperty("youtube_id"),
-                                "type": "relatedToVideoId",
-                                "label": listitem.getLabel()}]
-                    wm.open_youtube_list(filters=filter_)
-                elif index == 1:
-                    filter_ = [{"id": listitem.getProperty("channel_id"),
-                                "type": "channelId",
-                                "label": listitem.getProperty("channel_title")}]
-                    wm.open_youtube_list(filters=filter_)
-
         def update_ui(self):
-            is_video = self.type == "video"
-            self.getControl(ID_BUTTON_DIMENSIONFILTER).setVisible(is_video)
-            self.getControl(ID_BUTTON_DURATIONFILTER).setVisible(is_video)
-            self.getControl(ID_BUTTON_CAPTIONFILTER).setVisible(is_video)
-            self.getControl(ID_BUTTON_DEFINITIONFILTER).setVisible(is_video)
+            self.window.setProperty("Type", TRANSLATIONS[self.type])
+            if self.type == "video":
+                self.window.getControl(5006).setVisible(True)
+                self.window.getControl(5008).setVisible(True)
+                self.window.getControl(5009).setVisible(True)
+                self.window.getControl(5012).setVisible(True)
+            elif self.type == "playlist":
+                self.window.getControl(5006).setVisible(False)
+                self.window.getControl(5008).setVisible(False)
+                self.window.getControl(5009).setVisible(False)
+                self.window.getControl(5012).setVisible(False)
+            elif self.type == "channel":
+                self.window.getControl(5006).setVisible(False)
+                self.window.getControl(5008).setVisible(False)
+                self.window.getControl(5009).setVisible(False)
+                self.window.getControl(5012).setVisible(False)
             super(DialogYoutubeList, self).update_ui()
 
-        @property
-        def default_sort(self):
-            return "relevance"
+        def go_to_next_page(self):
+            if self.page < self.total_pages:
+                self.page += 1
+                self.prev_page_token = self.page_token
+                self.page_token = self.next_page_token
 
-        def add_filter(self, **kwargs):
-            kwargs["typelabel"] = self.FILTERS[kwargs["key"]]
-            super(DialogYoutubeList, self).add_filter(force_overwrite=True,
-                                                      **kwargs)
+        def go_to_prev_page(self):
+            if self.page > 1:
+                self.page -= 1
+                self.next_page_token = self.page_token
+                self.page_token = self.prev_page_token
+
+        @ch.click(5001)
+        def get_sort_type(self):
+            sort_key = self.type
+            listitems = [key for key in SORTS[sort_key].values()]
+            sort_strings = [value for value in SORTS[sort_key].keys()]
+            index = xbmcgui.Dialog().select(heading=LANG(32104),
+                                            list=listitems)
+            if index == -1:
+                return None
+            self.sort = sort_strings[index]
+            self.sort_label = listitems[index]
+            self.update()
+
+        @ch.action("contextmenu", 500)
+        def context_menu(self):
+            if self.type == "video":
+                more_vids = "%s [B]%s[/B]" % (ADDON.getLocalizedString(32081), self.listitem.getProperty("channel_title"))
+                listitems = [LANG(32069), more_vids]
+                selection = xbmcgui.Dialog().select(heading=LANG(32151),
+                                                    list=listitems)
+                if selection < 0:
+                    return None
+                elif selection == 0:
+                    related_filter = [{"id": self.listitem.getProperty("youtube_id"),
+                                       "type": "relatedToVideoId",
+                                       "typelabel": "Related",
+                                       "label": self.listitem.getLabel()}]
+                    wm.open_youtube_list(filters=related_filter)
+                elif selection == 1:
+                    channel_filter = [{"id": self.listitem.getProperty("channel_id"),
+                                       "type": "channelId",
+                                       "typelabel": "Related",
+                                       "label": self.listitem.getProperty("channel_title")}]
+                    wm.open_youtube_list(filters=channel_filter)
+
+        def add_filter(self, key, value, typelabel, label):
+            super(DialogYoutubeList, self).add_filter(key=key,
+                                                      value=value,
+                                                      typelabel=typelabel,
+                                                      label=label,
+                                                      force_overwrite=True)
+            self.mode = "filter"
+            self.page = 1
 
         def fetch_data(self, force=False):
+            self.set_filter_url()
             self.set_filter_label()
             if self.search_str:
-                self.filter_label = addon.LANG(32146) % (self.search_str) + "  " + self.filter_label
-            return youtube.search(search_str=self.search_str,
+                self.filter_label = "%s: %s" % (LANG(19133), self.search_str) + "  " + self.filter_label
+            else:
+                self.filter_label = self.filter_label
+            return search_youtube(self.search_str,
                                   orderby=self.sort,
                                   extended=True,
-                                  filters={item["type"]: item["id"] for item in self.filters},
+                                  filter_str=self.filter_url,
                                   media_type=self.type,
                                   page=self.page_token)
 
     return DialogYoutubeList
-
-
-def open(self, search_str="", filters=None, sort="relevance", filter_label="", media_type="video"):
-    """
-    open video list, deal with window stack
-    """
-    YouTube = get_window(windows.DialogXML)
-    dialog = YouTube(u'script-%s-YoutubeList.xml' % addon.NAME, addon.PATH,
-                     search_str=search_str,
-                     filters=[] if not filters else filters,
-                     filter_label=filter_label,
-                     type=media_type)
-    return dialog

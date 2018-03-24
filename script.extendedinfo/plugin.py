@@ -4,132 +4,120 @@
 # This program is Free Software see LICENSE file for details
 
 import sys
-import os
-
+import xbmc
 import xbmcplugin
 import xbmcgui
-
-from resources.lib import process
-
-from kodi65 import addon
-from kodi65 import utils
-import routing
-
-MOVIEDB_IMAGE = os.path.join(addon.MEDIA_PATH, "moviedb.png")
-TRAKT_IMAGE = os.path.join(addon.MEDIA_PATH, "trakt.png")
-
-plugin = routing.Plugin()
-
+from resources.lib.process import start_info_actions
+from resources.lib.Utils import *
+from resources.lib.TheMovieDB import check_login
 
 class Main:
 
     def __init__(self):
-        utils.log("version %s started" % addon.VERSION)
-        addon.set_global("extendedinfo_running", "true")
+        xbmc.log("version %s started" % ADDON_VERSION)
+        xbmc.executebuiltin('SetProperty(wraith_running,True,home)')
+        if xbmc.getCondVisibility('Skin.String(WindowColorMain,'+COLORMAIN+')') == False: xbmc.executebuiltin('Skin.SetString(WindowColorMain,'+COLORMAIN+')')
+        elif xbmc.getCondVisibility('Skin.String(WindowColorThemed,'+COLORTHEMED+')') == False: xbmc.executebuiltin('Skin.SetString(WindowColorThemed,'+COLORTHEMED+')')
         self._parse_argv()
-        for info in self.infos:
-            listitems = process.start_info_actions(info, self.params)
-            if listitems:
-                listitems.set_plugin_list(plugin.handle)
-            break
+        logged_in = check_login()
+        if self.infos:
+            start_info_actions(self.infos, self.params)
         else:
-            plugin.run()
-        addon.clear_global("extendedinfo_running")
+            videos = {"ytvideos": "yt - %s [I](Youtube)[/I]" % LANG(32231),
+                      "ytchannels": "yt - %s [I](Youtube)[/I]" % LANG(32229),
+                      "ytplaylists": "yt - %s [I](Youtube)[/I]" % LANG(32230),}
+            movies = {"trendingmovies": "tr - %s [I](Trakt.tv)[/I]" % LANG(32047),
+                      "incinemas": "tm - %s [I](TheMovieDB)[/I]" % LANG(32042),
+                      "upcoming": "tm - %s [I](TheMovieDB)[/I]" % LANG(32043),
+                      "topratedmovies": "tm - %s [I](TheMovieDB)[/I]" % LANG(32046),
+                      "popularmovies": "tm - %s [I](TheMovieDB)[/I]" % LANG(32044),
+                      "allmovies": "tm - %s [I](TheMovieDB)[/I]" % LANG(32248),}
+            tvshows = {"airingshows": "tr - %s [I](Trakt.tv)[/I]" % LANG(32028),
+                       "premiered": "tr - %s [I](Trakt.tv)[/I]" % LANG(32029),
+                       "trendingshows": "tr - %s [I](Trakt.tv)[/I]" % LANG(32032),
+                       "airingtodaytvshows": "tm - %s [I](TheMovieDB)[/I]" % LANG(32038),
+                       "onairtvshows": "tm - %s [I](TheMovieDB)[/I]" % LANG(32039),
+                       "topratedtvshows": "tm - %s [I](TheMovieDB)[/I]" % LANG(32040),
+                       "populartvshows": "tm - %s [I](TheMovieDB)[/I]" % LANG(32041),
+                       "alltvshows": "tm - %s [I](TheMovieDB)[/I]" % LANG(32249),}
+            if logged_in:
+                personal_movies = {"accountlists": "tm - %s [I](TheMovieDB)[/I]" % LANG(32045),
+                                   "starredmovies": "tm - %s [I](TheMovieDB)[/I]" % LANG(32134),
+                                   "ratedmovies": "tm - %s [I](TheMovieDB)[/I]" % LANG(32135),}
+                personal_tvshows = {"starredtvshows": "tm - %s [I](TheMovieDB)[/I]" % LANG(32144),
+                                    "ratedtvshows": "tm - %s [I](TheMovieDB)[/I]" % LANG(32145),}
+            else:
+                personal_movies = {}
+                personal_tvshows = {}
+            if xbmc.getCondVisibility("Library.HasContent(Movies)"):
+                library_movies = {"libraryinprogressmovies": "tm - %s [I](TheMovieDB)[/I]" % LANG(32241),
+                                  "librarylatestmovies": "tm - %s [I](TheMovieDB)[/I]" % LANG(32242),
+                                  "libraryrandommovies": "tm - %s [I](TheMovieDB)[/I]" % LANG(32243),}
+            else: library_movies = {}
+            if xbmc.getCondVisibility("Library.HasContent(TVShows)"):
+                library_tvshows = {"libraryinprogresstvshows": "tm - %s [I](TheMovieDB)[/I]" % LANG(32245),
+                                   "librarylatesttvshows": "tm - %s [I](TheMovieDB)[/I]" % LANG(32246),
+                                   "libraryrandomtvshows": "tm - %s [I](TheMovieDB)[/I]" % LANG(32247),}
+            else: library_tvshows = {}
+            xbmcplugin.setContent(self.handle, 'videos')
+            movie_items = merge_dicts(movies, personal_movies, library_movies)
+            tvshow_items = merge_dicts(tvshows, personal_tvshows, library_tvshows)
+            youtube_items = videos
+            for key, value in iter(sorted(movie_items.iteritems())):
+                temp = {}
+                temp['value'] = value
+                image_code = temp['value'][:2]
+                label = temp['value'][5:]
+                li = xbmcgui.ListItem(label, iconImage="%s/resources/skins/Default/media/%s.png" % (ADDON_PATH, image_code), thumbnailImage="%s/resources/skins/Default/media/%s.png" % (ADDON_PATH, image_code))
+                li.setProperty('fanart_image', "special://home/addons/script.extendedinfo/resources/skins/Default/media/%s-fanart.jpg" % image_code)
+                if SCRIPT == "true" and "yt" not in value: url = 'plugin://script.extendedinfo?info=%s&type=script' % key
+                else: url = 'plugin://script.extendedinfo?info=%s' % key
+                xbmcplugin.addDirectoryItem(handle=self.handle, url=url, listitem=li, isFolder=True)
+            for key, value in iter(sorted(tvshow_items.iteritems())):
+                temp = {}
+                temp['value'] = value
+                image_code = temp['value'][:2]
+                label = temp['value'][5:]
+                li = xbmcgui.ListItem(label, iconImage="%s/resources/skins/Default/media/%s.png" % (ADDON_PATH, image_code), thumbnailImage="%s/resources/skins/Default/media/%s.png" % (ADDON_PATH, image_code))
+                li.setProperty('fanart_image', "special://home/addons/script.extendedinfo/resources/skins/Default/media/%s-fanart.jpg" % image_code)
+                if SCRIPT == "true" and "yt" not in value: url = 'plugin://script.extendedinfo?info=%s&type=script' % key
+                else: url = 'plugin://script.extendedinfo?info=%s' % key
+                xbmcplugin.addDirectoryItem(handle=self.handle, url=url, listitem=li, isFolder=True)
+            for key, value in iter(sorted(youtube_items.iteritems())):
+                temp = {}
+                temp['value'] = value
+                image_code = temp['value'][:2]
+                label = temp['value'][5:]
+                li = xbmcgui.ListItem(label, iconImage="%s/resources/skins/Default/media/%s.png" % (ADDON_PATH, image_code), thumbnailImage="%s/resources/skins/Default/media/%s.png" % (ADDON_PATH, image_code))
+                li.setProperty('fanart_image', "special://home/addons/script.extendedinfo/resources/skins/Default/media/%s-fanart.jpg" % image_code)
+                if SCRIPT == "true" and "yt" not in value: url = 'plugin://script.extendedinfo?info=%s&type=script' % key
+                else: url = 'plugin://script.extendedinfo?info=%s' % key
+                xbmcplugin.addDirectoryItem(handle=self.handle, url=url, listitem=li, isFolder=True)
+            xbmcplugin.endOfDirectory(self.handle)
+        xbmc.executebuiltin('ClearProperty(wraith_running,home)')
 
     def _parse_argv(self):
         args = sys.argv[2][1:]
+        self.handle = int(sys.argv[1])
+        self.control = "plugin"
         self.infos = []
-        self.params = {"handle": plugin.handle}
+        self.params = {"handle": self.handle,
+                       "control": self.control}
         if args.startswith("---"):
             delimiter = "&"
             args = args[3:]
         else:
-            delimiter = "&&"
+            delimiter = "&"
         for arg in args.split(delimiter):
             param = arg.replace('"', '').replace("'", " ")
             if param.startswith('info='):
                 self.infos.append(param[5:])
             else:
                 try:
-                    self.params[param.split("=")[0].lower()] = "=".join(param.split("=")[1:]).strip().decode('utf-8')
-                except Exception:
+                    self.params[param.split("=")[0].lower()] = "=".join(param.split("=")[1:]).strip()
+                except:
                     pass
-
-
-@plugin.route('/tmdb')
-def tmdb():
-    xbmcplugin.setPluginCategory(plugin.handle, "TheMovieDB")
-    items = [("incinemamovies", addon.LANG(32042)),
-             ("upcomingmovies", addon.LANG(32043)),
-             ("topratedmovies", addon.LANG(32046)),
-             ("popularmovies", addon.LANG(32044)),
-             ("ratedmovies", addon.LANG(32135)),
-             ("airingtodaytvshows", addon.LANG(32038)),
-             ("onairtvshows", addon.LANG(32039)),
-             ("topratedtvshows", addon.LANG(32040)),
-             ("populartvshows", addon.LANG(32041)),
-             ("ratedtvshows", addon.LANG(32145)),
-             ("ratedepisodes", addon.LANG(32093))]
-    login = [("starredmovies", addon.LANG(32134)),
-             ("starredtvshows", addon.LANG(32144)),
-             ("accountlists", addon.LANG(32045))]
-    if addon.setting("tmdb_username") and addon.setting("tmdb_password"):
-        items += login
-    for key, value in items:
-        li = xbmcgui.ListItem(label=value,
-                              thumbnailImage="DefaultFolder.png")
-        url = 'plugin://script.extendedinfo?info=%s' % key
-        xbmcplugin.addDirectoryItem(handle=plugin.handle,
-                                    url=url,
-                                    listitem=li,
-                                    isFolder=True)
-    xbmcplugin.addSortMethod(plugin.handle, xbmcplugin.SORT_METHOD_LABEL)
-    xbmcplugin.endOfDirectory(plugin.handle)
-
-
-@plugin.route('/trakt')
-def trakt():
-    xbmcplugin.setPluginCategory(plugin.handle, "Trakt")
-    items = [("trendingmovies", addon.LANG(32047)),
-             ("traktpopularmovies", addon.LANG(32044)),
-             ("mostplayedmovies", addon.LANG(32089)),
-             ("mostwatchedmovies", addon.LANG(32090)),
-             ("mostcollectedmovies", addon.LANG(32091)),
-             ("mostanticipatedmovies", addon.LANG(32092)),
-             ("traktboxofficemovies", addon.LANG(32055)),
-             ("trendingshows", addon.LANG(32032)),
-             ("popularshows", addon.LANG(32041)),
-             ("anticipatedshows", addon.LANG(32085)),
-             ("mostplayedshows", addon.LANG(32086)),
-             ("mostcollectedshows", addon.LANG(32087)),
-             ("mostwatchedshows", addon.LANG(32088)),
-             ("airingepisodes", addon.LANG(32028)),
-             ("premiereepisodes", addon.LANG(32029))]
-    for key, value in items:
-        li = xbmcgui.ListItem(label=value,
-                              thumbnailImage="DefaultFolder.png")
-        url = 'plugin://script.extendedinfo?info=%s' % key
-        xbmcplugin.addDirectoryItem(handle=plugin.handle,
-                                    url=url,
-                                    listitem=li,
-                                    isFolder=True)
-    xbmcplugin.addSortMethod(plugin.handle, xbmcplugin.SORT_METHOD_LABEL)
-    xbmcplugin.endOfDirectory(plugin.handle)
-
-
-@plugin.route('/')
-def root():
-    items = [
-        (plugin.url_for(trakt), xbmcgui.ListItem(label="Trakt",
-                                                 thumbnailImage=TRAKT_IMAGE), True),
-        (plugin.url_for(tmdb), xbmcgui.ListItem(label="TheMovieDB",
-                                                thumbnailImage=MOVIEDB_IMAGE), True),
-    ]
-    xbmcplugin.addSortMethod(plugin.handle, xbmcplugin.SORT_METHOD_LABEL)
-    xbmcplugin.addDirectoryItems(plugin.handle, items)
-    xbmcplugin.endOfDirectory(plugin.handle)
-
 
 if (__name__ == "__main__"):
     Main()
-utils.log('finished')
+xbmc.log('finished')

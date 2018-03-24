@@ -3,261 +3,391 @@
 # Copyright (C) 2015 - Philipp Temminghoff <phil65@kodi.tv>
 # This program is Free Software see LICENSE file for details
 
-import os
-import re
+from Utils import *
+import xbmcaddon
+from dialogs.BaseClasses import *
 
-import xbmc
-import xbmcgui
-import xbmcvfs
-
-import TheMovieDB as tmdb
-
-from kodi65 import windows
-from kodi65 import addon
-from kodi65 import utils
-from kodi65 import busy
-from kodi65 import player
-from kodi65 import local_db
-
-INFO_XML_CLASSIC = u'script-%s-DialogVideoInfo.xml' % (addon.ID)
-LIST_XML_CLASSIC = u'script-%s-VideoList.xml' % (addon.ID)
-ACTOR_XML_CLASSIC = u'script-%s-DialogInfo.xml' % (addon.ID)
-if addon.bool_setting("force_native_layout") and addon.setting("xml_version") != addon.VERSION:
-    addon.set_setting("xml_version", addon.VERSION)
-    INFO_XML = u'script-%s-DialogVideoInfo-classic.xml' % (addon.ID)
-    LIST_XML = u'script-%s-VideoList-classic.xml' % (addon.ID)
-    ACTOR_XML = u'script-%s-DialogInfo-classic.xml' % (addon.ID)
-    path = os.path.join(addon.PATH, "resources", "skins", "Default", "1080i")
-    xbmcvfs.copy(strSource=os.path.join(path, INFO_XML_CLASSIC),
-                 strDestnation=os.path.join(path, INFO_XML))
-    xbmcvfs.copy(strSource=os.path.join(path, LIST_XML_CLASSIC),
-                 strDestnation=os.path.join(path, LIST_XML))
-    xbmcvfs.copy(strSource=os.path.join(path, ACTOR_XML_CLASSIC),
-                 strDestnation=os.path.join(path, ACTOR_XML))
+from local_db import get_imdb_id_from_db
+ADDON = xbmcaddon.Addon()
+ADDON_ID = ADDON.getAddonInfo('id')
+ADDON_ICON = ADDON.getAddonInfo('icon')
+ADDON_NAME = ADDON.getAddonInfo('name')
+ADDON_PATH = ADDON.getAddonInfo('path').decode("utf-8")
+INFO_DIALOG_FILE_CLASSIC = u'%s-DialogVideoInfo.xml' % (ADDON_ID)
+LIST_DIALOG_FILE_CLASSIC = u'%s-VideoList.xml' % (ADDON_ID)
+ACTOR_DIALOG_FILE_CLASSIC = u'%s-DialogInfo.xml' % (ADDON_ID)
+if SETTING("force_native_layout") == "true":
+    INFO_DIALOG_FILE = u'%s-DialogVideoInfo-classic.xml' % (ADDON_ID)
+    LIST_DIALOG_FILE = u'%s-VideoList-classic.xml' % (ADDON_ID)
+    ACTOR_DIALOG_FILE = u'%s-DialogInfo-classic.xml' % (ADDON_ID)
+    path = os.path.join(ADDON_PATH, "resources", "skins", "Default", "1080i")
+    if not xbmcvfs.exists(os.path.join(path, INFO_DIALOG_FILE)):
+        xbmcvfs.copy(strSource=os.path.join(path, INFO_DIALOG_FILE_CLASSIC),
+                     strDestnation=os.path.join(path, INFO_DIALOG_FILE))
+    if not xbmcvfs.exists(os.path.join(path, LIST_DIALOG_FILE)):
+        xbmcvfs.copy(strSource=os.path.join(path, LIST_DIALOG_FILE_CLASSIC),
+                     strDestnation=os.path.join(path, LIST_DIALOG_FILE))
+    if not xbmcvfs.exists(os.path.join(path, ACTOR_DIALOG_FILE)):
+        xbmcvfs.copy(strSource=os.path.join(path, ACTOR_DIALOG_FILE_CLASSIC),
+                     strDestnation=os.path.join(path, ACTOR_DIALOG_FILE))
 else:
-    INFO_XML = INFO_XML_CLASSIC
-    LIST_XML = LIST_XML_CLASSIC
-    ACTOR_XML = ACTOR_XML_CLASSIC
+    INFO_DIALOG_FILE = INFO_DIALOG_FILE_CLASSIC
+    LIST_DIALOG_FILE = LIST_DIALOG_FILE_CLASSIC
+    ACTOR_DIALOG_FILE = ACTOR_DIALOG_FILE_CLASSIC
 
 
 class WindowManager(object):
     window_stack = []
 
     def __init__(self):
-        self.active_dialog = None
-        self.saved_background = addon.get_global("infobackground")
-        self.saved_control = xbmc.getInfoLabel("System.CurrentControlId")
-        self.saved_dialogstate = xbmc.getCondVisibility("Window.IsActive(Movieinformation)")
-        # self.monitor = SettingsMonitor()
+        self.reopen_window = False
 
-    def open_movie_info(self, movie_id=None, dbid=None, name=None, imdb_id=None):
+    def add_to_stack(self, window):
+        """
+        add window / dialog to global window stack
+        """
+        self.window_stack.append(window)
+
+    def pop_stack(self):
+        """
+        get newest item from global window stack
+        """
+        if self.window_stack:
+            dialog = self.window_stack.pop()
+            xbmc.sleep(300)
+            dialog.doModal()
+        elif self.reopen_window:
+            xbmc.sleep(500)
+            xbmc.executebuiltin("Action(Info)")
+
+    def open_movie_info(self, prev_window=None, movie_id=None, dbid=None, name=None, imdb_id=None):
         """
         open movie info, deal with window stack
         """
-        busy.show_busy()
-        from dialogs.DialogMovieInfo import DialogMovieInfo
-        dbid = int(dbid) if dbid and int(dbid) > 0 else None
+        xbmc.executebuiltin("ActivateWindow(busydialog)")
+        from dialogs import DialogVideoInfo
+        from TheMovieDB import get_movie_tmdb_id
         if not movie_id:
-            movie_id = tmdb.get_movie_tmdb_id(imdb_id=imdb_id,
-                                              dbid=dbid,
-                                              name=name)
-        dialog = DialogMovieInfo(INFO_XML,
-                                 addon.PATH,
-                                 id=movie_id,
-                                 dbid=dbid)
-        busy.hide_busy()
-        self.open_infodialog(dialog)
+            movie_id = get_movie_tmdb_id(imdb_id=imdb_id,
+                                         dbid=dbid,
+                                         name=name)
+        movieclass = DialogVideoInfo.get_movie_window(WindowXML if SETTING("window_mode") == "true" else DialogXML)
+        dialog = movieclass(INFO_DIALOG_FILE, ADDON_PATH,
+                            id=movie_id,
+                            dbid=dbid)
+        xbmc.executebuiltin("Dialog.Close(busydialog)")
+        self.open_dialog(dialog, prev_window)
 
-    def open_tvshow_info(self, tmdb_id=None, dbid=None, tvdb_id=None, imdb_id=None, name=None):
+    def open_tvshow_info(self, prev_window=None, tvshow_id=None, dbid=None, tvdb_id=None, imdb_id=None, name=None):
         """
         open tvshow info, deal with window stack
         """
-        busy.show_busy()
-        dbid = int(dbid) if dbid and int(dbid) > 0 else None
-        from dialogs.DialogTVShowInfo import DialogTVShowInfo
-        if tmdb_id:
-            pass
+        xbmc.executebuiltin("ActivateWindow(busydialog)")
+        from dialogs import DialogTVShowInfo
+        from TheMovieDB import get_show_tmdb_id, search_media
+        tmdb_id = None
+        if tvshow_id:
+            tmdb_id = tvshow_id
         elif tvdb_id:
-            tmdb_id = tmdb.get_show_tmdb_id(tvdb_id)
+            tmdb_id = get_show_tmdb_id(tvdb_id)
         elif imdb_id:
-            tmdb_id = tmdb.get_show_tmdb_id(tvdb_id=imdb_id,
-                                            source="imdb_id")
-        elif dbid:
-            tvdb_id = local_db.get_imdb_id(media_type="tvshow",
-                                           dbid=dbid)
+            tmdb_id = get_show_tmdb_id(tvdb_id=imdb_id,
+                                       source="imdb_id")
+        elif dbid and (int(dbid) > 0):
+            tvdb_id = get_imdb_id_from_db(media_type="tvshow",
+                                          dbid=dbid)
             if tvdb_id:
-                tmdb_id = tmdb.get_show_tmdb_id(tvdb_id)
+                tmdb_id = get_show_tmdb_id(tvdb_id)
         elif name:
-            tmdb_id = tmdb.search_media(media_name=name,
-                                        year="",
-                                        media_type="tv")
-        dialog = DialogTVShowInfo(INFO_XML,
-                                  addon.PATH,
-                                  tmdb_id=tmdb_id,
-                                  dbid=dbid)
-        busy.hide_busy()
-        self.open_infodialog(dialog)
+            tmdb_id = search_media(media_name=name,
+                                   year="",
+                                   media_type="tv")
+        tvshow_class = DialogTVShowInfo.get_tvshow_window(WindowXML if SETTING("window_mode") == "true" else DialogXML)
+        dialog = tvshow_class(INFO_DIALOG_FILE, ADDON_PATH,
+                              tmdb_id=tmdb_id,
+                              dbid=dbid)
+        xbmc.executebuiltin("Dialog.Close(busydialog)")
+        self.open_dialog(dialog, prev_window)
 
-    def open_season_info(self, tvshow_id=None, season=None, tvshow=None, dbid=None):
+    def open_season_info(self, prev_window=None, tvshow_id=None, season=None, tvshow=None, dbid=None):
         """
         open season info, deal with window stack
         needs *season AND (*tvshow_id OR *tvshow)
         """
-        busy.show_busy()
-        from dialogs.DialogSeasonInfo import DialogSeasonInfo
+        xbmc.executebuiltin("ActivateWindow(busydialog)")
+        from dialogs import DialogSeasonInfo
+        from TheMovieDB import get_tmdb_data
         if not tvshow_id:
-            params = {"query": tvshow,
-                      "language": addon.setting("language")}
-            response = tmdb.get_data(url="search/tv",
-                                     params=params,
-                                     cache_days=30)
+            response = get_tmdb_data("search/tv?query=%s&language=%s&" % (url_quote(tvshow), SETTING("LanguageID")), 30)
             if response["results"]:
                 tvshow_id = str(response['results'][0]['id'])
             else:
-                params = {"query": re.sub('\(.*?\)', '', tvshow),
-                          "language": addon.setting("language")}
-                response = tmdb.get_data(url="search/tv",
-                                         params=params,
-                                         cache_days=30)
+                tvshow = re.sub('\(.*?\)', '', tvshow)
+                response = get_tmdb_data("search/tv?query=%s&language=%s&" % (url_quote(tvshow), SETTING("LanguageID")), 30)
                 if response["results"]:
                     tvshow_id = str(response['results'][0]['id'])
 
-        dialog = DialogSeasonInfo(INFO_XML,
-                                  addon.PATH,
-                                  id=tvshow_id,
-                                  season=max(0, season),
-                                  dbid=int(dbid) if dbid and int(dbid) > 0 else None)
-        busy.hide_busy()
-        self.open_infodialog(dialog)
+        season_class = DialogSeasonInfo.get_season_window(WindowXML if SETTING("window_mode") == "true" else DialogXML)
+        dialog = season_class(INFO_DIALOG_FILE, ADDON_PATH,
+                              id=tvshow_id,
+                              season=season,
+                              dbid=dbid)
+        xbmc.executebuiltin("Dialog.Close(busydialog)")
+        self.open_dialog(dialog, prev_window)
 
-    def open_episode_info(self, tvshow_id=None, season=None, episode=None, tvshow=None, dbid=None):
+    def open_episode_info(self, prev_window=None, tvshow_id=None, season=None, episode=None, tvshow=None, dbid=None):
         """
         open season info, deal with window stack
-        needs (*tvshow_id OR *tvshow) AND *season AND *episode
+        needs *tvshow_id AND *season AND *episode
         """
-        from dialogs.DialogEpisodeInfo import DialogEpisodeInfo
+        from dialogs import DialogEpisodeInfo
+        from TheMovieDB import get_tmdb_data
+        ep_class = DialogEpisodeInfo.get_episode_window(WindowXML if SETTING("window_mode") == "true" else DialogXML)
         if not tvshow_id and tvshow:
-            tvshow_id = tmdb.search_media(media_name=tvshow,
-                                          media_type="tv",
-                                          cache_days=7)
-        dialog = DialogEpisodeInfo(INFO_XML,
-                                   addon.PATH,
-                                   tvshow_id=tvshow_id,
-                                   season=max(0, season),
-                                   episode=episode,
-                                   dbid=int(dbid) if dbid and int(dbid) > 0 else None)
-        self.open_infodialog(dialog)
+            response = get_tmdb_data("search/tv?query=%s&language=%s&" % (urllib.quote_plus(tvshow), SETTING("LanguageID")), 30)
+            if response["results"]:
+                tvshow_id = str(response['results'][0]['id'])
+        dialog = ep_class(INFO_DIALOG_FILE, ADDON_PATH,
+                          show_id=tvshow_id,
+                          season=season,
+                          episode=episode,
+                          dbid=dbid)
+        self.open_dialog(dialog, prev_window)
 
-    def open_actor_info(self, actor_id=None, name=None):
+    def open_actor_info(self, prev_window=None, actor_id=None, name=None):
         """
         open actor info, deal with window stack
         """
-        from dialogs.DialogActorInfo import DialogActorInfo
+        from dialogs import DialogActorInfo
+        from TheMovieDB import get_person_info
         if not actor_id:
-            name = name.split(" %s " % addon.LANG(20347))
+            name = name.decode("utf-8").split(" " + LANG(20347) + " ")
             names = name[0].strip().split(" / ")
             if len(names) > 1:
-                ret = xbmcgui.Dialog().select(heading=addon.LANG(32027),
+                ret = xbmcgui.Dialog().select(heading=LANG(32027),
                                               list=names)
                 if ret == -1:
                     return None
                 name = names[ret]
             else:
                 name = names[0]
-            busy.show_busy()
-            actor_info = tmdb.get_person_info(name)
-            if not actor_info:
-                return None
-            actor_id = actor_info["id"]
+            xbmc.executebuiltin("ActivateWindow(busydialog)")
+            actor_info = get_person_info(name)
+            if actor_info:
+                actor_id = actor_info["id"]
         else:
-            busy.show_busy()
-        dialog = DialogActorInfo(ACTOR_XML,
-                                 addon.PATH,
-                                 id=actor_id)
-        busy.hide_busy()
-        self.open_infodialog(dialog)
+            xbmc.executebuiltin("ActivateWindow(busydialog)")
+        actor_class = DialogActorInfo.get_actor_window(WindowXML if SETTING("window_mode") == "true" else DialogXML)
+        dialog = actor_class(ACTOR_DIALOG_FILE, ADDON_PATH,
+                             id=actor_id)
+        xbmc.executebuiltin("Dialog.Close(busydialog)")
+        self.open_dialog(dialog, prev_window)
 
-    def open_video_list(self, listitems=None, filters=None, mode="filter", list_id=False,
-                        filter_label="", force=False, media_type="movie", search_str=""):
+
+    def open_video_list(self, prev_window=None, listitems=None, filters=[], mode="filter", list_id=False, filter_label="", force=False, media_type="movie"):
         """
-        open video list, deal with window stack
+        open video list, deal with window stack and color
         """
         from dialogs import DialogVideoList
-        Browser = DialogVideoList.get_window(windows.DialogXML)
-        dialog = Browser(LIST_XML,
-                         addon.PATH,
-                         listitems=listitems,
-                         filters=[] if not filters else filters,
-                         mode=mode,
-                         list_id=list_id,
-                         force=force,
-                         filter_label=filter_label,
-                         search_str=search_str,
-                         type=media_type)
-        self.open_dialog(dialog)
+        if prev_window:
+            try:  # TODO rework
+                color = prev_window.data["general"]['ImageColor']
+            except:
+                color = COLORMAIN
+        else:
+            color = COLORMAIN
+        check_version()
+        browser_class = DialogVideoList.get_tmdb_window(WindowXML if SETTING("window_mode") == "true" else DialogXML)
+        dialog = browser_class(LIST_DIALOG_FILE, ADDON_PATH,
+                               listitems=listitems,
+                               color=color,
+                               filters=filters,
+                               mode=mode,
+                               list_id=list_id,
+                               force=force,
+                               filter_label=filter_label,
+                               type=media_type)
+        if prev_window:
+            self.add_to_stack(prev_window)
+            prev_window.close()
+        dialog.doModal()
 
-    def open_youtube_list(self, search_str="", filters=None, filter_label="", media_type="video"):
+    def open_tvshow_list(self, prev_window=None, listitems=None, filters=[], mode="filter", list_id=False, filter_label="", force=True, media_type="tv"):
         """
-        open video list, deal with window stack
+        open video list, deal with window stack and color
+        """
+        from dialogs import DialogVideoList
+        if prev_window:
+            try:  # TODO rework
+                color = prev_window.data["general"]['ImageColor']
+            except:
+                color = COLORMAIN
+        else:
+            color = COLORMAIN
+        check_version()
+        browser_class = DialogVideoList.get_tmdb_window(WindowXML if SETTING("window_mode") == "true" else DialogXML)
+        dialog = browser_class(LIST_DIALOG_FILE, ADDON_PATH,
+                               listitems=listitems,
+                               color=color,
+                               filters=filters,
+                               mode=mode,
+                               list_id=list_id,
+                               force=force,
+                               filter_label=filter_label,
+                               type=media_type)
+        if prev_window:
+            self.add_to_stack(prev_window)
+            prev_window.close()
+        dialog.doModal()
+
+    def open_custom_list(self, prev_window=None, listitems=None, filters=[], mode="search", search_str=None, list_id=False, filter_label="", force=True, media_type="tv"):
+        """
+        open video list, deal with window stack and color
+        """
+        from dialogs import DialogVideoList
+        if prev_window:
+            try:  # TODO rework
+                color = prev_window.data["general"]['ImageColor']
+            except:
+                color = COLORMAIN
+        else:
+            color = COLORMAIN
+        check_version()
+        browser_class = DialogVideoList.get_tmdb_window(WindowXML if SETTING("window_mode") == "true" else DialogXML)
+        dialog = browser_class(LIST_DIALOG_FILE, ADDON_PATH,
+                               listitems=listitems,
+                               color=color,
+                               filters=filters,
+                               mode=mode,
+                               search_str=search_str,
+                               list_id=list_id,
+                               force=force,
+                               filter_label=filter_label,
+                               type=media_type)
+        if prev_window:
+            self.add_to_stack(prev_window)
+            prev_window.close()
+        dialog.doModal()
+
+    def open_fav_tmdb(self, prev_window=None, listitems=None, filters=[], mode="filter", search_str=None, list_id=False, filter_label="", force=True, media_type="tv", sort="popularity", sort_label=LANG(32110), order="desc", page=1):
+        """
+        open video list, deal with window stack and color
+        """
+        from dialogs import DialogVideoList
+        if prev_window:
+            try:  # TODO rework
+                color = prev_window.data["general"]['ImageColor']
+            except:
+                color = COLORMAIN
+        else:
+            color = COLORMAIN
+        check_version()
+        browser_class = DialogVideoList.get_tmdb_window(WindowXML if SETTING("window_mode") == "true" else DialogXML)
+        dialog = browser_class(LIST_DIALOG_FILE, ADDON_PATH,
+                               listitems=listitems,
+                               color=color,
+                               filters=filters,
+                               mode=mode,
+                               search_str=search_str,
+                               list_id=list_id,
+                               force=force,
+                               filter_label=filter_label,
+                               type=media_type,
+                               sort=sort,
+                               sort_label=sort_label,
+                               order=order,
+                               page=int(page))
+        if prev_window:
+            self.add_to_stack(prev_window)
+            prev_window.close()
+        dialog.doModal()
+
+    def open_fav_youtube(self, search_str="", filters=[], filter_label="", media_type="video", sort="relevance", sort_label=LANG(32110), order="desc", page=1):
+        """
+        open video list, deal with window stack and color
         """
         from dialogs import DialogYoutubeList
-        YouTube = DialogYoutubeList.get_window(windows.DialogXML)
-        dialog = YouTube(u'script-%s-YoutubeList.xml' % addon.ID, addon.PATH,
-                         search_str=search_str,
-                         filters=[] if not filters else filters,
-                         type=media_type)
-        self.open_dialog(dialog)
-
-    def open_infodialog(self, dialog):
-        if dialog.info:
-            self.open_dialog(dialog)
-        else:
-            self.active_dialog = None
-            utils.notify(addon.LANG(32143))
-
-    def open_dialog(self, dialog):
-        if self.active_dialog:
-            self.window_stack.append(self.active_dialog)
-            self.active_dialog.close()
-        utils.check_version()
-        if not addon.setting("first_start_infodialog"):
-            addon.set_setting("first_start_infodialog", "True")
-            xbmcgui.Dialog().ok(heading=addon.NAME,
-                                line1=addon.LANG(32140),
-                                line2=addon.LANG(32141))
-        self.active_dialog = dialog
+        color = COLORMAIN
+        youtube_class = DialogYoutubeList.get_youtube_window(WindowXML)
+        dialog = youtube_class(u'%s-YoutubeList.xml' % ADDON_ID, ADDON_PATH,
+                               search_str=search_str,
+                               color=color,
+                               filters=filters,
+                               filter_label=filter_label,
+                               type=media_type,
+                               sort=sort,
+                               sort_label=sort_label,
+                               order=order,
+                               page=page)
         dialog.doModal()
-        if dialog.cancelled:
-            addon.set_global("infobackground", self.saved_background)
-            self.window_stack = []
-            return None
-        if self.window_stack:
-            self.active_dialog = self.window_stack.pop()
-            xbmc.sleep(300)
-            self.active_dialog.doModal()
-        else:
-            addon.set_global("infobackground", self.saved_background)
 
-    def play_youtube_video(self, youtube_id="", listitem=None):
+    def open_youtube_list(self, prev_window=None, search_str="", filters=[], sort="relevance", filter_label="", media_type="video"):
         """
-        play youtube vid with info from *listitem
+        open video list, deal with window stack and color
         """
-        url, yt_listitem = player.youtube_info_by_id(youtube_id)
-        if not listitem:
-            listitem = yt_listitem
-        if not url:
-            utils.notify(header=addon.LANG(257),
-                         message="no youtube id found")
-            return None
-        if self.active_dialog and self.active_dialog.window_type == "dialog":
-            self.active_dialog.close()
-        xbmc.executebuiltin("Dialog.Close(movieinformation)")
-        xbmc.Player().play(item=url,
-                           listitem=listitem,
-                           windowed=False,
-                           startpos=-1)
-        if self.active_dialog and self.active_dialog.window_type == "dialog":
-            player.wait_for_video_end()
-            self.active_dialog.doModal()
+        from dialogs import DialogYoutubeList
+        if prev_window:
+            try:  # TODO rework
+                color = prev_window.data["general"]['ImageColor']
+            except:
+                color = COLORMAIN
+        else:
+            color = COLORMAIN
+        youtube_class = DialogYoutubeList.get_youtube_window(WindowXML)
+        dialog = youtube_class(u'%s-YoutubeList.xml' % ADDON_ID, ADDON_PATH,
+                               search_str=search_str,
+                               color=color,
+                               filters=filters,
+                               filter_label=filter_label,
+                               type=media_type)
+        if prev_window:
+            self.add_to_stack(prev_window)
+            prev_window.close()
+        dialog.doModal()
+
+    def open_slideshow(self, listitems, index):
+        """
+        open slideshow dialog for single image
+        """
+        from dialogs import SlideShow
+        dialog = SlideShow.SlideShow(u'%s-SlideShow.xml' % ADDON_ID, ADDON_PATH,
+                                     listitems=listitems,
+                                     index=index)
+        dialog.doModal()
+        return dialog.position
+
+    def open_textviewer(self, header="", text="", color="FFFFFFFF"):
+        """
+        open textviewer dialog
+        """
+        from dialogs.TextViewerDialog import TextViewerDialog
+        w = TextViewerDialog('DialogTextViewer.xml', ADDON_PATH,
+                             header=header,
+                             text=text,
+                             color=color)
+        w.doModal()
+
+    def open_selectdialog(self, listitems):
+        """
+        open selectdialog, return listitem dict and index
+        """
+        from dialogs.SelectDialog import SelectDialog
+        w = SelectDialog('DialogSelect.xml', ADDON_PATH,
+                         listing=listitems)
+        w.doModal()
+        return w.listitem, w.index
+
+    def open_dialog(self, dialog, prev_window):
+        if dialog.data:
+            if xbmc.getCondVisibility("Window.IsVisible(movieinformation)"):
+                xbmc.executebuiltin("Dialog.Close(movieinformation)")
+                self.reopen_window = True
+            check_version()
+            if prev_window:
+                self.add_to_stack(prev_window)
+                prev_window.close()
+            dialog.doModal()
+        else:
+            return False
 
 wm = WindowManager()
