@@ -24,6 +24,7 @@ from resources.lib.modules import control
 from resources.lib.modules import cleantitle
 from resources.lib.modules import client
 from resources.lib.modules import jsunpack
+from resources.lib.modules import dom_parser
 
 
 class source:
@@ -74,21 +75,22 @@ class source:
 
             if url == None: return sources
 
-            if (self.user != '' and self.password != ''): #raise Exception()
+            # if (self.user != '' and self.password != ''): #raise Exception()
 
-                login = urlparse.urljoin(self.base_link, '/login.html')
+                # login = urlparse.urljoin(self.base_link, '/login.html')
 
-                post = urllib.urlencode({'username': self.user, 'password': self.password, 'submit': 'Login'})
+                # post = urllib.urlencode({'username': self.user, 'password': self.password, 'submit': 'Login'})
 
-                cookie = client.request(login, post=post, output='cookie', close=False)
+                # cookie = client.request(login, post=post, output='cookie', close=False)
 
-                r = client.request(login, post=post, cookie=cookie, output='extended')
+                # r = client.request(login, post=post, cookie=cookie, output='extended')
 
-                headers = {'User-Agent': r[3]['User-Agent'], 'Cookie': r[4]}
-            else:
-                headers = {}
+                # headers = {'User-Agent': r[3]['User-Agent'], 'Cookie': r[4]}
+            # else:
+                # headers = {}
 
 
+            headers = {'User-Agent': client.randomagent()}
             if not str(url).startswith('http'):
 
                 data = urlparse.parse_qs(url)
@@ -97,23 +99,69 @@ class source:
                 title = data['tvshowtitle'] if 'tvshowtitle' in data else data['title']
 
                 year = data['year']
-
-                query = urlparse.urljoin(self.base_link, self.search_link)
-
-                post = urllib.urlencode({'searchapi2': title})
-
-                r = client.request(query, post=post, headers=headers)
-
+                def searchname(r):
+                    r = [(i[0], i[1][0]) for i in r if len(i[1]) > 0]
+                    r = [i for i in r if cleantitle.get(title) == cleantitle.get(i[1])]
+                    r = [] if r == [] else [i[0] for i in r][0]
+                    return r
+                
                 if 'tvshowtitle' in data:
-                    r = re.findall('(watch-tvshow-.+?-\d+\.html)', r)
-                    r = [(i, re.findall('watch-tvshow-(.+?)-\d+\.html', i)) for i in r]
+                    link = urlparse.urljoin(self.base_link, 'tvshow-%s.html' %title[0].upper())
+                    r = client.request(link, headers=headers)
+                    pages = dom_parser.parse_dom(r, 'span', attrs={'class': 'break-pagination-2'})
+                    pages = dom_parser.parse_dom(pages, 'a', req='href')
+                    pages = [(i.attrs['href']) for i in pages]
+                    if pages == []:
+                        r = re.findall('(watch-tvshow-.+?-\d+\.html)', r)
+                        r = [(i, re.findall('watch-tvshow-(.+?)-\d+\.html', i)) for i in r]
+                        r = searchname(r)
+                    else:
+                        for page in pages:
+                            link = urlparse.urljoin(self.base_link, page)
+                            r = client.request(link, headers=headers)
+                            r = re.findall('(watch-tvshow-.+?-\d+\.html)', r)
+                            r = [(i, re.findall('watch-tvshow-(.+?)-\d+\.html', i)) for i in r]
+                            r = searchname(r)
+                            if r != []: break
                 else:
-                    r = re.findall('(watch-movie-.+?-\d+\.html)', r)
-                    r = [(i, re.findall('watch-movie-(.+?)-\d+\.html', i)) for i in r]
+                    link = urlparse.urljoin(self.base_link, 'movies-%s.html' %title[0].upper())
+                    r = client.request(link, headers=headers)
+                    pages = dom_parser.parse_dom(r, 'span', attrs={'class': 'break-pagination-2'})
+                    pages = dom_parser.parse_dom(pages, 'a', req='href')
+                    pages = [(i.attrs['href']) for i in pages]
+                    if pages == []:
+                        r = re.findall('(watch-movie-.+?-\d+\.html)', r)
+                        r = [(i, re.findall('watch-movie-(.+?)-\d+\.html', i)) for i in r]
+                        r = searchname(r)
+                    else:
+                        for page in pages:
+                            log_utils.log('shit Returned: %s' % str('in loop'), log_utils.LOGNOTICE)
+                            link = urlparse.urljoin(self.base_link, page)
+                            r = client.request(link, headers=headers)
+                            r = re.findall('(watch-movie-.+?-\d+\.html)', r)
+                            r = [(i, re.findall('watch-movie-(.+?)-\d+\.html', i)) for i in r]
+                            r = searchname(r)
+                            if r != []: break
+                        
+                    
 
-                r = [(i[0], i[1][0]) for i in r if len(i[1]) > 0]
-                r = [i for i in r if cleantitle.get(title) == cleantitle.get(i[1])]
-                r = [i[0] for i in r][0]
+                # leaving old search in for if streamlord renables searching on the site
+                # query = urlparse.urljoin(self.base_link, self.search_link)
+
+                # post = urllib.urlencode({'searchapi2': title})
+
+                # r = client.request(query, post=post, headers=headers)
+
+                # if 'tvshowtitle' in data:
+                    # r = re.findall('(watch-tvshow-.+?-\d+\.html)', r)
+                    # r = [(i, re.findall('watch-tvshow-(.+?)-\d+\.html', i)) for i in r]
+                # else:
+                    # r = re.findall('(watch-movie-.+?-\d+\.html)', r)
+                    # r = [(i, re.findall('watch-movie-(.+?)-\d+\.html', i)) for i in r]
+
+                # r = [(i[0], i[1][0]) for i in r if len(i[1]) > 0]
+                # r = [i for i in r if cleantitle.get(title) == cleantitle.get(i[1])]
+                # r = [i[0] for i in r][0]
 
                 u = urlparse.urljoin(self.base_link, r)
                 for i in range(3):

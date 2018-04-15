@@ -1,10 +1,14 @@
+from six.moves.urllib.parse import unquote
+
+import json
+import shutil
 import threading
 
 from ..utils import get_http_server, is_httpd_live
 
 import xbmc
 import xbmcaddon
-import xbmcgui
+import xbmcvfs
 
 
 class YouTubeMonitor(xbmc.Monitor):
@@ -16,7 +20,6 @@ class YouTubeMonitor(xbmc.Monitor):
         self._old_httpd_port = self._httpd_port
         self._use_httpd = (addon.getSetting('kodion.mpd.proxy') == 'true' and addon.getSetting('kodion.video.quality.mpd') == 'true') or \
                           (addon.getSetting('youtube.api.config.page') == 'true')
-        self._use_dash = addon.getSetting('kodion.video.support.mpd.addon') == 'true'
         self._httpd_address = addon.getSetting('kodion.http.listen')
         self._old_httpd_address = self._httpd_address
         self.httpd = None
@@ -25,16 +28,17 @@ class YouTubeMonitor(xbmc.Monitor):
             self.start_httpd()
         del addon
 
-    def onSettingsChanged(self):
-        if xbmcgui.Window(10000).getProperty('plugin.video.youtube-setting_cb_disabled') != 'true':
-            xbmc.log('[plugin.video.youtube] Executing onSettingsChanged', xbmc.LOGDEBUG)
-            addon = xbmcaddon.Addon('plugin.video.youtube')
-            _use_httpd = (addon.getSetting('kodion.mpd.proxy') == 'true' and addon.getSetting('kodion.video.quality.mpd') == 'true') or \
-                         (addon.getSetting('youtube.api.config.page') == 'true')
-            _httpd_port = int(addon.getSetting('kodion.mpd.proxy.port'))
-            _whitelist = addon.getSetting('kodion.http.ip.whitelist')
-            _use_dash = addon.getSetting('kodion.video.support.mpd.addon') == 'true'
-            _httpd_address = addon.getSetting('kodion.http.listen')
+    def onNotification(self, sender, method, data):
+        if sender == 'plugin.video.youtube' and method.endswith('.check_settings'):
+            data = json.loads(data)
+            data = json.loads(unquote(data[0]))
+            xbmc.log('[plugin.video.youtube] onNotification: |check_settings| -> |%s|' % json.dumps(data), xbmc.LOGDEBUG)
+
+            _use_httpd = data.get('use_httpd')
+            _httpd_port = data.get('httpd_port')
+            _whitelist = data.get('whitelist')
+            _httpd_address = data.get('httpd_address')
+
             whitelist_changed = _whitelist != self._whitelist
             port_changed = self._httpd_port != _httpd_port
             address_changed = self._httpd_address != _httpd_address
@@ -63,12 +67,8 @@ class YouTubeMonitor(xbmc.Monitor):
             elif not self.use_httpd() and self.httpd:
                 self.shutdown_httpd()
 
-            if not _use_dash and self._use_dash:
-                addon.setSetting('kodion.video.support.mpd.addon', 'true')
-            del addon
-        else:
-            xbmc.log('[plugin.video.youtube] Skipping onSettingsChanged', xbmc.LOGDEBUG)
-            xbmcgui.Window(10000).clearProperty('plugin.video.youtube-setting_cb_disabled')
+        elif sender == 'plugin.video.youtube':
+            xbmc.log('[plugin.video.youtube] onNotification: |unknown method|', xbmc.LOGDEBUG)
 
     def use_httpd(self):
         return self._use_httpd
@@ -119,3 +119,21 @@ class YouTubeMonitor(xbmc.Monitor):
     def ping_httpd(self):
         return is_httpd_live(port=self.httpd_port())
 
+    @staticmethod
+    def remove_temp_dir():
+        temp_path = 'special://temp/plugin.video.youtube/'
+        path = xbmc.translatePath(temp_path)
+        try:
+            xbmcvfs.rmdir(path, force=True)
+        except:
+            pass
+        if xbmcvfs.exists(path):
+            try:
+                shutil.rmtree(path)
+            except:
+                pass
+        if xbmcvfs.exists(path):
+            xbmc.log('Failed to remove directory: {dir}'.format(dir=path), xbmc.LOGDEBUG)
+            return False
+        else:
+            return True

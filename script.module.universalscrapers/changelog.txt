@@ -1,3 +1,37 @@
+30/03/2018 v1.0.5
+
+Fixed:
+Flenix
+Filmaypik
+carthd
+Cinemamega
+
+Added:
+Projectfreetv
+Projectfreetvmovies
+Serieswatch
+Alluno
+Novamovie
+Newmovieonline
+
+
+26/03/201 v 1.0.4.5: Error fix 
+3/16/2018 V 1.0.3
+Added:
+vexmovies
+Scnsrc
+Filmclub
+Prontv
+Movieurlz
+fanstashtv
+hdonline
+allrelease
+Losmovies
+
+Fixed:
+Bobmovies
+Mvlinks
+
 2/26/2018 V 1.0.2
 Chillnflix.py removed
 

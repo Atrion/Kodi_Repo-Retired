@@ -105,7 +105,7 @@ def clear_cache():
                 shutil.rmtree(file_path)
         except Exception, e:
             traceback.print_exc()
-    dialogs.notify(msg='Cache', title='Deleted', delay=5000, image=get_icon_path("metalliq"))
+    dialogs.notify(msg='Cache', title='Deleted', delay=5000, image=get_icon_path("chappaai"))
 
 @plugin.route('/update_library')
 def update_library():
@@ -251,7 +251,7 @@ def settings_set_channelers():
                 plugin.set_setting(SETTING_LIVE_ENABLED_CHANNELERS, selected)
             else:
                 raise Exception("invalid parameter %s" % media)
-    print "MetalliQ Guidance: Movie, TV and Live players enabled"
+    print "Chappa'ai Guidance: Movie, TV and Live players enabled"
     return True
 
 @plugin.route('/settings/default_channeler/<media>')
@@ -348,14 +348,14 @@ def update_players(url = None):
 
 @plugin.route('/setup/total')
 def total_setup():
-    dialogs.notify(msg='Total Setup', title=_("Start"), delay=1000, image=get_icon_path("metalliq"))
+    dialogs.notify(msg='Total Setup', title=_("Start"), delay=1000, image=get_icon_path("chappaai"))
     if sources_setup() == True: pass
     if players_setup() == True: pass
-    dialogs.notify(msg='Total Setup', title=_("Done"), delay=5000, image=get_icon_path("metalliq"))
+    dialogs.notify(msg='Total Setup', title=_("Done"), delay=5000, image=get_icon_path("chappaai"))
 
 @plugin.route('/setup/silent')
 def silent_setup():
-    set_property("running","totalmetalliq")
+    set_property("running","totalchappaai")
     movielibraryfolder = plugin.get_setting(SETTING_MOVIES_LIBRARY_FOLDER, unicode)
     try: meta.library.movies.auto_movie_setup(movielibraryfolder)
     except: pass
@@ -372,7 +372,7 @@ def silent_setup():
 
 @plugin.route('/setup/players')
 def players_setup():
-    set_property("running","totalmetalliq")
+    set_property("running","totalchappaai")
     url = "http://mrblamo.xyz/zipball/zipball.zip"
     if updater.update_players(url): dialogs.notify(msg=_('Player'), title=_('Updated for %s') % _('Player'), delay=1000, image=get_icon_path("player"))
     else: dialogs.notify(msg=_('Player'), title=_('Failed for %s') % _('Player'), delay=1000, image=get_icon_path("player"))
@@ -498,14 +498,14 @@ def root_search_term(term):
 
 @plugin.route('/toggle/preferred_toggle')
 def toggle_preferred_toggle():
-    if xbmc.getCondVisibility("Skin.HasSetting(Toggling)") != True: dialogs.notify(msg="Toggling", title="Switched on", delay=5000, image=get_icon_path("metalliq"))
-    else: dialogs.notify(msg="Toggling", title="Switched off", delay=5000, image=get_icon_path("metalliq"))
+    if xbmc.getCondVisibility("Skin.HasSetting(Toggling)") != True: dialogs.notify(msg="Toggling", title="Switched on", delay=5000, image=get_icon_path("chappaai"))
+    else: dialogs.notify(msg="Toggling", title="Switched off", delay=5000, image=get_icon_path("chappaai"))
     xbmc.executebuiltin("Skin.ToggleSetting(Toggling)")
 
 @plugin.route('/toggle/context_player')
 def toggle_context_player():
-    if xbmc.getCondVisibility("Skin.HasSetting(Contexting)") != True: dialogs.notify(msg="Context player", title="Switched off", delay=5000, image=get_icon_path("metalliq"))
-    else: dialogs.notify(msg="Context player", title="Switched on", delay=5000, image=get_icon_path("metalliq"))
+    if xbmc.getCondVisibility("Skin.HasSetting(Contexting)") != True: dialogs.notify(msg="Context player", title="Switched off", delay=5000, image=get_icon_path("chappaai"))
+    else: dialogs.notify(msg="Context player", title="Switched on", delay=5000, image=get_icon_path("chappaai"))
     xbmc.executebuiltin("Skin.ToggleSetting(Contexting)")
 
 @plugin.route('/toggle/acceleration')
@@ -549,7 +549,7 @@ def toggle_between_skins():
     if alternate_skin == "":
         if primary_skin != "skin.confluence" and primary_skin != "": plugin.set_setting(SETTING_ALTERNATE_SKIN, "skin.confluence")
         else:
-            dialogs.notify(msg="Alternate skin", title="Not set", delay=5000, image=get_icon_path("metalliq"))
+            dialogs.notify(msg="Alternate skin", title="Not set", delay=5000, image=get_icon_path("chappaai"))
             return openSettings(addonid, 5.7)
     if primary_skin != alternate_skin and primary_skin != "" and alternate_skin != "" and xbmc.getCondVisibility('System.HasAddon(%s)' % primary_skin) and xbmc.getCondVisibility('System.HasAddon(%s)' % alternate_skin):
         if current_skin != primary_skin:
@@ -661,7 +661,7 @@ def mapall():
 def test(id, maxdepth):
     try: maxdepth = int(maxdepth)
     except: return
-    dialogs.notify(msg='MaxDepth = %d' % maxdepth, title='Id = %s' % id, delay=5000, image=get_icon_path("metalliq"))
+    dialogs.notify(msg='MaxDepth = %d' % maxdepth, title='Id = %s' % id, delay=5000, image=get_icon_path("chappaai"))
     import xbmcaddon
     import re
     from rpc import RPC
@@ -717,7 +717,7 @@ def test(id, maxdepth):
     else: return
     while len(dirs_total) > len(dirs_done) and depth != maxdepth:
         depth = depth + 1
-        dialogs.notify(msg='Depth', title='%d' % depth, delay=5000, image=get_icon_path("metalliq"))
+        dialogs.notify(msg='Depth', title='%d' % depth, delay=5000, image=get_icon_path("chappaai"))
         dirs = [x for x in dirs_total if x not in dirs_done and "search" not in x and "personal" not in x]
         for d in dirs:
             response = RPC.files.get_directory(media="files", directory=d, properties=["thumbnail","fanart","description","plot"])
@@ -874,7 +874,7 @@ def test(id, maxdepth):
     g.write(line.encode("utf8"))
     f.close()
     g.close()
-    dialogs.notify(msg='Mapping Finished', title='%d total %d done' % (len(dirs_total), len(dirs_done)), delay=5000, image=get_icon_path("metalliq"))
+    dialogs.notify(msg='Mapping Finished', title='%d total %d done' % (len(dirs_total), len(dirs_done)), delay=5000, image=get_icon_path("chappaai"))
 
 
 @plugin.route('/testing')
@@ -886,7 +886,7 @@ def testing():
     f = xbmcvfs.File("{0}artist.nfo".format(lib), 'w')
     f.write(str(results))
     f.close()
-    dialogs.notify(msg='Done', title='and Done', delay=5000, image=get_icon_path("metalliq"))
+    dialogs.notify(msg='Done', title='and Done', delay=5000, image=get_icon_path("chappaai"))
 
 @plugin.route('/testingbakbak')
 def testingbakbak():
@@ -913,7 +913,7 @@ def testingbakbak():
         f = xbmcvfs.File("{0}library.nfo".format(lib), 'w')
         f.write(str(ite))
         f.close()
-    dialogs.notify(msg='Done', title='and Done', delay=5000, image=get_icon_path("metalliq"))
+    dialogs.notify(msg='Done', title='and Done', delay=5000, image=get_icon_path("chappaai"))
 
 #            movie_items = RPC.videolibrary.get_movies(properties=["title","genre","year","rating","playcount","fanart","director","trailer","tagline","plot","plotoutline","originaltitle","lastplayed","writer","studio","mpaa","cast","country","imdbnumber","set","showlink","streamdetails","top250","votes","thumbnail","file","resume","setid","tag","art","sorttitle","dateadded"])["movies"]
  #           tvshow_items = RPC.videolibrary.get_tvshows(properties=["title","genre","year","rating","playcount","fanart","director","plot","originaltitle","lastplayed","studio","mpaa","imdbnumber","premiered","season","episode","file","watchedepisodes","tag","art","sorttitle","episodeguide","dateadded"])["tvshows"]
@@ -951,7 +951,7 @@ def testing2(type):
     plugin.log.info("movies_in_lib = {0}".format(movies_in_lib))
     sorted(["[B]{0}[/B]".format(p.clean_title) for p in players if p.id in plugin.get_setting(SETTING_MOVIES_ENABLED_PLAYERS, unicode)])
     sorted(["[I]{0}[/I]".format(p.clean_title) for p in players if p.id not in plugin.get_setting(SETTING_MOVIES_ENABLED_PLAYERS, unicode)])
-    dialogs.notify(msg='Done', title='and Done', delay=5000, image=get_icon_path("metalliq"))
+    dialogs.notify(msg='Done', title='and Done', delay=5000, image=get_icon_path("chappaai"))
 
 @plugin.route('/testingbak2')
 def testingbak2():
@@ -973,10 +973,10 @@ def testingbak2():
 #            lib_folder = plugin.get_setting(SETTING_MUSIC_LIBRARY_FOLDER, unicode)
 #            items = RPC.audiolibrary.get_artists(properties=["title","artist","albumartist","genre","year","rating","album","track","duration","comment","lyrics","musicbrainztrackid","musicbrainzartistid","musicbrainzalbumid","musicbrainzalbumartistid","playcount","fanart","director","trailer","tagline","plot","plotoutline","originaltitle","lastplayed","writer","studio","mpaa","cast","country","imdbnumber","premiered","productioncode","runtime","set","showlink","streamdetails","top250","votes","firstaired","season","episode","showtitle","thumbnail","file","resume","artistid","albumid","tvshowid","setid","watchedepisodes","disc","tag","art","genreid","displayartist","albumartistid","description","theme","mood","style","albumlabel","sorttitle","episodeguide","uniqueid","dateadded","size","lastmodified","mimetype"])["artists"]
         else: continue
-        library[m]["metalliq"] = xbmcvfs.listdir(lib_folder)[0]
+        library[m]["chappaai"] = xbmcvfs.listdir(lib_folder)[0]
         for l in lists: library[m][l] = []
         for i in items:
-            if i["imdbnumber"] not in library[m]["metalliq"]: library[m]["player"].append("na")
+            if i["imdbnumber"] not in library[m]["chappaai"]: library[m]["player"].append("na")
             else:
                 f = xbmcvfs.File(os.path.join(lib_folder, i["imdbnumber"], "player.info"))
                 library[m]["player"].append(f.read())
@@ -987,7 +987,7 @@ def testingbak2():
             library[m]["otitle"].append(i["originaltitle"].lower())
             library[m]["title"].append(i["label"].lower())
     plugin.log.info("movies_in_lib = {0}".format(library))
-    dialogs.notify(msg='Done', title='and Done', delay=5000, image=get_icon_path("metalliq"))
+    dialogs.notify(msg='Done', title='and Done', delay=5000, image=get_icon_path("chappaai"))
 
 @plugin.route('/testingbak')
 def testingbak():
@@ -996,10 +996,10 @@ def testingbak():
     movies_otitle_list = []
     movies_title_list = []
     movies_player_list = []
-    movies_metalliq_list = xbmcvfs.listdir(plugin.get_setting(SETTING_MOVIES_LIBRARY_FOLDER, unicode))[0]
+    movies_chappaai_list = xbmcvfs.listdir(plugin.get_setting(SETTING_MOVIES_LIBRARY_FOLDER, unicode))[0]
     movies_in_lib = RPC.videolibrary.get_movies(properties=["originaltitle", "imdbnumber", "year"])["movies"]
     for item in movies_in_lib:
-        if item["imdbnumber"] not in movies_metalliq_list: movies_player_list.append("na")
+        if item["imdbnumber"] not in movies_chappaai_list: movies_player_list.append("na")
         else:
             player_file = xbmcvfs.File(os.path.join(plugin.get_setting(SETTING_MOVIES_LIBRARY_FOLDER, unicode), item, "player.info"))
             content = player_file.read()
@@ -1015,10 +1015,10 @@ def testingbak():
     tvshows_otitle_list = []
     tvshows_title_list = []
     tvshows_player_list = []
-    tvshows_metalliq_list = xbmcvfs.listdir(plugin.get_setting(SETTING_TV_LIBRARY_FOLDER, unicode))[0]
+    tvshows_chappaai_list = xbmcvfs.listdir(plugin.get_setting(SETTING_TV_LIBRARY_FOLDER, unicode))[0]
     tvshows_in_lib = RPC.videolibrary.get_tvshows(properties=["originaltitle", "imdbnumber", "year"])["tvshows"]
     for item in tvshows_in_lib:
-        if item["imdbnumber"] not in tvshows_metalliq_list: tvshows_player_list.append("na")
+        if item["imdbnumber"] not in tvshows_chappaai_list: tvshows_player_list.append("na")
         else:
             player_file = xbmcvfs.File(os.path.join(plugin.get_setting(SETTING_TV_LIBRARY_FOLDER, unicode), item, "player.info"))
             content = player_file.read()
@@ -1049,7 +1049,7 @@ def testingbak():
     plugin.log.info("movies_in_lib = {0}".format(movies_in_lib))
     sorted(["[B]{0}[/B]".format(p.clean_title) for p in players if p.id in plugin.get_setting(SETTING_MOVIES_ENABLED_PLAYERS, unicode)])
     sorted(["[I]{0}[/I]".format(p.clean_title) for p in players if p.id not in plugin.get_setting(SETTING_MOVIES_ENABLED_PLAYERS, unicode)])
-    dialogs.notify(msg='Done', title='and Done', delay=5000, image=get_icon_path("metalliq"))
+    dialogs.notify(msg='Done', title='and Done', delay=5000, image=get_icon_path("chappaai"))
 
 
 @plugin.route('/settings')

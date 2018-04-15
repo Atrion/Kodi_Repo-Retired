@@ -40,6 +40,7 @@ class source:
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
             url = {'title': title, 'year': year, 'imdb': imdb}
+
             return urllib.urlencode(url)
 
         except Exception:
@@ -48,6 +49,7 @@ class source:
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
         try:
             data = {'tvshowtitle': tvshowtitle, 'year': year, 'imdb': imdb}
+
             return urllib.urlencode(data)
 
         except Exception:
@@ -75,6 +77,7 @@ class source:
                 url = self.__get_episode_url(data)
             else:
                 url = self.__get_movie_url(data)
+
 
             token = urlparse.parse_qs(urlparse.urlparse(url).query)['token'][0]
 
@@ -122,7 +125,6 @@ class source:
             url = urlparse.urljoin(self.base_link, path)
 
             response = client.request(url, headers=self.headers)
-
             show_id = json.loads(response)[0]['id']
 
             path = self.episode_details % (show_id, data['season'], data['episode'])

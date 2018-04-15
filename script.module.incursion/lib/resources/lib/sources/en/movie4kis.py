@@ -19,7 +19,9 @@
 
 import re
 import urllib
-import urlparse
+import urlparse, sys
+from bs4 import BeautifulSoup
+import requests
 
 from resources.lib.modules import cache
 from resources.lib.modules import cleantitle
@@ -40,7 +42,6 @@ class source:
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
             url = {'imdb': imdb, 'title': title, 'year': year}
-            url = urllib.urlencode(url)
             return url
         except:
             return
@@ -52,29 +53,27 @@ class source:
 
             if url == None: return sources
 
-            data = urlparse.parse_qs(url)
-            data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
-            year = data['year']
+            year = url['year']
             h = {'User-Agent': client.randomagent()}
-            title = cleantitle.geturl(data['title']).replace('-', '+')
+            title = cleantitle.geturl(url['title']).replace('-', '+')
             url = urlparse.urljoin(self.base_link, self.search_link % title)
-            r = client.request(url, headers=h)
-            r = dom_parser2.parse_dom(r, 'div', {'class': 'item'})
-            r = [dom_parser2.parse_dom(i, 'a', req=['href']) for i in r if i]
-            r = client.request(r[0][0].attrs['href'], headers=h)
-            quality = dom_parser2.parse_dom(r, 'span', {'class': 'calidad2'})
-            url = re.findall('c="(.+)\/"',r)
-            if '1080p' in quality[0].content:
-                quality = '1080p'
-            elif '720p' in quality[0].content:
-                quality = '720p'
-            else:
+            r = requests.get(url, headers=h)
+            r = BeautifulSoup(r.text, 'html.parser').find('div', {'class': 'item'})
+            r = r.find('a')['href']
+            r = requests.get(r, headers=h)
+            r = BeautifulSoup(r.content, 'html.parser')
+            quality = r.find('span', {'class': 'calidad2'}).text
+            url = r.find('div', {'class':'movieplay'}).find('iframe')['src']
+            if not quality in ['1080p', '720p']:
                 quality = 'SD'
-            for i in url:
-                valid, host = source_utils.is_host_valid(i, hostDict)
-                sources.append({'source': host, 'quality': quality, 'language': 'en', 'url': i, 'direct': False, 'debridonly': False})
+
+            valid, host = source_utils.is_host_valid(url, hostDict)
+            sources.append({'source': host, 'quality': quality, 'language': 'en', 'url': url, 'direct': False, 'debridonly': False})
             return sources
         except:
+            print("Unexpected error in Furk Script: check_api", sys.exc_info()[0])
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            print(exc_type, exc_tb.tb_lineno)
             return sources
 
     def resolve(self, url):

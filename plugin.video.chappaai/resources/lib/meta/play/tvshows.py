@@ -470,9 +470,9 @@ def get_episode_parameters(show, season, episode):
     tvdb_base = "http://thetvdb.com/banners/"
     if episode_obj.get('filename') != "": parameters['thumbnail'] = tvdb_base + str(episode_obj.get('filename'))
     elif show.get('poster') != "": parameters['thumbnail'] = tvdb_base + show.get('poster')
-    else: parameters['thumbnail'] = get_icon("metalliq")
+    else: parameters['thumbnail'] = get_icon("chappaai")
     if show.get('poster') != "": parameters['poster'] = tvdb_base + show.get('poster')
-    else: parameters['poster'] = get_icon("metalliq")
+    else: parameters['poster'] = get_icon("chappaai")
     parameters['thumbnail'] = "http://thetvdb.com/banners/episodes/" + str(show['id']) + "/" + str(parameters['epid']) + ".jpg"
     if show.get('banner') != "": parameters['banner'] = tvdb_base + show.get('banner')
     else: parameters['banner'] = get_banner_path()

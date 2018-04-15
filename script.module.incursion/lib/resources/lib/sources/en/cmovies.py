@@ -20,7 +20,7 @@
 
 
 import re,base64, requests, sys, urllib
-from resources.lib.modules import jsunpack,cleantitle
+from resources.lib.modules import jsunpack, cleantitle
 from bs4 import BeautifulSoup
 
 

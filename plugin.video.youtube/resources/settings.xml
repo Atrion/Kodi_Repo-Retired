@@ -22,11 +22,12 @@
         <setting id="kodion.age.gate" type="bool" label="30603" default="false"/>
     </category>
     <category label="30617">
-        <setting id="kodion.video.support.mpd.addon" type="bool" label="" visible="false" enable="true" default="false"/>
-        <setting id="kodion.video.quality.mpd" type="bool" label="30007" default="false" enable="eq(-1,true)"/>
-        <setting id="kodion.video.quality.mpd.configure" type="action" label="30008" enable="eq(-1,true)+eq(-2,true)" visible="eq(-1,true)+eq(-2,true)" option="close" action="RunPlugin(plugin://plugin.video.youtube/config/mpd/)"/>
-        <setting type="lsep" label="30621" visible="eq(-2,true)+eq(-3,true)"/>
-        <setting id="kodion.mpd.proxy" type="bool" label="30618" default="false" enable="eq(-3,true)+eq(-4,true)" visible="eq(-3,true)+eq(-4,true)"/>
+        <setting id="kodion.video.quality.mpd" type="bool" label="30007" default="false" enable="System.HasAddon(inputstream.adaptive)"/>
+        <setting id="kodion.video.quality.mpd.configure" type="action" label="30008" enable="eq(-1,true)" visible="eq(-1,true)" option="close" action="RunPlugin(plugin://plugin.video.youtube/config/mpd/)"/>
+        <setting type="lsep" label="30621" visible="eq(-2,true)"/>
+        <setting id="kodion.mpd.proxy" type="bool" label="30618" default="false" enable="eq(-3,true)" visible="eq(-3,true)"/>
+        <setting type="sep" visible="eq(-4,true)"/>
+        <setting id="kodion.install.inputstreamhelper" type="action" label="30623" action="RunPlugin(plugin://plugin.video.youtube/maintain/inputstreamhelper/install/)" enable="eq(-5,true)" visible="eq(-5,true)"/>
     </category>
     <category label="30516">
         <setting id="youtube.folder.sign.in.show" type="bool" label="30111" default="true"/>
@@ -42,6 +43,7 @@
         <setting id="youtube.folder.quick_search.show" type="bool" label="30605" default="true"/>
         <setting id="youtube.folder.quick_search_incognito.show" type="bool" label="30606" default="true"/>
         <setting id="youtube.folder.my_channel.show" type="bool" label="30507" default="false"/>
+        <setting id="youtube.folder.purchases.show" type="bool" label="30622" default="false"/>
         <setting id="youtube.folder.watch_later.show" type="bool" label="30107" default="false"/>
         <setting id="youtube.folder.watch_later.playlist" type="text" label="30037" enable="eq(-1,true)"
                  visible="eq(-1,true)" default="" subsetting="true"/>
@@ -83,11 +85,11 @@
 
     <!-- personal api key -->
     <category label="30200">
-        <setting id="youtube.api.enable" type="bool" label="30204" default="true"/>
+        <setting id="youtube.api.enable" type="bool" label="30204" default="false"/>
         <setting id="youtube.api.key" type="text" label="30201" default="AIzaSyCw_fAbz1-y2LQN61QhdtxiHxYEOSWU55U" visible="eq(-1,true)"/>
         <setting id="youtube.api.id" type="text" label="30202" default="612662456993-dt4gqijmi6j9h7cifd3fsnfntuon1c1h.apps.googleusercontent.com" visible="eq(-2,true)"/>
         <setting id="youtube.api.secret" type="text" label="30203" default="sT0LUh8gauARLxG4DT21Ka4g" visible="eq(-3,true)"/>
-        <setting id="youtube.api.key.switch" type="enum" label="30205" values="0|1|2|3|4|5" visible="eq(-4,false)" default="4"/>
+        <setting id="youtube.api.key.switch" type="enum" label="30205" values="0|1|2|3|4|5" visible="eq(-4,false)" default="3"/>
         <setting id="youtube.allow.dev.keys" type="bool" label="30608" default="true"/>
         <setting id="youtube.api.config.address" type="lsep" label="30633" visible="eq(1,true)"/>
         <setting id="youtube.api.config.page" type="bool" label="30632" default="false"/>

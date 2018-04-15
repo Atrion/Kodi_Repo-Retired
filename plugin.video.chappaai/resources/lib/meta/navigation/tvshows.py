@@ -963,7 +963,7 @@ def tv_batch_add_to_library():
                     try: show = tvdb[int(tvdb_id)]
                     except: 
                         dialogs.notify(msg='failed to add', title='Starting library scan afterwards', delay=3000, image=get_icon_path("tv"))
-                        print "MetalliQ failed to add: " + str(id)
+                        print "Chappa'ai failed to add: " + str(id)
                     if show: batch_add_tvshows_to_library(library_folder, show)
             ids_index += 1
         if xbmcvfs.exists(tv_batch_file): os.remove(xbmc.translatePath(tv_batch_file))

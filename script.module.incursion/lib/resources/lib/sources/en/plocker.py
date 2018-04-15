@@ -24,6 +24,7 @@ import json
 from resources.lib.modules import client, cleantitle, directstream
 from resources.lib.modules import source_utils
 
+
 class source:
     def __init__(self):
         '''
@@ -32,14 +33,15 @@ class source:
         '''
         self.priority = 0
         self.language = ['en']
-        self.domains = ['putlockertv.se']
+        self.domains = ['putlocker.rs']
         self.base_link = 'https://putlockertv.se'
         self.movie_search_path = ('search?keyword=%s')
         self.episode_search_path = ('/filter?keyword=%s&sort=post_date:Adesc'
                                     '&type[]=series')
         self.film_path = '/watch/%s'
-        self.info_path = '/ajax/episode/info?ts=%s&_=%s&id=%s&update=0'
+        self.info_path = '/ajax/episode/info?ts=%s&_=%s&id=%s&server=28&update=0'
         self.grabber_path = '/grabber-api/?ts=%s&id=%s&token=%s&mobile=0'
+        self.tooltip_path = '/ajax/film/tooltip/%s'
 
     def movie(self, imdb, title, localtitle, aliases, year):
         '''
@@ -74,24 +76,29 @@ class source:
             url = urlparse.urljoin(self.base_link, query)
 
             film_response = client.request(url)
-
+                        
             ts = re.findall('(data-ts=\")(.*?)(\">)', film_response)[0][1]
 
             sources_dom_list = client.parseDOM(
                 film_response, 'ul', attrs={'class': 'episodes range active'})
             sources_list = []
-
+            
             for i in sources_dom_list:
                 source_id = re.findall('([\/])(.{0,6})(\">)', i)[0][1]
                 sources_list.append(source_id)
-
+            
+            servers_dom_list = client.parseDOM(
+                film_response, 'div', attrs={'class': 'server row'})
+            servers_list = []
+            
             data = {
                 'imdb': imdb,
                 'title': title,
                 'localtitle': localtitle,
                 'year': year,
                 'ts': ts,
-                'sources': sources_list
+                'sources': sources_list,
+                'id': film_id
             }
             url = urllib.urlencode(data)
 
@@ -208,7 +215,8 @@ class source:
                 'season': season,
                 'episode': episode,
                 'ts': ts,
-                'sources': sources_list
+                'sources': sources_list,
+                'id': film_id
             })
 
             url = urllib.urlencode(data)
@@ -239,10 +247,22 @@ class source:
             data = urlparse.parse_qs(url)
             data = dict((i, data[i][0]) for i in data)
             data['sources'] = re.findall("[^', u\]\[]+", data['sources'])
+            try:
+                q = re.findall("\.(.*)", data['id'])[0]
+            except:
+                q = data['id']
+            query = (self.tooltip_path % q)
+            url = urlparse.urljoin(self.base_link, query)
+            q = client.request(url)
+            quality = re.findall('ty">(.*?)<', q)[0]
+            if '1080p' in quality:
+                quality = '1080p'
+            elif '720p' in quality:
+                quality = 'HD'
                         
             for i in data['sources']:
                 token = str(self.__token(
-                    {'id': i, 'update': 0, 'ts': data['ts']}))
+                    {'id': i, 'server': 28, 'update': 0, 'ts': data['ts']}))
                 query = (self.info_path % (data['ts'], token, i))
                 url = urlparse.urljoin(self.base_link, query)
                 info_response = client.request(url, XHR=True)
@@ -289,7 +309,7 @@ class source:
                         urls, host, direct = source_utils.check_directstreams(url, hoster)
                         sources.append({
                             'source': hoster,
-                            'quality': urls[0]['quality'],
+                            'quality': quality,
                             'language': 'en',
                             'url': urls[0]['url'], #url.replace('\/','/'),
                             'direct': False,
@@ -331,7 +351,7 @@ class source:
         except Exception:
             return
 
-    def __token(self, d):
+    def __token(self, r):
         '''
         Takes a dictionary containing id, update, and ts, then returns a
         token which is used by info_path to retrieve grabber api
@@ -346,42 +366,25 @@ class source:
         token -- integer - a unique integer
 
         '''
+        
+        def additup(t):
+            n = 0
+            for i in range(0, len(t)):
+                n += ord(t[i]) + i
+            return n
+
         try:
-            token = 0
-
-            for s in d:
-
-                o = 0
-                r = 0
-                i = [i for i in range(0, 256)]
-                n = 0
-                a = 0
-                j = s
-                e = str(d[s])
-
-                for t in range(0, 256):
-                    n = (n + i[t] + ord(j[t % len(j)])) % 256
-
-                    r = i[t]
-                    i[t] = i[n]
-                    i[n] = r
-
-                s = 0
-                n = 0
-
-                for o in range(len(e)):
-                    s = (s + 1) % 256
-                    n = (n + i[s]) % 256
-
-                    r = i[s]
-                    i[s] = i[n]
-                    i[n] = r
-
-                    a += ord(e[o]) ^ i[(i[s] + i[n]) % 256] * o + o
-
-                token += a
-
-            return token
+            base = "iQDWcsGqN"
+            s = additup(base)
+            for n in r:
+                t = base + n
+                i = str(r[n])
+                e = 0
+                for x in range(0,max(len(t), len(i))):
+                    e += ord(i[x]) if x < len(i) else 0
+                    e += ord(t[x]) if x < len(t) else 0
+                s += additup(str(hex(e))[2:])
+            return s
 
         except Exception:
             return 0

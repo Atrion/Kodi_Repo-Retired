@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.incursion" version="0.1.15" name="Incursion" provider-name="Incursion">
+<addon id="plugin.video.incursion" version="0.1.16" name="Incursion" provider-name="Incursion">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.module.incursion" />
@@ -30,11 +30,12 @@
     			<screenshot>resources/screenshots/screenshot-03.jpg</screenshot>
 		</assets>
 		<news>
-v0.1.15 (FEB-2018)
-Fixed "Trakt - Mark as Watched" Issues
-Added Trakt Bookmarks Function
-Added Auto Resume Option
-Trakt On Deck - Reversed to show last played first.
+v0.1.16 (APR-2018)
+Scraper Fixes - 2ddl, chillax, allrls, movie4kis
+New Scrapers - pubfilmonline, rlsscn
+Settings cleanup
+Added polish fixes
+Slacked on documentation - slack update notes
 		</news>
 	</extension>
 </addon>

@@ -24,6 +24,8 @@ import re,urllib,urlparse,json
 
 from resources.lib.modules import cleantitle
 from resources.lib.modules import client
+from resources.lib.modules import cfscrape
+from resources.lib.modules import dom_parser
 
 
 class source:
@@ -31,16 +33,9 @@ class source:
         self.priority = 1
         self.language = ['en']
         self.domains = ['xmovies8.tv', 'xmovies8.ru', 'xmovies8.es']
-        self.base_link = 'https://xmovies8.es'
-        self.search_link = 'https://search.' + self.domains[2] +'/?q=%s&page=1'
-
-    def matchAlias(self, title, aliases):
-        try:
-            for alias in aliases:
-                if cleantitle.get(title) == cleantitle.get(alias['title']):
-                    return True
-        except:
-            return False
+        self.base_link = 'https://xmovies8.nz'
+        self.search_link = '/movies/search?s=%s'
+        self.scraper = cfscrape.create_scraper()
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
@@ -74,70 +69,31 @@ class source:
 
     def searchShow(self, title, season, year, aliases, headers):
         try:
-            title = cleantitle.normalize(title)
+            clean_title = cleantitle.geturl(title).replace('-','+')
 
-            url = self.search_link % urllib.quote_plus('%s Season %01d' % (title, int(season)))
-            r = client.request(url)
+            url = urlparse.urljoin(self.base_link, self.search_link % ('%s+Season+%01d' % (clean_title, int(season))))
+            r = self.scraper.get(url).content
 
-            r = client.parseDOM(r, 'div', attrs={'class': 'item_movie'})[0]
+            r = client.parseDOM(r, 'div', attrs={'class': 'list_movies'})
+            r = dom_parser.parse_dom(r, 'a', req='href')
+            r = [(i.attrs['href']) for i in r if '%s - Season %01d' % (title, int(season)) in i.content]
 
-            if r:
-                url = client.parseDOM(r, 'a', ret='href')[0]
-                url = re.sub(r'\/\/xmovies8\.es', '', url)
-            # if sr:
-            #     r = client.parseDOM(sr, 'h2', attrs={'class': 'tit'})
-            #     r = [(client.parseDOM(i, 'a', ret='href'), client.parseDOM(i, 'a', ret='title')) for i in r]
-            #     r = [(i[0][0], i[1][0]) for i in r if len(i[0]) > 0 and len(i[1]) > 0]
-            #     r = [(i[0], re.findall('(.+?)\s+-\s+S(\d+)', i[1])) for i in r]
-            #     r = [(i[0], i[1][0][0], i[1][0][1]) for i in r if len(i[1]) > 0]
-            #     r = [i[0] for i in r if t == cleantitle.get(i[1]) and int(season) == int(i[2])][0]
-            # else:
-            #     url = urlparse.urljoin(self.base_link, self.search_link % urllib.quote_plus(cleantitle.query('%s Season %01d' % (title.replace('\'', '-'), int(season)))))
-            #     sr = client.request(url, headers=headers, timeout='10')
-            #     if sr:
-            #         r = client.parseDOM(sr, 'h2', attrs={'class': 'tit'})
-            #         r = [(client.parseDOM(i, 'a', ret='href'), client.parseDOM(i, 'a', ret='title')) for i in r]
-            #         r = [(i[0][0], i[1][0]) for i in r if len(i[0]) > 0 and len(i[1]) > 0]
-            #         r = [(i[0], re.findall('(.+?)\s+-\s+Season\s+(\d+)', i[1])) for i in r]
-            #         r = [(i[0], i[1][0][0], i[1][0][1]) for i in r if len(i[1]) > 0]
-            #         r = [i[0] for i in r if t == cleantitle.get(i[1]) and int(season) == int(i[2])][0]
-            #     else:
-            #         url = urlparse.urljoin(self.base_link, self.search_link % urllib.quote_plus(cleantitle.query('%s %01d' % (title.replace('\'', '-'), int(year)))))
-            #         sr = client.request(url, headers=headers, timeout='10')
-            #         if sr:
-            #             r = client.parseDOM(sr, 'h2', attrs={'class': 'tit'})
-            #             r = [(client.parseDOM(i, 'a', ret='href'), client.parseDOM(i, 'a', ret='title')) for i in r]
-            #             r = [(i[0][0], i[1][0]) for i in r if len(i[0]) > 0 and len(i[1]) > 0]
-            #             r = [(i[0], re.findall('(.+?) \((\d{4})', i[1])) for i in r]
-            #             r = [(i[0], i[1][0][0], i[1][0][1]) for i in r if len(i[1]) > 0]
-            #             r = [i[0] for i in r if t == cleantitle.get(i[1]) and year == i[2]][0]
-            # url = re.findall('(?://.+?|)(/.+)', r)[0]
-            # url = client.replaceHTMLCodes(url)
-            #
-            # return url.encode('utf-8')
-
-            return url
+            return r[0]
         except:
             return
 
     def searchMovie(self, title, year, aliases, headers):
         try:
-            title = cleantitle.normalize(title)
-            url = urlparse.urljoin(self.base_link, self.search_link % (cleantitle.geturl(title.replace('\'', '-'))))
-            r = client.request(url, timeout='10', headers=headers)
-            r = client.parseDOM(r, 'h2', attrs={'class': 'tit'})
-            r = [(client.parseDOM(i, 'a', ret='href'), client.parseDOM(i, 'a', ret='title')) for i in r]
-            r = [(i[0][0], i[1][0]) for i in r if len(i[0]) > 0 and len(i[1]) > 0]
-            r = [(i[0], re.findall('(.+?) \((\d{4})', i[1])) for i in r]
-            r = [(i[0], i[1][0][0], i[1][0][1]) for i in r if len(i[1]) > 0]
-            try:
-                match = [i[0] for i in r if self.matchAlias(i[1], aliases) and year == i[2]][0]
-            except:
-                match = [i[0] for i in r if self.matchAlias(i[1], aliases)][0]
+            clean_title = cleantitle.geturl(title).replace('-','+')
 
-            url = re.findall('(?://.+?|)(/.+)', match)[0]
-            url = client.replaceHTMLCodes(url)
-            return url.encode('utf-8')
+            url = urlparse.urljoin(self.base_link, self.search_link % ('%s' %clean_title))
+            r = self.scraper.get(url).content
+
+            r = client.parseDOM(r, 'div', attrs={'class': 'list_movies'})
+            r = dom_parser.parse_dom(r, 'a', req='href')
+            r = [(i.attrs['href']) for i in r if i.content == '%s (%s)' %(title,year)]
+
+            return r[0]
         except:
             return
 
@@ -160,11 +116,11 @@ class source:
 
             if url == None: return sources
 
-            url = urlparse.urljoin(self.base_link, url)
+            #url = urlparse.urljoin(self.base_link, url)
             url = re.sub('/watching.html$', '', url.strip('/'))
             url = url + '/watching.html'
 
-            p = client.request(url)
+            p = self.scraper.get(url).content
 
             if episode > 0:
                 r = client.parseDOM(p, 'div', attrs={'class': 'ep_link.+?'})[0]
@@ -172,25 +128,25 @@ class source:
                 r = [(i[0], re.findall('Episode\s+(\d+)', i[1])) for i in r]
                 r = [(i[0], i[1][0]) for i in r]
                 url = [i[0] for i in r if int(i[1]) == episode][0]
-                p = client.request(url, headers=headers, timeout='10')
+                p = self.scraper.get(url, headers=headers).content
 
             referer = url
+            headers = {
+                'User-Agent': client.randomagent(),
+                'Referer': url
+            }
 
             id = re.findall('load_player\(.+?(\d+)', p)[0]
             r = urlparse.urljoin(self.base_link, '/ajax/movie/load_player_v3?id=%s' % id)
-            r = client.request(r, referer=referer, XHR=True)
+            r = self.scraper.get(r, headers=headers).content
 
             url = json.loads(r)['value']
 
             if (url.startswith('//')):
                 url = 'https:' + url
 
-            r = client.request(url, referer=referer, XHR=True)
+            r = self.scraper.get(url, headers=headers).content
 
-            headers = {
-                'User-Agent': client.randomagent(),
-                'Referer': referer
-            }
 
             headers = '|' + urllib.urlencode(headers)
 

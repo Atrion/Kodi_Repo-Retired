@@ -1,7 +1,14 @@
+vG.0.6
+- Major fixes
+- Fixed few issues with library
+- Fixed the batch all
+- Fixed a bunch of other settings not working
+- Few bug fixes
+- Fixed how it saves lists and where its saving liata
+
 vG.0.5
 - Updates to import the plugin extendedinfo
 - Few bug fixes
-
 vG.0.4
 - Redid trakt weren't setup properly
 - Edited the library redid it (should work fine now)

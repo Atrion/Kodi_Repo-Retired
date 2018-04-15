@@ -20,12 +20,12 @@ def caller_args():
     return dict([(i, values[i]) for i in args])
 
 def get_icon_path(icon_name):
-    if plugin.get_setting(SETTING_STYLE, unicode) != "Forked": return os.path.join('http://mrblamo.xyz/chappaai/', plugin.get_setting(SETTING_STYLE, unicode).lower() + "/" , icon_name+".png")
+    if plugin.get_setting(SETTING_STYLE, unicode) != "Custom": return os.path.join('https://raw.githubusercontent.com/MrBlamo420/Style/master/Chappaai/', plugin.get_setting(SETTING_STYLE, unicode).lower() + "/" , icon_name+".png")
     else: return os.path.join(plugin.get_setting(SETTING_STYLE_CUSTOM_FOLDER, unicode), icon_name+".png")
 
 def get_background_path():
     if plugin.get_setting(SETTING_BACKGROUND, unicode) == "Matching": return os.path.join('http://mrblamo.xyz/chappaai/backgrounds/', str(plugin.get_setting(SETTING_STYLE, unicode).lower()) + ".png")
-    elif plugin.get_setting(SETTING_BACKGROUND, unicode) == "Forked": return os.path.join(plugin.get_setting(SETTING_BACKGROUND_CUSTOM_FOLDER, unicode), "fanart.png")
+    elif plugin.get_setting(SETTING_BACKGROUND, unicode) == "Custom": return os.path.join(plugin.get_setting(SETTING_BACKGROUND_CUSTOM_FOLDER, unicode), "fanart.png")
     else: return os.path.join('http://mrblamo.xyz/chappaai/backgrounds/', str(plugin.get_setting(SETTING_BACKGROUND, unicode).lower()) + ".png")
 
 def get_banner_path():

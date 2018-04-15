@@ -69,8 +69,8 @@ def add_movie_to_library(library_folder, src, id, play_plugin=None):
         content = plugin.url_for("movies_play", src=src, id=id, mode='library')
         strm_file.write(content)
         strm_file.close()
+    if xbmc.getCondVisibility("system.hasaddon(script.extendedinfo)"): xbmc.executebuiltin("RunScript(script.extendedinfo,info=afteradd)")
 #    if xbmc.getCondVisibility("system.hasaddon(script.qlickplay)"): xbmc.executebuiltin("RunScript(script.qlickplay,info=afteradd)")
-#    elif xbmc.getCondVisibility("system.hasaddon(script.extendedinfo)"): xbmc.executebuiltin("RunScript(script.extendedinfo,info=afteradd)")
 #    xbmc.executebuiltin("RunScript(script.artworkdownloader,mediatype=movie,dbid=%s)" % xbmc.getInfoLabel('ListItem.DBID'))
     return changed
 
@@ -106,8 +106,9 @@ def batch_add_movies_to_library(library_folder, id):
             strm_file.close()
         except:
             pass
+    if xbmc.getCondVisibility("system.hasaddon(script.extendedinfo)"): xbmc.executebuiltin("RunScript(script.extendedinfo,info=afteradd)")
 #    if xbmc.getCondVisibility("system.hasaddon(script.qlickplay)"): xbmc.executebuiltin("RunScript(script.qlickplay,info=afteradd)")
-#    elif xbmc.getCondVisibility("system.hasaddon(script.extendedinfo)"): xbmc.executebuiltin("RunScript(script.extendedinfo,info=afteradd)")
+
     return changed
 
 def get_movie_player_plugin_from_library(id):
@@ -147,8 +148,8 @@ def get_current_movie_players_from_library():
 def setup_library(library_folder):
     if library_folder[-1] != "/":
         library_folder += "/"
-    metalliq_playlist_folder = "special://profile/playlists/mixed/Chappaai/"
-    if not xbmcvfs.exists(metalliq_playlist_folder): xbmcvfs.mkdir(metalliq_playlist_folder)
+    chappaai_playlist_folder = "special://profile/playlists/mixed/Chappaai/"
+    if not xbmcvfs.exists(chappaai_playlist_folder): xbmcvfs.mkdir(chappaai_playlist_folder)
     playlist_folder = plugin.get_setting(SETTING_MOVIES_PLAYLIST_FOLDER, unicode)
     if plugin.get_setting(SETTING_MOVIES_PLAYLIST_FOLDER, unicode)[-1] != "/": playlist_folder += "/"
     # create folders
@@ -177,7 +178,7 @@ def auto_movie_setup(library_folder):
             if not xbmcvfs.exists(playlist_folder): xbmcvfs.mkdir(playlist_folder)
             xbmcvfs.mkdir(library_folder)
             source_thumbnail = get_icon_path("movies")
-            source_name = "MetalliQ " + _("Movies")
+            source_name = "Chappa'ai " + _("Movies")
             source_content = "('{0}','movies','metadata.themoviedb.org','',2147483647,1,'<settings><setting id=\"RatingS\" value=\"TMDb\" /><setting id=\"certprefix\" value=\"Rated \" /><setting id=\"fanart\" value=\"true\" /><setting id=\"keeporiginaltitle\" value=\"false\" /><setting id=\"language\" value=\"{1}\" /><setting id=\"tmdbcertcountry\" value=\"us\" /><setting id=\"trailer\" value=\"true\" /></settings>',0,0,NULL,NULL)".format(library_folder, LANG)
             add_source(source_name, library_folder, source_content, source_thumbnail)
             return True

@@ -61,7 +61,7 @@
 	</extension>
 </addon>
 
-<addon id="script.module.youtube.dl" name="youtube-dl Control" version="18.225.0" provider-name="Rick Phillips (ruuk)">
+<addon id="script.module.youtube.dl" name="youtube-dl Control" version="18.320.0" provider-name="Rick Phillips (ruuk)">
     <requires>
         <import addon="xbmc.python" version="2.1.0" />
         <import addon="script.module.addon.signals" version="0.0.1"/>
@@ -117,6 +117,23 @@
         <source>https://github.com/phil65/script.module.autocompletion</source>
     </extension>
 </addon>
+
+    <addon id="repository.universalscrapers" name="universalscrapers-repository" version="1.0.0" provider-name="universalscrapers">
+        <requires>
+            <import addon="xbmc.addon" version="12.0.0"/>
+        </requires>
+        <extension point="xbmc.addon.repository" name="universalscrapers">
+            <info compressed="false">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/</datadir>
+            <hashes>false</hashes>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+            <summary>Scrape common video host for URL's to be playable in XBMC/Kodi.</summary>
+            <description>carrying on the dream</description>
+            <platform>all</platform>
+        </extension>
+    </addon>
 
 <addon id="plugin.video.covenant" version="1.1.30" name="Covenant" provider-name="Covenant">
 	<requires>
@@ -199,7 +216,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.chappaai" name="Chappa'ai" version="G.0.5" provider-name="Mr.Blamo">
+<addon id="plugin.video.chappaai" name="Chappa'ai" version="G.0.6" provider-name="Mr.Blamo">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0"/>
 		<import addon="script.module.requests" version="2.9.1"/>
@@ -283,7 +300,7 @@
 
 <addon id="script.module.thetvdb"
        name="The TVDB API v2"
-       version="1.0.26"
+       version="1.0.27"
        provider-name="marcelveldt">
     <requires>
         <import addon="xbmc.python" version="2.24.0"/>
@@ -577,7 +594,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
   </extension>
 </addon>
 
-<addon id="repository.StreamArmy" name="[COLOR crimson]S[COLOR silver]tream Army Repo[/COLOR]" version="9.5" provider-name="@Nemzzy668 / @_Manc_">
+<addon id="repository.StreamArmy" name="[COLOR crimson]S[COLOR silver]tream Army Repo[/COLOR]" version="9.7" provider-name="@Nemzzy668 / @_Manc_">
     <extension point="xbmc.addon.repository" name="Stream Army">
         <info compressed="false">https://raw.githubusercontent.com/nemesis668/repository.streamarmy/master/addons.xml</info>
         <checksum>http://raw.githubusercontent.com/nemesis668/repository.streamarmy/master/addons.xml.md5</checksum>
@@ -1008,7 +1025,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
 	</extension>
 </addon>
 
-<addon id="script.module.incursion" name="Incursion Module" version="1.17" provider-name="Incursion">
+<addon id="script.module.incursion" name="Incursion Module" version="1.18" provider-name="Incursion">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 		<import addon="script.module.beautifulsoup4"/>
@@ -1209,38 +1226,50 @@ v5.0.15 (2016-11-26) by amet
     </extension>
 </addon>
 
-<addon id="plugin.video.youtube" name="YouTube" version="6.0.0~beta3" provider-name="bromix">
+<addon id="plugin.video.youtube" name="YouTube" version="6.0.0~beta8" provider-name="bromix">
     <requires>
         <import addon="xbmc.python" version="2.20.0"/>
         <import addon="script.module.six"/>
         <import addon="script.module.requests" version="2.12.4"/>
+        <import addon="script.module.inputstreamhelper" version="0.2.2" optional="true"/>
     </requires>
     <extension point="xbmc.python.pluginsource" library="resources/lib/default.py">
         <provides>video</provides>
     </extension>
-    <extension point="xbmc.service" library="resources/lib/startup.py" start="startup"/>
+    <extension point="xbmc.service" library="resources/lib/startup.py" start="login"/>
     <extension point="xbmc.python.module" library="resources/lib/"/>
     <extension point="xbmc.addon.metadata">
         <news>
 [add] Python 3 compat.
-[add] Settings -> Maintenance -> Delete temporary files
-[add] Settings -> General -> Rate video after watching
-[add] Settings -> API -> Enable API configuration page
-        - when enabled, visit http://ipaddress:port/api to configure API keys from a web browser
+[add] Settings -&#62; Maintenance -&#62; Delete temporary files
+[add] Settings -&#62; General -&#62; Rate video after watching
+[add] Settings -&#62; API -&#62; Enable API configuration page
+        - when enabled, visit http:&#47;&#47;&#60;ipaddress&#62;:&#60;port&#62;&#47;api to configure API keys from a web browser
         - port is configured in Settings - HTTP Server - Port
 [chg] Storing personal api keys in api_keys.json
 [chg] Storing login tokens in access_manager.json
-[add] youtube_registration module, register developer keys and use them by appending an addon_id=:addon_id parameter to youtube add-on plugin urls
-[add] screensaver=true parameter to /play route - no suggested videos, no post play events, don't ask for quality
+[add] youtube_registration module, register developer keys and use them by appending an addon_id=&#60;addon_id&#62; parameter to youtube add-on plugin urls
+[add] screensaver=true parameter to &#47;play route - no suggested videos, no post play events, don't ask for quality
 [add] play route for channel live streams
-        - plugin://plugin.video.youtube/play/?channel_id=UCLA_DiR1FfKNvjuUpBHmylQ&amp;live=1
+        - plugin:&#47;&#47;plugin.video.youtube&#47;play&#47;?channel_id=UCLA_DiR1FfKNvjuUpBHmylQ&#38;live=1
+[add] Purchases
+        - support is incomplete
+        - requires inputstream.adaptive &#62;= 2.0.28
+        - YouTube includes resolutions that are not available, currently to work around this;
+            - set InputStream Adaptive -&#62; Settings -&#62; Stream selection -&#62; manual
+            - change video stream during playback to preferred working resolution
+        - Android plays only first 5 minutes
+        - huge thanks to peak3d
+[add] relevanceLanguage to search requests
+[fix] mpeg-dash proxy with multi-profiles
 [fix] search input, now works with Yatse
 [fix] Signature deciphering
 [fix] context menu after playback
 [fix] alternative player, do not append headers
-[fix/upd] post play events happen post play
-[fix/upd] set title from metadata on play
-[upd] Use monitor to track api key changes
+[fix] My Subscriptions (Filtered) channel matching
+[fix&#47;upd] post play events happen post play
+[fix&#47;upd] set title from metadata on play
+[chg] only automatically remove temp folder at start-up
 [upd] Dutch strings [MB1968]
 [upd] French strings [bubuleur]
 [upd] Greek strings [twilight0]
@@ -1386,7 +1415,7 @@ v5.0.15 (2016-11-26) by amet
         </extension>
 </addon>
 
-<addon id="plugin.video.incursion" version="0.1.15" name="Incursion" provider-name="Incursion">
+<addon id="plugin.video.incursion" version="0.1.16" name="Incursion" provider-name="Incursion">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.module.incursion" />
@@ -1417,11 +1446,12 @@ v5.0.15 (2016-11-26) by amet
     			<screenshot>resources/screenshots/screenshot-03.jpg</screenshot>
 		</assets>
 		<news>
-v0.1.15 (FEB-2018)
-Fixed "Trakt - Mark as Watched" Issues
-Added Trakt Bookmarks Function
-Added Auto Resume Option
-Trakt On Deck - Reversed to show last played first.
+v0.1.16 (APR-2018)
+Scraper Fixes - 2ddl, chillax, allrls, movie4kis
+New Scrapers - pubfilmonline, rlsscn
+Settings cleanup
+Added polish fixes
+Slacked on documentation - slack update notes
 		</news>
 	</extension>
 </addon>
@@ -2534,27 +2564,29 @@ This is a Non-profit resource, organized solely for educational purposes which i
   </extension>
 </addon>
 
-<addon id="script.module.universalscrapers" name="Universal Scrapers" version="1.0.2" provider-name="Team Universal">
-        <requires>
-                <import addon="xbmc.python" version="2.1.0"/>
-                <import addon="script.module.beautifulsoup" version="3.2.1"/>
-                <import addon="script.module.futures" version="2.2.0"/>
-                <import addon="script.module.requests"/>
-                <import addon="script.module.six"/>
-		    <import addon="script.module.resolveurl" version="5.0.00" optional="true"/>
+<addon id="script.module.universalscrapers" name="Universal Scrapers" version="1.0.5" provider-name="Team Universal">
+    <requires>
+        <import addon="xbmc.python" version="2.1.0"/>
+        <import addon="script.module.beautifulsoup" version="3.2.1"/>
+        <import addon="script.module.futures" version="2.2.0"/>
+        <import addon="script.module.requests"/>
+        <import addon="script.module.six"/>
+        <import addon="repository.universalscrapers"/>
+	<import addon="script.module.resolveurl" version="5.0.00" optional="true"/>
+
                 <!--<import addon="script.mrknow.urlresolver" version="2016.10.30.2" optional="true"/>-->
-        </requires>
-        <extension point="xbmc.python.module" library="lib"/>
-        <extension point="xbmc.python.pluginsource" library="lib/default.py">
-                <provides>executable</provides>
-        </extension>
+    </requires>
+    <extension point="xbmc.python.module" library="lib"/>
+    <extension point="xbmc.python.pluginsource" library="lib/default.py">
+        <provides>executable</provides>
+    </extension>
         <extension point="xbmc.addon.metadata">
-                <platform>all</platform>
-                <summary lang="en">Scrape common video host for URL's to be playable in XBMC/Kodi.</summary>
-                <description lang="en">Scrape common video host for URL's to be playable in XBMC/Kodi, simplifying addon development of video plugins requiring multi video hosts.
-                </description>
-                <license>GPL v3</license>
-                <source>https://</source>
+            <platform>all</platform>
+            <summary lang="en">Scrape common video host for URL's to be playable in XBMC/Kodi.</summary>
+            <description lang="en">Scrape common video host for URL's to be playable in XBMC/Kodi, simplifying addon development of video plugins requiring multi video hosts.
+            </description>
+            <license>GPL v3</license>
+            <source>https://</source>
         </extension>
 </addon>
 
@@ -2578,7 +2610,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
 
 <addon id="metadata.common.themoviedb.org"
        name="The Movie Database Scraper Library"
-       version="3.1.2"
+       version="3.1.4"
        provider-name="Team Kodi">
   <requires>
     <import addon="xbmc.metadata" version="2.1.0"/>
@@ -3020,7 +3052,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
         </extension>
     </addon>
 
-    <addon id="repository.Atrion" name="Atrions Repo" version="0.2.20" provider-name="AtrionDarnay">
+    <addon id="repository.Atrion" name="Atrions Repo" version="0.2.21" provider-name="AtrionDarnay">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -3082,7 +3114,7 @@ Kodi is a registered trademark of the XBMC Foundation. We are not connected to o
   </extension>
 </addon>
 
-    <addon id="repository.Atrion2" name="Atrions Repo2" version="0.2.20" provider-name="AtrionDarnay">
+    <addon id="repository.Atrion2" name="Atrions Repo2" version="0.2.21" provider-name="AtrionDarnay">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -3260,33 +3292,41 @@ Kodi is a registered trademark of the XBMC Foundation. We are not connected to o
   </extension>
 </addon>
 
-<addon id="script.module.simplejson"
-       name="simplejson"
-       version="3.4.0"
-       provider-name="Bob Ippolito">
-  <requires>
-    <import addon="xbmc.python" version="2.1.0"/>
-  </requires>
-  <extension point="xbmc.python.module"
-             library="lib" />
-  <extension point="xbmc.addon.metadata">
-    <platform>all</platform>
-    <language></language>
-    <summary lang="en">Simple, fast, extensible JSON encoder/decoder for Python</summary>
-    <description lang="en">Simple, fast, extensible JSON encoder/decoder for Python</description>
-    <disclaimer lang="en">Code taken from https://pypi.python.org/pypi/simplejson/</disclaimer>
-    <license>MIT License, Academic Free License v. 2.1</license>
-    <website>https://pypi.python.org/pypi/simplejson/</website>
-    <source>https://pypi.python.org/pypi/simplejson/</source>
-  </extension>
+<addon id="script.module.simplejson" name="simplejson" version="3.4.1" provider-name="Bob Ippolito">
+	<requires>
+		<import addon="xbmc.python" version="2.1.0"/>
+		<import addon="script.module.python.requests" version="2.16.0" />
+	</requires>
+	<extension point="xbmc.python.module" library="lib" />
+	<extension point="xbmc.addon.metadata">
+		<platform>all</platform>
+		<language></language>
+		<summary lang="en">Simple, fast, extensible JSON encoder/decoder for Python</summary>
+		<description lang="en">Simple, fast, extensible JSON encoder/decoder for Python</description>
+		<disclaimer lang="en">Code taken from https://pypi.python.org/pypi/simplejson/</disclaimer>
+		<license>MIT License, Academic Free License v. 2.1</license>
+		<website>https://pypi.python.org/pypi/simplejson/</website>
+		<source>https://pypi.python.org/pypi/simplejson/</source>
+	</extension>
 </addon>
 
-<addon id="repository.xvbmc" name=" [COLOR lime][B]X[/B][/COLOR]vBMC (Add-ons) REPOsitory" version="4.2.0" provider-name="XvBMC Nederland">
+<addon id="repository.xvbmc" name=" [COLOR lime][B]X[/B][/COLOR]vBMC (Add-ons) REPOsitory" version="4.2.1" provider-name="XvBMC Nederland">
     <extension point="xbmc.addon.repository" name=" [COLOR lime][B]X[/B][/COLOR]vBMC (Add-ons) REPOsitory">
         <dir>
+            <info compressed="false">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/</datadir>
+            <hashes>false</hashes>
+        </dir>
+    <!--<dir>
             <info compressed="false">https://raw.githubusercontent.com/noobsandnerds/modules4all/master/zips/addons.xml</info>
             <checksum>https://raw.githubusercontent.com/noobsandnerds/modules4all/master/zips/addons.xml.md5</checksum>
             <datadir zip="true">https://raw.githubusercontent.com/noobsandnerds/modules4all/master/zips/</datadir>
+        </dir>-->
+        <dir>
+            <info compressed="false">https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/jsergio123/zips/master/</datadir>
         </dir>
         <dir>
             <info compressed="false">https://github.com/tvaddonsco/tva-resolvers-repo/raw/master/addons.xml</info>
@@ -3328,11 +3368,12 @@ Kodi is a registered trademark of the XBMC Foundation. We are not connected to o
         <forum>https://www.fb.com/groups/XvBMCnederland/</forum>
         <website>http://bit.ly/XvBMC-NL</website>
         <source>https://archive.org/download/repository.xvbmc/</source>
-        <news>Release v4.2.0</news>
+        <size>946176</size>
+        <news>Release v4.2.1 Mo' XvBMC VoOdOo...</news>
         <assets>
             <icon>icon.png</icon>
             <fanart>fanart.jpg</fanart>
-            <screenshot></screenshot>
+            <screenshot>xbmc.png</screenshot>
         </assets>
     </extension>
 </addon>
@@ -3627,7 +3668,7 @@ Kodi is a registered trademark of the XBMC Foundation. We are not connected to o
 	</extension>
 </addon>
 
-<addon id="script.module.urlresolver" name="URLResolver" version="5.0.09" provider-name="tvaddons">
+<addon id="script.module.urlresolver" name="URLResolver" version="5.0.10" provider-name="tvaddons">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 		<import addon="plugin.video.youtube" optional="true" />
@@ -3691,6 +3732,21 @@ Kodi is a registered trademark of the XBMC Foundation. We are not connected to o
     <source>https://github.com/beenje/script.module.urllib3</source>
     <email>beenje AT gmail.com</email>
   </extension>
+</addon>
+
+<addon id="script.module.python.requests" name="Python Requests" version="2.16.3" provider-name="Miovi Team">
+	<requires>
+		<import addon="xbmc.python" version="2.1.0"/>
+	</requires>
+	<extension point="xbmc.python.module" library="lib" />
+	<extension point="xbmc.service" library="lib/__init__.py" start="startup" />
+	<extension point="xbmc.addon.metadata">
+		<summary>Python HTTP for Humans</summary>
+		<description>Python HTTP for Humans in Kodi</description>
+		<platform>all</platform>
+		<language></language>
+		<license>Apache2</license>
+	</extension>
 </addon>
 
 <addon id="script.module.metadatautils"

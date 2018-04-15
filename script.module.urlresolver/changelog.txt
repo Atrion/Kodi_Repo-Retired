@@ -1,3 +1,15 @@
+[B]Version 5.0.10 (Apr 7, 2018)[/B]
+- Code Base Changes:
+    - None
+- Resolvers Added:
+    - streamdor
+- Resolvers Fixed/Updated:
+    - None
+- Resolvers Removed
+    - None
+- Languages Added/Updated
+	- None
+
 [B]Version 5.0.09 (Mar 18, 2018)[/B]
 - Code Base Changes:
     - None

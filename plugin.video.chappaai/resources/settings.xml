@@ -111,7 +111,7 @@
     </category>
     <category label="30825">
         <setting label="30005" id="style" type="select" values="Azure|Custom|Clear|Default|Elegant|Embossed|Emerald|Glass|Golden|Inverted|Meta" default="Default" />
-        <setting label="30016" id="style_custom_folder" type="folder" default="https://raw.githubusercontent.com/mrblamo420/Style/master/chappaai/default/" visible="eq(-1,Custom)" />
+        <setting label="30016" id="style_custom_folder" type="folder" default="https://raw.githubusercontent.com/MrBlamo420/Style/master/Chappaai/" visible="eq(-1,Custom)" />
         <setting label="30015" id="background" type="select" values="Azure|Custom|Clear|Default|Elegant|Embossed|Emerald|Glass|Inverted|Meta" default="Default" />
         <setting label="30017" id="background_custom_folder" type="folder" default="https://raw.githubusercontent.com/mrblamo420/Style/master/chappaai/default/" visible="eq(-1,Custom)" />
         <setting label="30827" type="select" values="system|bg|cs|da|de|el|en|es|fi|fr|he|hr|hu|it|ja|ko|nl|no|pl|pt|ru|sl|sv|tr|zh" id="language_id" default="system"/>

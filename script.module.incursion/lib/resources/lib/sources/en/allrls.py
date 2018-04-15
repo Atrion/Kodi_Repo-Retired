@@ -22,21 +22,26 @@
 
 import requests
 from bs4 import BeautifulSoup
-from resources.lib.modules import cleantitle
 import sys
+
+
+def clean_search_query(url):
+    url = url.replace('-','+')
+    url = url.replace(' ', '+')
+    return url
 
 class source:
     def __init__(self):
         self.priority = 0
         self.language = ['en']
-        self.domain = 'allrls.pw'
-        self.base_link = 'http://allrls.pw'
-        self.search_link = 'http://allrls.pw/?s='
-        self.headers = {'Referer':'http://allrls.pw/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'}
+        self.domain = 'allrls.co'
+        self.base_link = 'http://allrls.co'
+        self.search_link = 'http://allrls.co/?s='
+        self.headers = {'Referer':'http://allrls.co/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'}
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
-            title = cleantitle.clean_search_query(title)
+            title = clean_search_query(title)
             url = {'title': title, 'year': year}
             return url
 
@@ -44,7 +49,7 @@ class source:
             return
 
     def tvshow(self, imdb, tvdb, tvshowtitle, localtvshowtitle, aliases, year):
-        url = cleantitle.clean_search_query(tvshowtitle)
+        url = clean_search_query(tvshowtitle)
         return url
 
     def episode(self, url, imdb, tvdb, title, premiered, season, episode):
@@ -77,7 +82,8 @@ class source:
                 else:
                     title, year = url['title'], url['year']
                     url = self.search_link + "%s+%s&go=Search" % (title, year)
-
+                post = {'fname':'Hello'}
+                p = s.post()
                 p = s.get(url, headers=self.headers)
                 soup = BeautifulSoup(p.text, 'html.parser')
                 content = soup.find_all('h2', {'class': 'entry-title'})
@@ -115,7 +121,7 @@ class source:
                                  'language': "en",
                                  'url': i,
                                  'direct': False,
-                                 'debridonly': True})
+                                 'debridonly': False})
                         if 'rapidgator' in i:
                             sources.append(
                                 {'source': "rapidgator.net",
@@ -140,6 +146,7 @@ class source:
                                  'url': i,
                                  'direct': False,
                                  'debridonly': True})
+
             return sources
 
         except:
@@ -151,7 +158,9 @@ class source:
     def resolve(self, url):
             return url
 
-#url = source.tvshow(source(), '', '', 'Vikings','','' '','2016')
-#url = source.episode(source(),url,'', '', '', '', '5', '1')
-#sources = source.sources(source(),url,'','')
+
+#url = source.movie(source(), '', 'The Shape Of Water','','' '','2017')
+#url = source.episode(source(),'The Walking Dead','', '', '', '', '8', '1')
+#sources = source.sources(source(),url,'',['1fichier.com', 'oboom.com', 'rapidgator.net', 'rg.to', 'uploaded.net', 'uploaded.to', 'ul.to', 'filefactory.com', 'nitroflare.com', 'turbobit.net', 'uploadrocket.net'])
+
 

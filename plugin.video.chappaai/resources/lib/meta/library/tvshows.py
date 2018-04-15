@@ -127,8 +127,9 @@ def add_tvshow_to_library(library_folder, show, play_plugin = None):
     if not dirs:
         shutil.rmtree(show_folder)
         clean_needed = True
+    if xbmc.getCondVisibility("system.hasaddon(script.extendedinfo)"): xbmc.executebuiltin("RunScript(script.extendedinfo,info=afteradd)")
 #    if xbmc.getCondVisibility("system.hasaddon(script.qlickplay)"): xbmc.executebuiltin("RunScript(script.qlickplay,info=afteradd)")
-#    elif xbmc.getCondVisibility("system.hasaddon(script.extendedinfo)"): xbmc.executebuiltin("RunScript(script.extendedinfo,info=afteradd)")
+
     return clean_needed
 
 def batch_add_tvshows_to_library(library_folder, show):

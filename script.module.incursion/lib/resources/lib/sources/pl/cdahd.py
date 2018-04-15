@@ -28,9 +28,9 @@ class source:
     def __init__(self):
         self.priority = 1
         self.language = ['pl']
-        self.domains = ['cda-hd.pl']
+        self.domains = ['cda-hd.tv']
 
-        self.base_link = 'http://cda-hd.pl/'
+        self.base_link = 'http://cda-hd.tv/'
         self.search_link = '/?s=%s'
 
     def do_search(self, title, local_title, year, video_type):

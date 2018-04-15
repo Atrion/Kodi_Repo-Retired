@@ -22,9 +22,6 @@ http://bit.ly/XvBMC-Sport | https://www.fb.com/groups/XbmcVoorBeginnersSportChat
 #XvBMC_retro-Games         |                  .:C.T.R.L:. Gaming Room [NL] :
 http://bit.ly/XvBMC-Gaming | https://www.facebook.com/groups/ctrlgamingroom/
  
-#XvBMC_Marktplaats:
-http://bit.ly/XvBMC-Marktplaats | https://www.fb.com/groups/xbmckoopenverkoop/
- 
 #XvBMC_YouTube:
 http://bit.ly/XvBMC-YouTube | https://www.youtube.com/user/onlinefilmskijken/
    

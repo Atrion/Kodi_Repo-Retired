@@ -11,7 +11,7 @@ class AbstractSettings(object):
     def get_string(self, setting_id, default_value=None):
         raise NotImplementedError()
 
-    def set_string(self, setting_id, value, on_changed=True):
+    def set_string(self, setting_id, value):
         raise NotImplementedError()
 
     def open_settings(self):
@@ -34,14 +34,14 @@ class AbstractSettings(object):
 
         return default_value
 
-    def set_int(self, setting_id, value, on_changed=True):
-        self.set_string(setting_id, str(value), on_changed)
+    def set_int(self, setting_id, value):
+        self.set_string(setting_id, str(value))
 
-    def set_bool(self, setting_id, value, on_changed=True):
+    def set_bool(self, setting_id, value):
         if value:
-            self.set_string(setting_id, 'true', on_changed)
+            self.set_string(setting_id, 'true')
         else:
-            self.set_string(setting_id, 'false', on_changed)
+            self.set_string(setting_id, 'false')
 
     def get_bool(self, setting_id, default_value):
         value = self.get_string(setting_id)
@@ -87,12 +87,6 @@ class AbstractSettings(object):
     def use_dash(self):
         return self.get_bool(constants.setting.USE_DASH, False)
 
-    def dash_support_builtin(self):
-        return self.get_bool(constants.setting.DASH_SUPPORT_BUILTIN, False)
-
-    def dash_support_addon(self):
-        return self.get_bool(constants.setting.DASH_SUPPORT_ADDON, False)
-
     def subtitle_languages(self):
         return self.get_int(constants.setting.SUBTITLE_LANGUAGE, 0)
 
@@ -100,7 +94,7 @@ class AbstractSettings(object):
         return self.get_bool(constants.setting.AUDIO_ONLY, False)
 
     def set_subtitle_languages(self, value):
-        return self.set_int(constants.setting.SUBTITLE_LANGUAGE, value, on_changed=False)
+        return self.set_int(constants.setting.SUBTITLE_LANGUAGE, value)
 
     def use_thumbnail_size(self):
         size = self.get_int(constants.setting.THUMB_SIZE, 0)
@@ -135,3 +129,9 @@ class AbstractSettings(object):
 
     def set_httpd_listen(self, value):
         return self.set_string(constants.setting.HTTPD_LISTEN, value)
+
+    def httpd_whitelist(self):
+        return self.get_string(constants.setting.HTTPD_WHITELIST, '')
+
+    def api_config_page(self):
+        return self.get_bool(constants.setting.API_CONFIG_PAGE, False)

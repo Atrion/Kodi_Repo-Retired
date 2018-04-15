@@ -192,8 +192,8 @@ def lists_trakt_add_all_to_library(user, slug):
     misc_ids, movie_ids, tv_ids = batch_find_list_ids(items)
     write_list_id_files(misc_ids, tv_ids, movie_ids, slug, user)
     write_batch_id_files(tv_ids, movie_ids, misc_ids)
-    dialogs.notify(msg='Conversion done', title='starting batch-add', delay=3000, image=get_icon_path("metalliq"))
-    xbmc.executebuiltin("RunPlugin(plugin://plugin.video.metalliq/movies/batch_add_to_library)")
+    dialogs.notify(msg='Conversion done', title='starting batch-add', delay=3000, image=get_icon_path("chappaai"))
+    xbmc.executebuiltin("RunPlugin(plugin://plugin.video.chappaai/movies/batch_add_to_library)")
 
 def batch_find_list_ids(items):
     tv_ids = []
@@ -225,7 +225,7 @@ def batch_find_list_ids(items):
                     imdb = str(pro_imdb[0])
                     tvdb_id = tvdb.search_by_imdb(imdb)
                     if not imdb and not tvdb_id:
-                        return dialogs.notify(msg="No id found for item", title='', delay=3000, image=get_icon_path("metalliq"))
+                        return dialogs.notify(msg="No id found for item", title='', delay=3000, image=get_icon_path("chappaai"))
                     if imdb and not tvdb_id:
                         if imdb not in movie_ids and imdb != None and imdb !="None": movie_ids.append(imdb)
                     elif tvdb_id:
@@ -242,7 +242,7 @@ def batch_find_list_ids(items):
 
 def write_list_id_files(misc_ids, tv_ids, movie_ids, slug, user):
     if len(misc_ids) > 0:
-        misc_list_file_path = "special://profile/addon_data/plugin.video.metalliq/misc_from_" + slug + "_by_" + user + ".txt"
+        misc_list_file_path = "special://profile/addon_data/plugin.video.chappaai/misc_from_" + slug + "_by_" + user + ".txt"
         if xbmcvfs.exists(misc_list_file_path): os.remove(xbmc.translatePath(misc_list_file_path))
         misc_id_list = ""
         for id in misc_ids:
@@ -252,7 +252,7 @@ def write_list_id_files(misc_ids, tv_ids, movie_ids, slug, user):
             batch_add_file.write(misc_id_list)
             batch_add_file.close()
     if len(tv_ids) > 0:
-        shows_list_file_path = "special://profile/addon_data/plugin.video.metalliq/shows_from_" + slug + "_by_" + user + ".txt"
+        shows_list_file_path = "special://profile/addon_data/plugin.video.chappaai/shows_from_" + slug + "_by_" + user + ".txt"
         if xbmcvfs.exists(shows_list_file_path): os.remove(xbmc.translatePath(shows_list_file_path))
         tv_id_list = ""
         for id in tv_ids:
@@ -262,7 +262,7 @@ def write_list_id_files(misc_ids, tv_ids, movie_ids, slug, user):
             batch_add_file.write(tv_id_list)
             batch_add_file.close()
     if len(movie_ids) > 0:
-        movies_list_file_path = "special://profile/addon_data/plugin.video.metalliq/movies_from_" + slug + "_by_" + user + ".txt"
+        movies_list_file_path = "special://profile/addon_data/plugin.video.chappaai/movies_from_" + slug + "_by_" + user + ".txt"
         if xbmcvfs.exists(movies_list_file_path): os.remove(xbmc.translatePath(movies_list_file_path))
         movie_id_list = ""
         for id in movie_ids:
@@ -274,7 +274,7 @@ def write_list_id_files(misc_ids, tv_ids, movie_ids, slug, user):
 
 def write_batch_id_files(tv_ids, movie_ids, misc_ids):
     if len(tv_ids) > 0:
-        shows_import_file_path = "special://profile/addon_data/plugin.video.metalliq/shows_to_add.txt"
+        shows_import_file_path = "special://profile/addon_data/plugin.video.chappaai/shows_to_add.txt"
         if xbmcvfs.exists(shows_import_file_path): os.remove(xbmc.translatePath(shows_import_file_path))
         tv_id_list = ""
         for id in tv_ids:
@@ -285,7 +285,7 @@ def write_batch_id_files(tv_ids, movie_ids, misc_ids):
             batch_add_file.close()
         dialogs.notify(msg='Converting tvshows, seasons & episodes', title='to id-list for batch-adding', delay=3000, image=get_icon_path("tvshows"))
     if len(movie_ids) > 0:
-        movies_import_file_path = "special://profile/addon_data/plugin.video.metalliq/movies_to_add.txt"
+        movies_import_file_path = "special://profile/addon_data/plugin.video.chappaai/movies_to_add.txt"
         if xbmcvfs.exists(movies_import_file_path): os.remove(xbmc.translatePath(movies_import_file_path))
         movie_id_list = ""
         for id in movie_ids:
@@ -296,7 +296,7 @@ def write_batch_id_files(tv_ids, movie_ids, misc_ids):
             batch_add_file.close()
         dialogs.notify(msg='Converting movies', title='to id-list for batch-adding', delay=3000, image=get_icon_path("movies"))
     if len(misc_ids) > 0:
-        misc_import_file_path = "special://profile/addon_data/plugin.video.metalliq/misc_to_add.txt"
+        misc_import_file_path = "special://profile/addon_data/plugin.video.chappaai/misc_to_add.txt"
         if xbmcvfs.exists(misc_import_file_path): os.remove(xbmc.translatePath(misc_import_file_path))
         misc_id_list = ""
         for id in misc_ids:
@@ -315,7 +315,7 @@ def lists_trakt_add_liked_to_library():
     tv_ids = []
     import xbmcgui
     pDialog = xbmcgui.DialogProgress()
-    pDialog.create('MetalliQ', 'Creating batch import files')
+    pDialog.create('Chappaai', 'Creating batch import files')
     for page in range(0, int(pages)):
         lists, ignore = trakt.trakt_get_liked_lists(page)
         list_number = 1
@@ -336,8 +336,8 @@ def lists_trakt_add_liked_to_library():
             tv_ids.extend(list_tv_ids)
     pDialog.close()
     write_batch_id_files(tv_ids, movie_ids, misc_ids)
-    dialogs.notify(msg='Generating', title='.strm-files', delay=3000, image=get_icon_path("metalliq"))
-    xbmc.executebuiltin("RunPlugin(plugin://plugin.video.metalliq/movies/batch_add_to_library)")
+    dialogs.notify(msg='Generating', title='.strm-files', delay=3000, image=get_icon_path("chappaai"))
+    xbmc.executebuiltin("RunPlugin(plugin://plugin.video.chappaai/movies/batch_add_to_library)")
 
 @plugin.route('/lists/trakt/my_lists_to_library')
 def lists_trakt_add_my_lists_to_library():
@@ -346,7 +346,7 @@ def lists_trakt_add_my_lists_to_library():
     tv_ids = []
     import xbmcgui
     lists = trakt.trakt_get_lists()
-    dialogs.notify(msg='Adding ' + str(len(lists)) + " lists", title='to Kodi library', delay=3000, image=get_icon_path("metalliq"))
+    dialogs.notify(msg='Adding ' + str(len(lists)) + " lists", title='to Kodi library', delay=3000, image=get_icon_path("chappaai"))
     for list in lists:
         user = list["user"]["username"]
         slug = list["ids"]["slug"]
@@ -357,8 +357,8 @@ def lists_trakt_add_my_lists_to_library():
         movie_ids.extend(list_movie_ids)
         tv_ids.extend(list_tv_ids)
     write_batch_id_files(tv_ids, movie_ids, misc_ids)
-    dialogs.notify(msg='Generating', title='.strm-files', delay=3000, image=get_icon_path("metalliq"))
-    xbmc.executebuiltin("RunPlugin(plugin://plugin.video.metalliq/movies/batch_add_to_library)")
+    dialogs.notify(msg='Generating', title='.strm-files', delay=3000, image=get_icon_path("chappaai"))
+    xbmc.executebuiltin("RunPlugin(plugin://plugin.video.chappaai/movies/batch_add_to_library)")
 
 @plugin.route('/lists/trakt/all_lists_to_library')
 def lists_trakt_add_all_lists_to_library():
