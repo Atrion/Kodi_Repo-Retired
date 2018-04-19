@@ -34,10 +34,10 @@ class source:
     def __init__(self):
         self.priority = 0
         self.language = ['en']
-        self.domain = 'allrls.co'
-        self.base_link = 'http://allrls.co'
-        self.search_link = 'http://allrls.co/?s='
-        self.headers = {'Referer':'http://allrls.co/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'}
+        self.domain = 'allrls.pw'
+        self.base_link = 'http://allrls.pw'
+        self.search_link = 'http://allrls.pw/?s='
+        self.headers = {'Referer':'http://allrls.pw/','User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'}
 
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
@@ -69,6 +69,7 @@ class source:
             return url
 
     def sources(self, url, hostDict, hostprDict):
+        hostDict = hostprDict + hostDict
         try:
             sources = []
             if not url:
@@ -83,8 +84,9 @@ class source:
                     title, year = url['title'], url['year']
                     url = self.search_link + "%s+%s&go=Search" % (title, year)
                 post = {'fname':'Hello'}
-                p = s.post()
+                p = s.post(self.base_link + "/hello.php", data=post)
                 p = s.get(url, headers=self.headers)
+
                 soup = BeautifulSoup(p.text, 'html.parser')
                 content = soup.find_all('h2', {'class': 'entry-title'})
                 if content[0].text == "Nothing Found":
@@ -104,7 +106,6 @@ class source:
                             quality = "1080p"
                         else:
                             quality = "SD"
-
                         if 'uploadrocket' in i:
                             sources.append(
                                 {'source': "uploadrocket.net",
@@ -157,10 +158,3 @@ class source:
 
     def resolve(self, url):
             return url
-
-
-#url = source.movie(source(), '', 'The Shape Of Water','','' '','2017')
-#url = source.episode(source(),'The Walking Dead','', '', '', '', '8', '1')
-#sources = source.sources(source(),url,'',['1fichier.com', 'oboom.com', 'rapidgator.net', 'rg.to', 'uploaded.net', 'uploaded.to', 'ul.to', 'filefactory.com', 'nitroflare.com', 'turbobit.net', 'uploadrocket.net'])
-
-

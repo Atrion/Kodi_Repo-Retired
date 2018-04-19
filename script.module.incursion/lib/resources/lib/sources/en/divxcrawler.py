@@ -18,7 +18,7 @@
 '''
 
 
-import re,urllib,urlparse
+import re,urllib,urlparse, traceback, requests
 
 from resources.lib.modules import cleantitle
 from resources.lib.modules import client
@@ -38,7 +38,6 @@ class source:
     def movie(self, imdb, title, localtitle, aliases, year):
         try:
             url = {'imdb': imdb, 'title': title, 'year': year}
-            url = urllib.urlencode(url)
             return url
         except:
             return
@@ -49,32 +48,34 @@ class source:
 
             if url is None: return sources
 
-            data = urlparse.parse_qs(url)
-            data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
+            data = url
             imdb = data['imdb']
 
             try:
                 query = urlparse.urljoin(self.base_link, self.search_link)
-                result = client.request(query)
+                result = requests.get(query).text
                 m = re.findall('Movie Size:(.+?)<.+?href="(.+?)".+?href="(.+?)"\s*onMouse', result, re.DOTALL)
+                for i in m:
+                    print(i)
                 m = [(i[0], i[1], i[2]) for i in m if imdb in i[1]]
                 if m:
                     link = m
                 else:
                     query = urlparse.urljoin(self.base_link, self.search_link2)
-                    result = client.request(query)
+                    result = requests.get(query).text
                     m = re.findall('Movie Size:(.+?)<.+?href="(.+?)".+?href="(.+?)"\s*onMouse', result, re.DOTALL)
                     m = [(i[0], i[1], i[2]) for i in m if imdb in i[1]]
                     if m:
                         link = m
                     else:
                         query = urlparse.urljoin(self.base_link, self.search_link3)
-                        result = client.request(query)
+                        result = requests.get(query).text
                         m = re.findall('Movie Size:(.+?)<.+?href="(.+?)".+?href="(.+?)"\s*onMouse', result, re.DOTALL)
                         m = [(i[0], i[1], i[2]) for i in m if imdb in i[1]]
                         if m: link = m
 
             except:
+                traceback.print_exc()
                 return
 
             for item in link:
@@ -89,6 +90,7 @@ class source:
                         size = '%.2f GB' % size
                         info.append(size)
                     except:
+                        traceback.print_exc()
                         pass
 
                     info = ' | '.join(info)
@@ -101,10 +103,12 @@ class source:
                     sources.append({'source': 'DL', 'quality': quality, 'language': 'en', 'url': url, 'info': info,
                                     'direct': True, 'debridonly': False})
                 except:
+                    traceback.print_exc()
                     pass
 
             return sources
         except:
+            traceback.print_exc()
             return sources
 
     def resolve(self, url):

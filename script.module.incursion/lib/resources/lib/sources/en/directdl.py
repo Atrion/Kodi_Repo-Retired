@@ -78,10 +78,10 @@ class source:
             if not cookie == None: headers['Cookie'] = cookie
             if not referer == None: headers['Referer'] = referer
             result = client.request(url, post=post, headers=headers, output=output, close=close)
-            print result
+            print(result)
             result = result.decode('iso-8859-1').encode('utf-8')
             result = urllib.unquote_plus(result)
-            return result
+            return(result)
         except:
             return
 
@@ -89,12 +89,12 @@ class source:
     def directdl_cache(self, url):
         try:
             url = urlparse.urljoin(base64.b64decode(self.b_link), url)
-            print url
+            print(url)
             result = self.request(url)
-            print result
+            print(result)
             result = re.compile('id=(\d+)>.+?href=(.+?)>').findall(result)
             result = [(re.sub('http.+?//.+?/','/', i[1]), 'tt' + i[0]) for i in result]
-            return result
+            return(result)
         except:
             return
 
@@ -123,7 +123,7 @@ class source:
                 
                 q = urlparse.urljoin(self.base_link, q)
                 result = client.request(q)
-                print q
+                print(q)
                 result = json.loads(result)
 
                 result = result['results']

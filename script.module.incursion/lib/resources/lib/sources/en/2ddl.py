@@ -19,19 +19,10 @@
 '''
 
 import requests
-import json, sys, re
+import re
 
-
-def get_release_simple(url):
-    if '1080p' in url or '1080' in url:
-        quality = '1080p'
-
-    elif '720p' in url or '720' in url or 'HDTV' in url:
-        quality = '720p'
-    else:
-        quality = 'SD'
-
-    return quality
+from resources.lib.modules import cleantitle
+from resources.lib.modules.source_utils import get_quality_simple
 
 class source:
     def __init__(self):
@@ -77,7 +68,7 @@ class source:
             for h in hostprDict:
                 if h in i:
                     if not '.rar' in i:
-                        quality = get_release_simple(i)
+                        quality = get_quality_simple(i)
                         video = {}
                         video['url'] = i
                         video['quality'] = quality
@@ -87,12 +78,8 @@ class source:
                         video['info'] = ''
                         video['direct'] = False
                         sources.append(video)
-        print(sources)
+
         return sources
 
     def resolve(self, url):
             return url
-
-#url = source.movie(source(), '', 'The Shape Of Water','','' '','2017')
-#url = source.episode(source(),'The Walking Dead','', '', '', '', '8', '6')
-#sources = source.sources(source(),url,'',['1fichier.com', 'oboom.com', 'rapidgator.net', 'rg.to', 'uploaded.net', 'uploaded.to', 'ul.to', 'filefactory.com', 'nitroflare.com', 'turbobit.net', 'uploadrocket.net'])

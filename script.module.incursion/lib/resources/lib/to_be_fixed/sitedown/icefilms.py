@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 '''
-    Covenant Add-on
+    Incursion Add-on
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -23,14 +23,13 @@ from resources.lib.modules import cleantitle
 from resources.lib.modules import client
 from resources.lib.modules import cache
 from resources.lib.modules import dom_parser2
-from resources.lib.modules import log_utils
 
 class source:
     def __init__(self):
         self.priority = 0
         self.language = ['en']
-        self.domains = ['icefilms.info','icefilms.unblocked.pro']
-        self.base_url = 'https://icefilms.unblocked.pro'
+        self.domains = ['icefilms.info','icefilms.unblocked.pro','icefilms.unblocked.vc','www6-icefilms6-info.unblocked.lol']
+        self.base_url = 'http://icefilms1.unblocked.lol'
         self.search_link = urlparse.urljoin(self.base_url, 'search.php?q=%s+%s&x=0&y=0')
         self.list_url = urlparse.urljoin(self.base_url, 'membersonly/components/com_iceplayer/video.php?h=374&w=631&vid=%s&img=')
         self.post = 'id=%s&s=%s&iqs=&url=&m=%s&cap= &sec=%s&t=%s'
@@ -39,7 +38,7 @@ class source:
         try:
             clean_title = cleantitle.geturl(title)
             search_url = self.search_link % (clean_title.replace('-','+'), year)
-            headers = {'Host': 'icefilms.unblocked.pro',
+            headers = {'Host': self.base_url[8:],
                        'Cache-Control': 'max-age=0',
                         'Connection': 'keep-alive',
                         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36',
@@ -103,7 +102,7 @@ class source:
         try:
             sources = []     
             url_for_post = url
-            headers = {'Host': 'icefilms.unblocked.pro',
+            headers = {'Host': self.base_url[8:],
                        'Connection': 'keep-alive',
                        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36',
                        'Upgrade-Insecure-Requests': '1',
@@ -159,10 +158,10 @@ class source:
                     
                     post = self.post % (link_id, s, m, secret, t)
 
-                    headers =  {'Host': 'icefilms.unblocked.pro',
+                    headers =  {'Host': self.base_url[8:],
                                 'Connection': 'keep-alive',
                                 'Content-Length': '65',
-                                'Origin': 'https://icefilms.unblocked.pro',
+                                'Origin': self.base_url,
                                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36',
                                 'Content-type': 'application/x-www-form-urlencoded',
                                 'Accept': '*/*',

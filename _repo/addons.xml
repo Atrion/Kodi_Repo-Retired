@@ -1025,7 +1025,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
 	</extension>
 </addon>
 
-<addon id="script.module.incursion" name="Incursion Module" version="1.18" provider-name="Incursion">
+<addon id="script.module.incursion" name="Incursion Module" version="1.19" provider-name="Incursion">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 		<import addon="script.module.beautifulsoup4"/>
@@ -1415,7 +1415,7 @@ v5.0.15 (2016-11-26) by amet
         </extension>
 </addon>
 
-<addon id="plugin.video.incursion" version="0.1.16" name="Incursion" provider-name="Incursion">
+<addon id="plugin.video.incursion" version="0.1.17" name="Incursion" provider-name="Incursion">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.module.incursion" />
@@ -1446,12 +1446,12 @@ v5.0.15 (2016-11-26) by amet
     			<screenshot>resources/screenshots/screenshot-03.jpg</screenshot>
 		</assets>
 		<news>
-v0.1.16 (APR-2018)
-Scraper Fixes - 2ddl, chillax, allrls, movie4kis
-New Scrapers - pubfilmonline, rlsscn
-Settings cleanup
-Added polish fixes
-Slacked on documentation - slack update notes
+v0.1.17 (APR-2018)
+Even more Scraper Fixes
+CFSCRAPE Fix
+Moderator Disabled
+Fixed Trakt On Deck Magical Dissapearing Act
+Fixed search issue caused by character accents
 		</news>
 	</extension>
 </addon>
@@ -1849,13 +1849,20 @@ This is a Non-profit resource, organized solely for educational purposes which i
 	</extension>
 </addon>
 
-<addon id="repository.Cypherslocker" name="[COLOR cornflowerblue]Cyphers locker[/COLOR]" version="1.0.4" provider-name="Project Cypher">
-	<extension point="xbmc.addon.repository" name="TheMegaRepo">
+<addon id="repository.Cypherslocker" name="[COLOR cornflowerblue]Cyphers locker[/COLOR]" version="1.0.6" provider-name="Project Cypher">
+	<extension point="xbmc.addon.repository" name="CyphersLocker">
 	    <dir>
 			<info compressed="false">https://raw.githubusercontent.com/tvaddonsco/tva-resolvers-repo/master/addons.xml</info>
 			<checksum>https://raw.githubusercontent.com/tvaddonsco/tva-resolvers-repo/master/addons.xml.md5</checksum>
 			<datadir zip="true">https://raw.githubusercontent.com/tvaddonsco/tva-resolvers-repo/master/zips/</datadir>
 		</dir>
+
+		<dir>
+			<info compressed="false">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml</info>
+            <checksum>https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/</datadir>
+        </dir>
+
 		<info compressed="false">https://github.com/CypherMediaGIT/CypherRepo/raw/master/cypherrepo/plugins/addons.xml</info>
 		<checksum>https://github.com/CypherMediaGIT/CypherRepo/raw/master/cypherrepo/plugins/addons.xml.md5</checksum>
 		<datadir zip="true">https://github.com/CypherMediaGIT/CypherRepo/raw/master/cypherrepo/plugins</datadir>
@@ -3052,7 +3059,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
         </extension>
     </addon>
 
-    <addon id="repository.Atrion" name="Atrions Repo" version="0.2.21" provider-name="AtrionDarnay">
+    <addon id="repository.Atrion" name="Atrions Repo" version="0.2.22" provider-name="AtrionDarnay">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -3114,7 +3121,7 @@ Kodi is a registered trademark of the XBMC Foundation. We are not connected to o
   </extension>
 </addon>
 
-    <addon id="repository.Atrion2" name="Atrions Repo2" version="0.2.21" provider-name="AtrionDarnay">
+    <addon id="repository.Atrion2" name="Atrions Repo2" version="0.2.22" provider-name="AtrionDarnay">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>

@@ -20,7 +20,7 @@
 
 import requests
 import json,sys
-#from resources.lib.modules import control
+from resources.lib.modules import control
 import inspect
 
 class source:
@@ -33,13 +33,13 @@ class source:
         self.movie_link = "http://chillax.ws/movies/getMovieLink?"
         self.login_link = 'http://chillax.ws/session/login?return_url=/index'
         self.tv_link = 'http://chillax.ws/series/getTvLink?'
-      #  self.login_payload = {'username': control.setting('chillax.username'),'password':control.setting('chillax.password')}
-        self.login_payload = {'username': 'notreal33','password':'notreal3333'}
+        self.login_payload = {'username': control.setting('chillax.username'),'password':control.setting('chillax.password')}
+        if self.login_payload['username'] == '':
+            self.login_payload = {'username': 'notreal33','password':'notreal3333'}
 
     def movie(self, imdb, title, localtitle, aliases, year):
         url = {'imdb': imdb, 'title': title, 'year': year}
         with requests.Session() as s:
-            if (self.login_payload['username'] == '' and self.login_payload['password'] == ''): return ''
             p = s.post(self.login_link, self.login_payload)
             p = s.get(self.search_link + title)
             show_dict = json.loads(p.text)
@@ -77,7 +77,6 @@ class source:
 
     def episode(self, url, imdb, tvdb, title, premiered, season, episode):
          with requests.Session() as s:
-            if (self.login_payload['username'] == '' and self.login_payload['password'] == ''): return ''
             p = s.post(self.login_link, self.login_payload)
             search_text = url
             p = s.get(self.search_link + search_text)
@@ -103,7 +102,6 @@ class source:
                 video['info'] = i['type']
                 video['direct'] = True
                 sources.append(video)
-
             return sources
 
     def sources(self, url, hostDict, hostprDict):
@@ -112,6 +110,3 @@ class source:
     def resolve(self, url):
             return url
 
-#url = source.movie(source(), '', 'The Shape Of Water','','' '','2017')
-#url = source.episode(source(),url,'', '', '', '', '4', '1')
-#sources = source.sources(source(),url,'','')

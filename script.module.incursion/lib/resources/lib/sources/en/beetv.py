@@ -70,6 +70,7 @@ class source:
                         sources.append(
                             {'source': "vshare.eu", 'quality': 'SD', 'language': "en", 'url': i['src'], 'info': '',
                              'direct': False, 'debridonly': False})
+            print(sources)
             return sources
         except:
             print("Unexpected error in Beetv Script: source", sys.exc_info()[0])
@@ -79,7 +80,3 @@ class source:
 
     def resolve(self, url):
             return url
-
-#url = source.tvshow(source(), '', '', 'Vikings','','' '','2016')
-#url = source.episode(source(),url,'', '', '', '', '5', '1')
-#sources = source.sources(source(),url,'','')

@@ -20,7 +20,9 @@
 '''
 
 
-import re,urllib,urlparse,json
+import re,urlparse,json, traceback, urllib, time
+
+from bs4 import BeautifulSoup
 
 from resources.lib.modules import cleantitle
 from resources.lib.modules import client
@@ -41,7 +43,6 @@ class source:
         try:
             aliases.append({'country': 'us', 'title': title})
             url = {'imdb': imdb, 'title': title, 'year': year, 'aliases': aliases}
-            url = urllib.urlencode(url)
             return url
         except:
             return
@@ -50,7 +51,6 @@ class source:
         try:
             aliases.append({'country': 'us', 'title': tvshowtitle})
             url = {'imdb': imdb, 'tvdb': tvdb, 'tvshowtitle': tvshowtitle, 'year': year, 'aliases': aliases}
-            url = urllib.urlencode(url)
             return url
         except:
             return
@@ -59,27 +59,25 @@ class source:
     def episode(self, url, imdb, tvdb, title, premiered, season, episode):
         try:
             if url == None: return
-            url = urlparse.parse_qs(url)
-            url = dict([(i, url[i][0]) if url[i] else (i, '') for i in url])
             url['title'], url['premiered'], url['season'], url['episode'] = title, premiered, season, episode
-            url = urllib.urlencode(url)
             return url
         except:
             return
 
     def searchShow(self, title, season, year, aliases, headers):
         try:
-            clean_title = cleantitle.geturl(title).replace('-','+')
 
+            clean_title = cleantitle.geturl(title).replace('-','+')
             url = urlparse.urljoin(self.base_link, self.search_link % ('%s+Season+%01d' % (clean_title, int(season))))
             r = self.scraper.get(url).content
 
-            r = client.parseDOM(r, 'div', attrs={'class': 'list_movies'})
-            r = dom_parser.parse_dom(r, 'a', req='href')
-            r = [(i.attrs['href']) for i in r if '%s - Season %01d' % (title, int(season)) in i.content]
+            r = BeautifulSoup(r, 'html.parser').find('div', {'class': 'list_movies'})
+            r = r.findAll(lambda tag: tag.name == 'a' and 'href' in tag.attrs)
+            r = [i['href'] for i in r if '%s - Season %s' % (title, season) in i.text]
 
             return r[0]
         except:
+            traceback.print_exc()
             return
 
     def searchMovie(self, title, year, aliases, headers):
@@ -99,12 +97,11 @@ class source:
 
 
     def sources(self, url, hostDict, hostprDict):
+        sources = []
         try:
-            sources = []
+            data = url
 
-            data = urlparse.parse_qs(url)
-            data = dict([(i, data[i][0]) if data[i] else (i, '') for i in data])
-            aliases = eval(data['aliases'])
+            aliases = data['aliases']
             headers = {}
 
             if 'tvshowtitle' in data:
@@ -116,27 +113,30 @@ class source:
 
             if url == None: return sources
 
-            #url = urlparse.urljoin(self.base_link, url)
             url = re.sub('/watching.html$', '', url.strip('/'))
             url = url + '/watching.html'
 
-            p = self.scraper.get(url).content
+            p = self.scraper.get(url).text
 
             if episode > 0:
-                r = client.parseDOM(p, 'div', attrs={'class': 'ep_link.+?'})[0]
-                r = zip(client.parseDOM(r, 'a', ret='href'), client.parseDOM(r, 'a'))
-                r = [(i[0], re.findall('Episode\s+(\d+)', i[1])) for i in r]
-                r = [(i[0], i[1][0]) for i in r]
-                url = [i[0] for i in r if int(i[1]) == episode][0]
-                p = self.scraper.get(url, headers=headers).content
+                p = BeautifulSoup(p, 'html.parser')
+                p = p.find('div', {'class': 'ep_link'}).findAll('a')
+                for i in p:
+                    if 'Episode %s' % episode in i.text:
+                        url = i['href']
+
+                p = self.scraper.get(url).text
 
             referer = url
+
             headers = {
-                'User-Agent': client.randomagent(),
-                'Referer': url
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36',
+                'Referer': url,
+                'Accept': 'application/json, text/javascript, */*; q=0.01',
+                'Origin': 'https://xmovies8.nu'
             }
 
-            id = re.findall('load_player\(.+?(\d+)', p)[0]
+            id = re.findall(r'load_player\(.+?(\d+)', p)[0]
             r = urlparse.urljoin(self.base_link, '/ajax/movie/load_player_v3?id=%s' % id)
             r = self.scraper.get(r, headers=headers).content
 
@@ -145,17 +145,18 @@ class source:
             if (url.startswith('//')):
                 url = 'https:' + url
 
-            r = self.scraper.get(url, headers=headers).content
+            url = url + '&_=%s' % int(time.time())
 
-
+            r = self.scraper.get(url, headers=headers)
             headers = '|' + urllib.urlencode(headers)
 
-            source = str(json.loads(r)['playlist'][0]['file']) + headers
+            source = str(json.loads(r.text)['playlist'][0]['file']) + headers
 
             sources.append({'source': 'CDN', 'quality': 'HD', 'language': 'en', 'url': source, 'direct': True, 'debridonly': False})
 
             return sources
         except:
+            traceback.print_exc()
             return sources
 
 

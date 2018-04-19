@@ -23,6 +23,7 @@ import re,base64, requests, sys, urllib
 from resources.lib.modules import jsunpack, cleantitle
 from bs4 import BeautifulSoup
 
+from resources.lib.modules import cfscrape
 
 def streamdor(html, src, olod):
     source = ''
@@ -171,5 +172,5 @@ class source:
         return url
 
 #url = source.tvshow(source(), '', '', 'Vikings','',[],'2016')
-#url = source.episode(source(),url,'', '', 'A Good Treason', '', '4', '1')
+#uurl = source.episode(source(),url,'', '', 'A Good Treason', '', '4', '1')
 #url = source.sources(source(),url,'','')
