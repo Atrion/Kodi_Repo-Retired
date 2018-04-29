@@ -1,4 +1,5 @@
-import re,requests,base64,time,xbmcaddon
+import re,requests,base64,time
+import xbmcaddon
 from ..scraper import Scraper
 from ..common import clean_title,clean_search,random_agent,filter_host,send_log,error_log 
 
@@ -18,6 +19,7 @@ class darewatch(Scraper):
 
     def scrape_movie(self, title, year, imdb, debrid=False):
         try:
+            start_time = time.time()
             search_id = clean_search(title.lower())
             
             #print 'darewatch ID> ' + search_id
@@ -38,16 +40,17 @@ class darewatch(Scraper):
                 if not year in name:
                     continue
                 #print 'Darewatch URL check> ' + item_url
-                self.get_source(item_url)
+                self.get_source(item_url,title,year,'','',start_time)
                 
             return self.sources
         except Exception, argument:        
             if dev_log == 'true':
-                error_log(self.name,'Check Search')
+                error_log(self.name,argument)
             return self.sources
 
     def scrape_episode(self,title, show_year, year, season, episode, imdb, tvdb, debrid = False):
         try:    
+            start_time = time.time()
             search_id = clean_search(title.lower())
             
             #print 'darewatch ID> ' + search_id
@@ -68,16 +71,16 @@ class darewatch(Scraper):
                 if '/watchm/' not in item_url:
                     item_url = item_url + '/season/%s/episode/%s' %(season, episode)
                     #print 'Darewatch URL check> ' + item_url
-                    self.get_source(item_url)
+                    self.get_source(item_url,title,year,season,episode,start_time)
                 
             return self.sources
         except Exception, argument:        
             if dev_log == 'true':
-                error_log(self.name,'Check Search')
+                error_log(self.name,argument)
             return self.sources
 
 
-    def get_source(self,item_url):
+    def get_source(self,item_url,title,year,season,episode,start_time):
         try:
             headers = {'User-Agent':random_agent()}
 
@@ -109,7 +112,7 @@ class darewatch(Scraper):
                     count +=1    
                     self.sources.append({'source': hoster,'quality': 'DVD','scraper': self.name,'url': link,'direct': False})
             if dev_log=='true':
-                end_time = time.time() - self.start_time
-                send_log(self.name,end_time,count)        
+                end_time = time.time() - start_time
+                send_log(self.name,end_time,count,title,year, season=season,episode=episode)        
         except:
             pass

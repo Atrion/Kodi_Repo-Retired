@@ -1,3 +1,32 @@
+28/4/18 v1.0.8
+massive thanks to the 'O'racle
+for the new and improved test area
+reduced scrapers to improve performace 
+removing dead/slow scrapers
+
+22/04/18 v1.0.7
+complete check of scrapers,
+remove dead and seperate slow 
+big overhall on testing section and logging
+Big thanks to "Big Daddy"
+
+
+19/04/18 v1.0.6
+
+Fixed:
+allrelease
+releasebb
+oceanof
+twoddl
+cfmodule
+putlockerTF
+
+Removed:
+scnsrc
+ten80p
+
+
+
 30/03/2018 v1.0.5
 
 Fixed:

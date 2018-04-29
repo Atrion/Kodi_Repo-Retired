@@ -5,7 +5,7 @@ import re,xbmcaddon,time
 from ..scraper import Scraper
 from ..common import clean_title,clean_search,random_agent,send_log,error_log
 dev_log = xbmcaddon.Addon('script.module.universalscrapers').getSetting("dev_log")
-  
+## SHITE
 class hugemoviesdb(Scraper):
     domains = ['http://hugemoviesdb.net']
     name = "HugeMoviesDB"
@@ -13,16 +13,15 @@ class hugemoviesdb(Scraper):
 
     def __init__(self):
         self.base_link = 'http://hugemoviesdb.net'
-        if dev_log=='true':
-            self.start_time = time.time()                                                    
 
 
     def scrape_movie(self, title, year, imdb, debrid = False):
         try:
+            start_time = time.time() 
             search_id = clean_search(title.lower())                                                                                                                           
 
             start_url = '%s/?s=%s' %(self.base_link,search_id.replace(' ','+'))  
-            #print 'hugemoviedb - scrape_movie - start_url:  ' + start_url           
+            print 'hugemoviedb - scrape_movie - start_url:  ' + start_url           
             
             headers={'User-Agent':random_agent()}
             html = requests.get(start_url,headers=headers,timeout=5).content     
@@ -32,17 +31,17 @@ class hugemoviesdb(Scraper):
                 if year in name:
                     name_chk= name.split('(')[0]
                     if clean_title(search_id).lower() == clean_title(name_chk).lower():  
-                        self.get_source(item_url)  
+                        self.get_source(item_url, title, year, start_time)  
             return self.sources
         except Exception, argument:        
             if dev_log == 'true':
-                error_log(self.name,'Check Search')
+                error_log(self.name,argument)
             return self.sources
 
             
-    def get_source(self,item_url):
+    def get_source(self,item_url, title, year, start_time):
         try:
-            #print 'hugemoviedb pass ' + item_url
+            print 'hugemoviedb pass ' + item_url
             headers={'User-Agent':random_agent()}
             OPEN = requests.get(item_url,headers=headers,timeout=5).content
 
@@ -89,7 +88,9 @@ class hugemoviesdb(Scraper):
                         count +=1
                         self.sources.append({'source': host,'quality': 'DVD','scraper': self.name,'url': link,'direct': False})
             if dev_log=='true':
-                end_time = time.time() - self.start_time
-                send_log(self.name,end_time,count)       
-        except:
-            pass 
+                end_time = time.time() - start_time
+                send_log(self.name,end_time,count,title,year)       
+        except Exception, argument:        
+            if dev_log == 'true':
+                error_log(self.name,argument)
+            return self.sources

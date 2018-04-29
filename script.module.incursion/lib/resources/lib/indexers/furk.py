@@ -18,7 +18,7 @@
 from resources.lib.modules import control
 import sys, requests, json, urllib, urlparse, os
 
-sysaddon = sys.argv[0] ; syshandle = int(sys.argv[1]) ; control.moderator()
+sysaddon = sys.argv[0] ; syshandle = int(sys.argv[1])
 accepted_extensions = ['mkv','mp4','avi', 'm4v']
 
 class furk:

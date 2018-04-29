@@ -24,7 +24,7 @@ from resources.lib.modules import control
 from resources.lib.modules import trakt
 from resources.lib.modules import cache
 
-sysaddon = sys.argv[0] ; syshandle = int(sys.argv[1]) ; control.moderator()
+sysaddon = sys.argv[0] ; syshandle = int(sys.argv[1])
 
 artPath = control.artPath() ; addonFanart = control.addonFanart()
 

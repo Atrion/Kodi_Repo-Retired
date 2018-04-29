@@ -4,8 +4,12 @@ import random
 import re
 import urllib2
 import urlparse
-import requests
+import requests,os,time
+import xbmc,xbmcaddon
 
+USERDATA_PATH = xbmc.translatePath('special://home/userdata/addon_data')
+ADDON_DATA = os.path.join(USERDATA_PATH,'script.module.universalscrapers')
+full_file = os.path.join(ADDON_DATA,'Log.txt')
 
 def clean_title(title):
     if title == None: return
@@ -26,21 +30,51 @@ def clean_search(title):
     title = ' '.join(title.split())
     return title
 
-def send_log(name,Txt,count):
+
+def send_log(name,Time,count,title,year,season = '', episode = ''):
+    if not os.path.exists(full_file):
+        full_write = open(full_file,"w")
+    elif os.path.exists(full_file):
+        full_write = open(full_file,'a')
     if count ==0:
-        count = 'Check Scrapper/NoLinks'
-    print ':######################################################'
-    print '#        universalscraper: %s' %(str(name))
+        count = 'Check Scraper/NoLinks'
+    if episode != '':
+        title = title + '('+year+') : S'+season+' E'+episode
+    else:
+        title = title + '('+year+')'
+    Print = '<######################################################\n#        Universalscraper: %s' %(str(name))+'\n#        Tested with: '+str(title)+'\n#        Links returned: %s' %(str(count))+'\n#        Time to Complete: %s' %(str(round(Time,2)))+'\n#######################################################>' 
+    full_write.write(Print+'\n')
+'''
+    print '<######################################################'
+    print '#        Tested with: %s' %(str(title))
+    print '#        Universalscraper: %s' %(str(name))
     print '#        Links returned: %s' %(str(count))
-    print '#        Time to Complete: %s' %(str(round(Txt,2)))
-    print '#######################################################'  
-    return 
+    print '#        Time to Complete: %s' %(str(round(Time,2)))
+    print '#######################################################>'  
+    return
+''' 
+def Del_LOG():
+  ADDON_DATA = os.path.join(USERDATA_PATH,'script.module.universalscrapers')
+  full_file = ADDON_DATA + '/Log.txt'
+  if os.path.exists(full_file):
+    os.remove(full_file)
     
+
 def error_log(name,Txt):
+    if not os.path.exists(full_file):
+        full_write = open(full_file,"w")
+    elif os.path.exists(full_file):
+        full_write = open(full_file,'a')
+    if 'list index out of range' in Txt:
+        Txt	= Txt + '\n (Probably doesn\'t have movie or search needs editing)'
+    Print = ':>>>>        Scraper: %s' %(str(name))+'\n:>>>>        LogNotice: %s' %(str(Txt))
+    full_write.write(Print+'\n')
+'''
     print ':>>>>        Scraper: %s' %(str(name))
     print ':>>>>        LogNotice: %s' %(str(Txt))
     return 
-    
+'''
+
 def random_agent():
     BR_VERS = [
         ['%s.0' % i for i in xrange(18, 43)],

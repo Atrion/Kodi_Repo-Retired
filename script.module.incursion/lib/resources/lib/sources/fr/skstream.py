@@ -31,8 +31,8 @@ class source:
     def __init__(self):
         self.priority = 1
         self.language = ['fr']
-        self.domains = ['skstream.co']
-        self.base_link = 'http://www.skstream.co'
+        self.domains = ['skstream.biz']
+        self.base_link = 'http://www.skstream.biz'
         self.search_link = 'recherche?s=%s'
         self.protect_domain = 'dl-protect.co'
 

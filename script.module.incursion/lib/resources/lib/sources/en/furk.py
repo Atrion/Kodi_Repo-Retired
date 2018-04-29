@@ -1,17 +1,14 @@
 '''
    Incursion Add-on
    Copyright (C) 2016 Incursion
-
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
    the Free Software Foundation, either version 3 of the License, or
    (at your option) any later version.
-
    This program is distributed in the hope that it will be useful,
    but WITHOUT ANY WARRANTY; without even the implied warranty of
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
    GNU General Public License for more details.
-
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
@@ -99,31 +96,34 @@ class source:
         try:
 
             content_type = 'episode' if 'tvshowtitle' in url else 'movie'
-            match = 'extended' if content_type == 'episode' else 'all'
+            match = 'all'
             moderated = 'no' if content_type == 'episode' else self.mod_level
-            search_in = '' if content_type == 'episode' else '&attrs=name'
+            search_in = ''
 
             if content_type == 'movie':
-                title = url['title'].replace(':', ' ').replace(' ', '+')
+                title = url['title'].replace(':', ' ').replace(' ', '+').replace('&', 'and')
                 title = title.replace("'", "")
                 year = url['year']
                 link = '{0}+{1}'.format(title, year)
 
             elif content_type == 'episode':
-                title = url['tvshowtitle'].replace(':', ' ').replace(' ', '+')
+                title = url['tvshowtitle'].replace(':', ' ').replace(' ', '+').replace('&', 'and')
                 season = int(url['season'])
                 episode = int(url['episode'])
+                season00 = 's%02d' % (season)
                 season00_ep00_SE = 's%02de%02d' % (season, episode)
                 season0_ep0_SE = 's%de%d' % (season, episode)
                 season00_ep00_X = '%02dx%02d' % (season, episode)
                 season0_ep0_X = '%dx%d' % (season, episode)
                 season0_ep00_X = '%dx%02d' % (season, episode)
-                link = '@name+%s+@files+%s|%s|%s|%s|%s' \
-                       % (title, season00_ep00_SE, season0_ep0_SE, season00_ep00_X, season0_ep0_X, season0_ep00_X)
+                link = '%s+%s' \
+                       % (title, season00_ep00_SE)
 
             s = requests.Session()
             link = (
-            self.base_link + self.meta_search_link % (api_key, link, match, moderated, search_in, self.search_limit))
+                    self.base_link + self.meta_search_link % (
+            api_key, link, match, moderated, search_in, self.search_limit))
+
             p = s.get(link)
             p = json.loads(p.text)
 
@@ -143,10 +143,11 @@ class source:
                         file_dl = i['url_dl']
                         if content_type == 'episode':
                             url = '%s<>%s<>%s<>%s<>%s<>%s' % (
-                            file_id, season00_ep00_SE, season0_ep0_SE, season00_ep00_X, season0_ep0_X, season0_ep00_X)
+                                file_id, season00_ep00_SE, season0_ep0_SE, season00_ep00_X, season0_ep0_X,
+                                season0_ep00_X)
                             details = self.details(file_name, i['size'], i['video_info'])
                         else:
-                            url = '%s<>%s' % (file_id, 'movie')
+                            url = '%s<>%s<>%s+%s' % (file_id, 'movie', title, year)
                             details = self.details(file_name, i['size'], i['video_info']).split('|')
                             details = details[0] + ' | ' + file_name.replace('.', ' ')
 
@@ -177,7 +178,6 @@ class source:
         try:
             info = url.split('<>')
             file_id = info[0]
-
             content_type = 'movie' if info[1] == 'movie' else 'episode'
 
             filtering_list = info[1:]
@@ -194,21 +194,30 @@ class source:
             files = (files[0])['t_files']
 
             for i in files:
-
                 name = i['name']
+
                 ct = i['ct']
 
                 if 'video' in i['ct']:
 
                     if content_type == 'movie':
-                        if name.lower() != 'rarbg.mp4' or name.lower() != 'rarbg.mkv' or 'furk320' not in name.lower() or 'sample' not in name.lower():
+                        if name.lower() != 'rarbg.mp4' and name.lower() != 'rarbg.mkv' and 'furk320' not in name.lower() and 'sample' not in name.lower() and not name.lower().endswith(
+                                'sub'):
                             if int(i['size']) > 150:
-                                url = i['url_dl']
+                                mv_title = str(info[2]).split('+')
+                                fail = 0
+                                for word in mv_title:
+                                    if word.lower() not in name.lower():
+                                        if word != 'and':
+                                            fail += 1
+                                            break
+                                if fail == 0:
+                                    url = i['url_dl']
                             else:
                                 pass
 
                     else:
-                        if 'furk320' not in name.lower() or 'sample' not in name.lower():
+                        if 'furk320' not in name.lower() and 'sample' not in name.lower():
                             for x in filtering_list:
                                 if x in name.lower():
                                     url = i['url_dl']

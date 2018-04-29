@@ -27,8 +27,8 @@ class source:
     def __init__(self):
         self.priority = 1
         self.language = ['fr']
-        self.domains = ['streamay.ws']
-        self.base_link = 'http://streamay.ws'
+        self.domains = ['streamay.la']
+        self.base_link = 'http://streamay.la'
         self.search_link = '/search'
 
     def movie(self, imdb, title, localtitle, aliases, year):
