@@ -930,7 +930,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
 
 <addon id="metadata.common.fanart.tv"
        name="fanart.tv Scraper Library"
-       version="3.4.0"
+       version="3.4.1"
        provider-name="Team Kodi">
   <requires>
     <import addon="xbmc.metadata" version="2.1.0"/>
@@ -1545,7 +1545,7 @@ Fixed search issue caused by character accents
 
 <addon id="metadata.common.imdb.com"
        name="IMDB Scraper Library"
-       version="3.0.3"
+       version="3.0.5"
        provider-name="Team Kodi">
   <requires>
     <import addon="xbmc.metadata" version="2.1.0"/>
@@ -2573,7 +2573,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
   </extension>
 </addon>
 
-<addon id="script.module.universalscrapers" name="Universal Scrapers" version="1.0.8" provider-name="Team Universal">
+<addon id="script.module.universalscrapers" name="Universal Scrapers" version="1.0.9" provider-name="Team Universal">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
         <import addon="script.module.beautifulsoup" version="3.2.1"/>
@@ -3061,7 +3061,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
         </extension>
     </addon>
 
-    <addon id="repository.Atrion" name="Atrions Repo" version="0.2.23" provider-name="AtrionDarnay">
+    <addon id="repository.Atrion" name="Atrions Repo" version="0.2.24" provider-name="AtrionDarnay">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -3123,7 +3123,7 @@ Kodi is a registered trademark of the XBMC Foundation. We are not connected to o
   </extension>
 </addon>
 
-    <addon id="repository.Atrion2" name="Atrions Repo2" version="0.2.23" provider-name="AtrionDarnay">
+    <addon id="repository.Atrion2" name="Atrions Repo2" version="0.2.24" provider-name="AtrionDarnay">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -3677,7 +3677,7 @@ Kodi is a registered trademark of the XBMC Foundation. We are not connected to o
 	</extension>
 </addon>
 
-<addon id="script.module.urlresolver" name="URLResolver" version="5.0.14" provider-name="tvaddons">
+<addon id="script.module.urlresolver" name="URLResolver" version="5.0.15" provider-name="tvaddons">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 		<import addon="plugin.video.youtube" optional="true" />
