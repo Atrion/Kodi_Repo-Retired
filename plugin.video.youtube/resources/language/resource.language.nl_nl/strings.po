@@ -249,8 +249,8 @@ msgstr "Schoon op"
 #empty strings from id 30121 to 30199
 
 msgctxt "#30200"
-msgid "API"
-msgstr "[COLOR red][B]API Sleutel[/B][/COLOR]"
+msgid "API Key"
+msgstr "API Sleutel"
 
 msgctxt "#30201"
 msgid "API Key"
@@ -270,7 +270,7 @@ msgstr "Peroonlijke API sleutels inschakelen"
 
 msgctxt "#30205"
 msgid "Use preset API key set"
-msgstr "Gebruik vooraf ingestelde API sleutel set (kies evt. [B]3-5[/B])"
+msgstr "Gebruik vooraf ingestelde API sleutel set"
 
 #YouTube
 #empty strings from id 30206 to 30499

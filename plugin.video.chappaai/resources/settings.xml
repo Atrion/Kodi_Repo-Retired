@@ -146,8 +146,8 @@
         <setting label="Patch" option="close" type="action" action="RunPlugin(plugin://plugin.video.chappaai/patch/all)"/>
         <setting label="Trakt API client id" id="trakt_api_client_id" type="text" default="8a6445c036dd444c5e16b87f9895607ce552d216ec16099fb116aa3f8ad5a813" />
         <setting label="Trakt API client secret" id="trakt_api_client_secret" subsetting="true" type="text" default="6ad4e727c0f5b5193be64ffa915360140f9cd7e5f322e90245289158d6ed4d23" visible="!eq(-1,)" />
-        <setting label="TMDb API" id="tmdb_api" type="text" default="0a82eb6f6e81622727f95b58e574a6d5" />
-        <setting label="TVDb API" id="tvdb_api" type="text" default="" />
+        <setting label="TMDb API" id="tmdb_api" type="text" default="b9dac73f34df572d5e551a8a66cfeb87" />
+        <setting label="TVDb API" id="tvdb_api" type="text" default="A61F7E2C3F3B3310" />
         <setting label="LastFM API key" id="lastfm_api_key" type="text" default="" />
         <setting label="LastFM API shared secret" id="lastfm_api_shared_secret" subsetting="true" type="text" default="" visible="!eq(-1,)" />
     </category>

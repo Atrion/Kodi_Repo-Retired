@@ -27,8 +27,8 @@ from urlresolver.resolver import UrlResolver, ResolverError
 
 class FlashxResolver(UrlResolver):
     name = "flashx"
-    domains = ["flashx.tv", "flashx.to", "flashx.sx"]
-    pattern = '(?://|\.)(flashx\.(?:tv|to|sx))/(?:embed-|dl\?|embed.php\?c=)?([0-9a-zA-Z]+)'
+    domains = ["flashx.tv", "flashx.to", "flashx.sx", "flashx.bz", "flashx.cc"]
+    pattern = '(?://|\.)(flashx\.(?:tv|to|sx|cc|bz))/(?:embed-|dl\?|embed.php\?c=)?([0-9a-zA-Z]+)'
 
     def __init__(self):
         self.net = common.Net()
@@ -48,13 +48,13 @@ class FlashxResolver(UrlResolver):
         header = i18n('flashx_auth_header')
         line1 = i18n('auth_required')
         line2 = i18n('visit_link')
-        line3 = i18n('click_pair') % 'http://flashx.sx/pair'
+        line3 = i18n('click_pair') % 'http://flashx.cc/pair'
         with common.kodi.CountdownDialog(header, line1, line2, line3, countdown=120) as cd:
             return cd.start(self.__check_auth, [media_id])
 
     def __check_auth(self, media_id):
         common.logger.log('Checking Auth: %s' % media_id)
-        url = 'https://www.flashx.sx/pairing.php?c=paircheckjson'
+        url = 'https://www.flashx.cc/pairing.php?c=paircheckjson'
         try:
             js_result = json.loads(self.net.http_GET(url, headers=self.headers).content)
         except ValueError:
@@ -94,4 +94,4 @@ class FlashxResolver(UrlResolver):
                 raise ResolverError('Exception during flashx resolve parse: %s' % e)
 
     def get_url(self, host, media_id):
-        return self._default_get_url(host, media_id, template='https://www.flashx.sx/embed.php?c={media_id}')
+        return self._default_get_url(host, media_id, template='https://www.flashx.cc/embed.php?c={media_id}')

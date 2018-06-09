@@ -1,3 +1,12 @@
+v9.0.4
+- Few minor tweaks
+- Changed api
+v9.0.3
+- Fixed loading hang
+- Edited few things to fix issues causing chappa'ai to hang using wraith
+- Few small tweaks
+v9.0.2
+- Little tweak
 v9.0.1
 - Fixed Movie info error
 - Edits to dialog info

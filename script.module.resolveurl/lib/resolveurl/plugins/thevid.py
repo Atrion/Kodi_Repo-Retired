@@ -23,6 +23,7 @@ logger.disable()
 VID_SOURCE = 'https://raw.githubusercontent.com/jsergio123/script.module.resolveurl/master/lib/resolveurl/plugins/thevid_gmu.py'
 VID_PATH = os.path.join(common.plugins_path, 'thevid_gmu.py')
 
+
 class TheVidResolver(ResolveUrl):
     name = "TheVid"
     domains = ["thevid.net"]

@@ -343,6 +343,7 @@
         <width>450</width>
         <height>70</height>
         <font>Tiny</font>
+        <align>left</align>
         <textcolor>Black70</textcolor>
         <textureradiofocus colordiffuse="Black70">buttons/radio-on.png</textureradiofocus>
         <textureradionofocus colordiffuse="Black30">buttons/radio-off.png</textureradionofocus>
@@ -604,7 +605,7 @@
         <control type="textbox">
             <left>20</left>
             <right>20</right>
-            <centerbottom>60</centerbottom>
+            <centerbottom>62</centerbottom>
             <height>92</height>
             <font>Mini</font>
             <autoscroll>false</autoscroll>

@@ -27,8 +27,8 @@ from resolveurl.resolver import ResolveUrl, ResolverError
 
 class VidUpMeResolver(ResolveUrl):
     name = "vidup.me"
-    domains = ["vidup.me"]
-    pattern = '(?://|\.)(vidup\.me)/(?:embed-|download/)?([0-9a-zA-Z]+)'
+    domains = ["vidup.me", "vidup.tv"]
+    pattern = '(?://|\.)(vidup\.(?:me|tv))/(?:embed-|download/)?([0-9a-zA-Z]+)'
 
     def __init__(self):
         self.net = common.Net()
@@ -61,13 +61,13 @@ class VidUpMeResolver(ResolveUrl):
         header = i18n('vidup_auth_header')
         line1 = i18n('auth_required')
         line2 = i18n('visit_link')
-        line3 = i18n('click_pair') % ('https://vidup.me/pair')
+        line3 = i18n('click_pair') % ('https://vidup.tv/pair')
         with common.kodi.CountdownDialog(header, line1, line2, line3) as cd:
             return cd.start(self.__check_auth, [media_id])
         
     def __check_auth(self, media_id):
         common.logger.log('Checking Auth: %s' % (media_id))
-        url = 'https://vidup.me/pair?file_code=%s&check' % (media_id)
+        url = 'https://vidup.tv/pair?file_code=%s&check' % (media_id)
         try: js_result = json.loads(self.net.http_GET(url, headers=self.headers).content)
         except ValueError:
             raise ResolverError('Unusable Authorization Response')
@@ -84,4 +84,4 @@ class VidUpMeResolver(ResolveUrl):
             return {}
         
     def get_url(self, host, media_id):
-        return self._default_get_url(host, media_id)
+        return self._default_get_url(host, media_id, template='https://vidup.tv/embed-{media_id}.html')

@@ -1,4 +1,7 @@
 """
+    OVERALL CREDIT TO:
+        t0mm0, Eldorado, VOINAGE, BSTRDMKR, tknorris, smokdpi, TheHighway
+
     urlresolver XBMC Addon
     Copyright (C) 2011 t0mm0
 
@@ -15,14 +18,9 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
-
-from lib import helpers
 from __generic_resolver__ import GenericResolver
 
 class NxloadResolver(GenericResolver):
-    name = "Nxload"
+    name = "nxload"
     domains = ["nxload.com"]
-    pattern = '(?://|\.)(nxload\.com)/(?:embed-)([0-9a-zA-Z]+)?(?:.html)'
-
-    def get_url(self, host, media_id):
-        return 'https://%s/embed-%s.html' % (host, media_id)
+    pattern = '(?://|\.)(nxload\.com)/(?:embed-)?([0-9a-zA-Z]+)'

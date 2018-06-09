@@ -265,8 +265,7 @@ class CountdownDialog(object):
             while time_left > 0:
                 for _ in range(CountdownDialog.__INTERVALS):
                     sleep(interval * 1000 / CountdownDialog.__INTERVALS)
-                    if self.is_canceled():
-                        raise resolveurl.resolver.ResolverError('CountdownDialog Cancelled')
+                    if self.is_canceled(): return
                     time_left = expires - int(time.time() - start)
                     if time_left < 0: time_left = 0
                     progress = time_left * 100 / expires
@@ -276,8 +275,6 @@ class CountdownDialog(object):
                 result = func(*args, **kwargs)
                 if result:
                     return result
-                
-            raise resolveurl.resolver.ResolverError('CountdownDialog Expired')
     
     def is_canceled(self):
         if self.pd is None:

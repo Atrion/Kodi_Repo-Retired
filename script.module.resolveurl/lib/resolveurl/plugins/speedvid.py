@@ -28,6 +28,7 @@ logger.disable()
 SV_SOURCE = 'https://raw.githubusercontent.com/jsergio123/script.module.resolveurl/master/lib/resolveurl/plugins/speedvid_gmu.py'
 SV_PATH = os.path.join(common.plugins_path, 'speedvid_gmu.py')
 
+
 class SpeedVidResolver(ResolveUrl):
     name = "SpeedVid"
     domains = ['speedvid.net']
