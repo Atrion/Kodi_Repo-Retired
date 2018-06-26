@@ -1,3 +1,8 @@
+[B]1.4.2[/B]
+- Fixed down loader thanks Pal appreciate re looking
+[B]1.4.1[/B]
+- Fixed Download from multiple links (thanks to a contributer)
+- Few Tweaks Improvements
 [B]1.4.0[/B]
 - Fixed Library Playback
 - Few Tweaks Improvements

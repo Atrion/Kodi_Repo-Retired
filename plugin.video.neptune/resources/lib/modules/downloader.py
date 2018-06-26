@@ -44,7 +44,6 @@ def download(name, image, url):
     content = re.compile('(.+?)\sS(\d*)E\d*$').findall(name)
     transname = name.translate(None, '\/:*?"<>|').strip('.')
     levels =['../../../..', '../../..', '../..', '..']
-
     if len(content) == 0:
         dest = control.setting('movie.download.path')
         dest = control.transPath(dest)
@@ -72,19 +71,13 @@ def download(name, image, url):
     dest = os.path.join(dest, transname + '.' + ext)
 
     sysheaders = urllib.quote_plus(json.dumps(headers))
-
     sysurl = urllib.quote_plus(url)
-
     systitle = urllib.quote_plus(name)
-
     sysimage = urllib.quote_plus(image)
-
     sysdest = urllib.quote_plus(dest)
-
     script = inspect.getfile(inspect.currentframe())
-    cmd = 'RunScript(%s, %s, %s, %s, %s, %s)' % (script, sysurl, sysdest, systitle, sysimage, sysheaders)
 
-    xbmc.executebuiltin(cmd)
+    return doDownload(sysurl, sysdest, systitle, sysimage, sysheaders);
 
 
 def getResponse(url, headers, size):
@@ -119,7 +112,7 @@ def done(title, dest, downloaded):
     if (not downloaded) or (not playing): 
         xbmcgui.Dialog().ok(title, text)
         xbmcgui.Window(10000).clearProperty('GEN-DOWNLOADED')
-
+	return downloaded
 
 def doDownload(url, dest, title, image, headers):
 
@@ -139,7 +132,7 @@ def doDownload(url, dest, title, image, headers):
 
     if not resp:
         xbmcgui.Dialog().ok(title, dest, 'Download failed', 'No response from server')
-        return
+        return false
 
     try:    content = int(resp.headers['Content-Length'])
     except: content = 0
@@ -147,14 +140,12 @@ def doDownload(url, dest, title, image, headers):
     try:    resumable = 'bytes' in resp.headers['Accept-Ranges'].lower()
     except: resumable = False
 
-    #print "Download Header"
-    #print resp.headers
     if resumable:
         print "Download is resumable"
 
     if content < 1:
         xbmcgui.Dialog().ok(title, file, 'Unknown filesize', 'Unable to download')
-        return
+        return false
 
     size = 1024 * 1024
     mb   = content / (1024 * 1024)
@@ -170,11 +161,10 @@ def doDownload(url, dest, title, image, headers):
     sleep   = 0
 
     if xbmcgui.Dialog().yesno(title + ' - Confirm Download', file, 'Complete file is %dMB' % mb, 'Continue with download?', 'Confirm',  'Cancel') == 1:
-        return
+        return false
 
     print 'Download File Size : %dMB %s ' % (mb, dest)
 
-    #f = open(dest, mode='wb')
     f = xbmcvfs.File(dest, 'w')
 
     chunk  = None
@@ -261,7 +251,7 @@ def doDownload(url, dest, title, image, headers):
             else:
                 #use existing response
                 pass
-
+    return true
 
 if __name__ == '__main__':
     if 'downloader.py' in sys.argv[0]:

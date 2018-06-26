@@ -145,6 +145,10 @@ def change_list_status(list_id, movie_id, status):
     except urllib2.HTTPError as err:
         if err.code == 401:
             notify("Error", "Not authorized to modify list")
+    # if adding pull the list again with no cache to refresh it, there's probably a better way to do this
+    if status:
+        url = "list/%s?language=%s&" % (list_id, SETTING("LanguageID"))
+        get_tmdb_data(url=url, cache_days=0)
     results = simplejson.loads(response)
     notify(ADDON_NAME, results["status_message"])
 
@@ -1202,6 +1206,8 @@ def get_movies_from_list(list_id, cache_time=5):
     '''
 
     response = get_tmdb_data("list/%s?language=%s&" % (list_id, SETTING("LanguageID")), cache_time)
+    if get_media_type_from_tmdb_user_list(response) == "tv":
+        return handle_tmdb_tvshows(response["items"], False, None)
     return handle_tmdb_movies(response["items"], False, None)
 
 

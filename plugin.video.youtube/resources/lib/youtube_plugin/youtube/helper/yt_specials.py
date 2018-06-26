@@ -79,7 +79,7 @@ def _process_disliked_videos(provider, context, re_match):
     return result
 
 
-def _process_live_events(provider, context, re_match):
+def _process_live_events(provider, context, re_match, event_type='live'):
     def _sort(x):
         return x.get_aired()
 
@@ -89,7 +89,9 @@ def _process_live_events(provider, context, re_match):
 
     # TODO: cache result
     page_token = context.get_param('page_token', '')
-    json_data = provider.get_client(context).get_live_events(event_type='live', page_token=page_token)
+    location = str(context.get_param('location', False)).lower() == 'true'
+
+    json_data = provider.get_client(context).get_live_events(event_type=event_type, page_token=page_token, location=location)
     if not v3.handle_error(provider, context, json_data):
         return False
     result.extend(v3.response_to_items(provider, context, json_data, sort=_sort, reverse_sort=True))
@@ -168,7 +170,6 @@ def _process_description_links(provider, context, re_match):
 
         _channel_item_dict = {}
         utils.update_channel_infos(provider, context, _channel_id_dict, channel_items_dict=_channel_item_dict)
-        utils.update_fanarts(provider, context, _channel_item_dict)
 
         # clean up - remove empty entries
         _result = []
@@ -317,6 +318,10 @@ def process(category, provider, context, re_match):
         return _process_disliked_videos(provider, context, re_match)
     elif category == 'live':
         return _process_live_events(provider, context, re_match)
+    elif category == 'upcoming_live':
+        return _process_live_events(provider, context, re_match, event_type='upcoming')
+    elif category == 'completed_live':
+        return _process_live_events(provider, context, re_match, event_type='completed')
     elif category == 'description_links':
         return _process_description_links(provider, context, re_match)
     else:

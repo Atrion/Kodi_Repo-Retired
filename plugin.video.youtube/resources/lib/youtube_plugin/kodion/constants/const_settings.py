@@ -14,6 +14,10 @@ AGE_GATE = 'kodion.age.gate'  # (bool)
 SUBTITLE_LANGUAGE = 'kodion.subtitle.languages.num'  # (int)
 SETUP_WIZARD = 'kodion.setup_wizard'  # (bool)
 VERIFY_SSL = 'simple.requests.ssl.verify'  # (bool)
+LOCATION = 'youtube.location'  # (str)
+LOCATION_RADIUS = 'youtube.location.radius'  # (int)
+PLAY_COUNT_MIN_PERCENT = 'kodion.play_count.percent'  # (int)
+USE_PLAYBACK_HISTORY = 'kodion.playback.history'  # (bool)
 
 SUPPORT_ALTERNATIVE_PLAYER = 'kodion.support.alternative_player'  # (bool)
 

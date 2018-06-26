@@ -356,7 +356,7 @@
     </extension>
 </addon>
 
-<addon id="plugin.video.neptune" version="1.4.0" name=" Neptune Rising" provider-name="Mr. Blamo">
+<addon id="plugin.video.neptune" version="1.4.2" name=" Neptune Rising" provider-name="Mr. Blamo">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.neptune.artwork" />
@@ -1226,7 +1226,7 @@ v5.0.15 (2016-11-26) by amet
     </extension>
 </addon>
 
-<addon id="plugin.video.youtube" name="YouTube" version="6.0.2" provider-name="bromix">
+<addon id="plugin.video.youtube" name="YouTube" version="6.1.0~alpha10" provider-name="bromix">
     <requires>
         <import addon="xbmc.python" version="2.20.0"/>
         <import addon="script.module.six"/>
@@ -1240,8 +1240,35 @@ v5.0.15 (2016-11-26) by amet
     <extension point="xbmc.python.module" library="resources/lib/"/>
     <extension point="xbmc.addon.metadata">
         <news>
-6.0.2
-[fix] incorrectly raised 'Proxy is not running' error
+6.1.0
+[add] Multi-user support
+    - Switch User folder (default: on) Settings -&amp;gt; Folders
+    - User management (Add, Remove, Rename, Switch) Settings - Users
+    - Signed in users are green, Current user has an *
+[add/upd] add data cache and optimize caching
+    - add Settings -&gt; Maintenance -&gt; Clear data cache/Delete data cache
+    - increase allowed cache size
+    - database accesses per 50 videos: before: 70~100 after: 4~6
+    - load time of 50 videos w/ no cached videos: before: ~11.6 secs, after: ~3 secs
+    - load time of 50 videos w/ all cached videos: before: ~0.8 secs, after: ~0.7 secs
+    - cached size per 50 videos: before ~1MB, after ~550KB
+[add] Refresh after watching (default: off) Settings -&amp;gt; General
+[add] Completed Live folder (default: on) Settings -&amp;gt; Folders
+[add] Upcoming Live folder (default: on) Settings -&amp;gt; Folders
+[add] My Location folder (default: on) Settings -&gt; Advanced -&gt; Enable setup-wizard
+[add] Play count minimum percent (default: 85%) Settings -&gt; General -&gt; Play count minimum percent
+[add] Playback history (default: off) Settings -&gt; Advanced -&gt; Use playback history
+[add] Time since published for videos as item properties Property(PublishedSince), Property(PublishedLocal) |contrib: pannal|
+[upd] YouTube UTC datetimes to local timezone |contrib: pannal|
+[upd] Localize API key errors, provide a more descriptive notification
+[fix] My Channel videos (Error 403)
+[fix] allow fallback to dash, when using Audio only
+[fix] Signature function not found error for some users
+[fix] Context Menu -&gt; More -&gt; Related Videos w/ Kodi 18
+[fix] Sign In/Sign Out causing crash with Kodi 18 nightlies
+[fix] Channel 'mine' caching
+[lang] Spanish strings |contrib: roliverosc|
+[lang] Greek strings |contrib: twilight0|
         </news>
         <assets>
             <icon>icon.png</icon>
@@ -2107,7 +2134,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
 
 <addon id="script.module.python.koding.aio"
    name="Python Koding AIO"
-   version="0.9.9.4"
+   version="1.0"
    provider-name="Total Revolution">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
@@ -2126,7 +2153,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
     <license>Creative Commons 4.0-NC-ND</license>
     <forum>http://totalrevolution.tv/forum</forum>
     <website>http://totalrevolution.tv</website>
-    <news>Added custom resolver option for Play_Video</news>
+    <news>1.0 Stable release</news>
     <source>https://github.com/totalrevolution/python-koding/tree/master/script.module.python.koding.aio</source>
   </extension>
 </addon>
@@ -2461,7 +2488,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
   </extension>
 </addon>
 
-<addon id="script.extendedinfo" name="[COLOR purple]Wraith[/COLOR]" version="9.0.5" provider-name="Revived by [COLOR purple]Mr.Blamo[/COLOR], original work by phil65">
+<addon id="script.extendedinfo" name="[COLOR purple]Wraith[/COLOR]" version="9.0.7" provider-name="Revived by [COLOR purple]Mr.Blamo[/COLOR], original work by phil65">
   <requires>
     <import addon="xbmc.python"                     version="2.19.0"/>
     <import addon="plugin.program.super.favourites"/>
@@ -3130,7 +3157,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
   </extension>
 </addon>
 
-    <addon id="repository.blamo" name="[COLOR red]Blamo Repo[/COLOR]" version="0.1.4" provider-name="Mr Blamo">
+    <addon id="repository.blamo" name="[COLOR red]Blamo Repo[/COLOR]" version="0.1.6" provider-name="Mr Blamo">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -3170,7 +3197,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
         </extension>
     </addon>
 
-    <addon id="repository.Atrion" name="Atrions Repo" version="0.3.0" provider-name="AtrionDarnay">
+    <addon id="repository.Atrion" name="Atrions Repo" version="0.3.1" provider-name="AtrionDarnay">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -3232,7 +3259,7 @@ Kodi is a registered trademark of the XBMC Foundation. We are not connected to o
   </extension>
 </addon>
 
-    <addon id="repository.Atrion2" name="Atrions Repo2" version="0.3.0" provider-name="AtrionDarnay">
+    <addon id="repository.Atrion2" name="Atrions Repo2" version="0.3.1" provider-name="AtrionDarnay">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>

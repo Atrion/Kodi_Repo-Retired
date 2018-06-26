@@ -509,6 +509,117 @@ class sources:
         except:
             pass
 
+    def createProgressDialog(self,header,items=None,i=None):
+        progressDialog = control.progressDialog if control.setting('progress.dialog') == '0' else control.progressDialogBG
+        progressDialog.create(header, '')
+        if items != None and i != None:
+            progressDialog.update(int((100 / float(len(items))) * i), str(items[i]['label']), str(' '))
+        else:
+            progressDialog.update(0)
+        return progressDialog
+
+    def downloadItem(self, name, image, source):
+        try:
+            next = [] ; prev = [] ; total = []
+
+            for i in range(1,1000):
+                try:
+                    u = control.infoLabel('ListItem(%s).FolderPath' % str(i))
+                    if u in total: raise Exception()
+                    total.append(u)
+                    u = dict(urlparse.parse_qsl(u.replace('?','')))
+                    u = json.loads(u['source'])[0]
+                    next.append(u)
+                except:
+                    break
+            for i in range(-1000,0)[::-1]:
+                try:
+                    u = control.infoLabel('ListItem(%s).FolderPath' % str(i))
+                    if u in total: raise Exception()
+                    total.append(u)
+                    u = dict(urlparse.parse_qsl(u.replace('?','')))
+                    u = json.loads(u['source'])[0]
+                    prev.append(u)
+                except:
+                    break
+
+            items = json.loads(source)
+            items = [i for i in items+next+prev][:40]
+
+            header = control.addonInfo('name')
+            header2 = header.upper()
+            
+            progressDialog = self.createProgressDialog(header)
+            
+            block = None
+
+            success = False
+            for i in range(len(items)):
+                try:
+                    try:
+                        if progressDialog.iscanceled(): break
+                        progressDialog.update(int((100 / float(len(items))) * i), str(items[i]['label']), str(' '))
+                    except:
+                        progressDialog.update(int((100 / float(len(items))) * i), str(header2), str(items[i]['label']))
+
+                    if items[i]['source'] == block: raise Exception()
+
+                    w = workers.Thread(self.sourcesResolve, items[i])
+                    w.start()
+
+                    m = ''
+
+                    for x in range(3600):
+                        try:
+                            if xbmc.abortRequested == True: return sys.exit()
+                            if progressDialog.iscanceled(): return progressDialog.close()
+                        except:
+                            pass
+
+                        k = control.condVisibility('Window.IsActive(virtualkeyboard)')
+                        if k: m += '1'; m = m[-1]
+                        if (w.is_alive() == False or x > 30) and not k: break
+                        k = control.condVisibility('Window.IsActive(yesnoDialog)')
+                        if k: m += '1'; m = m[-1]
+                        if (w.is_alive() == False or x > 30) and not k: break
+                        time.sleep(0.5)
+
+
+                    for x in range(30):
+                        try:
+                            if xbmc.abortRequested == True: return sys.exit()
+                            if progressDialog.iscanceled(): return progressDialog.close()
+                        except:
+                            pass
+
+                        if m == '': break
+                        if w.is_alive() == False: break
+                        time.sleep(0.5)
+
+
+                    if w.is_alive() == True: block = items[i]['source']
+
+                    if self.url == None: raise Exception()
+
+                    try: progressDialog.close()
+                    except: pass
+
+                    control.sleep(200)
+                    control.execute('Dialog.Close(virtualkeyboard)')
+                    control.execute('Dialog.Close(yesnoDialog)')
+
+                    from resources.lib.modules import downloader
+                    success = downloader.download(name, image, self.url)
+                    if success:
+                        break;
+                    else:
+                        progressDialog = self.createProgressDialog(header,items,i)
+                except:
+                    pass
+            if not success:
+                self.errorForSources()
+        except:
+            pass
 
     def getSource_dialog(self, title, year, imdb, tvdb, season, episode, tvshowtitle, premiered, presetDict=[], timeout=30):
         self.__scrapers = []

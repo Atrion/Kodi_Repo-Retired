@@ -587,9 +587,12 @@ def get_tmdb_window(window_type):
                 return None
             if self.mode == "list":
                 prettyprint(response)
-                info = {"listitems": handle_tmdb_movies(results=response["items"],
-                                                        local_first=True,
-                                                        sortkey=None),
+                listitems = None
+                if get_media_type_from_tmdb_user_list(response) == "movie":
+                    listitems = handle_tmdb_movies(results=response["items"], local_first=True, sortkey=None)
+                else:
+                    listitems = handle_tmdb_tvshows(results=response["items"], local_first=True, sortkey=None)
+                info = {"listitems": listitems,
                         "results_per_page": 1,
                         "total_results": len(response["items"])}
                 return info

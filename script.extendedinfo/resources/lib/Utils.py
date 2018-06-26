@@ -999,3 +999,14 @@ def clean_text(text):
         else:
             break
     return text.strip()
+
+def get_media_type_from_tmdb_user_list(list):
+    '''
+    get media type from a tmdb user list returned from a call to get_tmdb_data()
+    returns "tv" or "movie"
+    TMDB lists can have a mix of movies and TV, but we'll just use whatever type the first item is
+    '''
+    
+    if len(list["items"]) != 0 and list["items"][0]["media_type"] == "tv":
+        return "tv"
+    return "movie"

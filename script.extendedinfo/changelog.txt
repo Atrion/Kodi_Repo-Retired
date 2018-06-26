@@ -1,3 +1,7 @@
+v9.0.7
+- TMDB Fixes Thanks KingPug
+v9.0.6
+- Few fixes
 v9.0.4
 - Few minor tweaks
 - Changed api

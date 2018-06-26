@@ -1,5 +1,6 @@
 __author__ = 'bromix'
 
+import copy
 import requests
 from .login_client import LoginClient
 from ..helper.video_info import VideoInfo
@@ -80,14 +81,37 @@ class YouTube(LoginClient):
 
         # update title
         for video_stream in video_streams:
-            if not video_stream.get('dash/video', False) and video_stream.get('dash/audio', False):
-                title = '[B]%s[/B] (%s; / %s@%d)' % (
-                    video_stream['title'], video_stream['container'],
-                    video_stream['audio']['encoding'], video_stream['audio']['bitrate'])
-            else:
-                title = '[B]%s[/B] (%s;%s / %s@%d)' % (
-                    video_stream['title'], video_stream['container'], video_stream['video']['encoding'],
-                    video_stream['audio']['encoding'], video_stream['audio']['bitrate'])
+            title = '[B]%s[/B] (%s)' % (video_stream['title'], video_stream['container'])
+
+            if 'audio' in video_stream and 'video' in video_stream:
+                if video_stream['audio']['bitrate'] > 0 and video_stream['video']['encoding'] and \
+                        video_stream['audio']['encoding']:
+                    title = '[B]%s[/B] (%s; %s / %s@%d)' % (video_stream['title'],
+                                                            video_stream['container'],
+                                                            video_stream['video']['encoding'],
+                                                            video_stream['audio']['encoding'],
+                                                            video_stream['audio']['bitrate'])
+
+                elif video_stream['video']['encoding'] and video_stream['audio']['encoding']:
+                    title = '[B]%s[/B] (%s; %s / %s)' % (video_stream['title'],
+                                                         video_stream['container'],
+                                                         video_stream['video']['encoding'],
+                                                         video_stream['audio']['encoding'])
+            elif 'audio' in video_stream and 'video' not in video_stream:
+                if video_stream['audio']['encoding'] and video_stream['audio']['bitrate'] > 0:
+                    title = '[B]%s[/B] (%s; %s@%d)' % (video_stream['title'],
+                                                       video_stream['container'],
+                                                       video_stream['audio']['encoding'],
+                                                       video_stream['audio']['bitrate'])
+
+            elif 'audio' in video_stream or 'video' in video_stream:
+                encoding =  video_stream.get('audio', dict()).get('encoding')
+                if not encoding:
+                    encoding = video_stream.get('video', dict()).get('encoding')
+                if encoding:
+                    title = '[B]%s[/B] (%s; %s)' % (video_stream['title'],
+                                                    video_stream['container'],
+                                                    encoding)
 
             video_stream['title'] = title
 
@@ -357,16 +381,21 @@ class YouTube(LoginClient):
 
         return self._perform_v3_request(method='GET', path='videos', params=params)
 
-    def get_videos(self, video_id):
+    def get_videos(self, video_id, live_details=False):
         """
         Returns a list of videos that match the API request parameters
         :param video_id: list of video ids
+        :param live_details: also retrieve liveStreamingDetails
         :return:
         """
         if isinstance(video_id, list):
             video_id = ','.join(video_id)
 
-        params = {'part': 'snippet,contentDetails',
+        part = 'snippet,contentDetails'
+        if live_details:
+            part += ',liveStreamingDetails'
+
+        params = {'part': part,
                   'id': video_id}
         return self._perform_v3_request(method='GET', path='videos', params=params)
 
@@ -378,7 +407,7 @@ class YouTube(LoginClient):
                   'id': playlist_id}
         return self._perform_v3_request(method='GET', path='playlists', params=params)
 
-    def get_live_events(self, event_type='live', order='relevance', page_token=''):
+    def get_live_events(self, event_type='live', order='relevance', page_token='', location=False):
         """
 
         :param event_type: one of: 'live', 'completed', 'upcoming'
@@ -399,6 +428,12 @@ class YouTube(LoginClient):
                   'hl': self._language,
                   'relevanceLanguage': self._language,
                   'maxResults': str(self._max_results)}
+
+        if location:
+            location = context.get_settings().get_location()
+            if location:
+                params['location'] = location
+                params['locationRadius'] = context.get_settings().get_location_radius()
 
         if page_token:
             params['pageToken'] = page_token
@@ -422,7 +457,7 @@ class YouTube(LoginClient):
 
         return self._perform_v3_request(method='GET', path='search', params=params, quota_optimized=True)
 
-    def search(self, q, search_type=['video', 'channel', 'playlist'], event_type='', channel_id='', order='relevance', safe_search='moderate', page_token=''):
+    def search(self, q, search_type=['video', 'channel', 'playlist'], event_type='', channel_id='', order='relevance', safe_search='moderate', page_token='', location=False):
         """
         Returns a collection of search results that match the query parameters specified in the API request. By default,
         a search result set identifies matching video, channel, and playlist resources, but you can also configure
@@ -475,6 +510,12 @@ class YouTube(LoginClient):
             if params.get(key) is not None:
                 params['type'] = 'video'
                 break
+
+        if params['type'] == 'video' and location:
+            location = context.get_settings().get_location()
+            if location:
+                params['location'] = location
+                params['locationRadius'] = context.get_settings().get_location_radius()
 
         return self._perform_v3_request(method='GET', path='search', params=params, quota_optimized=False)
 
@@ -984,8 +1025,10 @@ class YouTube(LoginClient):
         _url = 'https://www.googleapis.com/youtube/v3/%s' % path.strip('/')
 
         result = None
-
-        context.log_debug('[data] v3 request: |{0}| path: |{1}| params: |{2}| post_data: |{3}|'.format(method, path, params, post_data))
+        log_params = copy.deepcopy(params)
+        if 'location' in log_params:
+            log_params['location'] = 'xx.xxxx,xx.xxxx'
+        context.log_debug('[data] v3 request: |{0}| path: |{1}| params: |{2}| post_data: |{3}|'.format(method, path, log_params, post_data))
         if method == 'GET':
             result = requests.get(_url, params=_params, headers=_headers, verify=self._verify, allow_redirects=allow_redirects)
         elif method == 'POST':
