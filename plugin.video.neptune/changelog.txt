@@ -1,3 +1,7 @@
+[B]1.4.7[/B]
+- Added resolve url settings to neptune tools (Thanks for contributing help)
+[B]1.4.3[/B]
+- Down loader Fixed Should pop up successful window 
 [B]1.4.2[/B]
 - Fixed down loader thanks Pal appreciate re looking
 [B]1.4.1[/B]

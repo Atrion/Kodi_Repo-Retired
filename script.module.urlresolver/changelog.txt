@@ -1,3 +1,22 @@
+[B]Version 5.0.21 (August 08, 2018)[/B]
+- Code Base Changes:
+    - None
+- Resolvers Added:
+    - vidorg
+    - gofile
+- Resolvers Fixed/Updated:
+    - vidup.me
+    - waaw
+    - estream
+    - streamango
+    - flashx
+    - thevideo
+	- youtube
+- Resolvers Removed
+    - None
+- Languages Added/Updated
+    - None
+
 [B]Version 5.0.20 (June 09, 2018)[/B]
 - Code Base Changes:
     - None

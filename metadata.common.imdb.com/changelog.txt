@@ -1,3 +1,12 @@
+[B]3.1.0[/B]
+- fixed: re-write most regular expressions following IMDb site layout changes
+
+[B]3.0.8[/B]
+- changed: another change to IMDb outline
+
+[B]3.0.7[/B]
+- changed: removed one of the IMDb outline catch
+
 [B]3.0.6[/B]
 - fixed: try to limit world wide English to over ride proper USA title
 

@@ -1,3 +1,10 @@
+v9.1.1
+- Made Kodi 18 Compatible
+v9.1.0
+- EIM/Wraith Fixes 
+- Bug Fixes (Thanks KingPug)
+v9.0.8
+- New Script Calls (Thanks to KingPug)
 v9.0.7
 - TMDB Fixes Thanks KingPug
 v9.0.6

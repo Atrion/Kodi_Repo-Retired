@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.extendedinfo" name="[COLOR purple]Wraith[/COLOR]" version="9.0.7" provider-name="Revived by [COLOR purple]Mr.Blamo[/COLOR], original work by phil65">
+<addon id="script.extendedinfo" name="[COLOR purple]Wraith[/COLOR]" version="9.1.1" provider-name="Revived by [COLOR purple]Mr.Blamo[/COLOR], original work by phil65">
   <requires>
     <import addon="xbmc.python"                     version="2.19.0"/>
     <import addon="plugin.program.super.favourites"/>
@@ -25,6 +25,7 @@
     <summary lang="nl">[COLOR purple]Wraith[/COLOR]</summary>
     <description lang="nl">Dit script biedt meerdere mogelijkheden om online content weer te geven in skins en bevat ook een complete MovieDB browser inclusief info dialogen voor verscheidene media types. Gebruikte diensten zijn themoviedb.org, theaudiodb.org, Trakt.TV, omdbapi.com en nog veel meer. Vereist skin implementatie voor de meeste functies. Gebruikt Wraith voor afspeel en bibliotheek functies.</description>
     <platform>all</platform>
+    <reuselanguageinvoker>false</reuselanguageinvoker>
     <genre>movies,tv,trailers</genre>
     <video_guide>3nlzITuJizg</video_guide>
     <video_preview>OIp3Ry7qml8</video_preview>

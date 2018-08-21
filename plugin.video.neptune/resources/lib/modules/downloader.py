@@ -112,7 +112,7 @@ def done(title, dest, downloaded):
     if (not downloaded) or (not playing): 
         xbmcgui.Dialog().ok(title, text)
         xbmcgui.Window(10000).clearProperty('GEN-DOWNLOADED')
-	return downloaded
+    return downloaded
 
 def doDownload(url, dest, title, image, headers):
 

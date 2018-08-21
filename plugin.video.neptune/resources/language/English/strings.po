@@ -324,6 +324,10 @@ msgctxt "#32074"
 msgid "[B]HELP[/B]"
 msgstr ""
 
+msgctxt "#32075"
+msgid "URL Resolver Settings"
+msgstr ""
+
 msgctxt "#32301"
 msgid "Enabled"
 msgstr ""

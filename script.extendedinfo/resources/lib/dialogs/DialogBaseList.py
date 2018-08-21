@@ -46,6 +46,12 @@ class DialogBaseList(object):
             self.getControl(500).selectItem(self.last_position)
         else:
             xbmc.executebuiltin("SetFocus(6000)")
+        if self.mode == 'userlists':
+            self.open_account_menu()
+        elif self.mode == 'genres':
+            self.set_genre_filter()
+        elif self.mode == 'opensearch':
+            self.open_search()
 
     @ch.action("parentdir", "*")
     @ch.action("parentfolder", "*")

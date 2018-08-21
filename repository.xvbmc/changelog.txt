@@ -1,3 +1,7 @@
+[B]Version 4.2.2+3[/B]
+- SHUTDOWN / DOWN \ CLOSED
++ https://github.com/EPiC-APOC/repository.xvbmc/blob/master/README.md
+
 [B]Version 4.2.1[/B]
 - XvBMC Nederland No Mo' NaN :'(
 

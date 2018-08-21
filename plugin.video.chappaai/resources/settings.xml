@@ -35,11 +35,11 @@
         <setting subsetting="true" visible="!eq(0,)" enable="false" type="text" id="movies_default_player_from_library" default="default_library" />
         <setting label="30112" option="close" type="action" action="RunPlugin(plugin://plugin.video.chappaai/settings/default_player_fromcontext/movies)"/>
         <setting subsetting="true" visible="!eq(0,)" enable="false" type="text" id="movies_default_player_from_context" default="default_context" />
-        <setting label="30302" id="movies_library_folder" type="folder" default="special://profile/addon_data/plugin.video.chappaai/Movies/" visible="true" />
-        <setting label="30312" id="movies_playlist_folder" type="folder" default="special://profile/playlists/video/Movies/" visible="false" />
+        <setting label="30302" id="movies_library_folder" type="folder" default="special://home/addon_data/plugin.video.chappaai/Movies/" visible="true" />
+        <setting label="30312" id="movies_playlist_folder" type="folder" default="special://home/playlists/video/Movies/" visible="false" />
         <setting label="30834" id="movies_default_auto_add" type="bool" default="true"/>
         <setting label="30820" id="movies_played_by_add" type="bool" default="false" />
-        <setting label="Movies Batch Add File Path" id="movies_batch_add_file_path" type="text" default="special://profile/addon_data/plugin.video.chappaai/movies_to_add.txt" visible= "false"/>
+        <setting label="Movies Batch Add File Path" id="movies_batch_add_file_path" type="text" default="special://home/addon_data/plugin.video.chappaai/movies_to_add.txt" visible= "false"/>
     </category>
     <category label="30200">
         <setting label="30201" option="close" type="action" action="RunPlugin(plugin://plugin.video.chappaai/settings/players/tvshows)"/>
@@ -50,11 +50,11 @@
         <setting subsetting="true" visible="!eq(0,)" enable="false" type="text" id="tv_default_player_from_library" default="default_library" />
         <setting label="30212" option="close" type="action" action="RunPlugin(plugin://plugin.video.chappaai/settings/default_player_fromcontext/tvshows)"/>
         <setting subsetting="true" visible="!eq(0,)" enable="false" type="text" id="tv_default_player_from_context" default="default_context" />
-        <setting label="30302" id="tv_library_folder" type="folder" default="special://profile/addon_data/plugin.video.chappaai/TVShows/" visible="false" />
-        <setting label="30312" id="tv_playlist_folder" type="folder" default="special://profile/playlists/video/TVShows" visible="false" />
+        <setting label="30302" id="tv_library_folder" type="folder" default="special://home/addon_data/plugin.video.chappaai/TVShows/" visible="false" />
+        <setting label="30312" id="tv_playlist_folder" type="folder" default="special://home/playlists/video/TVShows" visible="false" />
         <setting label="30818" id="tv_default_auto_add" type="bool" default="true"/>
         <setting label="30821" id="tv_played_by_add" type="bool" default="false" />
-        <setting label="TV Shows Batch Add File Path" id="tv_batch_add_file_path" type="text" default="special://profile/addon_data/plugin.video.chappaai/shows_to_add.txt" visible= "false"/>
+        <setting label="TV Shows Batch Add File Path" id="tv_batch_add_file_path" type="text" default="special://home/addon_data/plugin.video.chappaai/shows_to_add.txt" visible= "false"/>
     </category>
     <category label="30800">
         <setting label="30699" id="preferred_music_type" type="select" values="audio|video" default="audio" visible="true"/>
@@ -74,10 +74,10 @@
         <setting subsetting="true" visible="!eq(0,)" enable="false" type="text" id="music_default_player_from_context" default="default_context" />
         <setting label="30712" option="close" type="action" action="RunPlugin(plugin://plugin.video.chappaai/settings/default_player_fromcontext/musicvideos)"/>
         <setting subsetting="true" visible="!eq(0,)" enable="false" type="text" id="musicvideos_default_player_from_context" default="default_context" />
-        <setting label="30302" id="music_library_folder" type="folder" default="special://profile/addon_data/plugin.video.chappaai/Music/" visible="false" />
-        <setting label="30302" id="musicvideos_library_folder" type="folder" default="special://profile/addon_data/plugin.video.chappaai/Musicvideos/" visible="false" />
-        <setting label="30312" id="music_playlist_folder" type="folder" default="special://profile/playlists/music/Artist/" visible="false" />
-        <setting label="30312" id="musicvideos_playlist_folder" type="folder" default="special://profile/playlists/video/MusicVideos" visible="false" />
+        <setting label="30302" id="music_library_folder" type="folder" default="special://home/addon_data/plugin.video.chappaai/Music/" visible="false" />
+        <setting label="30302" id="musicvideos_library_folder" type="folder" default="special://home/addon_data/plugin.video.chappaai/Musicvideos/" visible="false" />
+        <setting label="30312" id="music_playlist_folder" type="folder" default="special://home/playlists/music/Artist/" visible="false" />
+        <setting label="30312" id="musicvideos_playlist_folder" type="folder" default="special://home/playlists/video/MusicVideos" visible="false" />
     </category>
     <category label="30500">
         <setting label="30501" option="close" type="action" action="RunPlugin(plugin://plugin.video.chappaai/settings/players/live)"/>
@@ -88,8 +88,8 @@
         <setting subsetting="true" visible="!eq(0,)" enable="false" type="text" id="live_default_player_from_library" default="default_library" />
         <setting label="30512" option="close" type="action" action="RunPlugin(plugin://plugin.video.chappaai/settings/default_player_fromcontext/live)"/>
         <setting subsetting="true" visible="!eq(0,)" enable="false" type="text" id="live_default_player_from_context" default="default_context" />
-        <setting label="30302" id="live_library_folder" type="folder" default="special://profile/addon_data/plugin.video.chappaai/Live/" visible="false" />
-        <setting label="30312" id="live_playlist_folder" type="folder" default="special://profile/playlists/mixed/Channels/" visible="false" />
+        <setting label="30302" id="live_library_folder" type="folder" default="special://home/addon_data/plugin.video.chappaai/Live/" visible="false" />
+        <setting label="30312" id="live_playlist_folder" type="folder" default="special://home/playlists/mixed/Channels/" visible="false" />
         <setting label="Add channels to library using library player?" id="live_default_auto_add" type="bool" default="true"/>
     </category>
     <category label="30400">
@@ -136,7 +136,7 @@
         <setting subsetting="true" type="text" id="live_enabled_channelers" default='[&quot;default_context&quot;, &quot;default_library&quot;, &quot;default_main&quot;, &quot;direct.bob.unleashed.m&quot;, &quot;explore.extendedinfo_youtube_nl.q&quot;, &quot;explore.extendedinfo_youtube.q&quot;, &quot;explore.itv.m&quot;, &quot;explore.jericho.q&quot;, &quot;explore.qlickplay_youtube_nl.q&quot;, &quot;explore.qlickplay_youtube.q&quot;, &quot;explore.youtube_nl.q&quot;, &quot;explore.youtube.q&quot;, &quot;navigate.adriansports.q&quot;, &quot;navigate.ccloudtv.q&quot;, &quot;navigate.channelpear.q&quot;, &quot;navigate.dnatv.q&quot;, &quot;navigate.evolve.q&quot;, &quot;navigate.ftv.q&quot;, &quot;navigate.iplayerwww.m&quot;, &quot;navigate.lihattv.q&quot;, &quot;navigate.notfilmon.q&quot;, &quot;navigate.phoenix.q&quot;, &quot;navigate.projectcypher.q&quot;, &quot;navigate.ukturk.q&quot;, &quot;navigate.uktvagain.q&quot;, &quot;navigate.ustvnow.q&quot;, &quot;search.vidtime.c&quot;]' visible="false" />
         <setting subsetting="true" type="text" id="live_default_channeler" default="default_guide" visible="false" />
         <setting label="Library: Use titles instead of IDs" id="library_titles" type="bool" default="true" hidden="true" visible="false"/>
-        <setting label="Sync Folder" id="sync_folder" type="folder" default="special://profile/addon_data/plugin.video.chappaai/Sync/" visible="false" />
+        <setting label="Sync Folder" id="sync_folder" type="folder" default="special://home/addon_data/plugin.video.chappaai/Sync/" visible="false" />
     </category>
     <category label="$LOCALIZE[636]">
         <setting label="$LOCALIZE[21435] [LOWERCASE]$LOCALIZE[20342] $LOCALIZE[14022] $LOCALIZE[16003][/LOWERCASE]" option="close" type="action" action="RunPlugin(plugin://plugin.video.chappaai/manage/library/movies)"/>

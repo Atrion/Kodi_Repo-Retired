@@ -211,13 +211,6 @@ def yesnoDialog(line1, line2, line3, heading=addonInfo('name'), nolabel='', yesl
 def selectDialog(list, heading=addonInfo('name')):
     return dialog.select(heading, list)
 
-
-def moderator():
-    netloc = [urlparse.urlparse(sys.argv[0]).netloc, '','plugin.video.metalliq', 'plugin.program.super.favourites',]
-
-    if not infoLabel('Container.PluginName') in netloc: sys.exit()
-
-
 def metaFile():
     if condVisibility('System.HasAddon(script.neptune.metadata)'):
         return os.path.join(xbmcaddon.Addon('script.neptune.metadata').getAddonInfo('path'), 'resources', 'data', 'meta.db')

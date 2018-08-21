@@ -2,7 +2,7 @@
 <addons>
 <addon id="script.module.requests"
        name="requests"
-       version="2.18.4"
+       version="2.19.1"
        provider-name="kennethreitz">
   <requires>
     <import addon="xbmc.python" version="2.25.0"/>
@@ -216,7 +216,7 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.chappaai" name="Chappa'ai" version="G.0.7" provider-name="Mr.Blamo">
+<addon id="plugin.video.chappaai" name="Chappa'ai" version="G.0.9" provider-name="Mr.Blamo">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0"/>
 		<import addon="script.module.requests" version="2.9.1"/>
@@ -256,6 +256,7 @@
 	</extension>
 	<extension point="xbmc.addon.metadata">
 		<platform>all</platform>
+        <reuselanguageinvoker>false</reuselanguageinvoker>
 		<language></language>
 		<summary lang="en">TMDb, TVDb, Trakt, AudioDb and LastFM browser</summary>
 		<description lang="en">Browse The MovieDb, The TVDb, Trakt, The AudioDb and LastFM and pass info along to library or an addon to try and play it. Needs player-files and the appropriate addon to actually play.</description>
@@ -356,7 +357,7 @@
     </extension>
 </addon>
 
-<addon id="plugin.video.neptune" version="1.4.2" name=" Neptune Rising" provider-name="Mr. Blamo">
+<addon id="plugin.video.neptune" version="1.4.9" name=" Neptune Rising" provider-name="Mr. Blamo">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
 		<import addon="script.neptune.artwork" />
@@ -383,6 +384,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
 		<platform>all</platform>
 		<license>Beerware rev. 42</license>
 		<platform>all</platform>
+        <reuselanguageinvoker>false</reuselanguageinvoker>
 		<forum></forum>
 		<website></website>
 		<source></source>
@@ -416,7 +418,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
     </extension>
 </addon>
 
-<addon id="script.neptune.metadata" version="1.0.4" name="Neptune Rising Metadata" provider-name="Mr.Blamo">
+<addon id="script.neptune.metadata" version="1.0.5" name="Neptune Rising Metadata" provider-name="Mr.Blamo">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0"/>
 	</requires>
@@ -426,6 +428,23 @@ This is a Non-profit resource, organized solely for educational purposes which i
 		<description>Metadata for Neptune Rising are maintained separately to make distribution of the the addon itself easier/faster.</description>
 		<platform>all</platform>
 	</extension>
+</addon>
+
+<addon id="script.module.feedparser" name="feedparser" version="5.1.3" provider-name="Tristan Fischer (sphere@dersphere.de)">
+    <requires>
+        <import addon="xbmc.python" version="2.1.0"/>
+    </requires>
+    <extension point="xbmc.python.module" library="lib" />
+    <extension point="xbmc.addon.metadata">
+        <language></language>
+        <summary lang="en">Python helper module</summary>
+        <description lang="en">feedparser is a Python library that parses feeds in all known formats, including Atom, RSS, and RDF. It runs on Python 2.4 all the way up to 3.2.</description>
+        <license>MIT</license>
+        <platform>all</platform>
+        <website>https://code.google.com/p/feedparser/</website>
+        <source>https://code.google.com/p/feedparser/source/browse/</source>
+        <forum></forum>
+    </extension>
 </addon>
 
 <addon id="plugin.video.bob.unleashed" name="BoB Unleashed" version="1.0.12" provider-name="midraal">
@@ -469,7 +488,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
 
 <addon id="metadata.tvdb.com"
        name="The TVDB"
-       version="3.0.5"
+       version="3.0.7"
        provider-name="Team Kodi">
   <requires>
     <import addon="xbmc.metadata" version="2.1.0"/>
@@ -930,7 +949,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
 
 <addon id="metadata.common.fanart.tv"
        name="fanart.tv Scraper Library"
-       version="3.4.1"
+       version="3.5.0"
        provider-name="Team Kodi">
   <requires>
     <import addon="xbmc.metadata" version="2.1.0"/>
@@ -966,6 +985,26 @@ This is a Non-profit resource, organized solely for educational purposes which i
     <description lang="se">Ladda ner bakgrundsbilder från www.fanart.tv.com</description>
     <description lang="zh">从www.fanart.tv.com下载背景图</description>
   </extension>
+</addon>
+
+<addon id="script.module.parsedom" name="Parsedom for xbmc plugins" provider-name="TheCollective" version="2.5.2">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0" />
+  </requires>
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <summary lang="en">Parsedom for xbmc plugins.</summary>
+  </extension>
+  <extension library="lib" point="xbmc.python.module" />
+  <extension point="xbmc.addon.metadata">
+        <license>GPLv3</license>
+        <platform>all</platform>
+        <email></email>
+        <website></website>
+        <forum>http://forum.xbmc.org/showthread.php?tid=116498</forum>
+        <source>https://github.com/HenrikDK/xbmc-common-plugin-functions</source>
+        <language></language>
+   </extension>
 </addon>
 
 <addon id="resource.images.studios.white" name="Studio Icons - White" version="0.0.13" provider-name="Team Kodi">
@@ -1062,7 +1101,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
 
 <addon id="metadata.common.musicbrainz.org"
        name="MusicBrainz Scraper Library"
-        version="2.1.2"
+        version="2.2.0"
        provider-name="Team Kodi">
   <requires>
     <import addon="xbmc.metadata" version="2.1.0"/>
@@ -1102,7 +1141,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
   </extension>
 </addon>
 
-<addon id="script.module.xmltodict" name="xmltodict" version="0.9.0" provider-name="martinblech">
+<addon id="script.module.xmltodict" name="xmltodict" version="0.11.0" provider-name="martinblech">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
     </requires>
@@ -1110,7 +1149,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
     <extension point="xbmc.addon.metadata">
         <language></language>
         <summary lang="en">Python helper module</summary>
-        <description lang="en">xmltodict is a Python module that makes working with XML feel like you are working with JSON, as in this "spec".[CR]</description>
+        <description lang="en">xmltodict is a Python module that makes working with XML feel like you are working with JSON, as in this "spec".</description>
         <license>MIT</license>
         <platform>all</platform>
         <website>https://github.com/martinblech/xmltodict</website>
@@ -1226,7 +1265,7 @@ v5.0.15 (2016-11-26) by amet
     </extension>
 </addon>
 
-<addon id="plugin.video.youtube" name="YouTube" version="6.1.0~alpha10" provider-name="bromix">
+<addon id="plugin.video.youtube" name="YouTube" version="6.1.0~alpha11" provider-name="bromix">
     <requires>
         <import addon="xbmc.python" version="2.20.0"/>
         <import addon="script.module.six"/>
@@ -1648,7 +1687,7 @@ Fixed search issue caused by character accents
 
 <addon id="metadata.common.imdb.com"
        name="IMDB Scraper Library"
-       version="3.0.6"
+       version="3.1.0"
        provider-name="Team Kodi">
   <requires>
     <import addon="xbmc.metadata" version="2.1.0"/>
@@ -1697,7 +1736,7 @@ Fixed search issue caused by character accents
   </extension>
 </addon>
 
-<addon id="script.module.resolveurl" name="ResolveURL" version="5.0.12" provider-name="jsergio">
+<addon id="script.module.resolveurl" name="ResolveURL" version="5.0.14" provider-name="jsergio">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 		<import addon="plugin.video.youtube" optional="true" />
@@ -1977,6 +2016,20 @@ This is a Non-profit resource, organized solely for educational purposes which i
 		<description>Cypers Locker Repo - Home to Project Cypher.</description>
 		<platform>all</platform>
 	</extension>
+</addon>
+
+<addon id="script.module.simple.downloader" name="Simple Downloader for xbmc plugins" provider-name="TheCollective" version="1.9.5">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0" />
+    <import addon="script.common.plugin.cache" version="2.5.0" />
+    <import addon="script.module.parsedom" version="2.5.1" />
+  </requires>
+  <extension library="default.py" point="xbmc.service" />
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <summary lang="en">Simple downloader for xbmc plugins.</summary>
+  </extension>
+  <extension library="lib" point="xbmc.python.module" />
 </addon>
 
 <addon id="script.module.unidecode" name="unidecode" version="0.4.16" provider-name="Tomaz Solc (Tomaz.solc@tablix.org)">
@@ -2400,6 +2453,35 @@ This is a Non-profit resource, organized solely for educational purposes which i
 	</extension>
 </addon>
 
+<addon id="plugin.video.twit"
+             name="TWiT"
+             version="2.1.6"
+             provider-name="divingmule">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.feedparser" version="5.1.3"/>
+    <import addon="script.ircchat" version="1.0.1" optional="true"/>
+    <import addon="script.module.simple.downloader" version="1.9.5"/>
+    <import addon="script.module.beautifulsoup4" version="4.3.2"/>
+  </requires>
+  <extension point="xbmc.python.pluginsource" library="default.py">
+    <provides>audio video</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>The TWiT.tv Netcast Network</summary>
+    <description>
+      https://twit.tv/about/what-is-twit-tv
+      [CR]The TWiT.tv Netcast Network with Leo Laporte features the #1 ranked technology podcast This Week in Tech, along with over 20 other top-ranked online shows.
+    </description>
+    <platform>all</platform>
+    <language>en</language>
+    <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
+    <source>https://github.com/divingmule/plugin.video.twit</source>
+    <forum>http://forum.kodi.tv/showthread.php?tid=183336</forum>
+    <website>https://twit.tv/</website>
+  </extension>
+</addon>
+
 <addon id="script.module.oauth2client"
        name="oauth2client"
        version="4.1.2"
@@ -2446,7 +2528,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
   </extension>
 </addon>
 
-    <addon id="repository.Firestickplusman" name="Firestickplusman Addons" version="0.1.9" provider-name="Firestickplusman">
+    <addon id="repository.Firestickplusman" name="Firestickplusman Addons" version="3.6" provider-name="Firestickplusman">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -2488,7 +2570,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
   </extension>
 </addon>
 
-<addon id="script.extendedinfo" name="[COLOR purple]Wraith[/COLOR]" version="9.0.7" provider-name="Revived by [COLOR purple]Mr.Blamo[/COLOR], original work by phil65">
+<addon id="script.extendedinfo" name="[COLOR purple]Wraith[/COLOR]" version="9.1.1" provider-name="Revived by [COLOR purple]Mr.Blamo[/COLOR], original work by phil65">
   <requires>
     <import addon="xbmc.python"                     version="2.19.0"/>
     <import addon="plugin.program.super.favourites"/>
@@ -2514,6 +2596,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
     <summary lang="nl">[COLOR purple]Wraith[/COLOR]</summary>
     <description lang="nl">Dit script biedt meerdere mogelijkheden om online content weer te geven in skins en bevat ook een complete MovieDB browser inclusief info dialogen voor verscheidene media types. Gebruikte diensten zijn themoviedb.org, theaudiodb.org, Trakt.TV, omdbapi.com en nog veel meer. Vereist skin implementatie voor de meeste functies. Gebruikt Wraith voor afspeel en bibliotheek functies.</description>
     <platform>all</platform>
+    <reuselanguageinvoker>false</reuselanguageinvoker>
     <genre>movies,tv,trailers</genre>
     <video_guide>3nlzITuJizg</video_guide>
     <video_preview>OIp3Ry7qml8</video_preview>
@@ -2526,7 +2609,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
 
 <addon id="metadata.artists.universal"
        name="Universal Artist Scraper"
-       version="3.7.4"
+       version="3.7.5"
        provider-name="Olympia, Team Kodi">
   <requires>
     <import addon="xbmc.metadata" version="2.1.0"/>
@@ -2722,7 +2805,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
 
 <addon id="metadata.common.themoviedb.org"
        name="The Movie Database Scraper Library"
-       version="3.1.6"
+       version="3.1.7"
        provider-name="Team Kodi">
   <requires>
     <import addon="xbmc.metadata" version="2.1.0"/>
@@ -2798,7 +2881,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
 
 <addon id="metadata.common.theaudiodb.com"
        name="TheAudioDb Scraper Library"
-       version="1.9.1"
+       version="2.0.0"
        provider-name="Team Kodi">
   <requires>
     <import addon="xbmc.metadata" version="2.1.0"/>
@@ -3157,7 +3240,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
   </extension>
 </addon>
 
-    <addon id="repository.blamo" name="[COLOR red]Blamo Repo[/COLOR]" version="0.1.6" provider-name="Mr Blamo">
+    <addon id="repository.blamo" name="[COLOR red]Blamo Repo[/COLOR]" version="0.1.7" provider-name="Mr Blamo">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -3197,7 +3280,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
         </extension>
     </addon>
 
-    <addon id="repository.Atrion" name="Atrions Repo" version="0.3.1" provider-name="AtrionDarnay">
+    <addon id="repository.Atrion" name="Atrions Repo" version="0.3.2" provider-name="AtrionDarnay">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -3259,7 +3342,7 @@ Kodi is a registered trademark of the XBMC Foundation. We are not connected to o
   </extension>
 </addon>
 
-    <addon id="repository.Atrion2" name="Atrions Repo2" version="0.3.1" provider-name="AtrionDarnay">
+    <addon id="repository.Atrion2" name="Atrions Repo2" version="0.3.2" provider-name="AtrionDarnay">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -3318,7 +3401,7 @@ Kodi is a registered trademark of the XBMC Foundation. We are not connected to o
 
 <addon id="metadata.album.universal"
        name="Universal Album Scraper"
-       version="2.7.3"
+       version="2.7.5"
        provider-name="Olympia, Team Kodi">
   <requires>
     <import addon="xbmc.metadata" version="2.1.0"/>
@@ -3455,29 +3538,24 @@ Kodi is a registered trademark of the XBMC Foundation. We are not connected to o
 	</extension>
 </addon>
 
-<addon id="repository.xvbmc" name=" [COLOR lime][B]X[/B][/COLOR]vBMC (Add-ons) REPOsitory" version="4.2.1" provider-name="XvBMC Nederland">
+<addon id="repository.xvbmc" name=" [COLOR lime][B]X[/B][/COLOR]vBMC (Add-ons) REPOsitory [COLOR maroon](shutdown)[/COLOR]" version="4.2.3" provider-name="XvBMC Nederland (shutdown)">
     <extension point="xbmc.addon.repository" name=" [COLOR lime][B]X[/B][/COLOR]vBMC (Add-ons) REPOsitory">
-        <dir>
+    <!--<dir>
             <info compressed="false">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml</info>
             <checksum>https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml.md5</checksum>
             <datadir zip="true">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/</datadir>
             <hashes>false</hashes>
-        </dir>
-    <!--<dir>
-            <info compressed="false">https://raw.githubusercontent.com/noobsandnerds/modules4all/master/zips/addons.xml</info>
-            <checksum>https://raw.githubusercontent.com/noobsandnerds/modules4all/master/zips/addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.githubusercontent.com/noobsandnerds/modules4all/master/zips/</datadir>
         </dir>-->
-        <dir>
+    <!--<dir>
             <info compressed="false">https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml</info>
             <checksum>https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml.md5</checksum>
             <datadir zip="true">https://raw.githubusercontent.com/jsergio123/zips/master/</datadir>
-        </dir>
-        <dir>
+        </dir>-->
+    <!--<dir>
             <info compressed="false">https://github.com/tvaddonsco/tva-resolvers-repo/raw/master/addons.xml</info>
             <checksum>https://github.com/tvaddonsco/tva-resolvers-repo/raw/master/addons.xml.md5</checksum>
             <datadir zip="true">https://github.com/tvaddonsco/tva-resolvers-repo/raw/master/zips/</datadir>
-        </dir>
+        </dir>-->
         <dir>
             <info compressed="false">https://raw.githubusercontent.com/XvBMC/repository.xvbmc/master/Dependencies/xvbmc-addons.xml</info>
             <checksum>https://raw.githubusercontent.com/XvBMC/repository.xvbmc/master/Dependencies/xvbmc-addons.xml.md5</checksum>
@@ -3502,19 +3580,23 @@ Kodi is a registered trademark of the XBMC Foundation. We are not connected to o
             <hashes>false</hashes>
     </extension>
     <extension point="xbmc.addon.metadata">
-        <summary lang="en">XvBMC The Netherlands (Add-ons) REPOsitory #DUTCH #NL</summary>
-        <summary lang="nl">XvBMC Nederland (Add-ons) REPOsitory #NL #DUTCH</summary>
-        <description lang="en">XvBMC The Netherlands (Add-ons) Repository | XvBMC-NL (Add-on) Depot  |  be sure to check out our FB-page: http://bit.ly/XvBMC-NL !!! USE AT YOUR OWN RISK !!!</description>
-        <description lang="nl">XvBMC Nederland (Add-ons) Repository | XvBMC-NL (Add-on) Depot  |  en volg zeker ook onze Facebook pagina: http://bit.ly/XvBMC-NL !!! USE AT YOUR OWN RISK !!!</description>
-        <disclaimer lang="en">The owners and submitters to this repository do not host or distribute any of the content displayed by these add-ons nor do they have any affiliation with its content. Please Read: https://raw.githubusercontent.com/XvBMC/repository.xvbmc/master/LICENSE ...just because you can  ;)  !!! USE-AT-YOUR-OWN-RISK !!!</disclaimer>
-        <disclaimer lang="nl">The owners and submitters to this repository do not host or distribute any of the content displayed by these add-ons nor do they have any affiliation with its content. Please Read: https://raw.githubusercontent.com/XvBMC/repository.xvbmc/master/LICENSE ...just because you can  ;)  !!! USE-AT-YOUR-OWN-RISK !!!</disclaimer>
+        <summary lang="en">XvBMC The Netherlands (Add-ons) REPOsitory #DUTCH #NL (SHUTDOWN)</summary>
+        <summary lang="nl">XvBMC Nederland (Add-ons) REPOsitory #NL #DUTCH (gestopt en gesloten)</summary>
+        <description lang="en">XvBMC The Netherlands (Add-ons) Repository | XvBMC-NL (Add-on) Depot  |  UsagePolicy; https://bit.ly/Disclaimer_XvBMC-NL !!! USE AT YOUR OWN RISK !!! ***CLOSED***</description>
+        <description lang="nl">'XvBMC Nederland' heeft moeten besluiten met deze pagina te stoppen en op slot te zetten (per 26-07-2018), ook de 'XvBMC Repository' is per ommegaande offline, cq. leeggehaald waardoor deze niet meer bruikbaar zal zijn.
+
+De(ze) 'repo' zal alleen worden "vastgehouden" ter voorkoming van kaping in- en onder onze naam, een en ander om eventuele misstanden te voorkomen.</description>
+        <disclaimer lang="en">**DOWN!** The owners and submitters to this repository do not host or distribute any of the content displayed by these add-ons nor do they have any affiliation with its content. Please Read: https://bit.ly/Disclaimer_XvBMC-NL ...just because you can  ;)  !!! USE-AT-YOUR-OWN-RISK !!!</disclaimer>
+        <disclaimer lang="nl">*GESTOPT* The owners and submitters to this repository do not host or distribute any of the content displayed by these add-ons nor do they have any affiliation with its content. Please Read: https://bit.ly/Disclaimer_XvBMC-NL ...just because you can  ;)  !!! USE-AT-YOUR-OWN-RISK !!! ***SHUTDOWN INFO: https://github.com/EPiC-APOC/repository.xvbmc/blob/master/README.md</disclaimer>
         <platform>all</platform>
         <license>GNU GENERAL PUBLIC LICENSE. Version 3, June 2007</license>
-        <forum>https://www.fb.com/groups/XvBMCnederland/</forum>
-        <website>http://bit.ly/XvBMC-NL</website>
-        <source>https://archive.org/download/repository.xvbmc/</source>
-        <size>946176</size>
-        <news>Release v4.2.1 Mo' XvBMC VoOdOo...</news>
+        <forum>http://bit.ly/XvBMC-NL</forum>
+        <website>https://github.com/EPiC-APOC/repository.xvbmc/blob/master/README.md</website>
+        <source>https://bit.ly/Disclaimer_XvBMC-NL</source>
+        <size>937984</size>
+        <news>'XvBMC Nederland' heeft moeten besluiten met deze pagina te stoppen en op slot te zetten (per 26-07-2018), ook de 'XvBMC Repository' is per ommegaande offline, cq. leeggehaald waardoor deze niet meer bruikbaar zal zijn.
+
+De(ze) 'repo' zal alleen worden "vastgehouden" ter voorkoming van kaping in- en onder onze naam, een en ander om eventuele misstanden te voorkomen.</news>
         <assets>
             <icon>icon.png</icon>
             <fanart>fanart.jpg</fanart>
@@ -3813,7 +3895,7 @@ Kodi is a registered trademark of the XBMC Foundation. We are not connected to o
 	</extension>
 </addon>
 
-<addon id="script.module.urlresolver" name="URLResolver" version="5.0.20" provider-name="tvaddons">
+<addon id="script.module.urlresolver" name="URLResolver" version="5.0.21" provider-name="tvaddons">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 		<import addon="plugin.video.youtube" optional="true" />

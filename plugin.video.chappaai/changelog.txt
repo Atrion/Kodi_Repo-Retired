@@ -1,3 +1,5 @@
+vG.0.8
+- 18 Compatible
 vG.0.7
 - All API keys replaced
 - Little Tweak

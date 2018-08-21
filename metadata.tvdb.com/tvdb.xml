@@ -85,7 +85,7 @@
 	<!-- output: <results><entity><title>*</title><year>*</year><language>*</language><url>*</url><id>*</id></entity>*</results> -->
 	<GetSearchResultsAuth dest="6" clearbuffers="no">
 		<RegExp input="$$1" output="&lt;series&gt;&lt;id&gt;\3&lt;/id&gt;&lt;seriesName&gt;\4&lt;/seriesName&gt;&lt;aliases&gt;\1&lt;/aliases&gt;&lt;firstAired&gt;\2&lt;/firstAired&gt;&lt;/series&gt;" dest="4">
-			<expression repeat="yes" fixchars="1,4">"aliases":\s*?\[([^]]*)\],\s*?"banner":\s*?"[^"]*",\s*?"firstAired":\s*?"([^"]*)",\s*?"id":\s*?(\d+),\s*?"network":\s*?"[^"]*",\s*?"overview":\s*?(?:"[^}]*"|null),\s*?"seriesName":\s*?"([^}]*)",</expression>
+			<expression repeat="yes" fixchars="1,4">"aliases":\s*?\[([^]]*)\],\s*?"banner":\s*?"[^"]*",\s*?"firstAired":\s*?"([^"]*)",\s*?"id":\s*?(\d+),\s*?"network":\s*?"[^"]*",\s*?"overview":\s*?(?:"[^}]*"|null),\s*?"seriesName":\s*?"([^}]*)",\s*?"slug":\s*?"[^"]*"</expression>
 		</RegExp>
 		<RegExp input="" output="" dest="6">
 			<expression/>
@@ -339,7 +339,7 @@
 	<LoadArt dest="3" clearbuffers="no">		
 		<RegExp input="$$1" output="&lt;details&gt;&lt;!-- $$16 \1 loaded --&gt;&lt;/details&gt;" dest="3">
 			<RegExp input="$$1" output="&lt;Banner&gt;&lt;id&gt;\1&lt;/id&gt;&lt;keyType&gt;\2&lt;/keyType&gt;&lt;subKey&gt;\3&lt;/subKey&gt;&lt;fileName&gt;\4&lt;/fileName&gt;&lt;resolution&gt;\5&lt;/resolution&gt;&lt;average&gt;\6&lt;/average&gt;&lt;thumbnail&gt;\7&lt;/thumbnail&gt;&lt;language&gt;$$16&lt;/language&gt;&lt;/Banner&gt;" dest="10+">
-				<expression repeat="yes">"id":\s*?(\d+),\s*?"keyType":\s*?"([^"]+)",\s*?"subKey":\s*?"([^"]*)",\s*?"fileName":\s*?"([^"]+)",\s*?"resolution":\s*?"([^"]*)",\s*?"ratingsInfo":\s*?{\s*?"average":\s*?(?:([\d\.]+)|null),\s*?"count":\s*?\d+\s*?},\s*?"thumbnail":\s*?"([^"]*?)"</expression>
+				<expression repeat="yes">"id":\s*?(\d+),\s*?"keyType":\s*?"([^"]+)",\s*?"subKey":\s*?"([^"]*)",\s*?"fileName":\s*?"([^"]+)","languageId":\s*?\d+,\s*?"resolution":\s*?"([^"]*)",\s*?"ratingsInfo":\s*?{\s*?"average":\s*?(?:([\d\.]+)|null),\s*?"count":\s*?\d+\s*?},\s*?"thumbnail":\s*?"([^"]*?)"</expression>
 			</RegExp>
 			<expression noclean="1">"keyType":\s*?"([^"]+)",</expression>
 		</RegExp>
@@ -488,8 +488,8 @@
 	</GetEpisodeListAuth>
 	<LoadEpisodeList dest="4" clearbuffers="no">
 		<RegExp input="" output="&lt;episodeguide&gt;&lt;/episodeguide&gt;" dest="4">
-			<RegExp input="$$1" output="&lt;Episode&gt;&lt;absolute_number&gt;\1&lt;/absolute_number&gt;&lt;EpisodeNumber&gt;\2&lt;/EpisodeNumber&gt;&lt;SeasonNumber&gt;\3&lt;/SeasonNumber&gt;&lt;DVD_episodenumber&gt;\4&lt;/DVD_episodenumber&gt;&lt;DVD_season&gt;\5&lt;/DVD_season&gt;&lt;EpisodeName&gt;\6&lt;/EpisodeName&gt;&lt;FirstAired&gt;\7&lt;/FirstAired&gt;&lt;id&gt;\8&lt;/id&gt;&lt;Overview&gt;\9&lt;/Overview&gt;&lt;filename&gt;episodes/$$18/\8.jpg&lt;/filename&gt;&lt;/Episode&gt;" dest="11+">
-				<expression fixchars="6,9" repeat="yes">"absoluteNumber":\s*?(?:(\d+)|null),\s*?"airedEpisodeNumber":\s*?(\d+),\s*?"airedSeason":\s*?(\d+),\s*?"airedSeasonID":\s*?\d+,\s*?"dvdEpisodeNumber":\s*?(?:([\d\.]+)|null),\s*?"dvdSeason":\s*?(?:(\d+)|null),\s*?"episodeName":\s*?(?:"([^}]*)"|null),\s*?"firstAired":\s*?(?:"([^"]*)"|null),\s*?"id":\s*?(\d+),\s*?"language":\s*?{[^}]+},\s*?"lastUpdated":\s*?\d+,\s*?"overview":\s*?(?:"([^}]*)"|null)\s*?}</expression>
+			<RegExp input="$$1" output="&lt;Episode&gt;&lt;absolute_number&gt;\9&lt;/absolute_number&gt;&lt;EpisodeNumber&gt;\3&lt;/EpisodeNumber&gt;&lt;SeasonNumber&gt;\2&lt;/SeasonNumber&gt;&lt;DVD_episodenumber&gt;\8&lt;/DVD_episodenumber&gt;&lt;DVD_season&gt;\7&lt;/DVD_season&gt;&lt;EpisodeName&gt;\4&lt;/EpisodeName&gt;&lt;FirstAired&gt;\5&lt;/FirstAired&gt;&lt;id&gt;\1&lt;/id&gt;&lt;Overview&gt;\6&lt;/Overview&gt;&lt;filename&gt;\10&lt;/filename&gt;&lt;/Episode&gt;" dest="11+">
+				<expression fixchars="4,6" repeat="yes">{"id":\s*?(\d+),"airedSeason":\s*?(\d+),"airedSeasonID":\s*?\d+,"airedEpisodeNumber":\s*?(\d+),"episodeName":\s*?(?:"([^}]*)"|null),"firstAired":\s*?(?:"([^"]*)"|null),[^{]*?\s*?"overview":\s*?(?:"([^}]*)"|null),"language":\s*?{[^}]+},[^{]*?,"dvdSeason":\s*?(?:(\d+)|null),"dvdEpisodeNumber":\s*?(?:([\d\.]+)|null),"dvdChapter":\s*?(?:\d+|null),"absoluteNumber":\s*?(?:(\d+)|null),"filename":(?:"([^"]*)"|null),</expression>
 			</RegExp>
 			<RegExp input="$$11" output="yes" dest="20">
 				<expression clear="yes">(?!^$)</expression>
@@ -740,19 +740,19 @@
 			</RegExp>
 			<RegExp input="$$9," output="&lt;credits&gt;\1&lt;/credits&gt;" dest="10+">
 				<RegExp input="$$1" output="\1" dest="9">
-					<expression>"writers":\s*?\[([^]]*)\],</expression>
+					<expression clear="yes">"writers":\s*?\[([^]]*)\],</expression>
 				</RegExp>
 				<expression fixchars="1" repeat="yes">"([^"]*)",</expression>
 			</RegExp>
 			<RegExp input="$$9," output="&lt;director&gt;\1&lt;/director&gt;" dest="10+">
 				<RegExp input="$$1" output="\1" dest="9">
-					<expression>"directors":\s*?\[([^]]*)\],</expression>
+					<expression clear="yes">"directors":\s*?\[([^]]*)\],</expression>
 				</RegExp>
 				<expression fixchars="1" repeat="yes">"([^"]*)",</expression>
 			</RegExp>
 			<RegExp input="$$9," output="&lt;actor&gt;&lt;name&gt;\1&lt;/name&gt;&lt;/actor&gt;" dest="10+">
 				<RegExp input="$$1" output="\1" dest="9">
-					<expression>"guestStars":\s*?\[\s*?"([^]]*)"\s*?\],</expression>
+					<expression clear="yes">"guestStars":\s*?\[\s*?"([^]]*)"\s*?\],</expression>
 				</RegExp>
 				<expression fixchars="1" repeat="yes">([^,"]+)[,"\s]+</expression>
 			</RegExp>

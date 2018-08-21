@@ -65,6 +65,13 @@ def get_tvshow_window(window_type):
             self.close()
             xbmc.executebuiltin("ActivateWindow(videos,videodb://tvshows/titles/%s/)" % (self.dbid))
 
+        @ch.click(122)
+        def trakt_manager_dialog(self):
+            name = self.info.get("title", "")
+            item_id = self.info.get("id", "")
+            content = "tvshow"
+            xbmc.executebuiltin("RunScript(script.extendedinfo,info=traktManager,name=%s,tmdb=%s,content=%s)" % (name, item_id, content))
+            
         @ch.action("contextmenu", 150)
         def right_click_similar(self):
             item_id = self.listitem.getProperty("id")

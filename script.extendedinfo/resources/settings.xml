@@ -27,4 +27,10 @@
 		<setting label="32161" type="text" id="tmdb_password" option="hidden"/>
 		<setting label="32162" type="bool" id="include_adults"/>
 	</category>
+    <category label="Trakt">
+        <setting id="trakt.user" type="action" label="32250" option="close" action="RunScript(script.extendedinfo,info=authTrakt)" />
+        <setting id="trakt_debug" type="bool" label="Enable Trakt Debug" default="false" />
+        <setting id="trakt.token" type="text" visible="false" label="" default="" />
+        <setting id="trakt.refresh" type="text" visible="false" label="" default="" />
+    </category>
 </settings>

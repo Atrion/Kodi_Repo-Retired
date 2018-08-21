@@ -1035,3 +1035,59 @@ msgstr ""
 msgctxt "#32249"
 msgid "All TV-Shows"
 msgstr ""
+
+msgctxt "#32250"
+msgid "Authorization..."
+msgstr ""
+
+msgctxt "#32251"
+msgid "An account already exists."
+msgstr ""
+
+msgctxt "#32252"
+msgid "Do you want to reset?"
+msgstr ""
+
+msgctxt "#32253"
+msgid "1) Visit : [COLOR skyblue]%s[/COLOR]"
+msgstr ""
+
+msgctxt "#32254"
+msgid "2) When prompted enter : [COLOR skyblue]%s[/COLOR]"
+msgstr ""
+
+msgctxt "#32255"
+msgid "Trakt Manager"
+msgstr ""
+
+msgctxt "#32256"
+msgid "Add to [B]Collection[/B]"
+msgstr ""
+
+msgctxt "#32257"
+msgid "Remove from [B]Collection[/B]"
+msgstr ""
+
+msgctxt "#32258"
+msgid "Add to [B]Watchlist[/B]"
+msgstr ""
+
+msgctxt "#32259"
+msgid "Remove from [B]Watchlist[/B]"
+msgstr ""
+
+msgctxt "#32260"
+msgid "Add to [B]new List[/B]"
+msgstr ""
+
+msgctxt "#32261"
+msgid "Add to [B]%s[/B]"
+msgstr ""
+
+msgctxt "#32262"
+msgid "Remove from [B]%s[/B]"
+msgstr ""
+
+msgctxt "#32262"
+msgid "Process Complete"
+msgstr ""

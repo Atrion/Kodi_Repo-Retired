@@ -223,6 +223,13 @@ def get_movie_window(window_type):
             url = "plugin://plugin.video.chappaai/movies/tmdb/search_term/%s/1" % self.info.get("title", "")
             self.close()
             xbmc.executebuiltin("ActivateWindow(videos,%s,return)" % url)
+            
+        @ch.click(122)
+        def trakt_manager_dialog(self):
+            name = self.info.get("title", "")
+            item_id = self.info.get("id", "")
+            content = "movie"
+            xbmc.executebuiltin("RunScript(script.extendedinfo,info=traktManager,name=%s,tmdb=%s,content=%s)" % (name, item_id, content))
 
         @ch.click(132)
         def show_plot(self):

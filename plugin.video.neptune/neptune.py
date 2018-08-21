@@ -176,6 +176,11 @@ elif action == 'viewsNavigator':
 elif action == 'clearCache':
     from resources.lib.indexers import navigator
     navigator.navigator().clearCache()
+	
+elif action == 'urlResolver':
+    try: import resolveurl
+    except: pass
+    resolveurl.display_settings()	
 
 elif action == 'infoCheck':
     from resources.lib.indexers import navigator

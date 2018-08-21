@@ -16,12 +16,22 @@ RunScript(script.extendedinfo,info=list,type=movie)     --> Starts script with m
     - set query to "qqqqq" to force keyboard
   - optional additional parameter: iquery=              --> Executes custom iSearch using movie-list (~/resources/extras/movie/favourites.xml)
     - set iquery to "qqqqq" to force keyboard
+  - optional additional parameter: mode=
+    - available modes:  incinemas, upcoming,            --> Loads the associated TMDB list fully paged
+                        popularmovies, topratedmovies 
+                        
+                        userlists, genres, opensearch   --> Opens the associated dialog
 
 RunScript(script.extendedinfo,info=list,type=tv)        --> Starts script with tv-type
   - optional additional parameter: query=
     - set query to "qqqqq" to force keyboard
   - optional additional parameter: iquery=              --> Executes custom iSearch using tv-list (~/resources/extras/tv/favourites.xml)
     - set iquery to "qqqqq" to force keyboard
+  - optional additional parameter: mode=
+    - available modes: populartvshows, topratedtvshows, --> Loads the associated TMDB list fully paged
+                       onairtvshows, airingtodaytvshows
+                       
+                       userlists, genres, opensearch    --> Opens the associated dialog
 
 RunScript(script.extendedinfo,info=list,iquery=)        --> Executes custom iSearch using total list (~/resources/extras/total/favourites.xml)
   - set iquery to "qqqqq" to force keyboard

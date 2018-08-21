@@ -665,6 +665,9 @@ def get_image_urls(poster=None, still=None, fanart=None, profile=None):
 
 
 def get_movie_tmdb_id(imdb_id=None, name=None, dbid=None):
+    # Aeon Nox Silvo skin (maybe others) has this appended to the id when bringing up the info screen for movies
+    if imdb_id.find("xx",0,2) != -1:
+        imdb_id = imdb_id.replace("xx","")
     if dbid and (int(dbid) > 0):
         movie_id = get_imdb_id_from_db("movie", dbid)
         log("IMDB Id from local DB: %s" % (movie_id))
@@ -1274,7 +1277,7 @@ def get_similar_tvshows(tvshow_id):
 def get_tmdb_shows(tvshow_type):
     '''
     return list with tv shows
-    available types: airing, on_the_air, top_rated, popular
+    available types: airing_today, on_the_air, top_rated, popular
     '''
     response = get_tmdb_data("tv/%s?language=%s&" % (tvshow_type, SETTING("LanguageID")), 0.3)
     if "results" in response:

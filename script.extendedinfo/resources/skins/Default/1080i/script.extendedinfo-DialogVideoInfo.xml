@@ -810,6 +810,30 @@
                                 <visible>!IsEmpty(Window.Property(tmdb_logged_in))</visible>
                                 <visible>!StringCompare(Window.Property(type),season) + !StringCompare(Window.Property(type),TVShow)</visible>
                             </control>
+                            <control type="radiobutton" id="122">
+                                <label>$ADDON[script.extendedinfo 32255]</label>
+                                <textureradioonfocus colordiffuse="FFFAFAFA">icons/trakt.png</textureradioonfocus>
+                                <textureradioofffocus colordiffuse="FFFAFAFA">icons/trakt.png</textureradioofffocus>
+                                <textureradiooffnofocus colordiffuse="FF999999">icons/trakt.png</textureradiooffnofocus>
+                                <textureradioonnofocus colordiffuse="FF999999">icons/trakt.png</textureradioonnofocus>
+                                <width>280</width>
+                                <height>140</height>
+                                <textoffsetx>0</textoffsetx>
+                                <align>center</align>
+                                <texturefocus border="40" colordiffuse="$INFO[Skin.String(WindowColorThemed)]">buttons/roundedbutton-focus.png</texturefocus>
+                                <texturenofocus border="40" colordiffuse="$INFO[Skin.String(WindowColorThemed)]">buttons/roundedbutton-nofocus.png</texturenofocus>
+                                <font>font13</font>
+                                <textcolor>FF999999</textcolor>
+                                <focusedcolor>FFFAFAFA</focusedcolor>
+                                <aligny>bottom</aligny>
+                                <textoffsety>77</textoffsety>
+                                <radioposx>118</radioposx>
+                                <radioposy>30</radioposy>
+                                <radiowidth>44</radiowidth>
+                                <radioheight>44</radioheight>
+                                <visible>!IsEmpty(Window.Property(trakt_account))</visible>
+                                <visible>Stringcompare(Window.Property(Type),tvshow) | Stringcompare(Window.Property(Type),movie)</visible>
+                            </control>
                             <control type="radiobutton" id="100">
                                 <width>280</width>
                                 <height>140</height>

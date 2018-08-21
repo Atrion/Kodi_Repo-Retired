@@ -11,6 +11,8 @@ from DialogBaseList import DialogBaseList
 from ..WindowManager import wm
 from ..OnClickHandler import OnClickHandler
 from ..import VideoPlayer
+from ..tmtools import log_utils
+from ..TraktManager import *
 PLAYER = VideoPlayer.VideoPlayer()
 
 ch = OnClickHandler()
@@ -50,6 +52,7 @@ def get_tmdb_window(window_type):
             self.sort_label = kwargs.get('sort_label', LANG(32110))
             self.order = kwargs.get('order', "desc")
             self.logged_in = check_login()
+            self.trakt_account = getTraktCredentialsInfo()
             if self.listitem_list:
                 self.listitems = create_listitems(self.listitem_list)
                 self.total_items = len(self.listitem_list)
@@ -128,20 +131,29 @@ def get_tmdb_window(window_type):
                 if xbmc.getCondVisibility("system.hasaddon(plugin.video.trakt_list_manager)"): listitems += [LANG(32253)]
             if self.type == "tv" and xbmc.getCondVisibility("system.hasaddon(plugin.video.sickrage)"):
                 listitems += [LANG(32166)]
+            if self.trakt_account and ( self.type == 'movie' or self.type == 'tv' ):
+                listitems += [LANG(32255)]
             selection = xbmcgui.Dialog().select(heading=LANG(32151), list=listitems)
-            if selection == 0:
+            if selection != -1 and listitems[selection] == LANG(32255):
+                name = self.listitem.getProperty("title")
+                if self.type == "movie":
+                    content = "movie"
+                else:
+                    content = "tvshow"
+                xbmc.executebuiltin("RunScript(script.extendedinfo,info=traktManager,name=%s,tmdb=%s,content=%s)" % (name, item_id, content))
+            elif selection == 0:
                 if self.type == "tv" or self.type == "episode":
                     if self.listitem.getProperty("dbid"):
                         show_playlist = xbmc.translatePath("special://profile/playlists/video/%s.xsp" % (tvdb_id, SETTING("player_alt")))
                         if os.path.exists(show_playlist):
                             url = show_playlist
-                        else: url = 'plugin://plugin.video.chappaai/tv/play/%s/1/1/%s' % (tvdb_id, SETTING("player_alt"))
-                    else: url = 'plugin://plugin.video.chappaai/tv/play/%s/1/1/%s' % (tvdb_id, SETTING("player_alt"))
+                        else: url = 'plugin://plugin.video.chappaai/tv/play/%s/1/1/library' % (tvdb_id)
+                    else: url = 'plugin://plugin.video.chappaai/tv/play/%s/1/1/library' % (tvdb_id)
                 else:
                     if self.listitem.getProperty("dbid"): url = 'temp'
-                    else: url = 'plugin://plugin.video.chappaai/movies/play/tmdb/%s/%s' % (item_id, SETTING("player_alt"))
+                    else: url = 'plugin://plugin.video.chappaai/movies/play/tmdb/%s/library' % (item_id)
                 PLAYER.qlickplay(url, listitem=None, dbid=dbid, window=self)
-            if selection == 1:
+            elif selection == 1:
                 if self.type == "tv" or self.type == "episode":
                     TVLibrary   = chappaai.getSetting("tv_library_folder")
                     TVPlaylists = chappaai.getSetting("tv_playlist_folder")
@@ -177,12 +189,12 @@ def get_tmdb_window(window_type):
                 after_add(type=self.type)
                 self.update(force_update=True)
                 self.getControl(500).selectItem(self.position)
-            if selection == 2:
+            elif selection == 2:
                 if self.type == "tv": url = "plugin://script.extendedinfo/?info=playtvtrailer&id=%s" % item_id
                 elif self.type == "episode": url = "plugin://script.extendedinfo/?info=playtvtrailer&tvdb_id=%s" % tvdb_id
                 elif self.type == "movie": url = "plugin://script.extendedinfo/?info=playtrailer&id=%s" % item_id
                 PLAYER.qlickplay(url, listitem=None, dbid=0, window=self)
-            if selection == 3:
+            elif selection == 3:
                 if self.logged_in:
                     if self.type == "tv" or self.type == "movie":
                         if set_rating_prompt(self.type, item_id):
@@ -573,6 +585,22 @@ def get_tmdb_window(window_type):
                                 "total_results": 0}
                     url = "guest_session/%s/rated_movies?language=%s&" % (session_id, SETTING("LanguageID"))
                 self.filter_label = rated
+            elif self.mode == 'incinemas':
+                url = "movie/now_playing?language=%s&page=%i&" % (SETTING("LanguageID"), int(self.page))
+            elif self.mode == 'upcoming':
+                url = "movie/upcoming?language=%s&page=%i&" % (SETTING("LanguageID"), int(self.page))
+            elif self.mode == 'popularmovies':
+                url = "movie/popular?language=%s&page=%i&" % (SETTING("LanguageID"), int(self.page))
+            elif self.mode == 'topratedmovies':
+                url = "movie/top_rated?language=%s&page=%i&" % (SETTING("LanguageID"), int(self.page))
+            elif self.mode == 'populartvshows':
+                url = "tv/popular?language=%s&page=%i&" % (SETTING("LanguageID"), int(self.page))
+            elif self.mode == 'topratedtvshows':
+                url = "tv/top_rated?language=%s&page=%i&" % (SETTING("LanguageID"), int(self.page))
+            elif self.mode == 'onairtvshows':
+                url = "tv/on_the_air?language=%s&page=%i&" % (SETTING("LanguageID"), int(self.page))
+            elif self.mode == 'airingtodaytvshows':
+                url = "tv/airing_today?language=%s&page=%i&" % (SETTING("LanguageID"), int(self.page))
             else:
                 self.set_filter_url()
                 self.set_filter_label()

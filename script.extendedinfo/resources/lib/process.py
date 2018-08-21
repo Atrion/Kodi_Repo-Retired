@@ -28,6 +28,15 @@ def start_info_actions(infos, params):
         params["imdb_id"] = params["imdbid"]
     for info in infos:
         data = [], ""
+        if info == 'authTrakt':
+            from TraktManager import authTrakt
+            authTrakt()
+            return
+        if info == 'traktManager':
+            from TraktManager import manager
+            if params["name"] and params["tmdb"] and params["content"]:
+                manager( params["name"], params["tmdb"], params["content"] )
+            return
         #  Images
         if info == 'xkcd':
             from MiscScraper import get_xkcd_images
@@ -552,6 +561,9 @@ def start_info_actions(infos, params):
                     else:
                         xbmc.executebuiltin('ReplaceWindow(10025,plugin://plugin.program.super.favourites/?label=TotalSearch&mode=400&path=special://home/addons/script.extendedinfo/resources/extras/total/)')
                         xbmc.executebuiltin("Dialog.Close(all,true)")
+                elif params.get("mode", ""):
+                    wm.open_video_list(media_type=params.get("type", ""),
+                                       mode=params.get("mode", ""))
                 else:
                     wm.open_video_list(media_type=params.get("type", ""),
                                        mode="filter")
