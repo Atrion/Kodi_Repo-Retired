@@ -1,6 +1,11 @@
-Version 3.4.1 released 2014-04-13
+Version 3.4.2
+* see: v3.4.1;
+  this is to overwrite malicious 'script.module.simplejson-3.4.1'
 
-* Native setuptools fixed
+Version 3.4.1
+!! do NOT use Gaia's fake 3.4.1 version;
+-> includes Cryptocurrency-mining malware:
+=> 'script.module.python.requests'
 
 Version 3.4.0 released 2014-04-02
 

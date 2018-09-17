@@ -1,3 +1,31 @@
+[B]Version 5.0.22 (August 21, 2018)[/B]
+- Code Base Changes:
+    - jsunpack
+    - common
+- Resolvers Added:
+    - unitplay
+    - tocloud
+    - videozupload
+- Resolvers Fixed/Updated:
+	- anyfiles
+	- daclips
+	- ecostream
+	- fileweed
+	- hugefiles
+	- movpod
+	- mp4stream
+	- openload
+    - powvideo
+    - putvid
+    - rapidvideocom
+    - teramixer
+    - uptobox
+    - vk
+- Resolvers Removed
+    - rapidvideo
+- Languages Added/Updated
+    - None
+
 [B]Version 5.0.21 (August 08, 2018)[/B]
 - Code Base Changes:
     - None

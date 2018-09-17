@@ -1,33 +1,3 @@
-[B]Version 4.2.2+3[/B]
-- SHUTDOWN / DOWN \ CLOSED
-+ https://github.com/EPiC-APOC/repository.xvbmc/blob/master/README.md
-
-[B]Version 4.2.1[/B]
-- XvBMC Nederland No Mo' NaN :'(
-
-[B]Version 4.2.0[/B]
-- XvBMC Nederland Look'N'Feel VoOdOo 3:-)
-
-[B]Version 4.1.0[/B]
-- XvBMC Nederland VoOdOo ;-p
-
-[B]Version 4.0.2[/B]
-- XvBMC Maintenance Release...
-
-[B]Version 4.0.1[/B]
-- XvBMC code cosmetics VooDoo ;-P
-
-[B]Version 4.0.0[/B]
-- XvBMC VooDoo stuff ;-P
-
-[B]Version 3.0.1[/B]
-- v3 code cosmetics ;-P 
-
-[B]Version 3.0.0[/B]
-- v3 code cosmetics :P 
-
-[B]Version 2.0.0[/B]
-- v2 code cosmetics ;) 
-
-[B]Version 1.0.0[/B]
-- initial release :D 
+XvBMC Nederland
+ - SHUTDOWN / DOWN \ CLOSED / GESTOPT \ GESTAAKT / TERMINATED \ DONE !
+ + https://github.com/EPiC-APOC/repository.xvbmc/blob/master/README.md

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.xvbmc" name=" [COLOR lime][B]X[/B][/COLOR]vBMC (Add-ons) REPOsitory [COLOR maroon](shutdown)[/COLOR]" version="4.2.3" provider-name="XvBMC Nederland (shutdown)">
+<addon id="repository.xvbmc" name=" [COLOR lime][B]X[/B][/COLOR]vBMC (Add-ons) REPOsitory [COLOR maroon](shutdown)[/COLOR]" version="4.2.5" provider-name="XvBMC Nederland (closed)">
     <extension point="xbmc.addon.repository" name=" [COLOR lime][B]X[/B][/COLOR]vBMC (Add-ons) REPOsitory">
     <!--<dir>
             <info compressed="false">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml</info>
@@ -35,15 +35,41 @@
             <datadir zip="true">https://raw.githubusercontent.com/XvBMC/repository.xvbmc/master/REPOsitory/zips/</datadir>
             <hashes>false</hashes>
         </dir>
+        <dir>
             <info compressed="false">https://raw.githubusercontent.com/XvBMC/repository.xvbmc/master/xvbmc-addons.xml</info>
             <checksum>https://raw.githubusercontent.com/XvBMC/repository.xvbmc/master/xvbmc-addons.xml.md5</checksum>
             <datadir zip="true">https://raw.githubusercontent.com/XvBMC/repository.xvbmc/master/zips/</datadir>
             <hashes>false</hashes>
+        </dir>
+        <dir>
+            <info compressed="false">https://bitbucket.org/toetu/repository/raw/master/Dependencies/xvbmc-addons.xml</info>
+            <checksum>https://bitbucket.org/toetu/repository/raw/master/Dependencies/xvbmc-addons.xml.md5</checksum>
+            <datadir zip="true">https://bitbucket.org/toetu/repository/raw/master/Dependencies/zips/</datadir>
+            <hashes>false</hashes>
+        </dir>
+        <dir>
+            <info compressed="false">https://bitbucket.org/toetu/repository/raw/master/Look-and-Feel/xvbmc-addons.xml</info>
+            <checksum>https://bitbucket.org/toetu/repository/raw/master/Look-and-Feel/xvbmc-addons.xml.md5</checksum>
+            <datadir zip="true">https://bitbucket.org/toetu/repository/raw/master/Look-and-Feel/zips/</datadir>
+            <hashes>false</hashes>
+        </dir>
+        <dir>
+            <info compressed="false">https://bitbucket.org/toetu/repository/raw/master/REPOsitory/xvbmc-addons.xml</info>
+            <checksum>https://bitbucket.org/toetu/repository/raw/master/REPOsitory/xvbmc-addons.xml.md5</checksum>
+            <datadir zip="true">https://bitbucket.org/toetu/repository/raw/master/REPOsitory/zips/</datadir>
+            <hashes>false</hashes>
+        </dir>
+        <dir>
+            <info compressed="false">https://bitbucket.org/toetu/repository/raw/master/xvbmc-addons.xml</info>
+            <checksum>https://bitbucket.org/toetu/repository/raw/master/xvbmc-addons.xml.md5</checksum>
+            <datadir zip="true">https://bitbucket.org/toetu/repository/raw/master/zips/</datadir>
+            <hashes>false</hashes>
+        </dir>
     </extension>
     <extension point="xbmc.addon.metadata">
-        <summary lang="en">XvBMC The Netherlands (Add-ons) REPOsitory #DUTCH #NL (SHUTDOWN)</summary>
-        <summary lang="nl">XvBMC Nederland (Add-ons) REPOsitory #NL #DUTCH (gestopt en gesloten)</summary>
-        <description lang="en">XvBMC The Netherlands (Add-ons) Repository | XvBMC-NL (Add-on) Depot  |  UsagePolicy; https://bit.ly/Disclaimer_XvBMC-NL !!! USE AT YOUR OWN RISK !!! ***CLOSED***</description>
+        <summary lang="en">#SHUTDOWN: XvBMC The Netherlands (Add-ons) REPOsitory</summary>
+        <summary lang="nl">#GESTOPT!: XvBMC Nederland (Addons) REPOsitory (down)</summary>
+        <description lang="en">*CLOSED* XvBMC The Netherlands (Add-ons) Repository | XvBMC-NL (Add-on) Depot  |  UsagePolicy; https://bit.ly/Disclaimer_XvBMC-NL !!! USE AT YOUR OWN RISK !!!</description>
         <description lang="nl">'XvBMC Nederland' heeft moeten besluiten met deze pagina te stoppen en op slot te zetten (per 26-07-2018), ook de 'XvBMC Repository' is per ommegaande offline, cq. leeggehaald waardoor deze niet meer bruikbaar zal zijn.
 
 De(ze) 'repo' zal alleen worden "vastgehouden" ter voorkoming van kaping in- en onder onze naam, een en ander om eventuele misstanden te voorkomen.</description>
@@ -54,7 +80,7 @@ De(ze) 'repo' zal alleen worden "vastgehouden" ter voorkoming van kaping in- en 
         <forum>http://bit.ly/XvBMC-NL</forum>
         <website>https://github.com/EPiC-APOC/repository.xvbmc/blob/master/README.md</website>
         <source>https://bit.ly/Disclaimer_XvBMC-NL</source>
-        <size>937984</size>
+        <size>942080</size>
         <news>'XvBMC Nederland' heeft moeten besluiten met deze pagina te stoppen en op slot te zetten (per 26-07-2018), ook de 'XvBMC Repository' is per ommegaande offline, cq. leeggehaald waardoor deze niet meer bruikbaar zal zijn.
 
 De(ze) 'repo' zal alleen worden "vastgehouden" ter voorkoming van kaping in- en onder onze naam, een en ander om eventuele misstanden te voorkomen.</news>

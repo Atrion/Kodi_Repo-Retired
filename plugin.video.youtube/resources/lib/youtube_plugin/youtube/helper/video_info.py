@@ -6,6 +6,7 @@ from six.moves import urllib
 
 import re
 import json
+import random
 
 import requests
 from ...kodion.utils import is_httpd_live, make_dirs
@@ -401,6 +402,16 @@ class VideoInfo(object):
         self.region = context.get_settings().get_string('youtube.region', 'US')
         self._access_token = access_token
 
+    @staticmethod
+    def generate_cpn():
+        # https://github.com/rg3/youtube-dl/blob/master/youtube_dl/extractor/youtube.py#L1381
+        # LICENSE: The Unlicense
+        # cpn generation algorithm is reverse engineered from base.js.
+        # In fact it works even with dummy cpn.
+        CPN_ALPHABET = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_'
+        cpn = ''.join((CPN_ALPHABET[random.randint(0, 256) & 63] for _ in range(0, 16)))
+        return cpn
+
     def load_stream_infos(self, video_id=None, player_config=None, cookies=None):
         return self._method_get_video_info(video_id, player_config, cookies)
 
@@ -474,7 +485,7 @@ class VideoInfo(object):
 
         return player_config
 
-    def _load_manifest(self, url, video_id, meta_info=None, curl_headers=''):
+    def _load_manifest(self, url, video_id, meta_info=None, curl_headers='', video_stats_url=''):
         headers = {'Host': 'manifest.googlevideo.com',
                    'Connection': 'keep-alive',
                    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36',
@@ -510,7 +521,8 @@ class VideoInfo(object):
                     height = int(re_match.group('height'))
                     video_stream = {'url': line,
                                     'meta': meta_info,
-                                    'headers': curl_headers
+                                    'headers': curl_headers,
+                                    'video_stats_url': video_stats_url
                                     }
                     video_stream.update(yt_format)
                     streams.append(video_stream)
@@ -627,8 +639,6 @@ class VideoInfo(object):
                     image_url = image_url.replace('.jpg', '_live.jpg')
                 meta_info['images'][image_data['to']] = image_url
 
-        meta_info['subtitles'] = Subtitles(self._context, video_id, captions).get_subtitles()
-
         if (params.get('status', '') == 'fail') or (playability_status.get('status', 'ok').lower() != 'ok'):
             if not ((playability_status.get('desktopLegacyAgeGateReason', 0) == 1) and not self._context.get_settings().age_gate()):
                 reason = None
@@ -659,16 +669,27 @@ class VideoInfo(object):
 
                 raise YouTubeException(reason)
 
+        meta_info['subtitles'] = Subtitles(self._context, video_id, captions).get_subtitles()
+
+        video_stats_url = params.get('videostats_playback_base_url', player_args.get('videostats_playback_base_url', ''))
+        if video_stats_url:
+            video_stats_url += '&ver=2&cpn={cpn}'.format(cpn=self.generate_cpn())
+
         if is_live:
             url = params.get('hlsvp', '')
             if url:
-                stream_list = self._load_manifest(url, video_id, meta_info=meta_info, curl_headers=curl_headers)
-
+                stream_list = self._load_manifest(url,
+                                                  video_id,
+                                                  meta_info=meta_info,
+                                                  curl_headers=curl_headers,
+                                                  video_stats_url=video_stats_url)
         httpd_is_live = self._context.get_settings().use_dash_videos() and is_httpd_live(port=self._context.get_settings().httpd_port())
         mpd_url = params.get('dashmpd', player_args.get('dashmpd'))
         s_info = dict()
         if not mpd_url and not is_live and httpd_is_live:
-            mpd_url, s_info = self.generate_mpd(video_id, params.get('adaptive_fmts', player_args.get('adaptive_fmts', '')), params.get('length_seconds', '0'), cipher)
+            mpd_url, s_info = self.generate_mpd(video_id,
+                                                params.get('adaptive_fmts', player_args.get('adaptive_fmts', '')),
+                                                params.get('length_seconds', '0'), cipher)
         use_cipher_signature = 'True' == params.get('use_cipher_signature', None)
         if mpd_url:
             mpd_sig_deciphered = True
@@ -705,7 +726,8 @@ class VideoInfo(object):
                 video_stream = {'url': mpd_url,
                                 'meta': meta_info,
                                 'headers': curl_headers,
-                                'license_info': license_info}
+                                'license_info': license_info,
+                                'video_stats_url': video_stats_url}
 
                 if is_live:
                     video_stream['url'] += '&start_seq=$START_NUMBER$'
@@ -753,7 +775,8 @@ class VideoInfo(object):
 
                     video_stream = {'url': url,
                                     'meta': meta_info,
-                                    'headers': curl_headers}
+                                    'headers': curl_headers,
+                                    'video_stats_url': video_stats_url}
                     video_stream.update(yt_format)
                     stream_list.append(video_stream)
                 elif conn:
@@ -766,7 +789,8 @@ class VideoInfo(object):
 
                     video_stream = {'url': url,
                                     'meta': meta_info,
-                                    'headers': curl_headers}
+                                    'headers': curl_headers,
+                                    'video_stats_url': video_stats_url}
                     video_stream.update(yt_format)
                     if video_stream:
                         stream_list.append(video_stream)
@@ -852,7 +876,7 @@ class VideoInfo(object):
         out = '<?xml version="1.0" encoding="UTF-8"?>\n' + \
               '<MPD xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="urn:mpeg:dash:schema:mpd:2011" xmlns:xlink="http://www.w3.org/1999/xlink" ' + \
               'xsi:schemaLocation="urn:mpeg:dash:schema:mpd:2011 http://standards.iso.org/ittf/PubliclyAvailableStandards/MPEG-DASH_schema_files/DASH-MPD.xsd" ' + \
-              'minBufferTime="PT1.5S" mediaPresentationDuration="PT' + duration + 'S" type="static" availabilityStartTime="2001-12-17T09:40:57Z" profiles="urn:mpeg:dash:profile:isoff-main:2011">\n'
+              'minBufferTime="PT1.5S" mediaPresentationDuration="PT' + duration + 'S" type="static" profiles="urn:mpeg:dash:profile:isoff-main:2011">\n'
         out += '\t<Period>\n'
 
         n = 0

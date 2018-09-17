@@ -2,8 +2,8 @@ import requests,re,time
 import urllib
 import xbmcaddon
 from ..scraper import Scraper
-from ..common import clean_title,clean_search,send_log,error_log
-from ..jsunpack import unpack
+from ..common import clean_search,send_log,error_log
+from ..modules.jsunpack import unpack
 
 dev_log = xbmcaddon.Addon('script.module.universalscrapers').getSetting("dev_log")
 
@@ -52,8 +52,11 @@ class putlockerhd(Scraper):
                         res='720p'
                     else:
                         res='DVD'
-                    count +=1    
-                    self.sources.append({'source': 'Googlelink','quality': res,'scraper': self.name,'url': movie_link,'direct': True})
+                    
+                    check = requests.head(urllib.unquote_plus(link),timeout=3).status_code
+                    if str(check) == '200': 
+                        count +=1  
+                        self.sources.append({'source': 'Googlelink','quality': res,'scraper': self.name,'url': movie_link,'direct': True})
                 if dev_log=='true':
                     end_time = time.time() - start_time
                     send_log(self.name,end_time,count,title,year)   
