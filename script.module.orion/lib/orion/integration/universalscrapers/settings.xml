@@ -1,0 +1,5 @@
+<setting label="Orion" type="lsep" />
+<setting type="sep" />
+<setting id="Orion_enabled" type="bool" label="Enabled" default="true" />
+<setting id="Orion_settings" type="action" label="Settings" option="close" action="RunPlugin(plugin://script.module.orion?action=dialogSettings)" subsetting="true" visible="eq(-1,true)" />
+<setting id="Orion_info" type="enum" label="Label" lvalues="None|All|Provider|Popularity|Age|Popularity & Age" default="1" subsetting="true" visible="eq(-2,true)" />

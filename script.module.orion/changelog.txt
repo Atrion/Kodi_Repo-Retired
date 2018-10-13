@@ -1,0 +1,58 @@
+
+[B]1.2.6 (2018.10.04)[/B]
+- Minor fix for automatic backup.
+- Fixed settings title case.
+
+[B]1.2.5 (2018.10.03)[/B]
+- Added Magicality integration.
+- Added Bodie integration.
+- Added LambdaScrapers integration.
+
+[B]1.2.4 (2018.10.01)[/B]
+- Added automatic settings backup.
+
+[B]1.2.3 (2018.09.29)[/B]
+- Possible solution for settings reset.
+
+[B]1.2.2 (2018.09.26)[/B]
+- Improved scraping time.
+- Fixed dynamic filter saving.
+
+[B]1.2.1 (2018.09.24)[/B]
+- Fixed audio channel filter.
+
+[B]1.2.0 (2018.09.19)[/B]
+- Fixed Incursion integration.
+- Fixed Placenta integration.
+- Added Covenant integration.
+- Added Yoda integration.
+
+[B]1.1.1 (2018.09.17)[/B]
+- Fixed encoding error that caused some scrapes to fail.
+
+[B]1.1.0 (2018.09.09)[/B]
+- Integration support for external addons.
+- Added filter for unknown file sizes.
+- Fixed invalid authentication notification.
+- Possible fix for settings reset.
+- Added video quality to sequential scraping mode.
+- Many small fixes and additions.
+
+[B]1.0.3 (2018.08.11)[/B]
+- Authentication using email and password.
+- Fixed used and remaining limit labels.
+- Added support for anonymous accounts.
+- Added settings backup feature.
+- Added file hoster filter.
+- Fixed a few minor bugs.
+
+[B]1.0.2 (2018.08.05)[/B]
+- Better support for hoster links.
+- Added the hoster name to streams.
+
+[B]1.0.1 (2018.07.24)[/B]
+- Fixed the remaining days label.
+- Reduced the default limit for free accounts.
+
+[B]1.0.0 (2018.07.22)[/B]
+- Initial release.

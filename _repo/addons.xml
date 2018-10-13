@@ -1,5 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addons>
+<addon id="plugin.video.gaia" version="3.2.5" name="Gaia" provider-name="Gaia">
+	<requires>
+		<import addon="xbmc.python" version="2.19.0" />
+
+		<import addon="script.gaia.resources" version="3.2.5" />
+		<import addon="script.gaia.artwork" version="3.0.0" />
+		<import addon="script.gaia.binaries" version="3.0.0" optional="true" />
+		<import addon="script.gaia.icons" version="3.2.5" optional="true" />
+		<import addon="script.gaia.skins" version="3.0.0" optional="true" />
+		<import addon="skin.gaia.aeon.nox" version="2.2.0" optional="true" />
+		<import addon="repository.gaia" version="3.2.1" optional="true" />
+
+		<import addon="script.module.orion" version="1.0.3" />
+		<import addon="script.module.resolveurl" version="5.0.06" />
+		<import addon="script.module.urlresolver" version="3.0.29" />
+		<import addon="script.module.metahandler" version="2.9.0" />
+
+		<import addon="script.module.lambdascrapers" version="1.0.0" optional="true" />
+		<import addon="script.module.universalscrapers" version="1.0.0" optional="true" />
+		<import addon="script.module.nanscrapers" version="0.5.45" optional="true" />
+		<import addon="script.module.incursion" version="0.1.0" optional="true" />
+		<import addon="script.module.placenta" version="1.2.0" optional="true" />
+		<import addon="plugin.video.elementum" version="0.0.43" optional="true" />
+		<import addon="plugin.video.quasar" version="0.9.78" optional="true" />
+		<import addon="script.trakt" version="3.1.11" optional="true" />
+	</requires>
+
+	<extension point="xbmc.python.pluginsource" library="gaia.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.service" library="service.py" start="startup" />
+
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Stream Movies and Shows</summary>
+		<description lang="en">Stream movies, shows, documentaries, and short films from a variety of sources, such as torrents, usenet, file hosters, and video streaming services.</description>
+		<disclaimer lang="en">Gaia and its developers are not in any way affiliated with Kodi, Premiumize, OffCloud, RealDebrid, EasyNews, Orion, or any of the sites and providers used in the addon.<br/>Gaia is and always will be free and open-source. None of its code and resources may be sold or redistributed for any commercial purposes.<br/>Gaia and its developers do not host, create, or distribute any of the content displayed in the addon, it simply searches public websites.</disclaimer>
+		<platform>all</platform>
+		<license>GPL 3.0</license>
+		<website>https://gaiakodi.com</website>
+		<forum>https://gaiakodi.com/?support</forum>
+		<assets>
+			<icon>icon.png</icon> <!-- Do not change file name. Required by older Kodi versions. -->
+			<fanart>fanart.jpg</fanart> <!-- Do not change file name. Required by older Kodi versions. -->
+			<screenshot>resources/media/screenshots/screenshot01.jpg</screenshot>
+			<screenshot>resources/media/screenshots/screenshot02.jpg</screenshot>
+			<screenshot>resources/media/screenshots/screenshot03.jpg</screenshot>
+			<screenshot>resources/media/screenshots/screenshot04.jpg</screenshot>
+			<screenshot>resources/media/screenshots/screenshot05.jpg</screenshot>
+			<screenshot>resources/media/screenshots/screenshot06.jpg</screenshot>
+			<screenshot>resources/media/screenshots/screenshot07.jpg</screenshot>
+			<screenshot>resources/media/screenshots/screenshot08.jpg</screenshot>
+			<screenshot>resources/media/screenshots/screenshot09.jpg</screenshot>
+			<screenshot>resources/media/screenshots/screenshot10.jpg</screenshot>
+		</assets>
+	</extension>
+</addon>
+
 <addon id="script.module.requests"
        name="requests"
        version="2.19.1"
@@ -58,6 +115,28 @@
     			<screenshot>resources/screenshots/screenshot-03.jpg</screenshot>
 		</assets>
 		<news></news>
+	</extension>
+</addon>
+
+<addon id="repository.gaia" version="3.2.1" name="Gaia Repository" provider-name="Gaia">
+	<extension point="xbmc.addon.repository" name="Gaia Repository">
+		<dir>
+			<info compressed="false">https://github.com/gaiaorigin/gaiaorigin/raw/master/common/addons.xml?v=3.2.1</info>
+			<checksum>https://github.com/gaiaorigin/gaiaorigin/raw/master/common/addons.xml.md5?v=3.2.1</checksum>
+			<datadir zip="true">https://github.com/gaiaorigin/gaiaorigin/raw/master/common/</datadir>
+		</dir>
+		<info compressed="false">https://github.com/gaiaorigin/gaiaorigin/raw/master/addons.xml?v=3.2.1</info>
+		<checksum>https://github.com/gaiaorigin/gaiaorigin/raw/master/addons.xml.md5?v=3.2.1</checksum>
+		<datadir zip="true">https://github.com/gaiaorigin/gaiaorigin/raw/master/</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Gaia Primary Repository</summary>
+		<description lang="en">The Gaia repository for the addon, resources, extensions, and external addons. Any of the Gaia mirror repositories can be used for installation and updates.</description>
+		<disclaimer lang="en">Gaia and its developers are not in any way affiliated with Kodi, Premiumize, OffCloud, RealDebrid, EasyNews, Orion, or any of the sites and providers used in the addon.<br/>Gaia is and always will be free and open-source. None of its code and resources may be sold or redistributed for any commercial purposes.<br/>Gaia and its developers do not host, create, or distribute any of the content displayed in the addon, it simply searches public websites.</disclaimer>
+		<platform>all</platform>
+		<license>GPL 3.0</license>
+		<website>https://gaiakodi.com</website>
+		<forum>https://gaiakodi.com/?support</forum>
 	</extension>
 </addon>
 
@@ -631,6 +710,18 @@ This is a Non-profit resource, organized solely for educational purposes which i
     </extension>
 </addon>
 
+<addon id="script.Yoda.metadata" version="1.0.3" name="[COLORgreen]Yoda Metadata[/COLOR]" provider-name="S">
+	<requires>
+		<import addon="xbmc.python" version="2.19.0"/>
+	</requires>
+	<extension point="xbmc.python.module" library="lib" />
+	<extension point="xbmc.addon.metadata">
+		<summary>Metadata for the Yoda Addon</summary>
+		<description>Metadata for Yoda are maintained separately to make distribution of the the addon itself easier/faster.</description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
 <addon id="plugin.video.rebirth" version="1.0.2" name="Rebirth" provider-name="Cypher">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0" />
@@ -932,6 +1023,18 @@ This is a Non-profit resource, organized solely for educational purposes which i
     </extension>
 </addon>
 
+<addon id="script.Yoda.artwork" version="1.0.6" name="[COLORgreen]Yoda Artwork[/COLOR]" provider-name="S">
+	<requires>
+		<import addon="xbmc.python" version="2.19.0"/>
+	</requires>
+	<extension point="xbmc.python.module" library="lib" />
+	<extension point="xbmc.addon.metadata">
+		<summary>Themes for the Yoda Addon</summary>
+		<description></description>
+		<platform>all</platform>
+	</extension>
+</addon>
+
 <addon id="script.elysium.artwork" version="2017.11.12" name="Elysium Artwork" provider-name="Elysium">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0"/>
@@ -1007,6 +1110,18 @@ This is a Non-profit resource, organized solely for educational purposes which i
    </extension>
 </addon>
 
+<addon id="script.module.Yoda" name="[COLORgreen]Yoda Module[/COLOR]" version="1.00.041" provider-name="S-media">
+	<requires>
+		<import addon="xbmc.python" version="2.1.0" />
+		<import addon="script.module.requests" />
+	</requires>
+	<extension point="xbmc.python.module" library="lib" />
+	<extension point="xbmc.addon.metadata">
+		<platform>all</platform>
+		<summary lang="en">Yoda</summary>
+	</extension>
+</addon>
+
 <addon id="resource.images.studios.white" name="Studio Icons - White" version="0.0.18" provider-name="Team Kodi">
 	<extension point="kodi.resource.images" compile="true" type="studios" />
 	<requires>
@@ -1017,6 +1132,27 @@ This is a Non-profit resource, organized solely for educational purposes which i
 		<description lang="en">White Studio Icons</description>
 		<platform>all</platform>
 		<license>Creative Commons Attribution-Share Alike 3.0 United States</license>
+	</extension>
+</addon>
+
+<addon id="repository.orion" version="1.0.0" name="Orion Repository" provider-name="Orion">
+	<extension point="xbmc.addon.repository" name="Orion Repository">
+		<info compressed="false">https://repo.orionoid.com/addons.xml?v=1.0.0</info>
+		<checksum>https://repo.orionoid.com/addons.xml.md5?v=1.0.0</checksum>
+		<datadir zip="true">https://repo.orionoid.com</datadir>
+	</extension>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Addon and Update Repository</summary>
+		<description lang="en">Orion is a system for caching search and scraping results for later reuse. Metadata and links on Orion are maintained by the community. Searches are cached so that subsequent users can quickly access the results without having to go through a lengthy scraping process themselves. The Orion Kodi addon does not provide any search or playback features, but it can easily be integrated into any other addon, website, or standalone program with minimal effort.</description>
+		<disclaimer lang="en">Orion does not create, host, or distribute any files or videos. Orion is a caching service providing low-level API access to a community-maintained storage of textual data. All metadata and links available through Orion are scraped, processed, and submitted by community users. Due to the volume, velocity, and complexity of the data, Orion cannot inspect or validate the content submitted by users. Data on Orion may therefore be inaccurate, out-dated, or in other ways unusable. Orion does not guarantee the validity or integrity of the data available through its API and does not take liability for any of the data submitted by its users. Users take the risk and are responsible for the manner in which they utilize the Orion API.</disclaimer>
+		<platform>all</platform>
+		<license>GPL 3.0</license>
+		<website>https://orionoid.com</website>
+		<forum>https://support.orionoid.com</forum>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
+		</assets>
 	</extension>
 </addon>
 
@@ -1693,6 +1829,22 @@ Fixed search issue caused by character accents
   </extension>
 </addon>
 
+<addon id="script.gaia.artwork" version="3.0.0" name="Gaia Artwork" provider-name="Gaia">
+	<requires>
+		<import addon="xbmc.python" version="2.19.0"/>
+	</requires>
+	<extension point="xbmc.python.module" library="lib" />
+	<extension point="xbmc.addon.metadata">
+		<summary>Gaia Artwork</summary>
+		<description>The artwork for Gaia</description>
+		<disclaimer lang="en">Gaia and its developers are not in any way affiliated with Kodi, Premiumize, OffCloud, RealDebrid, EasyNews, Orion, or any of the sites and providers used in the addon.<br/>Gaia is and always will be free and open-source. None of its code and resources may be sold or redistributed for any commercial purposes.<br/>Gaia and its developers do not host, create, or distribute any of the content displayed in the addon, it simply searches public websites.</disclaimer>
+		<platform>all</platform>
+		<license>GPL 3.0</license>
+		<website>https://gaiakodi.com</website>
+		<forum>https://gaiakodi.com/?support</forum>
+	</extension>
+</addon>
+
 <addon id="script.module.yaml"
        name="pyyaml"
        version="3.11.0"
@@ -2309,6 +2461,22 @@ This is a Non-profit resource, organized solely for educational purposes which i
 	</extension>
 </addon>
 
+<addon id="script.gaia.resources" version="3.2.5" name="Gaia Resources" provider-name="Gaia">
+	<requires>
+		<import addon="xbmc.python" version="2.19.0"/>
+	</requires>
+	<extension point="xbmc.python.module" library="lib" />
+	<extension point="xbmc.addon.metadata">
+		<summary>Gaia Resources</summary>
+		<description>The general resources for Gaia</description>
+		<disclaimer lang="en">Gaia and its developers are not in any way affiliated with Kodi, Premiumize, OffCloud, RealDebrid, EasyNews, Orion, or any of the sites and providers used in the addon.<br/>Gaia is and always will be free and open-source. None of its code and resources may be sold or redistributed for any commercial purposes.<br/>Gaia and its developers do not host, create, or distribute any of the content displayed in the addon, it simply searches public websites.</disclaimer>
+		<platform>all</platform>
+		<license>GPL 3.0</license>
+		<website>https://gaiakodi.com</website>
+		<forum>https://gaiakodi.com/?support</forum>
+	</extension>
+</addon>
+
 <addon id="plugin.program.super.favourites" name="Super Favourites" version="1.0.59" provider-name="spoyser">
   <requires>
     <import addon="xbmc.python" version="2.14.0"/>
@@ -2364,6 +2532,19 @@ This is a Non-profit resource, organized solely for educational purposes which i
     </menu>
   </extension>
 
+</addon>
+
+<addon id="script.kodi.hue.ambilight" name="Kodi Philips Hue" version="1.0" provider-name="Martin Polednik">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.requests"/>
+  </requires>
+  <extension point="xbmc.service" library="default.py"></extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>Kodi-controlled Philips Hue lights</summary>
+    <description>Let Kodi control your Philips Hue lights. Either turns the lights into a room-sized ambilight, or automatically dims and un-dims them when playback starts or stops.</description>
+    <platform>all</platform>
+  </extension>
 </addon>
 
 <addon id="resource.images.recordlabels.white" name="Recordlabel Icons - White" version="0.0.7" provider-name="Team Kodi">
@@ -2479,6 +2660,31 @@ This is a Non-profit resource, organized solely for educational purposes which i
 		<summary lang="en">White Weather Icons</summary>
 		<description lang="en">White Weather Icons</description>
 		<platform>all</platform>
+	</extension>
+</addon>
+
+<addon id="script.module.orion" version="1.2.6" name="Orion" provider-name="Orion">
+	<requires>
+		<import addon="xbmc.python" version="2.1.0"/>
+		<import addon="repository.orion" version="1.0.0" optional="true" />
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="lib/addon.py">
+		<provides>executable</provides>
+	</extension>
+	<extension point="xbmc.python.module" library="lib" /> <!-- Must be placed after xbmc.python.pluginsource, otherwise the addon does not show in the repository. -->
+	<extension point="xbmc.service" library="lib/service.py" start="startup" />
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Torrent, Usenet, and Hoster Providers</summary>
+		<description lang="en">Orion is a system for caching search and scraping results for later reuse. Metadata and links on Orion are maintained by the community. Searches are cached so that subsequent users can quickly access the results without having to go through a lengthy scraping process themselves. The Orion Kodi addon does not provide any search or playback features, but it can easily be integrated into any other addon, website, or standalone program with minimal effort.</description>
+		<disclaimer lang="en">Orion does not create, host, or distribute any files or videos. Orion is a caching service providing low-level API access to a community-maintained storage of textual data. All metadata and links available through Orion are scraped, processed, and submitted by community users. Due to the volume, velocity, and complexity of the data, Orion cannot inspect or validate the content submitted by users. Data on Orion may therefore be inaccurate, out-dated, or in other ways unusable. Orion does not guarantee the validity or integrity of the data available through its API and does not take liability for any of the data submitted by its users. Users take the risk and are responsible for the manner in which they utilize the Orion API.</disclaimer>
+		<platform>all</platform>
+		<license>GPL 3.0</license>
+		<website>https://orionoid.com</website>
+		<forum>https://support.orionoid.com</forum>
+		<assets>
+			<icon>icon.png</icon>
+			<fanart>fanart.jpg</fanart>
+		</assets>
 	</extension>
 </addon>
 
@@ -3231,6 +3437,37 @@ This is a Non-profit resource, organized solely for educational purposes which i
     </extension>
 </addon>
 
+<addon id="plugin.video.Yoda" version="1.1.4" name="[COLORgreen]Yoda[/COLOR]" provider-name="Yoda">
+	<requires>
+		<import addon="xbmc.python" version="2.19.0" />
+		<import addon="script.module.Yoda" />
+		<import addon="script.Yoda.artwork" version="1.0.5" />
+		<import addon="script.Yoda.metadata" version="1.0.0" />
+		<import addon="script.module.resolveurl" version="5.0.0" />
+		<import addon="script.module.requests" />
+		<import addon="script.module.metahandler" version="1.0.0" />
+	</requires>
+	<extension point="xbmc.python.pluginsource" library="Yoda.py">
+		<provides>video</provides>
+	</extension>
+	<extension point="xbmc.service" library="service.py" start="startup" />
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">[COLORlime]Yoda[/COLOR]</summary>
+		<description lang="en">[COLOR aqua]Yoda Movies and TV. This addon does not form part of the Kodi Media Centre. Please do not seek assistance with this addon from any of the Official Kodi Support Channels. The author does not host any of the content in this addon and takes no responsibility for content found[/COLOR].</description>
+		<disclaimer lang="en">The author of this addon do not host any of the content which is found and have no affiliation with any of the content providers. This addon simply searches websites for content. Use at your own risk!</disclaimer>
+		<platform>all</platform>
+		<license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
+		<assets>
+			<icon>icon.jpg</icon>
+			<fanart>fanart.png</fanart>
+    			<screenshot>resources/screenshots/screenshot-01.png</screenshot>
+    			<screenshot>resources/screenshots/screenshot-02.png</screenshot>
+    			<screenshot>resources/screenshots/screenshot-03.png</screenshot>
+		</assets>
+		<news></news>
+	</extension>
+</addon>
+
 <addon id="script.module.futures"
        name="futures"
        version="2.2.0"
@@ -3309,7 +3546,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
         </extension>
     </addon>
 
-    <addon id="repository.Atrion" name="Atrions Repo" version="0.3.5" provider-name="AtrionDarnay">
+    <addon id="repository.Atrion" name="Atrions Repo" version="0.3.6" provider-name="AtrionDarnay">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -3371,7 +3608,7 @@ Kodi is a registered trademark of the XBMC Foundation. We are not connected to o
   </extension>
 </addon>
 
-    <addon id="repository.Atrion2" name="Atrions Repo2" version="0.3.5" provider-name="AtrionDarnay">
+    <addon id="repository.Atrion2" name="Atrions Repo2" version="0.3.6" provider-name="AtrionDarnay">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
