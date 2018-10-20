@@ -562,8 +562,7 @@ class OrionSettings:
 			fileFrom = OrionTools.pathJoin(directory, 'settings.xml')
 			if 'internal.backup' in OrionTools.fileRead(fileFrom):
 				fileTo = OrionTools.pathJoin(directory, 'settings.' + self.ExtensionAutomatic)
-				OrionTools.fileCopy(fileFrom, fileTo, overwrite = True)
-				return True
+				return OrionTools.fileCopy(fileFrom, fileTo, overwrite = True)
 		return False
 
 	@classmethod
@@ -574,8 +573,7 @@ class OrionSettings:
 			directory = OrionTools.addonProfile()
 			fileTo = OrionTools.pathJoin(directory, 'settings.xml')
 			fileFrom = OrionTools.pathJoin(directory, 'settings.' + self.ExtensionAutomatic)
-			OrionTools.fileCopy(fileFrom, fileTo, overwrite = True)
-			return True
+			return OrionTools.fileCopy(fileFrom, fileTo, overwrite = True)
 
 	@classmethod
 	def backupImport(self, path = None, extension = ExtensionManual):

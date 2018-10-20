@@ -222,7 +222,8 @@ class OrionTools:
 			try: xbmcvfs.delete(pathTo)
 			except: pass
 		if bytes == None:
-			return xbmcvfs.copy(pathFrom, pathTo)
+			xbmcvfs.copy(pathFrom, pathTo)
+			return xbmcvfs.exists(pathTo)
 		else:
 			try:
 				fileFrom = xbmcvfs.File(pathFrom)
