@@ -66,7 +66,7 @@
 					<align>left</align>
 					<aligny>center</aligny>
 					<selected>Skin.HasSetting(SlideShowShowAudioInfo)</selected>
-					<texturenofocus border="5">floor_button.png</texturenofocus>
+					<texturenofocus border="5">1px_transparent.png</texturenofocus>
 					<texturefocus border="5">floor_buttonFO.png</texturefocus>
 					<onclick>Skin.ToggleSetting(SlideShowShowAudioInfo)</onclick>
 					<visible>Player.HasAudio</visible>
@@ -79,7 +79,7 @@
 					<font>font20</font>
 					<align>center</align>
 					<aligny>center</aligny>
-					<texturenofocus border="5">floor_button.png</texturenofocus>
+					<texturenofocus border="5">1px_transparent.png</texturenofocus>
 					<texturefocus border="5">floor_buttonFO.png</texturefocus>
 					<onclick>ActivateWindow(PictureInfo)</onclick>
 				</control>
@@ -93,7 +93,7 @@
 					<font>font20</font>
 					<align>left</align>
 					<aligny>center</aligny>
-					<texturenofocus border="5">floor_button.png</texturenofocus>
+					<texturenofocus border="5">1px_transparent.png</texturenofocus>
 					<texturefocus border="5">floor_buttonFO.png</texturefocus>
 					<label>31008</label>
 					<onclick>back</onclick>

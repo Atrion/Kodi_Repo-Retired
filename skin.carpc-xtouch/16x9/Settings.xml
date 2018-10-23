@@ -1,6 +1,7 @@
 <window id="4">
 	<defaultcontrol always="true">4101</defaultcontrol>
 	<!-- removed allowoverlay -->
+	<backgroundcolor>0</backgroundcolor>
     <controls>
 		
 		<include>CommonBackground</include>
@@ -21,7 +22,7 @@
 				<width>250</width>
 				<height>250</height>
 				<aspectratio scalediffuse="true" align="center" aligny="center">stretch</aspectratio>
-				<texture>black.png</texture>
+				<texture colordiffuse="66000000">black.png</texture>
 			</control>
 			<control type="image">
 			 	<visible>!Control.HasFocus(4101) + Skin.HasSetting(EnableBGColor)</visible>
@@ -119,7 +120,7 @@
 				<width>250</width>
 				<height>250</height>
 				<aspectratio scalediffuse="true" align="center" aligny="center">stretch</aspectratio>
-				<texture>black.png</texture>
+				<texture colordiffuse="66000000">black.png</texture>
 			</control>
 			 <control type="image">
 			 	<visible>!Control.HasFocus(4111) + Skin.HasSetting(EnableBGColor)</visible>
@@ -217,7 +218,7 @@
 				<width>250</width>
 				<height>250</height>
 				<aspectratio scalediffuse="true" align="center" aligny="center">stretch</aspectratio>
-				<texture>black.png</texture>
+				<texture colordiffuse="66000000">black.png</texture>
 			</control>
 			 <control type="image">
 			 	<visible>!Control.HasFocus(4121) + Skin.HasSetting(EnableBGColor)</visible>
@@ -315,7 +316,7 @@
 				<width>250</width>
 				<height>250</height>
 				<aspectratio scalediffuse="true" align="center" aligny="center">stretch</aspectratio>
-				<texture>black.png</texture>
+				<texture colordiffuse="66000000">black.png</texture>
 			</control>
 			 <control type="image">
 			 	<visible>!Control.HasFocus(4131) + Skin.HasSetting(EnableBGColor)</visible>
@@ -435,7 +436,7 @@
 				<width>250</width>
 				<height>250</height>
 				<aspectratio scalediffuse="true" align="center" aligny="center">stretch</aspectratio>
-				<texture>black.png</texture>
+				<texture colordiffuse="66000000">black.png</texture>
 			</control>
 			 <control type="image">
 			 	<visible>!Control.HasFocus(4151) + Skin.HasSetting(EnableBGColor)</visible>
@@ -533,7 +534,7 @@
 				<width>250</width>
 				<height>250</height>
 				<aspectratio scalediffuse="true" align="center" aligny="center">stretch</aspectratio>
-				<texture>black.png</texture>
+				<texture colordiffuse="66000000">black.png</texture>
 			</control>
 			 <control type="image">
 			 	<visible>!Control.HasFocus(4161) + Skin.HasSetting(EnableBGColor)</visible>
@@ -631,7 +632,7 @@
 				<width>250</width>
 				<height>250</height>
 				<aspectratio scalediffuse="true" align="center" aligny="center">stretch</aspectratio>
-				<texture>black.png</texture>
+				<texture colordiffuse="66000000">black.png</texture>
 			</control>
 			 <control type="image">
 			 	<visible>!Control.HasFocus(4171) + Skin.HasSetting(EnableBGColor)</visible>
@@ -729,7 +730,7 @@
 				<width>250</width>
 				<height>250</height>
 				<aspectratio scalediffuse="true" align="center" aligny="center">stretch</aspectratio>
-				<texture>black.png</texture>
+				<texture colordiffuse="66000000">black.png</texture>
 			</control>
 			 <control type="image">
 			 	<visible>!Control.HasFocus(4181) + Skin.HasSetting(EnableBGColor)</visible>
@@ -823,7 +824,7 @@
 		</control>
 		
 		<control type="group" id="4300">
-           <include>Window_OpenClose_Animation_Slide_Up</include>
+           <include>Window_OpenClose_Animation_Fade</include>
             <posx>95r</posx>
             <posy>85r</posy>
             <control type="button" id="4301">

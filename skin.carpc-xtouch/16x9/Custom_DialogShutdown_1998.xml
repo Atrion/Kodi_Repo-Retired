@@ -1,6 +1,7 @@
 <window id="1998">
 	<defaultcontrol always="true">5007</defaultcontrol>
 	<!-- removed allowoverlay -->
+	<backgroundcolor>0</backgroundcolor>
      <controls>
 		
 		<include>CommonBackground</include>

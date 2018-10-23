@@ -108,10 +108,11 @@
 					<onclick>ActivateWindow(1118)</onclick>
 				</item>
 				<item id="3020">
+					<visible>System.HasAddon(script.cardiagnostic)</visible>
 					<label>$LOCALIZE[31137]</label>
 					<icon>button_obd.png</icon>
 					<onclick>Dialog.Close(1125)</onclick>
-					<onclick>-</onclick>
+					<onclick>RunScript("script.cardiagnostic")</onclick>
 				</item>  
 				<item id="3021">
 					<label>$LOCALIZE[31135]</label>
@@ -130,6 +131,13 @@
 					<icon>button_apps.png</icon>
 					<onclick>Dialog.Close(1125)</onclick>
 					<onclick>ActivateWindow(Programs,addons://sources/executable)</onclick>
+				</item>
+				<item id="3024">
+					<visible>System.Platform.Android</visible>
+					<label>$LOCALIZE[40185]</label>
+					<icon>button_android_apps.png</icon>
+					<onclick>Dialog.Close(1125)</onclick>
+					<onclick>ActivateWindow(10001,"androidapp://source/apps/",return)</onclick>
 				</item>
 				<item id="3025">
 					<label>$LOCALIZE[40133]</label>
@@ -254,28 +262,28 @@
 		        	<visible>Skin.HasSetting(ShowMagicSMB1) + !String.IsEmpty(Skin.String(MagicSMBLabel1))</visible>
 					<icon>$INFO[Skin.String(MagicSMBIcon1)]</icon>
 					<onclick>Dialog.Close(1125)</onclick>
-					<onclick>$INFO[Skin.String(MagicSMBAction1)]</onclick>
+					<onclick>$VAR[MagicSMButton1]</onclick>
 				</item>
 				<item id="3037">
 					<label>$INFO[Skin.String(MagicSMBLabel2)]</label>
 		        	<visible>Skin.HasSetting(ShowMagicSMB2) + !String.IsEmpty(Skin.String(MagicSMBLabel2))</visible>
 					<icon>$INFO[Skin.String(MagicSMBIcon2)]</icon>
 					<onclick>Dialog.Close(1125)</onclick>
-					<onclick>$INFO[Skin.String(MagicSMBAction2)]</onclick>
+					<onclick>$VAR[MagicSMButton2]</onclick>
 				</item>
 				<item id="3038">
 					<label>$INFO[Skin.String(MagicSMBLabel3)]</label>
 		        	<visible>Skin.HasSetting(ShowMagicSMB3) + !String.IsEmpty(Skin.String(MagicSMBLabel3))</visible>
 					<icon>$INFO[Skin.String(MagicSMBIcon3)]</icon>
 					<onclick>Dialog.Close(1125)</onclick>
-					<onclick>$INFO[Skin.String(MagicSMBAction3)]</onclick>
+					<onclick>$VAR[MagicSMButton3]</onclick>
 				</item>
 				<item id="3039">
 					<label>$INFO[Skin.String(MagicSMBLabel4)]</label>
 		        	<visible>Skin.HasSetting(ShowMagicSMB4) + !String.IsEmpty(Skin.String(MagicSMBLabel4))</visible>
 					<icon>$INFO[Skin.String(MagicSMBIcon4)]</icon>
 					<onclick>Dialog.Close(1125)</onclick>
-					<onclick>$INFO[Skin.String(MagicSMBAction4)]</onclick>
+					<onclick>$VAR[MagicSMButton4]</onclick>
 				</item>
 				<item id="3040">
 					<label>$LOCALIZE[31119]</label>
@@ -296,12 +304,22 @@
 
 <!-- Close button -->
         <control type="button" id="3036">
-            <posx>80r</posx>
-            <posy>80r</posy>
-            <width>60</width>
-            <height>60</height>
-            <texturenofocus colordiffuse="$VAR[CustomColorNofocus]" border="0,2,0,2">icon_close.png</texturenofocus>
+            <posx>200r</posx>
+            <posy>90r</posy>
+			<height>50</height>
+			<width>140</width>	
+			<font>font22_title</font>
+			<label>$LOCALIZE[31001]</label>  
+			<textcolor>grey</textcolor>
+			<align>center</align>
+			<aligny>center</aligny>
+			<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>
+			<texturefocus border="4">button_outline_black_f.png</texturefocus>
+			<texturenofocus border="4">button_outline_black.png</texturenofocus>
+<!-- 
+           <texturenofocus colordiffuse="$VAR[CustomColorNofocus]" border="0,2,0,2">icon_close.png</texturenofocus>
             <texturefocus colordiffuse="$VAR[CustomColorFocus]" border="0,2,0,2">icon_close.png</texturefocus>
+ -->
 			<onclick>Dialog.Close(1125)</onclick>
 			<onup>Control.SetFocus(9009)</onup>
         </control>

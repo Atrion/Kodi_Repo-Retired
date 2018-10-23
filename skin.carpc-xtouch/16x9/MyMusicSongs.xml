@@ -3,6 +3,7 @@
 	<!-- removed allowoverlay -->
 	<views>50,500</views>
 	<onunload>Skin.Reset(MediaSubMenuVisible2)</onunload>
+	<backgroundcolor>0</backgroundcolor>
 	<controls>
 		<include>CommonBackground</include>
 		<!-- <include>CommonBackgroundOverlay</include> -->
@@ -107,8 +108,8 @@
 						<description>Library button</description>
 						<label>$LOCALIZE[29800]</label>
 						<onclick>Skin.Reset(MediaSubMenuVisible2)</onclick>
-						<onclick>ReplaceWindow(MusicLibrary)</onclick>
-						<selected>Window.IsVisible(MusicLibrary)</selected>
+						<onclick>ReplaceWindow(Music)</onclick>
+						<selected>Window.IsVisible(Music)</selected>
 						<include>ButtonCommonValues2</include>
 					</control>
 					<control type="image">

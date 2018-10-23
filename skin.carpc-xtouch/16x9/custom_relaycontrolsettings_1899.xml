@@ -1,0 +1,547 @@
+<window type="dialog" id="1899">
+	<defaultcontrol always="true">111</defaultcontrol>
+	<!-- removed allowoverlay -->
+	<onunload>Control.SetFocus(9002)</onunload>
+	<include>16x9_xPos_Relocation</include>
+	<include>Window_OpenClose_Animation_Zoom</include>
+
+	<coordinates>
+		<system>1</system>
+		<posx>-75</posx>
+		<posy>0</posy>
+	</coordinates>
+	<controls>
+
+<!-- ### Header and background ############################################################################# -->
+
+		<control type="image">
+			<posx>0</posx>
+			<posy>0</posy>
+			<width>1000</width>
+			<height>60</height>
+			<texture border="5">DialogHeader.png</texture>
+		</control> 
+		<control type="label">
+			<description>header label</description>
+			<posx>20</posx>
+			<posy>0</posy>
+			<include>WindowTitleCommons</include>
+			<width>910</width>
+			<label>$LOCALIZE[40194]</label>
+		</control>
+<!--	<control type="group">
+			<posx>930</posx>
+			<posy>0</posy>
+			<include>DialogCloseButtonCommons</include>
+		</control> -->
+		<control type="image">
+			<posx>0</posx>
+			<posy>60</posy>
+			<width>1000</width>
+			<height>665</height>
+			<texture border="5">dialog_back_black.png</texture>
+		</control>
+		<control type="image">
+			<description>Settings Menu Background</description>
+			<posx>0</posx>
+			<posy>60</posy>
+		    <height>60</height>
+			<width>1000</width>
+	        <texture>>menuitem_black2_nf.png</texture>
+		</control>
+		<control type="button" id="999">
+			<description>Fake Focus Control</description>
+			<posx>2</posx>
+			<posy>55</posy>
+			<width>1</width>
+			<height>1</height>
+			<label></label>
+			<texturefocus colordiffuse="00ffffff">1px_transparent.png</texturefocus>
+			<texturenofocus>1px_transparent.png</texturenofocus>
+			<onright>1</onright>
+			<ondown>1</ondown>
+		</control>
+
+
+<!-- ### Settings ############################################################################################ -->
+
+<!-- Buttons -->
+		<control type="grouplist" id="100">
+			<description>control area</description>
+			<onfocus>Control.SetFocus(111)</onfocus>
+			<posx>20</posx>
+			<posy>80</posy>
+			<width>460</width>
+			<height>680</height>
+			<itemgap>-1</itemgap>
+			<onup>210</onup>
+			<ondown>510</ondown>
+			<onleft></onleft>
+			<onright>300</onright>
+			<visible>true</visible>
+								
+<!-- Button-1 -->
+			<control type="radiobutton" id="111">
+				<height>50</height>
+				<width>450</width>
+				<font>font24_title</font>
+				<label>$LOCALIZE[40188] 1</label>
+				<textcolor>white</textcolor>
+				<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>						
+				<texturefocus border="0,2,0,2">MenuItemNF.png</texturefocus>
+				<texturenofocus border="0,2,0,2">MenuItemNF.png</texturenofocus>
+				<onclick>Skin.ToggleSetting(Button1Active)</onclick>
+				<selected>Skin.HasSetting(Button1Active)</selected>
+				<onup></onup>
+				<ondown>112</ondown>
+			</control>					
+			<control type="button" id="112">
+				<visible>Skin.HasSetting(Button1Active)</visible>
+				<height>50</height>
+				<width>450</width>
+				<font>font24_title</font>
+				<label>$LOCALIZE[31155]</label>
+				<label2>[COLOR=selected]$INFO[Skin.String(Button1Name)][/COLOR]</label2>
+				<textcolor>white</textcolor>
+				<scroll>true</scroll>
+				<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>						
+				<texturefocus border="0,2,0,2">MenuItemNF.png</texturefocus>
+				<texturenofocus border="0,2,0,2">MenuItemNF.png</texturenofocus>
+				<onclick>Skin.SetString(Button1Name)</onclick>
+				<enable>Skin.HasSetting(Button1Active)</enable>
+				<onup>111</onup>
+				<ondown>113</ondown>
+			</control>					
+			<control type="button" id="113">
+				<visible>Skin.HasSetting(Button1Active)</visible>
+				<height>50</height>
+				<width>450</width>
+				<font>font24_title</font>
+				<label>1. $LOCALIZE[40189] 1 ($LOCALIZE[40190])</label>
+				<label2>[COLOR=selected]$INFO[Skin.String(Button1Script1)][/COLOR]</label2>
+				<textcolor>white</textcolor>
+				<scroll>true</scroll>
+				<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>						
+				<texturefocus border="0,2,0,2">MenuItemNF.png</texturefocus>
+				<texturenofocus border="0,2,0,2">MenuItemNF.png</texturenofocus>
+				<onclick>Skin.Reset(Button1Script1)</onclick>
+				<onclick>Skin.SetFile(Button1Script1,.py,special://skin/scripts/)</onclick>
+				<enable>Skin.HasSetting(Button1Active)</enable>
+				<onup>112</onup>
+				<ondown>114</ondown>
+			</control>
+			<control type="button" id="114">
+				<visible>Skin.HasSetting(Button1Active)</visible>
+				<height>50</height>
+				<width>450</width>
+				<font>font24_title</font>
+				<label>2. $LOCALIZE[40189] 1 ($LOCALIZE[40191])</label>
+				<label2>[COLOR=selected]$INFO[Skin.String(Button1Script2)][/COLOR]</label2>
+				<textcolor>white</textcolor>
+				<scroll>true</scroll>
+				<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>						
+				<texturefocus border="0,2,0,2">MenuItemNF.png</texturefocus>
+				<texturenofocus border="0,2,0,2">MenuItemNF.png</texturenofocus>
+				<onclick>Skin.Reset(Button1Script2)</onclick>
+				<onclick>Skin.SetFile(Button1Script2,.py,special://skin/scripts/)</onclick>
+				<enable>Skin.HasSetting(Button1Active)</enable>
+				<onup>113</onup>
+				<ondown>Control.SetFocus(115)</ondown>
+			</control>
+			<control type="image" id="115">
+				<onfocus>Control.SetFocus(211)</onfocus>
+				<description>Spacer</description>
+				<width>450</width>
+				<height>30</height>
+				<texture>1px_transparent.png</texture>
+				<aspectratio>stretch</aspectratio>
+			</control>
+
+<!-- Button-2 -->
+			<control type="radiobutton" id="211">
+				<height>50</height>
+				<width>450</width>
+				<font>font24_title</font>
+				<label>$LOCALIZE[40188] 2</label>
+				<textcolor>white</textcolor>
+				<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>						
+				<texturefocus border="0,2,0,2">MenuItemNF.png</texturefocus>
+				<texturenofocus border="0,2,0,2">MenuItemNF.png</texturenofocus>
+				<onclick>Skin.ToggleSetting(Button2Active)</onclick>
+				<selected>Skin.HasSetting(Button2Active)</selected>
+				<onup>111</onup>
+				<ondown>212</ondown>
+			</control>
+			<control type="button" id="212">
+				<visible>Skin.HasSetting(Button2Active)</visible>
+				<height>50</height>
+				<width>450</width>
+				<font>font24_title</font>
+				<label>$LOCALIZE[31155]</label>
+				<label2>[COLOR=selected]$INFO[Skin.String(Button2Name)][/COLOR]</label2>
+				<textcolor>white</textcolor>
+				<scroll>true</scroll>
+				<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>						
+				<texturefocus border="0,2,0,2">MenuItemNF.png</texturefocus>
+				<texturenofocus border="0,2,0,2">MenuItemNF.png</texturenofocus>
+				<onclick>Skin.SetString(Button2Name)</onclick>
+				<enable>Skin.HasSetting(Button2Active)</enable>
+				<onup>211</onup>
+				<ondown>213</ondown>
+			</control>					
+			<control type="button" id="213">
+				<visible>Skin.HasSetting(Button2Active)</visible>
+				<height>50</height>
+				<width>450</width>
+				<font>font24_title</font>
+				<label>1. $LOCALIZE[40189] 2 ($LOCALIZE[40190])</label>
+				<label2>[COLOR=selected]$INFO[Skin.String(Button2Script1)][/COLOR]</label2>
+				<textcolor>white</textcolor>
+				<scroll>true</scroll>
+				<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>						
+				<texturefocus border="0,2,0,2">MenuItemNF.png</texturefocus>
+				<texturenofocus border="0,2,0,2">MenuItemNF.png</texturenofocus>
+				<onclick>Skin.Reset(Button2Script1)</onclick>
+				<onclick>Skin.SetFile(Button2Script1,.py,special://skin/scripts/)</onclick>
+				<enable>Skin.HasSetting(Button2Active)</enable>
+				<onup>212</onup>
+				<ondown>214</ondown>
+			</control>
+			<control type="button" id="214">
+				<visible>Skin.HasSetting(Button2Active)</visible>
+				<height>50</height>
+				<width>450</width>
+				<font>font24_title</font>
+				<label>2. $LOCALIZE[40189] 2 ($LOCALIZE[40191])</label>
+				<label2>[COLOR=selected]$INFO[Skin.String(Button2Script2)][/COLOR]</label2>
+				<textcolor>white</textcolor>
+				<scroll>true</scroll>
+				<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>						
+				<texturefocus border="0,2,0,2">MenuItemNF.png</texturefocus>
+				<texturenofocus border="0,2,0,2">MenuItemNF.png</texturenofocus>
+				<onclick>Skin.Reset(Button2Script2)</onclick>
+				<onclick>Skin.SetFile(Button2Script2,.py,special://skin/scripts/)</onclick>
+				<enable>Skin.HasSetting(Button2Active)</enable>
+				<onup>213</onup>
+				<ondown>Control.SetFocus(300)</ondown>
+			</control>
+		</control>
+
+		<control type="grouplist" id="300">
+			<description>control area</description>
+			<onfocus>Control.SetFocus(311)</onfocus>
+			<posx>530</posx>
+			<posy>80</posy>
+			<width>460</width>
+			<height>680</height>
+			<itemgap>-1</itemgap>
+			<onup>210</onup>
+			<ondown>510</ondown>
+			<onleft>100</onleft>
+			<onright>510</onright>
+			<visible>true</visible>
+<!-- Button-3 -->
+			<control type="radiobutton" id="311">
+				<height>50</height>
+				<width>450</width>
+				<font>font24_title</font>
+				<label>$LOCALIZE[40188] 3</label>
+				<textcolor>white</textcolor>
+				<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>						
+				<texturefocus border="0,2,0,2">MenuItemNF.png</texturefocus>
+				<texturenofocus border="0,2,0,2">MenuItemNF.png</texturenofocus>
+				<onclick>Skin.ToggleSetting(Button3Active)</onclick>
+				<selected>Skin.HasSetting(Button3Active)</selected>
+				<onup>211</onup>
+				<ondown>312</ondown>
+			</control>					
+			<control type="button" id="312">
+				<visible>Skin.HasSetting(Button3Active)</visible>
+				<height>50</height>
+				<width>450</width>
+				<font>font24_title</font>
+				<label>$LOCALIZE[31155]</label>
+				<label2>[COLOR=selected]$INFO[Skin.String(Button3Name)][/COLOR]</label2>
+				<textcolor>white</textcolor>
+				<scroll>true</scroll>
+				<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>						
+				<texturefocus border="0,2,0,2">MenuItemNF.png</texturefocus>
+				<texturenofocus border="0,2,0,2">MenuItemNF.png</texturenofocus>
+				<onclick>Skin.SetString(Button3Name)</onclick>
+				<enable>Skin.HasSetting(Button3Active)</enable>
+				<onup>311</onup>
+				<ondown>313</ondown>
+			</control>					
+			<control type="button" id="313">
+				<visible>Skin.HasSetting(Button3Active)</visible>
+				<height>50</height>
+				<width>450</width>
+				<font>font24_title</font>
+				<label>1. $LOCALIZE[40189] 3 ($LOCALIZE[40190])</label>
+				<label2>[COLOR=selected]$INFO[Skin.String(Button3Script1)][/COLOR]</label2>
+				<textcolor>white</textcolor>
+				<scroll>true</scroll>
+				<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>						
+				<texturefocus border="0,2,0,2">MenuItemNF.png</texturefocus>
+				<texturenofocus border="0,2,0,2">MenuItemNF.png</texturenofocus>
+				<onclick>Skin.Reset(Button3Script1)</onclick>
+				<onclick>Skin.SetFile(Button3Script1,.py,special://skin/scripts/)</onclick>
+				<enable>Skin.HasSetting(Button3Active)</enable>
+				<onup>312</onup>
+				<ondown>314</ondown>
+			</control>
+			<control type="button" id="314">
+				<visible>Skin.HasSetting(Button3Active)</visible>
+				<height>50</height>
+				<width>450</width>
+				<font>font24_title</font>
+				<label>2. $LOCALIZE[40189] 3 ($LOCALIZE[40191])</label>
+				<label2>[COLOR=selected]$INFO[Skin.String(Button3Script2)][/COLOR]</label2>
+				<textcolor>white</textcolor>
+				<scroll>true</scroll>
+				<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>						
+				<texturefocus border="0,2,0,2">MenuItemNF.png</texturefocus>
+				<texturenofocus border="0,2,0,2">MenuItemNF.png</texturenofocus>
+				<onclick>Skin.Reset(Button3Script2)</onclick>
+				<onclick>Skin.SetFile(Button3Script2,.py,special://skin/scripts/)</onclick>
+				<enable>Skin.HasSetting(Button3Active)</enable>
+				<ondown>Control.SetFocus(315)</ondown>
+				<ondown>411</ondown>
+			</control>
+			<control type="image" id="315">
+				<description>Spacer</description>
+				<onfocus>Control.SetFocus(411)</onfocus>
+				<width>450</width>
+				<height>30</height>
+				<texture>1px_transparent.png</texture>
+				<aspectratio>stretch</aspectratio>
+			</control>
+
+<!-- Button-4 -->								
+			<control type="radiobutton" id="411">
+				<height>50</height>
+				<width>450</width>
+				<font>font24_title</font>
+				<label>$LOCALIZE[40188] 4</label>
+				<textcolor>white</textcolor>
+				<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>						
+				<texturefocus border="0,2,0,2">MenuItemNF.png</texturefocus>
+				<texturenofocus border="0,2,0,2">MenuItemNF.png</texturenofocus>
+				<onclick>Skin.ToggleSetting(Button4Active)</onclick>
+				<selected>Skin.HasSetting(Button4Active)</selected>
+				<onup>311</onup>
+				<ondown>412</ondown>
+			</control>
+			<control type="button" id="412">
+				<visible>Skin.HasSetting(Button4Active)</visible>
+				<height>50</height>
+				<width>450</width>
+				<font>font24_title</font>
+				<label>$LOCALIZE[31155]</label>
+				<label2>[COLOR=selected]$INFO[Skin.String(Button4Name)][/COLOR]</label2>
+				<textcolor>white</textcolor>
+				<scroll>true</scroll>
+				<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>						
+				<texturefocus border="0,2,0,2">MenuItemNF.png</texturefocus>
+				<texturenofocus border="0,2,0,2">MenuItemNF.png</texturenofocus>
+				<onclick>Skin.SetString(Button4Name)</onclick>
+				<enable>Skin.HasSetting(Button4Active)</enable>
+				<onup>411</onup>
+				<ondown>413</ondown>
+			</control>					
+			<control type="button" id="413">
+				<visible>Skin.HasSetting(Button4Active)</visible>
+				<height>50</height>
+				<width>450</width>
+				<font>font24_title</font>
+				<label>1. $LOCALIZE[40189] 4 ($LOCALIZE[40190])</label>
+				<label2>[COLOR=selected]$INFO[Skin.String(Button4Script1)][/COLOR]</label2>
+				<textcolor>white</textcolor>
+				<scroll>true</scroll>
+				<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>						
+				<texturefocus border="0,2,0,2">MenuItemNF.png</texturefocus>
+				<texturenofocus border="0,2,0,2">MenuItemNF.png</texturenofocus>
+				<onclick>Skin.Reset(Button4Script1)</onclick>
+				<onclick>Skin.SetFile(Button4Script1,.py,special://skin/scripts/)</onclick>
+				<enable>Skin.HasSetting(Button4Active)</enable>
+				<onup>412</onup>
+				<ondown>414</ondown>
+			</control>
+			<control type="button" id="414">
+				<visible>Skin.HasSetting(Button4Active)</visible>
+				<height>50</height>
+				<width>450</width>
+				<font>font24_title</font>
+				<label>2. $LOCALIZE[40189] 4 ($LOCALIZE[40191])</label>
+				<label2>[COLOR=selected]$INFO[Skin.String(Button4Script2)][/COLOR]</label2>
+				<textcolor>white</textcolor>
+				<scroll>true</scroll>
+				<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>						
+				<texturefocus border="0,2,0,2">MenuItemNF.png</texturefocus>
+				<texturenofocus border="0,2,0,2">MenuItemNF.png</texturenofocus>
+				<onclick>Skin.Reset(Button4Script2)</onclick>
+				<onclick>Skin.SetFile(Button4Script2,.py,special://skin/scripts/)</onclick>
+				<enable>Skin.HasSetting(Button4Active)</enable>
+				<onup>413</onup>
+				<ondown>Control.SetFocus(510)</ondown>
+			</control>
+		</control>
+
+<!-- Set Background -->
+		<control type="group" id="500">
+		<include>Window_OpenClose_Animation_Zoom</include>
+			<onfocus>Control.SetFocus(501)</onfocus>
+			<posx>20</posx>
+			<posy>530</posy>
+			<width>960</width>
+			<height>100</height>
+			<include>VisibleFadeEffect</include>
+			<control type="radiobutton" id="501">
+				<posx>0</posx>
+				<posy>0</posy>
+				<height>50</height>
+				<width>960</width>
+				<font>font24_title</font>
+				<label>$LOCALIZE[31093]</label>
+				<textcolor>white</textcolor>
+				<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>						
+				<texturefocus border="0,2,0,2">MenuItemNF.png</texturefocus>
+				<texturenofocus border="0,2,0,2">MenuItemNF.png</texturenofocus>
+				<onclick>Skin.ToggleSetting(RelayControlCustomBackground)</onclick>
+				<selected>Skin.HasSetting(RelayControlCustomBackground)</selected>
+				<onup></onup>
+				<ondown>502</ondown>
+			</control>
+			<control type="button" id="502">
+				<posx>0</posx>
+				<posy>50</posy>
+				<height>50</height>
+				<width>960</width>
+				<font>font24_title</font>
+				<label>$LOCALIZE[31094]</label>
+				<label2>[COLOR=selected]$INFO[Skin.String(CustomRelayControlBgFullPath)][/COLOR]</label2>
+				<textcolor>white</textcolor>
+				<scroll>true</scroll>
+				<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>						
+				<texturefocus border="0,2,0,2">MenuItemNF.png</texturefocus>
+				<texturenofocus border="0,2,0,2">MenuItemNF.png</texturenofocus>
+				<onclick>Skin.SetImage(CustomRelayControlBgFullPath)</onclick>
+				<enable>Skin.HasSetting(RelayControlCustomBackground)</enable>
+				<onup>501</onup>
+				<ondown>Control.SetFocus(510)</ondown>
+			</control>
+		</control>
+
+<!-- Close Button -->
+		<control type="group" id="510">
+		<include>Window_OpenClose_Animation_Zoom</include>
+			<onfocus>Control.SetFocus(511)</onfocus>
+			<posx>405</posx>
+			<posy>645</posy>
+			<include>VisibleFadeEffect</include>
+			<control type="button" id="511">
+				<description>Close</description>
+                <posx>0</posx>
+				<posy>0</posy>
+				<width>220</width>
+				<height>60</height>
+				<label>$LOCALIZE[31001]</label>
+				<align>center</align>
+				<aligny>center</aligny>
+				<font>font26_title</font>
+				<textcolor>$VAR[CustomColorNofocus]</textcolor>	
+				<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>	
+				<texturefocus colordiffuse="$VAR[CustomColorFocus]">button_outline.png</texturefocus>
+				<texturenofocus colordiffuse="$VAR[CustomColorNofocus]">button_outline.png</texturenofocus>
+				<onclick>Dialog.Close(1899)</onclick>
+				<onup>500</onup>
+				<onright></onright>
+				<ondown></ondown>
+			</control>
+		</control>
+
+<!-- Help Button -->
+		<control type="button" id="5015">
+			<description>Help Button</description>
+			<posx>365r</posx>
+			<posy>75r</posy>
+			<width>60</width>
+			<height>60</height>
+			<texturenofocus colordiffuse="$VAR[CustomColorNofocus]">button_help.png</texturenofocus>
+			<texturefocus colordiffuse="$VAR[CustomColorFocus]">button_help.png</texturefocus>
+			<onclick>Skin.ToggleSetting(ShowRelaycontrolHelp)</onclick>
+			<onclick>Control.SetFocus(5016)</onclick>
+			<ondown>Control.SetFocus(5001)</ondown>
+			<onup>Control.SetFocus(500)</onup>
+			<onright>5011</onright>
+			<onleft>5013</onleft>
+		</control>   
+
+<!-- Help Overlay -->
+		<control type="group">
+			<description>Help</description>
+			<visible>Skin.HasSetting(ShowRelaycontrolHelp)</visible>
+			<posx>0</posx>
+			<posy>60</posy>
+			<width>1000</width>
+			<height>665</height>
+			<control type="image">
+				<description>Darken Background</description>
+				<posx>0</posx>
+				<posy>0</posy>
+				<width>1000</width>
+				<height>665</height>
+				<texture colordiffuse="D9000000" border="5">dialog_back_black.png</texture>
+			</control>
+			<control type="image">
+				<description>Help Background</description>
+				<posx>100</posx>
+				<posy>100</posy>
+				<width>800</width>
+				<height>465</height>
+				<texture border="5">dialog_back_black.png</texture>
+			</control>
+			<control type="group" id="510">
+				<include>Window_OpenClose_Animation_Zoom</include>
+				<posx>415</posx>
+				<posy>460</posy>
+				<include>VisibleFadeEffect</include>
+				<control type="button" id="5016">
+					<description>Ok</description>
+					<posx>0</posx>
+					<posy>0</posy>
+					<width>200</width>
+					<height>65</height>
+					<label>$LOCALIZE[31001]</label>
+					<align>center</align>
+					<aligny>center</aligny>
+					<font>font30_title</font>
+					<textcolor>$VAR[CustomColorNofocus]</textcolor>	
+					<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>	
+					<texturefocus colordiffuse="$VAR[CustomColorFocus]">button_outline.png</texturefocus>
+					<texturenofocus colordiffuse="$VAR[CustomColorNofocus]">button_outline.png</texturenofocus>
+					<onclick>Skin.Reset(ShowRelaycontrolHelp)</onclick>
+					<onup></onup>
+					<onright></onright>
+					<ondown></ondown>
+				</control>
+			</control>
+			<control type="label">
+				<description>Helptext</description>
+				<posx>150</posx>
+				<posy>130</posy>
+				<height>300</height>
+				<width>700</width>
+				<align>left</align>
+				<aligny>top</aligny>
+				<font>font24_title</font>
+				<textcolor>FFFFFFFF</textcolor>	
+				<label>$LOCALIZE[40187]</label>
+				<wrapmultiline>true</wrapmultiline>
+			</control>
+
+		</control>
+
+	</controls>
+
+</window>

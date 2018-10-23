@@ -1,14 +1,32 @@
 <window id="1999">
 	<defaultcontrol always="true">5001</defaultcontrol>
+	<backgroundcolor>0</backgroundcolor>
+
      <controls>
-		
-		<include>CommonBackground</include>
+		<control type="image">
+			<posx>0</posx>
+			<posy>0</posy>
+			<width>ScreenWidth</width>
+			<height>ScreenHeight</height>
+			<visible>!Skin.HasSetting(RelayControlCustomBackground)</visible>
+			<texture>$INFO[Skin.String(CustomBackgroundPath)]</texture> 
+		</control>  
+		<control type="image">
+			<posx>0</posx>
+			<posy>0</posy>
+			<width>ScreenWidth</width>
+			<height>ScreenHeight</height>
+			<visible>Skin.HasSetting(RelayControlCustomBackground)</visible>
+			<texture>$INFO[Skin.String(CustomRelayControlBgFullPath)]</texture> 
+		</control>  
+
 		<include>HomeButtonCommons</include>
         <include>BottomNowPLaying</include>      
+
 		<control type="label">
 			<description>Window label</description>
 			<include>MediaWindowTitleCommons</include>
-			<label>Relais Dialog</label>
+			<label>$LOCALIZE[40195]</label>
 		</control>		
  		<control type="group" id="">
 		<include>Window_OpenClose_Animation_Zoom</include>
@@ -21,7 +39,7 @@
 				<posy>0</posy>
 				<height>100</height>
 				<width>1000</width>
-				<label>Relais schalten</label>
+				<label>$LOCALIZE[40193]</label>
 				<align>center</align>
 				<aligny>center</aligny>
 				<font>font30_title</font>
@@ -39,7 +57,7 @@
 			<include>VisibleFadeEffect</include>
 			<control type="button" id="5001">
 				<description>Funktion-1 einschalten</description>
-				<visible>!Skin.HasSetting(Relais1)</visible>
+				<visible>Skin.HasSetting(Button1Active) + !Skin.HasSetting(Relais1)</visible>
                 <posx>0</posx>
 				<posy>0</posy>
 				<width>450</width>
@@ -49,10 +67,10 @@
 				<textoffsetx>20</textoffsetx>
 				<font>font30_title</font>
 				<textcolor>FFFFFFFF</textcolor>
-				<label>Relais-1 [B]EIN[/B]</label>	
-				<texturefocus colordiffuse="Color39">bottombar_bg100.png</texturefocus>
-				<texturenofocus colordiffuse="Color70">bottombar_bg100.png</texturenofocus>
-				<onclick>RunScript("special://skin/scripts/dein_script_1_ein.py")</onclick>
+				<label>$INFO[Skin.String(Button1Name)]</label>	
+				<texturefocus>relaisbutton_off_p.png</texturefocus>
+				<texturenofocus>relaisbutton_off.png</texturenofocus>
+				<onclick>RunScript($INFO[Skin.String(Button1Script1)])</onclick>
 				<onclick>Skin.ToggleSetting(Relais1)</onclick>
 				<onup>666</onup>
 				<onright>5003</onright>
@@ -60,7 +78,7 @@
 			</control>
 			<control type="button" id="5001">
 				<description>Funktion-1 ausschalten</description>
-				<visible>Skin.HasSetting(Relais1)</visible>
+				<visible>Skin.HasSetting(Button1Active) + Skin.HasSetting(Relais1)</visible>
                 <posx>0</posx>
 				<posy>0</posy>
 				<width>450</width>
@@ -70,11 +88,11 @@
 				<textoffsetx>20</textoffsetx>
 				<font>font30_title</font>
 				<textcolor>FFFFFFFF</textcolor>
-				<label>Relais-1 [B]AUS[/B]</label>	
-				<texturefocus colordiffuse="Color117">bottombar_bg100.png</texturefocus>
-				<texturenofocus colordiffuse="Color131">bottombar_bg100.png</texturenofocus>
-				<onclick>RunScript("special://skin/scripts/dein_script_1_aus.py")</onclick>
-				<onclick>Skin.Reset(Relais1)</onclick>
+				<label>$INFO[Skin.String(Button1Name)]</label>	
+				<texturefocus>relaisbutton_on_p.png</texturefocus>
+				<texturenofocus>relaisbutton_on.png</texturenofocus>
+				<onclick>RunScript($INFO[Skin.String(Button1Script2)])</onclick>
+				<onclick>Skin.ToggleSetting(Relais1)</onclick>
 				<onup>666</onup>
 				<onright>5003</onright>
 				<ondown>5005</ondown>
@@ -89,7 +107,7 @@
 			<include>VisibleFadeEffect</include>
 			<control type="button" id="5003">
 				<description>Funktion-2 einschalten</description>
-				<visible>!Skin.HasSetting(Relais2)</visible>
+				<visible>Skin.HasSetting(Button2Active) + !Skin.HasSetting(Relais2)</visible>
                 <posx>0</posx>
 				<posy>0</posy>
 				<width>450</width>
@@ -99,10 +117,10 @@
 				<textoffsetx>20</textoffsetx>
 				<font>font30_title</font>
 				<textcolor>FFFFFFFF</textcolor>
-				<label>Relais-2 [B]EIN[/B]</label>	
-				<texturefocus colordiffuse="Color39">bottombar_bg100.png</texturefocus>
-				<texturenofocus colordiffuse="Color70">bottombar_bg100.png</texturenofocus>
-				<onclick>RunScript("special://skin/scripts/dein_script_2_ein.py")</onclick>
+				<label>$INFO[Skin.String(Button2Name)]</label>	
+				<texturefocus>relaisbutton_off_p.png</texturefocus>
+				<texturenofocus>relaisbutton_off.png</texturenofocus>
+				<onclick>RunScript($INFO[Skin.String(Button2Script1)])</onclick>
 				<onclick>Skin.ToggleSetting(Relais2)</onclick>
 				<onup>666</onup>
 				<onleft>5001</onleft>
@@ -110,7 +128,7 @@
 			</control>
 			<control type="button" id="5003">
 				<description>Funktion-2 ausschalten</description>
-				<visible>Skin.HasSetting(Relais2)</visible>
+				<visible>Skin.HasSetting(Button2Active) + Skin.HasSetting(Relais2)</visible>
                 <posx>0</posx>
 				<posy>0</posy>
 				<width>450</width>
@@ -120,14 +138,14 @@
 				<textoffsetx>20</textoffsetx>
 				<font>font30_title</font>
 				<textcolor>FFFFFFFF</textcolor>
-				<label>Relais-2 [B]AUS[/B]</label>	
-				<texturefocus colordiffuse="Color117">bottombar_bg100.png</texturefocus>
-				<texturenofocus colordiffuse="Color131">bottombar_bg100.png</texturenofocus>
-				<onclick>RunScript("special://skin/scripts/dein_script_2_aus.py")</onclick>
-				<onclick>Skin.Reset(Relais2)</onclick>
+				<label>$INFO[Skin.String(Button2Name)]</label>	
+				<texturefocus>relaisbutton_on_p.png</texturefocus>
+				<texturenofocus>relaisbutton_on.png</texturenofocus>
+				<onclick>RunScript($INFO[Skin.String(Button2Script2)])</onclick>
+				<onclick>Skin.ToggleSetting(Relais2)</onclick>
 				<onup>666</onup>
 				<onleft>5001</onleft>
-				<ondown>5007</ondown>
+				<ondown>5015</ondown>
 			</control>
 		</control>
 
@@ -139,7 +157,7 @@
 			<include>VisibleFadeEffect</include>
 			<control type="button" id="5005">
 				<description>Funktion-3 einschalten</description>
-				<visible>!Skin.HasSetting(Relais3)</visible>
+				<visible>Skin.HasSetting(Button3Active) + !Skin.HasSetting(Relais3)</visible>
                 <posx>0</posx>
 				<posy>0</posy>
 				<width>450</width>
@@ -149,18 +167,18 @@
 				<textoffsetx>20</textoffsetx>
 				<font>font30_title</font>
 				<textcolor>FFFFFFFF</textcolor>
-				<label>Relais-3 [B]EIN[/B]</label>	
-				<texturefocus colordiffuse="Color39">bottombar_bg100.png</texturefocus>
-				<texturenofocus colordiffuse="Color70">bottombar_bg100.png</texturenofocus>
-				<onclick>RunScript("special://skin/scripts/dein_script_3_ein.py")</onclick>
+				<label>$INFO[Skin.String(Button3Name)]</label>	
+				<texturefocus>relaisbutton_off_p.png</texturefocus>
+				<texturenofocus>relaisbutton_off.png</texturenofocus>
+				<onclick>RunScript($INFO[Skin.String(Button3Script1)])</onclick>
 				<onclick>Skin.ToggleSetting(Relais3)</onclick>
 				<onup>5001</onup>
 				<onright>5007</onright>
-				<ondown>5009</ondown>
+				<ondown>5015</ondown>
 			</control>
 			<control type="button" id="5005">
 				<description>Funktion-3 ausschalten</description>
-				<visible>Skin.HasSetting(Relais3)</visible>
+				<visible>Skin.HasSetting(Button3Active) + Skin.HasSetting(Relais3)</visible>
                 <posx>0</posx>
 				<posy>0</posy>
 				<width>450</width>
@@ -170,14 +188,14 @@
 				<textoffsetx>20</textoffsetx>
 				<font>font30_title</font>
 				<textcolor>FFFFFFFF</textcolor>
-				<label>Relais-3 [B]AUS[/B]</label>	
-				<texturefocus colordiffuse="Color117">bottombar_bg100.png</texturefocus>
-				<texturenofocus colordiffuse="Color131">bottombar_bg100.png</texturenofocus>
-				<onclick>RunScript("special://skin/scripts/dein_script_3_aus.py")</onclick>
-				<onclick>Skin.Reset(Relais3)</onclick>
+				<label>$INFO[Skin.String(Button3Name)]</label>	
+				<texturefocus>relaisbutton_on_p.png</texturefocus>
+				<texturenofocus>relaisbutton_on.png</texturenofocus>
+				<onclick>RunScript($INFO[Skin.String(Button3Script2)])</onclick>
+				<onclick>Skin.ToggleSetting(Relais3)</onclick>
 				<onup>5001</onup>
 				<onright>5007</onright>
-				<ondown>5009</ondown>
+				<ondown>5015</ondown>
 			</control>
 		</control>
 
@@ -189,7 +207,7 @@
 			<include>VisibleFadeEffect</include>
 			<control type="button" id="5007">
 				<description>Funktion-4 einschalten</description>
-				<visible>!Skin.HasSetting(Relais4)</visible>
+				<visible>Skin.HasSetting(Button4Active) + !Skin.HasSetting(Relais4)</visible>
                 <posx>0</posx>
 				<posy>0</posy>
 				<width>450</width>
@@ -199,10 +217,10 @@
 				<textoffsetx>20</textoffsetx>
 				<font>font30_title</font>
 				<textcolor>FFFFFFFF</textcolor>
-				<label>Relais-4 [B]EIN[/B]</label>	
-				<texturefocus colordiffuse="Color39">bottombar_bg100.png</texturefocus>
-				<texturenofocus colordiffuse="Color70">bottombar_bg100.png</texturenofocus>
-				<onclick>RunScript("special://skin/scripts/dein_script_4_ein.py")</onclick>
+				<label>$INFO[Skin.String(Button4Name)]</label>	
+				<texturefocus>relaisbutton_off_p.png</texturefocus>
+				<texturenofocus>relaisbutton_off.png</texturenofocus>
+				<onclick>RunScript($INFO[Skin.String(Button4Script1)])</onclick>
 				<onclick>Skin.ToggleSetting(Relais4)</onclick>
 				<onup>5003</onup>
 				<onleft>5005</onleft>
@@ -210,7 +228,7 @@
 			</control>
 			<control type="button" id="5007">
 				<description>Funktion-4 ausschalten</description>
-				<visible>Skin.HasSetting(Relais4)</visible>
+				<visible>Skin.HasSetting(Button4Active) + Skin.HasSetting(Relais4)</visible>
                 <posx>0</posx>
 				<posy>0</posy>
 				<width>450</width>
@@ -220,74 +238,126 @@
 				<textoffsetx>20</textoffsetx>
 				<font>font30_title</font>
 				<textcolor>FFFFFFFF</textcolor>
-				<label>Relais-4 [B]AUS[/B]</label>	
-				<texturefocus colordiffuse="Color117">bottombar_bg100.png</texturefocus>
-				<texturenofocus colordiffuse="Color131">bottombar_bg100.png</texturenofocus>
-				<onclick>RunScript("special://skin/scripts/dein_script_4_aus.py")</onclick>
-				<onclick>Skin.Reset(Relais4)</onclick>
+				<label>$INFO[Skin.String(Button4Name)]</label>	
+				<texturefocus>relaisbutton_on_p.png</texturefocus>
+				<texturenofocus>relaisbutton_on.png</texturenofocus>
+				<onclick>RunScript($INFO[Skin.String(Button4Script2)])</onclick>
+				<onclick>Skin.ToggleSetting(Relais4)</onclick>
 				<onup>5003</onup>
 				<onleft>5005</onleft>
 				<ondown>5009</ondown>
 			</control>
 		</control>
 
+<!-- Alle aus Button -->
+		<control type="group" id="5014">
+			<include>Window_OpenClose_Animation_Zoom</include>
+			<posx>360</posx>
+			<posy>520</posy>
+			<include>VisibleFadeEffect</include>
+			<control type="button" id="5015">
+				<description>Alle aus</description>
+                <posx>0</posx>
+				<posy>0</posy>
+				<width>250</width>
+				<height>70</height>
+				<label>$LOCALIZE[40192]!</label>
+				<align>center</align>
+				<aligny>center</aligny>
+				<font>font30_title</font>
+				<textcolor>$VAR[CustomColorNofocus]</textcolor>	
+				<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>	
+				<texturefocus colordiffuse="$VAR[CustomColorFocus]">button_outline.png</texturefocus>
+				<texturenofocus colordiffuse="$VAR[CustomColorNofocus]">button_outline.png</texturenofocus>
+				<onclick condition="Skin.HasSetting(Button1Active) + Skin.HasSetting(Relais1)">RunScript($INFO[Skin.String(Button1Script2)])</onclick>
+				<onclick condition="Skin.HasSetting(Button1Active) + Skin.HasSetting(Relais1)">Skin.ToggleSetting(Relais1)</onclick>
+				<onclick condition="Skin.HasSetting(Button2Active) + Skin.HasSetting(Relais2)">RunScript($INFO[Skin.String(Button2Script2)])</onclick>
+				<onclick condition="Skin.HasSetting(Button2Active) + Skin.HasSetting(Relais2)">Skin.ToggleSetting(Relais2)</onclick>
+				<onclick condition="Skin.HasSetting(Button3Active) + Skin.HasSetting(Relais3)">RunScript($INFO[Skin.String(Button3Script2)])</onclick>
+				<onclick condition="Skin.HasSetting(Button3Active) + Skin.HasSetting(Relais3)">Skin.ToggleSetting(Relais3)</onclick>
+				<onclick condition="Skin.HasSetting(Button4Active) + Skin.HasSetting(Relais4)">RunScript($INFO[Skin.String(Button4Script2)])</onclick>
+				<onclick condition="Skin.HasSetting(Button4Active) + Skin.HasSetting(Relais4)">Skin.ToggleSetting(Relais4)</onclick>
+				<onup>5011</onup>
+				<onright>5009</onright>
+				<ondown>5010</ondown>
+			</control>
+		</control>
+
 <!-- Abbrechen Button -->
 		<control type="group" id="5008">
 		<include>Window_OpenClose_Animation_Zoom</include>
-			<posx>490</posx>
-			<posy>580</posy>
+			<posx>670</posx>
+			<posy>520</posy>
 			<include>VisibleFadeEffect</include>
 			<control type="button" id="5009">
-				<description>Button Cancel</description>
+				<description>Button Close</description>
                 <posx>0</posx>
 				<posy>0</posy>
-				<width>300</width>
-				<height>80</height>
-				<font>-</font>
+				<width>250</width>
+				<height>70</height>
+				<label>$LOCALIZE[31001]</label>
+				<align>center</align>
+				<aligny>center</aligny>
+				<font>font30_title</font>
+				<textcolor>$VAR[CustomColorNofocus]</textcolor>	
+				<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>	
 				<texturefocus colordiffuse="$VAR[CustomColorFocus]">button_outline.png</texturefocus>
 				<texturenofocus colordiffuse="$VAR[CustomColorNofocus]">button_outline.png</texturenofocus>
 				<onclick>back</onclick>
-				<onup>5011</onup>
+				<onleft>5015</onleft>
+				<onup>5007</onup>
 				<onright>5011</onright>
 				<ondown>5010</ondown>
-			</control>
-
-			<control type="label">
-				<description>Cancel</description>
-				<posx>0</posx>
-				<posy>20</posy>
-				<height>50</height>
-				<width>300</width>
-				<label>$LOCALIZE[31122]</label>
-				<align>center</align>
-				<aligny>top</aligny>
-				<font>font30_title</font>
-				<textcolor>FFFFFFFF</textcolor>	
 			</control>
 		</control>
 		
 <!-- ################# Ende Button Area ############################################## -->
 
-<!-- Zurück Button -->
-		<control type="group" id="5010">
+<!-- Settings Button -->
+		<control type="group" id="5012">
            <include>Window_OpenClose_Animation_Slide_Up</include>
-            <posx>95r</posx>
+           <include>VisibleFadeEffect</include>
+           <visible>!Window.IsVisible(1899)</visible>
+            <posx>15</posx>
             <posy>85r</posy>
-            <control type="button" id="5011">
-                <ondown>Control.SetFocus(5001)</ondown>
-                <onup>Control.SetFocus(5007)</onup>
-				<onright></onright>
+            <control type="button" id="5013">
                 <description>Back Button</description>
                 <posx>0</posx>
                 <posy>0</posy>
                 <width>70</width>
                 <height>70</height>
+                <texturenofocus colordiffuse="$VAR[CustomColorNofocus]">icon_settings_w.png</texturenofocus>
+                <texturefocus colordiffuse="$VAR[CustomColorFocus]">icon_settings_w.png</texturefocus>
+                <onclick>ActivateWindow(1899)</onclick>
+                <ondown>Control.SetFocus(5001)</ondown>
+                <onup>Control.SetFocus(5005)</onup>
+				<onright>5011</onright>
+            </control>   
+        </control>
+
+<!-- Zurück Button -->		
+		<control type="group" id="5010">
+           <include>Window_OpenClose_Animation_Slide_Up</include>
+           <include>VisibleFadeEffect</include>
+           <visible>!Window.IsVisible(1899)</visible>
+            <posx>95r</posx>
+            <posy>85r</posy>
+            <control type="button" id="5011">
+                <posx>0</posx>
+                <posy>0</posy>
+                <width>70</width>
+                <height>70</height>
+                <description>Back Button</description>
                 <texturenofocus colordiffuse="$VAR[CustomColorNofocus]">icon_back_w.png</texturenofocus>
                 <texturefocus colordiffuse="$VAR[CustomColorFocus]">icon_back_w.png</texturefocus>
                 <onclick>back</onclick>
+                <ondown>Control.SetFocus(5001)</ondown>
+                <onup>Control.SetFocus(5007)</onup>
+				<onright></onright>
+				<onleft>5013</onleft>
             </control>   
         </control>
-		
+
 		<include>BehindDialogFadeOut</include>
 		      
    </controls>      

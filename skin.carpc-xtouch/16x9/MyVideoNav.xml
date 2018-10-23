@@ -1,9 +1,10 @@
 <window id="25">
 	<defaultcontrol always="true">50</defaultcontrol>
-	<views>50,550,500,502,552</views>
+	<views>50,550,500</views>
 	<onunload>Skin.Reset(MediaSubMenuVisible2)</onunload>
 	<onload>Control.SetFocus(9002)</onload>
 	<onload>Skin.Reset(MediaSubMenuVisible2)</onload>
+	<backgroundcolor>0</backgroundcolor>
 	<controls>
 		<include>CommonBackground</include>
 		<!-- <include>CommonBackgroundOverlay</include> -->

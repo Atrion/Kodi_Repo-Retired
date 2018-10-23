@@ -6,7 +6,8 @@
 			<width>1106</width>
 			<height>538</height>
 			<onleft condition="Window.IsActive(AddonBrowser)">Control.SetFocus(666)</onleft>
-			<onleft>Control.SetFocus(555)</onleft>
+			<onleft condition="Control.IsVisible(555)">Control.SetFocus(555)</onleft>
+			<onleft condition="!Control.IsVisible(555)">Control.SetFocus(666)</onleft>
 			<onright>60</onright>
 			<onup>50</onup>
 			<ondown>50</ondown>
@@ -65,8 +66,7 @@
 					<align>right</align>
 					<aligny>center</aligny>
 					<label>$INFO[ListItem.Label2]</label>
-				</control>
-				
+				</control>				
 			</itemlayout>
 			<focusedlayout height="75" width="1110">
 				<control type="image">
@@ -127,7 +127,8 @@
 			<posy>85</posy>
 			<width>1106</width>
 			<height>538</height>
-			<onleft>Control.SetFocus(555)</onleft>
+			<onleft condition="Control.IsVisible(555)">Control.SetFocus(555)</onleft>
+			<onleft condition="!Control.IsVisible(555)">Control.SetFocus(666)</onleft>
 			<onright>60</onright>
 			<onup>50</onup>
 			<ondown>50</ondown>
@@ -262,7 +263,8 @@
 			<posy>75</posy>
 			<width>1150</width>
 			<height>550</height>
-			<onleft>Control.SetFocus(555)</onleft>
+			<onleft condition="Control.IsVisible(555)">Control.SetFocus(555)</onleft>
+			<onleft condition="!Control.IsVisible(555)">Control.SetFocus(666)</onleft>
 			<onright>60</onright>
 			<onup>500</onup>
 			<ondown>500</ondown>
@@ -573,7 +575,8 @@
 			<posy>90</posy>
 			<width>1147</width>
 			<height>540</height>
-			<onleft>Control.SetFocus(555)</onleft>
+			<onleft condition="Control.IsVisible(555)">Control.SetFocus(555)</onleft>
+			<onleft condition="!Control.IsVisible(555)">Control.SetFocus(666)</onleft>
 			<onright>60</onright>
 			<onup>502</onup>
 			<ondown>502</ondown>
@@ -682,7 +685,8 @@
 			<posy>90</posy>
 			<width>1147</width>
 			<height>540</height>
-			<onleft>Control.SetFocus(555)</onleft>
+			<onleft condition="Control.IsVisible(555)">Control.SetFocus(555)</onleft>
+			<onleft condition="!Control.IsVisible(555)">Control.SetFocus(666)</onleft>
 			<onright>60</onright>
 			<onup>505</onup>
 			<ondown>505</ondown>
@@ -959,6 +963,112 @@
 					<label>$INFO[ListItem.Property(Album_Description)]</label>
 					<pagecontrol>62</pagecontrol>
 					<autoscroll delay="4000" time="1500" repeat="10000">!Control.HasFocus(61)</autoscroll>
+				</control>
+			</focusedlayout>
+		</control>
+		<control type="scrollbar" id="62">
+			<visible>Control.IsVisible(505) | Control.IsVisible(550)</visible>
+			<posx>1150</posx>
+			<posy>277</posy>
+			<width>25</width>
+			<height>315</height>
+			<texturesliderbackground border="0,14,0,14">ScrollBarV.png</texturesliderbackground>
+			<texturesliderbar border="2,16,2,16"></texturesliderbar>
+			<texturesliderbarfocus border="2,16,2,16"></texturesliderbarfocus>
+			<textureslidernib>osdslidernib.png</textureslidernib>
+			<textureslidernibfocus>osdslidernib.png</textureslidernibfocus>
+			<onleft>505</onleft>
+			<onright condition="Control.IsVisible(9002)">9002</onright>
+			<ondown>62</ondown>
+			<onup>62</onup>
+			<showonepage>false</showonepage>
+			<orientation>vertical</orientation>
+			<animation effect="fade" time="150">Visible</animation>
+			<animation effect="fade" time="150">Hidden</animation>
+		</control>
+	</include>
+	<include name="SmallList">
+		<control type="panel" id="503">
+			<visible>Container.Content(Songs)</visible>
+			<posx>640</posx>
+			<posy>85</posy>
+			<width>640</width>
+			<height>538</height>
+			<onleft condition="Control.IsVisible(555)">Control.SetFocus(555)</onleft>
+			<onleft condition="!Control.IsVisible(555)">Control.SetFocus(666)</onleft>
+			<onright>60</onright>
+			<onup>75</onup>
+			<ondown>75</ondown>
+			<viewtype label="535">list</viewtype>
+			<pagecontrol>60</pagecontrol>
+			<scrolltime>200</scrolltime>
+			<itemlayout height="50" width="640">
+				<control type="image">
+					<posx>10</posx>
+					<posy>0</posy>
+					<width>620</width>
+					<height>50</height>
+					<texture border="4">list_bg.png</texture>
+					<colordiffuse>95FFFFFF</colordiffuse>
+				</control>
+				<control type="label">
+					<posx>10</posx>
+					<posy>5</posy>
+					<width>620</width>
+					<height>40</height>
+					<font>font28_title</font>
+					<textcolor>white</textcolor>
+					<selectedcolor>$VAR[CustomColorFocus]</selectedcolor>
+					<align>left</align>
+					<aligny>center</aligny>
+					<label>$INFO[ListItem.Label]</label>
+				</control>
+				<control type="label">
+					<posx>570</posx>
+					<posy>5</posy>
+					<width>70</width>
+					<height>40</height>
+					<font>font28_title</font>
+					<textcolor>white</textcolor>
+					<selectedcolor>$VAR[CustomColorNofocus]</selectedcolor> 
+					<align>right</align>
+					<aligny>center</aligny>
+					<label>$INFO[ListItem.Label2]</label>
+				</control>				
+			</itemlayout>
+			<focusedlayout height="50" width="640">
+				<control type="image">
+					<posx>10</posx>
+					<posy>0</posy>
+					<width>620</width>
+					<height>50</height>
+					<texture border="4">list_bg_fo.png</texture>
+					<colordiffuse>$VAR[CustomColorFocus]</colordiffuse>
+					<include>VisibleFadeEffect</include>
+				</control>
+				<control type="label">
+					<posx>10</posx>
+					<posy>5</posy>
+					<width>620</width>
+					<height>40</height>
+					<font>font36_title</font>
+					<textcolor>white</textcolor>
+					<selectedcolor>$VAR[CustomColorFocus]</selectedcolor> 
+					<align>left</align>
+					<aligny>center</aligny>
+					<label>$INFO[ListItem.Label]</label>
+				</control>
+				<control type="label">
+					<posx>57</posx>
+					<posy>5</posy>
+					<width>70</width>
+					<height>40</height>
+					<font>font28_title</font>
+					<textcolor>white</textcolor>
+					<selectedcolor>$VAR[CustomColorFocus]</selectedcolor> 
+					<align>right</align>
+					<aligny>center</aligny>
+					<label>$INFO[ListItem.Label2]</label>
 				</control>
 			</focusedlayout>
 		</control>

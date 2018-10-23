@@ -16,6 +16,8 @@
 	<include file="IncludesMainButtons_wideFix.xml" />
     <include file="IncludesSkinColor.xml" />
     <include file="IncludesSkinColor_First.xml" />
+    <include file="IncludesSubmenubuttonsMidBig.xml" />
+    <include file="IncludesSubmenubuttons.xml" />
     
 <!-- For Radio -->
 	<include file="IncludesRadioFM.xml" />
@@ -2223,17 +2225,17 @@
 			<animation effect="fade" start="0" end="100" time="200" delay="3000">Visible</animation>
 			<control type="image">
 				<description>Visualisation Background: Path</description>
+                <visible>!Skin.HasSetting(UseVisBgCover)</visible>
 				<posx>436</posx>
 				<posy>80</posy>
 				<width>410</width>
 				<height>396</height>
-				<visible>Skin.HasSetting(UseVisBg) + !Skin.HasSetting(UseVisBgCover)</visible> 
 				<aspectratio scalediffuse="true" align="center" aligny="center">stretch</aspectratio>
 				<texture diffuse="cover_mask.png">$INFO[Skin.String(CustomVisBgPath)]</texture>
 			</control> 
 			<control type="image">
 				<description>Visualisation Background: Cover Normal</description>
-                <visible>Player.HasDuration</visible>
+                <visible>Skin.HasSetting(UseVisBgCover)</visible>
 				<posx>436</posx>
 				<posy>80</posy>
 				<width>410</width>
@@ -2241,17 +2243,6 @@
 				<visible>Skin.HasSetting(UseVisBgCover) + !Skin.HasSetting(UseVisBg)</visible> 
 				<aspectratio scalediffuse="true" align="center" aligny="center">stretch</aspectratio> 
 				<texture diffuse="cover_mask.png" background="false">$INFO[MusicPlayer.Cover]</texture>
-			</control>
-			<control type="image">
-				<description>Visualisation Background: Cover Stream</description>
-                <visible>!Player.HasDuration</visible>
-				<posx>436</posx>
-				<posy>80</posy>
-				<width>410</width>
-				<height>396</height>
-				<visible>Skin.HasSetting(UseVisBgCover) + !Skin.HasSetting(UseVisBg)</visible> 
-				<aspectratio scalediffuse="true" align="center" aligny="center">stretch</aspectratio> 
-				<texture fallback="defaultstream.png" diffuse="cover_mask.png" background="false">$INFO[Skin.String(CustomFanartPath)]/_playlistcover/$INFO[Player.Filename].jpg</texture>
 			</control>
 			<control type="button">
 				<description>Viz Fullscreen Button Logo Area</description>
@@ -2275,17 +2266,17 @@
 			<animation effect="fade" start="0" end="100" time="200" delay="3000">Visible</animation>
 			<control type="image">
 				<description>Visualisation Background: Path</description>
+				<visible>!Skin.HasSetting(UseVisBgCover)</visible> 
 				<posx>440</posx>
 				<posy>80</posy>
 				<width>400</width>
 				<height>396</height>
-				<visible>Skin.HasSetting(UseVisBg) + !Skin.HasSetting(UseVisBgCover)</visible> 
 				<aspectratio scalediffuse="true" align="center" aligny="center">stretch</aspectratio>
 				<texture diffuse="cover_mask.png">$INFO[Skin.String(CustomVisBgPath)]</texture>
 			</control> 
 			<control type="image">
 				<description>Visualisation Background: Cover normal</description>
-                <visible>Player.HasDuration</visible>
+                <visible>Skin.HasSetting(UseVisBgCover)</visible>
 				<posx>440</posx>
 				<posy>80</posy>
 				<width>400</width>
@@ -2293,17 +2284,6 @@
 				<visible>Skin.HasSetting(UseVisBgCover) + !Skin.HasSetting(UseVisBg)</visible> 
 				<aspectratio scalediffuse="true" align="center" aligny="center">stretch</aspectratio> 
 				<texture diffuse="cover_mask.png" background="false">$INFO[MusicPlayer.Cover]</texture>
-			</control>
-			<control type="image">
-				<description>Visualisation Background: Cover Stream</description>
-                <visible>!Player.HasDuration</visible>
-				<posx>440</posx>
-				<posy>80</posy>
-				<width>400</width>
-				<height>396</height>
-				<visible>Skin.HasSetting(UseVisBgCover) + !Skin.HasSetting(UseVisBg)</visible> 
-				<aspectratio scalediffuse="true" align="center" aligny="center">stretch</aspectratio> 
-				<texture fallback="defaultstream.png" diffuse="cover_mask.png" background="false">$INFO[Skin.String(CustomFanartPath)]/_playlistcover/$INFO[Player.Filename].jpg</texture>
 			</control>
 			<control type="button">
 				<description>Viz Fullscreen Button Logo Area</description>
@@ -2335,7 +2315,7 @@
 				<posy>0</posy>
 				<width>600</width>
 				<height>170</height>
-				<texture border="0,10,0,0" colordiffuse="E6FFFFFF">listnf.png</texture>
+				<texture border="0,10,0,0" colordiffuse="99FFFFFF">listnf.png</texture>
 			</control>
 			<control type="image">
 				<description>cover image</description>
@@ -2400,7 +2380,7 @@
 				<posy>0</posy>
 				<width>600</width>
 				<height>170</height>
-				<texture border="0,10,0,0" colordiffuse="E6FFFFFF">listnf.png</texture>
+				<texture border="0,10,0,0" colordiffuse="99FFFFFF">listnf.png</texture>
 			</control>
 			<control type="image">
 				<description>cover image</description>
@@ -2465,7 +2445,7 @@
 				<posy>0</posy>
 				<width>600</width>
 				<height>170</height>
-				<texture border="0,10,0,0" colordiffuse="E6FFFFFF">listnf.png</texture>
+				<texture border="0,10,0,0" colordiffuse="99FFFFFF">listnf.png</texture>
 			</control>
 			<control type="image">
 				<description>cover image</description>
@@ -2530,7 +2510,7 @@
 				<posy>0</posy>
 				<width>600</width>
 				<height>170</height>
-				<texture border="0,10,0,0" colordiffuse="E6FFFFFF">listnf.png</texture>
+				<texture border="0,10,0,0" colordiffuse="99FFFFFF">listnf.png</texture>
 			</control>
 			<control type="image">
 				<description>cover image</description>
@@ -2595,7 +2575,7 @@
 				<posy>0</posy>
 				<width>600</width>
 				<height>170</height>
-				<texture border="0,10,0,0" colordiffuse="E6FFFFFF">listnf.png</texture>
+				<texture border="0,10,0,0" colordiffuse="99FFFFFF">listnf.png</texture>
 			</control>
 			<control type="image">
 				<description>cover image</description>
@@ -3823,21 +3803,12 @@
 			</control>
 			<control type="image">
 				<description>cover image</description>
-                <visible>Player.HasDuration</visible>
+                <visible>true</visible>
 				<posx>66</posx>
 				<posy>495</posy>
 				<width>90</width>
 				<height>90</height>
 				<texture colordiffuse="CCFFFFFF">$INFO[MusicPlayer.Cover]</texture>
-			</control>
-			<control type="image">
-				<description>cover image</description>
-                <visible>!Player.HasDuration</visible>
-				<posx>66</posx>
-				<posy>495</posy>
-				<width>90</width>
-				<height>90</height>
-				<texture fallback="defaultstream.png" colordiffuse="CCFFFFFF">/media/extern/playlistcover/$INFO[Player.Filename].jpg</texture>
 			</control>
             <control type="label">
                 <visible>Player.HasDuration</visible>
@@ -3951,21 +3922,12 @@
 			</control>
 			<control type="image">
 				<description>cover image</description>
-                <visible>Player.HasDuration</visible>
+                <visible>true</visible>
 				<posx>66</posx>
 				<posy>495</posy>
 				<width>90</width>
 				<height>90</height>
 				<texture colordiffuse="CCFFFFFF">$INFO[MusicPlayer.Cover]</texture>
-			</control>
-			<control type="image">
-				<description>cover image</description>
-                <visible>!Player.HasDuration</visible>
-				<posx>66</posx>
-				<posy>495</posy>
-				<width>90</width>
-				<height>90</height>
-				<texture fallback="defaultstream.png" colordiffuse="CCFFFFFF">$INFO[Skin.String(CustomFanartPath)]/_playlistcover/$INFO[Player.Filename].jpg</texture>
 			</control>
             <control type="label">
                 <visible>Player.HasDuration</visible>
@@ -4345,7 +4307,7 @@
 			<posx>1056</posx>
 			<posy>522</posy> 
             <include>Window_OpenClose_Animation_Fade</include>
-			<onup>3006</onup>
+            <onfocus>Control.SetFocus(606)</onfocus>
 			<control type="button" id="606">
 				<posx>0</posx>
 				<posy>0</posy>
@@ -4358,6 +4320,8 @@
 				<onclick>XBMC.PlayerControl(Repeat)</onclick>
 				<onleft>-</onleft>
 				<onright>607</onright>
+				<onup>Control.SetFocus(3006)</onup>
+				<ondown condition="Control.IsVisible(3050)">Control.SetFocus(3050)</ondown>
 				<ondown condition="Control.IsVisible(9003) + !Control.IsVisible(3050)">Control.SetFocus(9003)</ondown>
 				<ondown condition="Control.IsVisible(100) + !Control.IsVisible(3050)">Control.SetFocus(100)</ondown>
 			</control>
@@ -4429,8 +4393,9 @@
 				<alttexturenofocus colordiffuse="$VAR[CustomColorNofocus]">OSDRandomOnNF.png</alttexturenofocus>
 				<onclick>XBMC.PlayerControl(Random)</onclick>
 				<onleft>606</onleft>
-				<onright condition="Control.IsVisible(2011)">Control.SetFocus(2011)</onright>
-				<onup>3006</onup>
+				<onright condition="Skin.HasSetting(ShowRecentlyAdded) + Control.IsVisible(2011)">Control.SetFocus(2011)</onright>
+				<onup>Control.SetFocus(3006)</onup>
+				<ondown condition="Control.IsVisible(3050)">Control.SetFocus(3050)</ondown>
 				<ondown condition="Control.IsVisible(9003) + !Control.IsVisible(3050)">Control.SetFocus(9003)</ondown>
 				<ondown condition="Control.IsVisible(100) + !Control.IsVisible(3050)">Control.SetFocus(100)</ondown>
 			</control>
@@ -4595,13 +4560,38 @@
                 <textureslidernibfocus>OSDSliderNib.png</textureslidernibfocus>
             </control>
 			<control type="image">
+				<visible>Integer.IsGreaterOrEqual(Control.GetLabel(111),66)</visible>
 				<posx>15</posx>
 				<posy>85r</posy>
 				<width>50</width>
 				<height>50</height>
 				<texture colordiffuse="$VAR[CustomColorNofocus]">icon-volume_white.png</texture>
 			</control>
-        </control>
+			<control type="image">
+				<visible>Integer.IsGreaterOrEqual(Control.GetLabel(111),33) + Integer.IsLess(Control.GetLabel(111),66)</visible>
+				<posx>15</posx>
+				<posy>85r</posy>
+				<width>50</width>
+				<height>50</height>
+				<texture colordiffuse="$VAR[CustomColorNofocus]">icon-volume_white_2.png</texture>
+			</control>
+ 			<control type="image">
+				<visible>Integer.IsGreaterOrEqual(Control.GetLabel(111),2) + Integer.IsLess(Control.GetLabel(111),33)</visible>
+				<posx>15</posx>
+				<posy>85r</posy>
+				<width>50</width>
+				<height>50</height>
+				<texture colordiffuse="$VAR[CustomColorNofocus]">icon-volume_white_3.png</texture>
+			</control>
+ 			<control type="image">
+				<visible>Integer.IsLess(Control.GetLabel(111),2)</visible>
+				<posx>15</posx>
+				<posy>85r</posy>
+				<width>50</width>
+				<height>50</height>
+				<texture colordiffuse="$VAR[CustomColorNofocus]">icon-volume_white_off.png</texture>
+			</control>
+       </control>
         <control type="group">
             <visible>Skin.HasSetting(HideVolumeBar)</visible>
 			<posx>0</posx>
@@ -4682,7 +4672,7 @@
     <include name="CommonAudioVideoTitle">
         <control type="group">
             <description>Info on Visualisation Fullscreen</description>
- 			<visible>Player.HasDuration + !Window.IsVisible(MusicOSD)</visible>
+ 			<visible>!Player.IsInternetStream + !Window.IsVisible(MusicOSD)</visible>
 			<posx>0</posx>
             <posy>0</posy>
             <control type="label">
@@ -4789,36 +4779,22 @@
         </control>
         <control type="group">
             <description>Streaming-Info on Visualisation Fullscreen</description>
-			<visible>!Player.HasDuration + !Window.IsVisible(MusicOSD)</visible>
+			<visible>Player.IsInternetStream + !Window.IsVisible(MusicOSD)</visible>
             <posx>0</posx>
             <posy>0</posy>
             <control type="label">
                 <visible>true</visible>
                 <posx>0</posx>
-                <posy>660</posy>
+                <posy>85r</posy>
                 <width>ScreenWidth</width>
                 <height>52</height>
                 <font>font34_title</font>
                 <textcolor>$VAR[CustomColorNofocus]</textcolor>
                 <align>center</align>
                 <aligny>center</aligny>
-                <label>$INFO[MusicPlayer.Title]</label>
+                <label>$INFO[MusicPlayer.Title] - $INFO[Player.Time(mm:ss)]</label>
                 <scrollspeed>50</scrollspeed>
             </control>
- <!-- 
-			<control type="label">
-                <visible>true</visible>
-                <posx>145r</posx>
-                <posy>72</posy>
-                <width>ScreenWidth</width>
-                <height>52</height>
-                <font>font30_title</font>
-                 <textcolor>$VAR[CustomColorNofocus]</textcolor>
-                <align>right</align>
-                <aligny>center</aligny>
-                <label>$LOCALIZE[40165] $INFO[Player.Time(mm:ss)]</label>
-            </control>
- -->
         </control>
     </include>
 
@@ -5026,7 +5002,7 @@
         <textcolor>white</textcolor>
         <shadowcolor>black</shadowcolor>
         <scroll>false</scroll>
-        <include>Window_OpenClose_Animation_Slide_Down</include>
+        <include>Window_OpenClose_Animation_Fade</include>
     </include>
 
     <include name="WindowTitleCommons">
@@ -5092,7 +5068,9 @@
             <animation effect="slide" start="0,0" end="200,0" time="500" tween="quadratic" easing="out">WindowClose</animation>
             <posx>75r</posx>
             <posy>70</posy>
+<!-- 
             <visible>Control.IsVisible(60)</visible>
+ -->
             <animation effect="slide" start="90,0" end="0,0" time="400">Visible</animation>
             <animation effect="slide" start="0,0" end="90,0" time="400">Hidden</animation>
 	        <control type="image">
@@ -5153,7 +5131,9 @@
             <animation effect="slide" start="0,0" end="200,0" time="500" tween="quadratic" easing="out">WindowClose</animation>
             <posx>75r</posx>
             <posy>70</posy>
+<!-- 
             <visible>Control.IsVisible(60)</visible>
+ -->
             <animation effect="slide" start="90,0" end="0,0" time="400">Visible</animation>
             <animation effect="slide" start="0,0" end="90,0" time="400">Hidden</animation>
 	        <control type="image">
@@ -5246,7 +5226,7 @@
 
 	<include name="HomeButtonCommons">
         <control type="group" id="666">
-	        <include>Window_OpenClose_Animation_Slide_Down</include>
+	        <include>Window_OpenClose_Animation_Fade</include>
             <posx>0</posx>
             <posy>0</posy>
             <include>VisibleFadeEffect</include>
@@ -5366,7 +5346,7 @@
 		</control>
 			<control type="panel" id="9002">
             <visible>!Window.IsActive(PlayerControls)</visible>
-            <include>Window_OpenClose_Animation_Slide_Up</include>
+            <include>Window_OpenClose_Animation_Fade</include>
             <include>SubMenuCommonLayout</include>
             <onright condition="Control.IsVisible(60)">60</onright>
             <ondown condition="Control.IsVisible(100)">100</ondown>
@@ -5377,13 +5357,13 @@
 			<content>
                 <item id="9012">
                     <label>1036</label>
-                    <visible>!Window.IsActive(AddonBrowser) + !Window.IsActive(Videos)</visible>
+                    <visible>!Window.IsActive(AddonBrowser) + !Window.IsActive(MyPrograms) + !Window.IsActive(Videos) + Player.HasAudio</visible>
                     <onclick>ActivateWindow(1115)</onclick>
                     <onclick>Control.SetFocus(9002)</onclick>
                     <icon>arrow-big-up.png</icon>
                     <align>right</align>
                 </item>
-                <item id="9022">
+               <item id="9022">
                     <label>587</label>
                     <visible>!Window.IsActive(AddonBrowser)</visible>
                     <onclick condition="!Container.CanFilterAdvanced">SendClick(19)</onclick>
@@ -5435,6 +5415,7 @@
  
     <include name="MediaBladeLeft">
         <control type="group" id="555">
+        	<visible>!Skin.HasSetting(HideMediaBlade)</visible>
             <animation effect="slide" start="-200,0" end="0,0" time="500" tween="quadratic" easing="out">WindowOpen</animation>
             <animation effect="slide" start="0,0" end="-200,0" time="500" tween="quadratic" easing="out">WindowClose</animation>
             <posx>0</posx>
@@ -5549,7 +5530,7 @@
     </include>
      
     <include name="SubMenuCommonLayout">
-        <include>Window_OpenClose_Animation_Slide_Up</include>
+        <include>Window_OpenClose_Animation_Fade</include>
         <animation effect="slide" start="0,0" end="-15,0" time="0" condition="String.IsEqual(Container(9002).NumItems,5)">conditional</animation>
         <animation effect="slide" start="0,0" end="84,0" time="0" condition="String.IsEqual(Container(9002).NumItems,4)">conditional</animation>
         <animation effect="slide" start="0,0" end="118,0" time="0" condition="String.IsEqual(Container(9002).NumItems,3)">conditional</animation>
@@ -5568,7 +5549,7 @@
                 <posy>4</posy>
                 <width>85</width>
                 <height>85</height>
-                <texture border="4">floor_button_t.png</texture>
+                <texture border="4">1px_transparent.png</texture>
             </control>
             <control type="image">
                 <posx>0</posx>
@@ -5586,7 +5567,7 @@
                 <posy>4</posy>
                 <width>85</width>
                 <height>85</height>
-                <texture border="4">floor_button_t.png</texture>
+                <texture border="4">1px_transparent.png</texture>
             </control>
             <control type="image">
                 <posx>0</posx>
@@ -5647,7 +5628,7 @@
                 <width>68</width>
                 <height>68</height>
                 <bordersize>6</bordersize>
-                <texture colordiffuse="$VAR[CustomColorFocus]" border="5">$INFO[ListItem.Icon]</texture>
+                <texture colordiffuse="$VAR[CustomColorFocus]">$INFO[ListItem.Icon]</texture>
                 <align>right</align>
 		    </control>  
         </focusedlayout>
@@ -5700,7 +5681,7 @@
                 <width>68</width>
                 <height>68</height>
                 <bordersize>6</bordersize>
-                <texture colordiffuse="$VAR[CustomColorFocus]" border="5">$INFO[ListItem.Icon]</texture>
+                <texture colordiffuse="$VAR[CustomColorFocus]">$INFO[ListItem.Icon]</texture>
                 <align>right</align>
 		    </control>  
         </focusedlayout>
@@ -5748,7 +5729,7 @@
                 <width>85</width>
                 <height>85</height>
                 <bordersize>6</bordersize>
-                <texture colordiffuse="$VAR[CustomColorFocus]" border="5">$INFO[ListItem.Icon]</texture>
+                <texture colordiffuse="$VAR[CustomColorFocus]">$INFO[ListItem.Icon]</texture>
                 <align>right</align>
 		    </control>  
         </focusedlayout>
@@ -5922,8 +5903,8 @@
 				<ondown>3001</ondown>
 				<posx>20</posx>
 				<posy>15</posy>
-				<width>84</width>
-				<height>84</height>
+				<width>85</width>
+				<height>85</height>
 				<bordersize>10</bordersize>
 				<texture colordiffuse="$VAR[CustomColorNofocus]">$INFO[ListItem.Icon]</texture>
 				<align>right</align>
@@ -5938,7 +5919,7 @@
 				<width>85</width>
 				<height>85</height>
 				<bordersize>10</bordersize>
-				<texture colordiffuse="$VAR[CustomColorFocus]" border="5">$INFO[ListItem.Icon]</texture>
+				<texture colordiffuse="$VAR[CustomColorFocus]">$INFO[ListItem.Icon]</texture>
 				<align>right</align>
 		    </control>  
         </focusedlayout>
@@ -6112,7 +6093,7 @@
 				<ondown>3001</ondown>
 				<posx>20</posx>
 				<posy>15</posy>
-				<width>103</width>
+				<width>100</width>
 				<height>100</height>
 				<bordersize>10</bordersize>
 				<texture colordiffuse="$VAR[CustomColorNofocus]">$INFO[ListItem.Icon]</texture>
@@ -6124,7 +6105,7 @@
 				<ondown>3001</ondown>
 				<posx>20</posx>
 				<posy>15</posy>
-				<width>103</width>
+				<width>100</width>
 				<height>100</height>
 				<bordersize>10</bordersize>
 				<texture colordiffuse="$VAR[CustomColorFocus]">$INFO[ListItem.Icon]</texture>
@@ -6238,8 +6219,8 @@
         <font>font24</font>
         <textcolor>grey2</textcolor>
         <focusedcolor>white</focusedcolor>
-        <texturenofocus colordiffuse="$VAR[CustomColorNofocus]">HomeSubNF.png</texturenofocus>
-        <texturefocus colordiffuse="$VAR[CustomColorFocus]" border="5">HomeSubNF.png</texturefocus>
+        <texturenofocus colordiffuse="$VAR[CustomColorNofocus]">1px_transparent.png</texturenofocus>
+        <texturefocus colordiffuse="$VAR[CustomColorFocus]" border="5">1px_transparent.png</texturefocus>
         <pulseonselect>false</pulseonselect>
         <textureradioon>HomeTab-focus.png</textureradioon>
         <textureradiooff>-</textureradiooff>
@@ -6271,8 +6252,21 @@
         <font>font24_title</font>
         <textcolor>FFFFFFFF</textcolor>
 		<focusedcolor>selected</focusedcolor>
-        <texturenofocus>menuitem_black2_nf.png</texturenofocus>
-        <texturefocus>menuitem_black_f.png</texturefocus>
+        <texturenofocus colordiffuse="E6404040">menuitem_black2_nf.png</texturenofocus>
+        <texturefocus colordiffuse="FF404040">menuitem_black_f.png</texturefocus>
+        <pulseonselect>false</pulseonselect>
+    </include>
+
+    <include name="ButtonPulldownMenu">
+        <height>60</height>
+        <width>250</width>
+        <align>center</align>
+        <aligny>center</aligny>
+        <font>font24_title</font>
+        <textcolor>FFFFFFFF</textcolor>
+		<focusedcolor>selected</focusedcolor>
+        <texturenofocus colordiffuse="D9282828">menuitem_black2_nf.png</texturenofocus>
+        <texturefocus colordiffuse="D9353535">menuitem_black_f.png</texturefocus>
         <pulseonselect>false</pulseonselect>
     </include>
 
@@ -6297,8 +6291,8 @@
         <font>font24_title</font>
         <textcolor>FFFFFFFF</textcolor>
 		<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>
-        <texturenofocus>topmenu2_bg_nf.png</texturenofocus>
-        <texturefocus>topmenu2_bg_f.png</texturefocus>
+        <texturenofocus colordiffuse="40000000">topmenu2_bg_nf.png</texturenofocus>
+        <texturefocus colordiffuse="66000000">topmenu2_bg_f.png</texturefocus>
         <pulseonselect>false</pulseonselect>
     </include>
 
@@ -6310,8 +6304,8 @@
         <font>font24_title</font>
         <textcolor>FFFFFFFF</textcolor>
 		<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>
-        <texturenofocus>topmenu2_bg_f.png</texturenofocus>
-        <texturefocus>topmenu2_bg_f.png</texturefocus>
+        <texturenofocus colordiffuse="66000000">topmenu2_bg_f.png</texturenofocus>
+        <texturefocus colordiffuse="66000000">topmenu2_bg_f.png</texturefocus>
         <pulseonselect>false</pulseonselect>
     </include>
    

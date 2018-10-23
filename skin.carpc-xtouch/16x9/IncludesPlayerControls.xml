@@ -93,7 +93,7 @@
 			<animation effect="slide" start="0,0" end="0,-200" time="300" easing="in" tween="quadratic" >Hidden</animation>
 			<control type="group">
 				<control type="image">
-	                <visible>Player.HasDuration</visible>
+	                <visible>true</visible>
 					<description>cover image</description>
 					<posx>80</posx>
 					<posy>5</posy>
@@ -101,40 +101,16 @@
 					<height>443</height>
 					<info>MusicPlayer.Cover</info>
 					<aspectratio></aspectratio>
-					<bordertexture>ThumbBorderGrey.png</bordertexture>
 					<bordersize>2</bordersize>
 				</control>
 				<control type="image">
-	                <visible>Player.HasDuration</visible>
+	                <visible>true</visible>
 					<description>cover image</description>
 					<posx>80</posx>
 					<posy>448</posy>
 					<width>480</width>
 					<height>443</height>
 					<texture flipy="true" diffuse="mask-gradient-v.png">$INFO[MusicPlayer.Cover]</texture>
-					<aspectratio></aspectratio>
-					<bordersize>2</bordersize>
-				</control>
-				<control type="image">
-	                <visible>!Player.HasDuration</visible>
-					<description>cover image</description>
-					<posx>80</posx>
-					<posy>5</posy>
-					<width>480</width>
-					<height>443</height>
-					<texture fallback="defaultstream.png">$INFO[Skin.String(CustomFanartPath)]/_playlistcover/$INFO[Player.Filename].jpg</texture>
-					<aspectratio></aspectratio>
-					<bordertexture>ThumbBorderGrey.png</bordertexture>
-					<bordersize>2</bordersize>
-				</control>
-				<control type="image">
-	                <visible>!Player.HasDuration</visible>
-					<description>cover image</description>
-					<posx>80</posx>
-					<posy>448</posy>
-					<width>480</width>
-					<height>443</height>
-					<texture fallback="defaultstream.png" flipy="true" diffuse="mask-gradient-v.png">$INFO[Skin.String(CustomFanartPath)]/_playlistcover/$INFO[Player.Filename].jpg</texture>
 					<aspectratio></aspectratio>
 					<bordersize>2</bordersize>
 				</control>
@@ -160,7 +136,7 @@
 					<align>left</align>
 					<font>font50_title</font>
 					<label>$INFO[MusicPlayer.Artist]</label>
-					<textcolor>white</textcolor>
+					<textcolor>$VAR[CustomColorNofocus]</textcolor>
 				</control>
 				
 				<control type="label">
@@ -183,7 +159,7 @@
 					<align>left</align>
 					<aligny>center</aligny>
 					<label>$INFO[MusicPlayer.Title]</label>
-					<textcolor>white</textcolor>
+					<textcolor>$VAR[CustomColorNofocus]</textcolor>
 					<scroll>true</scroll>
 				</control>
 				
@@ -207,7 +183,7 @@
 					<align>left</align>
 					<font>font36_title</font>
 					<label>$INFO[MusicPlayer.Album]</label>
-					<textcolor>white</textcolor>
+					<textcolor>$VAR[CustomColorNofocus]</textcolor>
 				</control>
 				
 				<control type="group">
@@ -261,7 +237,7 @@
 					<align>right</align>
 					<aligny>center</aligny>
 					<font>font20</font>
-					<textcolor>white</textcolor>
+					<textcolor>$VAR[CustomColorNofocus]</textcolor>
 					<label>$LOCALIZE[589]</label>
 					<visible>MusicPartyMode.Enabled</visible>
 				</control>
@@ -287,7 +263,7 @@
 					<align>left</align>
 					<aligny>center</aligny>
 					<font>font24_title</font>
-					<textcolor>white</textcolor>
+					<textcolor>$VAR[CustomColorNofocus]</textcolor>
 					<scroll>true</scroll>
 					<visible>MusicPlayer.HasNext</visible>
 				</control>
@@ -330,7 +306,7 @@
 						<align>left</align>
 						<font>font24_title</font>
 						<label>$INFO[VideoPlayer.Studio]</label>
-						<textcolor>white</textcolor>
+						<textcolor>$VAR[CustomColorNofocus]</textcolor>
 					</control>
 					<control type="label">
 						<posx>225</posx>
@@ -341,7 +317,7 @@
 						<align>left</align>
 						<aligny>center</aligny>
 						<label>$INFO[VideoPlayer.Title]</label>
-						<textcolor>white</textcolor>
+						<textcolor>$VAR[CustomColorNofocus]</textcolor>
 						<scroll>true</scroll>
 					</control>
 					<control type="label">
@@ -353,7 +329,7 @@
 						<align>left</align>
 						<font>font24</font>
 						<label>$INFO[VideoPlayer.Genre]</label>
-						<textcolor>white</textcolor>
+						<textcolor>$VAR[CustomColorNofocus]</textcolor>
 					</control>
 					<control type="group">
 						<posx>217</posx>
@@ -420,7 +396,7 @@
 						<align>left</align>
 						<font>font24_title</font>
 						<label>[B]$INFO[VideoPlayer.Studio][/B]</label>
-						<textcolor>white</textcolor>
+						<textcolor>$VAR[CustomColorNofocus]</textcolor>
 					</control>
 					<control type="label">
 						<posx>142</posx>
@@ -431,7 +407,7 @@
 						<align>left</align>
 						<aligny>center</aligny>
 						<label>$INFO[VideoPlayer.Title]</label>
-						<textcolor>white</textcolor>
+						<textcolor>$VAR[CustomColorNofocus]</textcolor>
 						<scroll>true</scroll>
 					</control>
 					<control type="label">
@@ -443,7 +419,7 @@
 						<align>left</align>
 						<font>font24_title</font>
 						<label>$INFO[VideoPlayer.Genre]</label>
-						<textcolor>white</textcolor>
+						<textcolor>$VAR[CustomColorNofocus]</textcolor>
 					</control>
 					<control type="group">
 						<posx>142</posx>
@@ -510,7 +486,7 @@
 						<align>left</align>
 						<font>font24</font>
 						<label>$INFO[VideoPlayer.TVShowTitle]</label>
-						<textcolor>white</textcolor>
+						<textcolor>$VAR[CustomColorNofocus]</textcolor>
 					</control>
 					<control type="label">
 						<posx>225</posx>
@@ -521,7 +497,7 @@
 						<align>left</align>
 						<aligny>center</aligny>
 						<label>$INFO[VideoPlayer.Title]</label>
-						<textcolor>white</textcolor>
+						<textcolor>$VAR[CustomColorNofocus]</textcolor>
 						<scroll>true</scroll>
 					</control>
 					<control type="label">
@@ -533,7 +509,7 @@
 						<align>left</align>
 						<font>font24</font>
 						<label>$INFO[VideoPlayer.Season,$LOCALIZE[20373]: ] &#32;&#32;&#32; $INFO[VideoPlayer.Episode,$LOCALIZE[20359]: ]</label>
-						<textcolor>white</textcolor>
+						<textcolor>$VAR[CustomColorNofocus]</textcolor>
 					</control>
 					<control type="group">
 						<posx>217</posx>
@@ -587,7 +563,7 @@
 					<align>right</align>
 					<aligny>center</aligny>
 					<font>font24</font>
-					<textcolor>white</textcolor>
+					<textcolor>$VAR[CustomColorNofocus]</textcolor>
 					<label>$INFO[Player.Chapter,$LOCALIZE[21396]: ]$INFO[Player.ChapterCount, / ]$INFO[Player.ChapterName,[COLOR=grey3] (,)[/COLOR]]</label>
 					<visible>Player.ChapterCount</visible>
 				</control>
@@ -600,7 +576,7 @@
 					<align>right</align>
 					<aligny>center</aligny>
 					<font>font24</font>
-					<textcolor>white</textcolor>
+					<textcolor>$VAR[CustomColorNofocus]</textcolor>
 					<scroll>true</scroll>
 				</control>
 			</control>
@@ -660,8 +636,8 @@
 				<align>left</align>
 				<aligny>center</aligny>
 				<selected>Skin.HasSetting(PlayerControlsShowAudioInfo)</selected>
-				<texturenofocus border="5">floor_button_t.png</texturenofocus>
-				<texturefocus border="5">floor_button_t.png</texturefocus>
+				<texturenofocus border="5">1px_transparent.png</texturenofocus>
+				<texturefocus border="5">1px_transparent.png</texturefocus>
 				<onclick>Skin.ToggleSetting(PlayerControlsShowAudioInfo)</onclick>
 				<visible>Player.HasAudio</visible>
 				<onleft>Control.SetFocus(666)</onleft>
@@ -679,8 +655,8 @@
 				<align>left</align>
 				<aligny>center</aligny>
 				<selected>Skin.HasSetting(PlayerControlsShowVideoInfo)</selected>
-				<texturenofocus border="5">floor_button_t.png</texturenofocus>
-				<texturefocus border="5">floor_button_t.png</texturefocus>
+				<texturenofocus border="5">1px_transparent.png</texturenofocus>
+				<texturefocus border="5">1px_transparent.png</texturefocus>
 				<onclick>Skin.ToggleSetting(PlayerControlsShowVideoInfo)</onclick>
 				<visible>Player.HasVideo</visible>
 				<onleft>Control.SetFocus(666)</onleft>
@@ -697,8 +673,8 @@
 				<font>font22_title</font>
 				<align>center</align>
 				<aligny>center</aligny>
-				<texturenofocus border="5">floor_button_t.png</texturenofocus>
-				<texturefocus border="5">floor_button_t.png</texturefocus>
+				<texturenofocus border="5">1px_transparent.png</texturenofocus>
+				<texturefocus border="5">1px_transparent.png</texturefocus>
 				<onclick>Skin.ToggleSetting(PlayerControlsSubMenuVisible)</onclick>
 				<onleft>Control.SetFocus(667)</onleft>
 				<onright>Control.SetFocus(669)</onright>
@@ -716,8 +692,8 @@
 				<font>font22_title</font>
 				<align>center</align>
 				<aligny>center</aligny>
-				<texturenofocus border="5">floor_button_t.png</texturenofocus>
-				<texturefocus border="5">floor_button_t.png</texturefocus>
+				<texturenofocus border="5">1px_transparent.png</texturenofocus>
+				<texturefocus border="5">1px_transparent.png</texturefocus>
 				<label>31008</label>
 				<onclick>fullscreen</onclick>
 				<onclick>Control.SetFocus(669)</onclick>
@@ -740,8 +716,8 @@
 				<font>font22_title</font>
 				<align>center</align>
 				<aligny>center</aligny>
-				<texturenofocus border="5">floor_button_t.png</texturenofocus>
-				<texturefocus border="5">floor_button_t.png</texturefocus>
+				<texturenofocus border="5">1px_transparent.png</texturenofocus>
+				<texturefocus border="5">1px_transparent.png</texturefocus>
 				<label>31008</label>
 				<onclick>Dialog.Close(VideoOSD,true)</onclick>
 				<onclick>Dialog.Close(MusicOSD,true)</onclick>
@@ -913,25 +889,65 @@
 			<onleft condition="Control.IsVisible(607)">Control.SetFocus(607)</onleft>
 			<onleft condition="Control.IsVisible(605) + !Control.IsVisible(607)">Control.SetFocus(605)</onleft>
 			<content>
-				<!--<item>
+<!-- 
+				<item>
 					<label></label>
 					<onclick>ReloadSkin</onclick>
 					<icon>icon_refresh_w.png</icon>
-				</item>-->
-				
-				<!-- <item>
+				</item>
+ -->
+<!-- 
+				<item>
 					<label>1036</label>
 					<onclick>ActivateWindow(Favourites)</onclick>
 					<icon>icon_favourites_w.png</icon>
-				</item> -->
+				</item>				
+ -->
+<!-- 
 				<item>
 					<label>31200</label>
 					<onclick>Back</onclick>
 					<icon>icon_back_w.png</icon>
 				</item>
+ -->
+
+				<item>
+					<label></label>
+					<visible>Window.IsVisible(VideoOSD)</visible>
+					<onclick>Dialog.Close(VideoOSD,true)</onclick>
+					<onclick>ActivateWindow(25)</onclick>
+					<icon>icon_list_w.png</icon>
+				</item>
+				<item>
+					<label></label>
+					<visible>Window.IsVisible(MusicOSD)</visible>
+					<onclick>Dialog.Close(MusicOSD,true)</onclick>
+					<onclick>ActivateWindow(502)</onclick>
+					<icon>icon_list_w.png</icon>
+				</item>
+				<item>
+					<label></label>
+					<visible>Window.IsVisible(1115)</visible>
+					<onclick>Dialog.Close(1115,true)</onclick>
+					<onclick>ActivateWindow(502)</onclick>
+					<icon>icon_list_w.png</icon>
+				</item>
+				<item>
+					<visible>Window.IsVisible(custom_MusicOSD_1115) | Window.IsVisible(MusicOSD) | Window.IsVisible(VideoOSD)</visible>
+					<label>31200</label>
+					<onclick condition="Window.IsVisible(custom_MusicOSD_1115) | Window.IsVisible(MusicOSD) | Window.IsVisible(VideoOSD)">Dialog.Close(all,true)</onclick>
+					<onclick>ParentDir</onclick>
+					<icon>icon_back_w.png</icon>
+				</item>
+				<item>
+					<visible>!Window.IsVisible(custom_MusicOSD_1115) + !Window.IsVisible(MusicOSD) + !Window.IsVisible(VideoOSD)</visible>
+					<label>31200</label>
+					<onclick>Back</onclick>
+					<icon>icon_back_w.png</icon>
+				</item>
+
 			</content>
-		</control>
-			
+		</control>			
 		</control>
 		<include>BottomNowPLaying</include>
 		<control type="group">

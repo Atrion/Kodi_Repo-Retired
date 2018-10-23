@@ -61,7 +61,7 @@
 				<align>right</align>
 				<font>font18_title</font>
 				<textcolor>white</textcolor>
-				<label>v3.0</label>
+				<label>v3.2</label>
 			</control>
 		</control>
 
@@ -235,6 +235,7 @@
 				<onclick>Skin.Reset(ChangeFocusColor)</onclick>
 				<onclick>Skin.Reset(ChangeIconTextColor)</onclick>
 				<onclick>Skin.Reset(ChangeOutlineColor)</onclick>
+				<onclick>Skin.Reset(ChangeHBIconColor)</onclick>
 				<onclick>Skin.SetString(ChangeSkinColor,1)</onclick>
 				<onclick>ActivateWindow(1130)</onclick>
 				<ondown>202</ondown>
@@ -309,6 +310,7 @@
 				<onclick>Skin.Reset(ChangeSkinColor)</onclick>
 				<onclick>Skin.Reset(ChangeIconTextColor)</onclick>
 				<onclick>Skin.Reset(ChangeOutlineColor)</onclick>
+				<onclick>Skin.Reset(ChangeHBIconColor)</onclick>
 				<onclick>Skin.SetString(ChangeFocusColor,1)</onclick>
 				<onclick>ActivateWindow(1130)</onclick>
 				<onup>201</onup>
@@ -827,7 +829,7 @@
 						<font>font20_title</font>
 						<align>center</align>
 						<aligny>center</aligny>
-						<label>$LOCALIZE[31063]</label>  
+						<label>$LOCALIZE[40163]</label>  
 						<textcolor>white</textcolor>
 						<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>
 						<texturefocus border="0,2,0,2">menuitem_black_f.png</texturefocus>
@@ -1169,7 +1171,7 @@
 
 <!-- Home Button Text&Icon Color -->
 		<control type="group">
-			<description>Home Button Text&Icon Color</description>
+			<description>Home Button Text Color</description>
 			<posx>30</posx>
 			<posy>310</posy>
 			<width>1000</width>
@@ -1202,6 +1204,7 @@
 				<onclick>Skin.Reset(ChangeSkinColor)</onclick>
 				<onclick>Skin.Reset(ChangeFocusColor)</onclick>
 				<onclick>Skin.Reset(ChangeOutlineColor)</onclick>
+				<onclick>Skin.Reset(ChangeHBIconColor)</onclick>
 				<onclick>Skin.SetString(ChangeIconTextColor,1)</onclick>
 				<onclick>ActivateWindow(1130)</onclick>
 				<onup></onup>
@@ -1241,13 +1244,88 @@
                 <texture>button_clear.png</texture>
             </control>
 		</control> 
+		<control type="group">
+			<description>Home Button Icon Color</description>
+			<posx>30</posx>
+			<posy>400</posy>
+			<width>1000</width>
+			<height>60</height>
+			<visible>Skin.String(FirstSettings,4)</visible>
+
+            <control type="image">
+                <description>Hintergrund</description>
+				<posx>0</posx>
+				<posy>0</posy>
+                <posx>0</posx>
+                <posy>0</posy>
+                <width>1000</width>
+                <height>70</height>
+                <texture border="0,2,0,2">MenuItemNF.png</texture>
+            </control>
+			<control type="button" id="402">
+				<posx>130</posx>
+				<posy>10</posy>
+				<height>50</height>
+			   	<width>340</width>
+				<font>font24_title</font>
+				<align>center</align>
+				<aligny>center</aligny>
+				<label>$LOCALIZE[40175]</label>  
+				<textcolor>white</textcolor>
+				<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>
+				<texturefocus border="0,2,0,2">button_outline_black_f.png</texturefocus>
+			    <texturenofocus border="0,2,0,2">button_outline_black.png</texturenofocus>
+				<onclick>Skin.Reset(ChangeSkinColor)</onclick>
+				<onclick>Skin.Reset(ChangeFocusColor)</onclick>
+				<onclick>Skin.Reset(ChangeOutlineColor)</onclick>
+				<onclick>Skin.Reset(ChangeIconTextColor)</onclick>
+				<onclick>Skin.SetString(ChangeHBIconColor,1)</onclick>
+				<onclick>ActivateWindow(1130)</onclick>
+				<onup>401</onup>
+				<ondown>403</ondown>
+			</control> 
+			<control type="label">
+				<posx>500</posx>
+				<posy>5</posy>
+				<height>60</height>
+				<width>270</width>
+				<font>font24_title</font>
+				<label>$LOCALIZE[31190]</label>
+				<textcolor>white</textcolor>
+				<align>left</align>
+				<aligny>center</aligny>
+			</control>
+            <control type="image">
+                <description>Color field</description>
+                <visible>!String.IsEmpty(Skin.String(CustomColorHomebuttonIcons))</visible>
+				<posx>700</posx>
+				<posy>15</posy>
+                <posx>0</posx>
+                <posy>0</posy>
+                <width>100</width>
+                <height>40</height>
+                <texture colordiffuse="$VAR[CustomColorHomebuttonIcons]">button-nofocus.png</texture>
+            </control>
+            <control type="image">
+                <description>Color field clear</description>
+                <visible>String.IsEmpty(Skin.String(CustomColorHomebuttonIcons))</visible>
+				<posx>700</posx>
+				<posy>15</posy>
+                <posx>0</posx>
+                <posy>0</posy>
+                <width>100</width>
+                <height>40</height>
+                <texture>button_clear.png</texture>
+            </control>
+		</control> 
+
 
 <!-- Home Button Outline Color -->
 		<control type="group">
 				<visible>Skin.String(FirstSettings,4)</visible>
 				<description>Color for Button Outline</description>
 				<posx>30</posx>
-				<posy>400</posy>
+				<posy>490</posy>
 				<width>1000</width>
 				<height>70</height>
 	
@@ -1261,7 +1339,7 @@
 					<height>70</height>
 	                <texture border="0,2,0,2">MenuItemNF.png</texture>
 				</control>
-				<control type="button" id="402">
+				<control type="button" id="403">
 					<posx>130</posx>
 					<posy>10</posy>
 					<height>50</height>
@@ -1276,11 +1354,12 @@
 			    	<texturenofocus border="0,2,0,2">button_outline_black.png</texturenofocus>
 					<onclick>Skin.Reset(ChangeSkinColor)</onclick>
 					<onclick>Skin.Reset(ChangeFocusColor)</onclick>
+					<onclick>Skin.Reset(ChangeHBIconColor)</onclick>
 					<onclick>Skin.Reset(ChangeIconTextColor)</onclick>
 					<onclick>Skin.SetString(ChangeOutlineColor,1)</onclick>
 					<onclick>Skin.SetBool(ShowOutlines)</onclick>
 					<onclick>ActivateWindow(1130)</onclick>
-					<onup>401</onup>
+					<onup>402</onup>
 					<ondown>404</ondown>
 				</control> 
 				<control type="label">
@@ -1340,7 +1419,7 @@
 			</control> 
 
 <!-- Navigation Bottom -->
-		<control type="button" id="403">
+		<control type="button" id="404">
 			<visible>Skin.String(FirstSettings,4)</visible>
 			<posx>100</posx>
 			<posy>600</posy>
@@ -1357,11 +1436,11 @@
 			<onclick>Skin.Reset(FirstSettings)</onclick>
 			<onclick>Skin.SetString(FirstSettings,3)</onclick>
 			<onclick>Control.SetFocus(301)</onclick>
-			<onup>402</onup>
+			<onup>403</onup>
 			<ondown></ondown>
-			<onright>404</onright>
+			<onright>405</onright>
 		</control> 
-		<control type="button" id="404">
+		<control type="button" id="405">
 			<visible>Skin.String(FirstSettings,4)</visible>
 			<centerleft>500</centerleft>
 			<posy>600</posy>
@@ -1379,9 +1458,9 @@
 			<onclick condition="System.HasAddon(plugin.program.carpc-xtouch) + [!Skin.String(Daysaved,1) | !Skin.String(Nightsaved,1)]">Skin.SetString(FirstSettings,45)</onclick>
 			<onclick condition="!System.HasAddon(plugin.program.carpc-xtouch) | [Skin.String(Daysaved,1) + Skin.String(Nightsaved,1)]">Skin.SetString(FirstSettings,5)</onclick>
 			<onclick>Control.SetFocus(500)</onclick>
-			<onup>402</onup>
+			<onup>403</onup>
 			<ondown></ondown>
-			<onleft>403</onleft>
+			<onleft>404</onleft>
 		</control> 
 
 <!-- ### Page 4 End ######################################################################################## -->
@@ -1645,7 +1724,7 @@
 				<texturefocus border="0,2,0,2">button_outline_black_f.png</texturefocus>
 			    <texturenofocus border="0,2,0,2">button_outline_black.png</texturenofocus>
 				<onclick>Skin.Reset(FirstSettings)</onclick>
-				<onclick>Skin.ToggleSetting(HideSettingsManager3.0)</onclick> 
+				<onclick>Skin.ToggleSetting(HideSettingsManager3.1)</onclick> 
 				<onclick>Dialog.Close(1122)</onclick>
 				<onclick>XBMC.ReloadSkin()</onclick>
 				<onleft>503</onleft>

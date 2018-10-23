@@ -1,5 +1,6 @@
 <window id="1200">
 	<defaultcontrol always="true">1203</defaultcontrol>
+	<backgroundcolor>0</backgroundcolor>
 	<controls>
 	    <include>Window_OpenClose_Animation_Fade</include>
 	    <include>CommonBackground</include>

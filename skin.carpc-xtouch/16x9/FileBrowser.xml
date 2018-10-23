@@ -3,6 +3,7 @@
 	<!-- removed allowoverlay -->
 	<include>16x9_xPos_Relocation</include>
 	<include>Window_OpenClose_Animation_Zoom</include>
+	<backgroundcolor>0</backgroundcolor>
 	<coordinates>
 		<system>1</system>
 		<posx>-50</posx>
@@ -34,7 +35,7 @@
 			<posy>60</posy>
 			<width>1020</width>
 			<height>660</height>
-			<texture border="5">DialogBack.png</texture>
+			<texture border="5">black.png</texture>
 		</control>
 
 		<control type="label" id="412">
@@ -84,7 +85,7 @@
 					<font>font25</font>
 					<align>left</align>
 					<aligny>center</aligny>
-					<textcolor>black</textcolor>
+					<textcolor>white</textcolor>
 					<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>
 					<label>$INFO[ListItem.Label]</label>
 				</control>
@@ -112,7 +113,7 @@
 					<font>font25</font>
 					<align>left</align>
 					<aligny>center</aligny>
-					<textcolor>black</textcolor>
+					<textcolor>white</textcolor>
 					<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>
 					<label>$INFO[ListItem.Label]</label>
 				</control>
@@ -186,7 +187,7 @@
 					<width>300</width>
 					<height>20</height>
 					<font>font20</font>
-					<textcolor>black</textcolor>
+					<textcolor>white</textcolor>
 					<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>
 					<align>center</align>
 					<aligny>center</aligny>
@@ -216,7 +217,7 @@
 					<width>300</width>
 					<height>20</height>
 					<font>font20</font>
-					<textcolor>black</textcolor>
+					<textcolor>white</textcolor>
 				<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>
 					<align>center</align>
 					<aligny>center</aligny>

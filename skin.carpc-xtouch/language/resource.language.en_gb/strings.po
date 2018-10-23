@@ -477,7 +477,7 @@ msgid "Custom Music Path:"
 msgstr ""
 
 msgctxt "#31128"
-msgid "Video Source"
+msgid "Movies Source"
 msgstr ""
 
 msgctxt "#31129"
@@ -701,7 +701,7 @@ msgid "Magic Buttons"
 msgstr ""
 
 msgctxt "#31184"
-msgid "Main Button Icon & Title Color"
+msgid "Main Menu Title Color"
 msgstr ""
 
 msgctxt "#31185"
@@ -761,7 +761,7 @@ msgid "Background Pictures"
 msgstr ""
 
 msgctxt "#31199"
-msgid "You can set the color of the title and icon of the main menu buttons. Choose a color from the list or enter your own color in hex code (AARRGGBB (AA=transparency, FF=opaque, 00=fully transparent, RRGGBB=color code). Default color is White."
+msgid "You can set the color of the title and icon of the main menu buttons. Choose a color from the list or enter your own color in hex code (AARRGGBB (AA=transparency, FF=opaque, 00=fully transparent, RRGGBB=color code). Default color is White. Hint: Clear the color when you use colored custom icons."
 msgstr ""
 
 #------------------------------------------------
@@ -1684,4 +1684,88 @@ msgstr ""
 
 msgctxt "#40174"
 msgid "Show Music and Radio Info in Navit"
+msgstr ""
+
+msgctxt "#40175"
+msgid "Main Menu Icon Color"
+msgstr ""
+
+msgctxt "#40176"
+msgid "Program-Addon"
+msgstr ""
+
+msgctxt "#40177"
+msgid "Music-Addon"
+msgstr ""
+
+msgctxt "#40178"
+msgid "Video-Addon"
+msgstr ""
+
+msgctxt "#40179"
+msgid "Choose an addon or enter an action:"
+msgstr ""
+
+msgctxt "#40180"
+msgid "Choose addon/action for button"
+msgstr ""
+
+msgctxt "#40181"
+msgid "Reset"
+msgstr ""
+
+msgctxt "#40182"
+msgid "Show Media Blade (left side)"
+msgstr ""
+
+msgctxt "#40183"
+msgid "Input Android App"
+msgstr ""
+
+msgctxt "#40184"
+msgid "Choose Python script"
+msgstr ""
+
+msgctxt "#40185"
+msgid "Android Apps"
+msgstr ""
+
+msgctxt "#40186"
+msgid "Show Android Apps Button"
+msgstr ""
+
+msgctxt "#40187"
+msgid "[B]IMPORTANT![/B][CR]Scripts must be Python scripts! Place the scripts in the folder /scripts in the skin folder. This folder already contains simple example scripts that may make it easier to get started. All you have to do is to adjust the GPIO pin in the scripts according to your wiring. [CR][CR]Two scripts are needed for each relay: one for 'ON' and one for 'OFF'."
+msgstr ""
+
+msgctxt "#40188"
+msgid "Activate button"
+msgstr ""
+
+msgctxt "#40189"
+msgid "Button"
+msgstr ""
+
+msgctxt "#40190"
+msgid "ON"
+msgstr ""
+
+msgctxt "#40191"
+msgid "OFF"
+msgstr ""
+
+msgctxt "#40192"
+msgid "All OFF"
+msgstr ""
+
+msgctxt "#40193"
+msgid "Control Relays"
+msgstr ""
+
+msgctxt "#40194"
+msgid "Relay control settings"
+msgstr ""
+
+msgctxt "#40195"
+msgid "Relay Control Dialog"
 msgstr ""

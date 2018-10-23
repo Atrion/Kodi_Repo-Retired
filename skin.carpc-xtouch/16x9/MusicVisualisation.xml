@@ -2,6 +2,7 @@
 	<defaultcontrol>9002</defaultcontrol>
 	<onunload>Skin.SetString(VisName,$INFO[Visualisation.Name])</onunload>
 	<!-- removed allowoverlay -->
+	<backgroundcolor>0</backgroundcolor>
 	<controls>
 		<control type="image">
 			<posx>0</posx>
@@ -19,10 +20,43 @@
 			<visible>!Skin.HasSetting(UseVisBgFull)</visible>
 			<texture>$INFO[Skin.String(CustomBackgroundPath)]</texture> 
 		</control>  
-		<!-- Cover in Background -->
+
+<!-- Fanart -->
+<!-- 
+		<control type="image">
+			<description>fanart</description>
+			<posx>0</posx>
+			<posy>0</posy>
+			<width>screenwidth</width>
+			<height>screenheight</height>
+			<texture background="true">$INFO[Skin.String(CustomFanartPath)]$INFO[MusicPlayer.Artist]/fanart.jpg</texture>
+			<aspectratio>scale</aspectratio>
+		</control>
+ -->
+
+
+<!-- Extrafanart slideshow -->
+<!-- 
+		<control type="multiimage">
+			<description>Fanart slideshow</description>
+			<left>0</left>
+			<top>0</top>
+			<width>screenwidth</width>
+			<height>screenheight</height>
+			<imagepath background="true">$INFO[Skin.String(CustomFanartPath)]$INFO[MusicPlayer.Artist]/extrafanart/</imagepath>
+			<info></info>
+			<timeperimage>5000</timeperimage>
+			<fadetime>2000</fadetime>
+			<pauseatend>10000</pauseatend>
+			<randomize>true</randomize>
+			<loop>yes</loop>
+			<aspectratio>scale</aspectratio>
+		</control>
+ -->
+<!-- Cover -->
 		<control type="group">
 			<description>Cover in Background</description>
-			<visible>Skin.HasSetting(ShowCoverOnVisFull) + !Window.IsVisible(120) + Player.HasDuration</visible>
+			<visible>Skin.HasSetting(ShowCoverOnVisFull) + !Window.IsVisible(120)</visible>
 			<include>VisibleFadeEffect</include>
 			<posx>415</posx>
 			<posy>92</posy>
@@ -43,29 +77,7 @@
 				<texture flipy="true" diffuse="mask-gradient-v.png">$INFO[MusicPlayer.Cover]</texture>
 			</control>
 		</control>
-		<control type="group">
-			<description>Cover in Background</description>
-			<visible>Skin.HasSetting(ShowCoverOnVisFull) + !Window.IsVisible(120) + !Player.HasDuration</visible>
-			<include>VisibleFadeEffect</include>
-			<posx>415</posx>
-			<posy>92</posy>
-			<control type="image">
-				<description>cover image</description>
-				<posx>0</posx>
-				<posy>0</posy>
-				<width>450</width>
-				<height>450</height>
-				<texture fallback="defaultstream.png" colordiffuse="CCFFFFFF">$INFO[Skin.String(CustomFanartPath)]/_playlistcover/$INFO[Player.Filename].jpg</texture>
-			</control>
-			<control type="image">
-				<description>cover image</description>
-				<posx>0</posx>
-				<posy>455</posy>
-				<width>450</width>
-				<height>450</height>
-				<texture fallback="defaultstream.png" flipy="true" diffuse="mask-gradient-v.png">$INFO[Skin.String(CustomFanartPath)]/_playlistcover/$INFO[Player.Filename].jpg</texture>
-			</control>
-		</control>
+<!-- Visualisation -->
 		<control type="visualisation" id="2">
 			<description>visualisation</description>
 			<posx>0</posx>
@@ -73,18 +85,18 @@
 			<width>ScreenWidth</width>
 			<height>ScreenHeight</height>
 		</control>
-		<!-- Info Next Track -->
-		<include condition="Skin.HasSetting(ShowNextTrack) + Skin.String(ShowNextTrackDuration,5)">Visualization_NextTrack5</include>
-		<include condition="Skin.HasSetting(ShowNextTrack) + Skin.String(ShowNextTrackDuration,15)">Visualization_NextTrack15</include>
-		<include condition="Skin.HasSetting(ShowNextTrack) + Skin.String(ShowNextTrackDuration,30)">Visualization_NextTrack30</include>
-		<include condition="Skin.HasSetting(ShowNextTrack) + Skin.String(ShowNextTrackDuration,60)">Visualization_NextTrack60</include>
-		<include condition="Skin.HasSetting(ShowNextTrack) + Skin.String(ShowNextTrackDuration,always)">Visualization_NextTrackAlways</include>
+<!-- Info Next Track -->
+		<include condition="Skin.HasSetting(ShowNextTrack) + Skin.String(ShowNextTrackDuration,5) + !Player.IsInternetStream">Visualization_NextTrack5</include>
+		<include condition="Skin.HasSetting(ShowNextTrack) + Skin.String(ShowNextTrackDuration,15) + !Player.IsInternetStream">Visualization_NextTrack15</include>
+		<include condition="Skin.HasSetting(ShowNextTrack) + Skin.String(ShowNextTrackDuration,30) + !Player.IsInternetStream">Visualization_NextTrack30</include>
+		<include condition="Skin.HasSetting(ShowNextTrack) + Skin.String(ShowNextTrackDuration,60) + !Player.IsInternetStream">Visualization_NextTrack60</include>
+		<include condition="Skin.HasSetting(ShowNextTrack) + Skin.String(ShowNextTrackDuration,always) + !Player.IsInternetStream">Visualization_NextTrackAlways</include>
 
-		<!-- codec & viz infos -->
+<!-- codec & viz infos -->
 		<control type="group" id="0">
 			<posx>0</posx>
 			<posy>50</posy>
-			<visible>Player.ShowCodec + ![Window.IsVisible(script-XBMC_Lyrics-main.xml) | Window.IsVisible(VisualisationSettings) | Window.IsVisible(VisualisationPresetList)]</visible>
+			<visible>Player.ShowCodec + ![Window.IsVisible(script-XBMC_Lyrics-main.xml) | Window.IsVisible(VisualisationPresetList)]</visible>
 			<animation effect="fade" time="200">VisibleChange</animation>
 			<control type="image">
 				<description>media info background image</description>

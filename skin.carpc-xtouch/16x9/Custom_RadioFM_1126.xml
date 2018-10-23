@@ -6,6 +6,7 @@
 	<onload>Skin.Reset(ListRadioStation)</onload>
 	<onload>Skin.Reset(SkinSettings)</onload>
 	<onload>Skin.Reset(OpenSetting11a)</onload>
+	<backgroundcolor>0</backgroundcolor>
 	<controls>
         <control type="button" id="3999">
             <description>Dummy Focus Button</description>

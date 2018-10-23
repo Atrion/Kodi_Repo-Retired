@@ -477,8 +477,8 @@ msgid "Custom Music Path:"
 msgstr "Pfad zur Musik:"
 
 msgctxt "#31128"
-msgid "Video Source"
-msgstr "Video Quelle"
+msgid "Movies Source"
+msgstr "Filme Quelle"
 
 msgctxt "#31129"
 msgid "Source: Path"
@@ -701,8 +701,8 @@ msgid "Magic Buttons"
 msgstr "Magic Buttons"
 
 msgctxt "#31184"
-msgid "Main Button Icon & Title Color"
-msgstr "Button Icon & Text Farbe"
+msgid "Main Menu Title Color"
+msgstr "Hauptmenü Text Farbe"
 
 msgctxt "#31185"
 msgid "Show Weather Info Top Right"
@@ -761,8 +761,8 @@ msgid "Background Pictures"
 msgstr "Bildhintergrund"
 
 msgctxt "#31199"
-msgid "You can set the color of the title and icon of the main menu buttons. Choose a color from the list or enter your own color in hex code (AARRGGBB (AA=transparency, FF=opaque, 00=fully transparent, RRGGBB=color code). Default color is White."
-msgstr "Hier kannst du die Icons und Beschriftungen deiner Hauptmenübuttons mit einer Farbe deiner Wahl einfärben. Wähle dazu eine Farbe aus der Farbtabelle aus oder gebe eine eigene Farbe in Hex-Code AARRGGBB ein (AA=Transparenz: FF=deckend; 00=voll transparent. RRGGBB=Farbcode). Die voreingestellte Farbe ist Weiß."
+msgid "You can set the color of the title and icon of the main menu buttons. Choose a color from the list or enter your own color in hex code (AARRGGBB (AA=transparency, FF=opaque, 00=fully transparent, RRGGBB=color code). Default color is White. Clear the color when you use colored custom icons."
+msgstr "Hier kannst du die Icons und Beschriftungen deiner Hauptmenübuttons mit einer Farbe deiner Wahl einfärben. Wähle dazu eine Farbe aus der Farbtabelle aus oder gebe eine eigene Farbe in Hex-Code AARRGGBB ein (AA=Transparenz: FF=deckend; 00=voll transparent. RRGGBB=Farbcode). Die voreingestellte Farbe ist Weiß. Hinweis: Wähle 'Löschen' wenn du farbige Custom-Icons verwendest."
 
 #------------------------------------------------
 
@@ -1672,7 +1672,7 @@ msgstr "Für die Radio-Funktion muss das RadioFM-Addon und der CarPC-Controller 
 
 msgctxt "#40171"
 msgid "   NOTICE: Visualization on home screen works only with the [B]Spectrum[/B]-Visualizer!"
-msgstr "   ACHTUNG! Die Visualisierung auf dem Homescreen kann nur mit dem [B]Spectrum[/B]-Visualizer [CR]   angezeigt werden!"
+msgstr "   ACHTUNG! Die Visualisierung auf dem Homescreen kann nur mit dem [B]Spectrum[/B]-Visualizer angezeigt werden!"
 
 msgctxt "#40172"
 msgid "If you use the cdART Manager addon to fetch fanart and artist-logos for your music, choose the same path in the addon settings as destination for the download of the artwork."
@@ -1685,3 +1685,87 @@ msgstr "[B]Pfad zum Musikordner[/B] (wird für Artwork benötigt)"
 msgctxt "#40174"
 msgid "Show Music and Radio Info in Navit"
 msgstr "Zeige Musik- und Radio-Info in Navit"
+
+msgctxt "#40175"
+msgid "Main Menu Icon Color"
+msgstr "Hauptmenü Icon Farbe"
+
+msgctxt "#40176"
+msgid "Program-Addon"
+msgstr "Programm-Addon"
+
+msgctxt "#40177"
+msgid "Music-Addon"
+msgstr "Musik-Addon"
+
+msgctxt "#40178"
+msgid "Video-Addon"
+msgstr "Video-Addon"
+
+msgctxt "#40179"
+msgid "Choose an addon or enter an action:"
+msgstr "Addon wählen oder Aktion eingeben:"
+
+msgctxt "#40180"
+msgid "Choose addon/action for button"
+msgstr "Wähle Addon/Aktion für Button"
+
+msgctxt "#40181"
+msgid "Reset"
+msgstr "Zurücksetzen"
+
+msgctxt "#40182"
+msgid "Show Media Blade (left side)"
+msgstr "Zeige Buttonleiste (linke Seite)"
+
+msgctxt "#40183"
+msgid "Input Android App"
+msgstr "Eingabe Android-App"
+
+msgctxt "#40184"
+msgid "Choose Python script"
+msgstr "Wähle Python-Script"
+
+msgctxt "#40185"
+msgid "Android Apps"
+msgstr "Android Apps"
+
+msgctxt "#40186"
+msgid "Show Android Apps Button"
+msgstr "Zeige Button Android Apps"
+
+msgctxt "#40187"
+msgid "[B]IMPORTANT![/B][CR]Scripts must be Python scripts! Place the scripts in the folder /scripts in the skin folder. This folder already contains simple example scripts that may make it easier to get started. All you have to do is to adjust the GPIO pin in the scripts according to your wiring. [CR][CR]Two scripts are needed for each relay: one for 'ON' and one for 'OFF'."
+msgstr "[B]WICHTIG![/B][CR]Skripte müssen Python Skripte sein! Lege die Skripte in den Ordner /scripts im Skinordner ab. In diesem Ordner befinden sich bereits einfache Beispielskripte, die den Einstieg erleichtern. Du musst nur den GPIO-Pin in den Skripten an deine Verkabelung anpassen. [CR][CR]Es werden zwei Skripte für jedes Relais benötigt: eines für 'EIN' und eines für 'AUS'. "
+
+msgctxt "#40188"
+msgid "Activate button"
+msgstr "Aktiviere Button"
+
+msgctxt "#40189"
+msgid "Button"
+msgstr "Button"
+
+msgctxt "#40190"
+msgid "ON"
+msgstr "AN"
+
+msgctxt "#40191"
+msgid "OFF"
+msgstr "AUS"
+
+msgctxt "#40192"
+msgid "All OFF"
+msgstr "Alle AUS"
+
+msgctxt "#40193"
+msgid "Control Relays"
+msgstr "Relais schalten"
+
+msgctxt "#40194"
+msgid "Relay control settings"
+msgstr "Relais Control Einstellungen"
+
+msgctxt "#40195"
+msgid "Relay Control Dialog"
+msgstr "Relais Control Dialog"

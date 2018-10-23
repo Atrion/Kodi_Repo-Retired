@@ -33,7 +33,7 @@
                 <posy>18</posy>
                 <width>100</width>
                 <height>100</height>
-                <texture colordiffuse="$VAR[CustomColorHomebuttons]">$VAR[HomeButtonIcon1]</texture>
+                <texture colordiffuse="$VAR[CustomColorHomebuttonIcons]">$VAR[HomeButtonIcon1]</texture>
             </control>
 	        <control type="image">
                 <description>Button-1 Icon</description>
@@ -42,7 +42,7 @@
                 <posy>18</posy>
                 <width>100</width>
                 <height>100</height>
-                <texture colordiffuse="$VAR[CustomColorHomebuttons]">$INFO[Skin.String(CustomMenuButtonIcon1)]</texture>
+                <texture colordiffuse="$VAR[CustomColorHomebuttonIcons]">$INFO[Skin.String(CustomMenuButtonIcon1)]</texture>
             </control>
             <control type="label">
                 <description>Button-1 label</description>
@@ -84,7 +84,7 @@
                 <posy>18</posy>
                 <width>100</width>
                 <height>100</height>
-                <texture colordiffuse="$VAR[CustomColorHomebuttons]">$VAR[HomeButtonIcon2]</texture>
+                <texture colordiffuse="$VAR[CustomColorHomebuttonIcons]">$VAR[HomeButtonIcon2]</texture>
             </control>
             <control type="image">
                 <description>Button-2 Icon</description>
@@ -93,7 +93,7 @@
                 <posy>18</posy>
                 <width>100</width>
                 <height>100</height>
-                <texture colordiffuse="$VAR[CustomColorHomebuttons]">$INFO[Skin.String(CustomMenuButtonIcon2)]</texture>
+                <texture colordiffuse="$VAR[CustomColorHomebuttonIcons]">$INFO[Skin.String(CustomMenuButtonIcon2)]</texture>
             </control>
             <control type="label">
                 <description>Button-2 label</description>
@@ -136,7 +136,7 @@
                 <posy>18</posy>
                 <width>100</width>
                 <height>100</height>
-                <texture colordiffuse="$VAR[CustomColorHomebuttons]">$VAR[HomeButtonIcon3]</texture>
+                <texture colordiffuse="$VAR[CustomColorHomebuttonIcons]">$VAR[HomeButtonIcon3]</texture>
             </control>
             <control type="image">
                 <description>Button-3 Icon</description>
@@ -145,7 +145,7 @@
                 <posy>18</posy>
                 <width>100</width>
                 <height>100</height>
-                <texture colordiffuse="$VAR[CustomColorHomebuttons]">$INFO[Skin.String(CustomMenuButtonIcon3)]</texture>
+                <texture colordiffuse="$VAR[CustomColorHomebuttonIcons]">$INFO[Skin.String(CustomMenuButtonIcon3)]</texture>
             </control>
             <control type="label">
                 <description>Button-3 label</description>
@@ -188,7 +188,7 @@
                 <posy>18</posy>
                 <width>100</width>
                 <height>100</height>
-                <texture colordiffuse="$VAR[CustomColorHomebuttons]">$VAR[HomeButtonIcon4]</texture>
+                <texture colordiffuse="$VAR[CustomColorHomebuttonIcons]">$VAR[HomeButtonIcon4]</texture>
             </control>
             <control type="image">
                 <description>Button-4 Icon</description>
@@ -197,7 +197,7 @@
                 <posy>18</posy>
                 <width>100</width>
                 <height>100</height>
-                <texture colordiffuse="$VAR[CustomColorHomebuttons]">$INFO[Skin.String(CustomMenuButtonIcon4)]</texture>
+                <texture colordiffuse="$VAR[CustomColorHomebuttonIcons]">$INFO[Skin.String(CustomMenuButtonIcon4)]</texture>
             </control>
             <control type="label">
                 <description>Button-4 label</description>
@@ -240,7 +240,7 @@
                 <posy>18</posy>
                 <width>100</width>
                 <height>100</height>
-                <texture colordiffuse="$VAR[CustomColorHomebuttons]">$VAR[HomeButtonIcon5]</texture>
+                <texture colordiffuse="$VAR[CustomColorHomebuttonIcons]">$VAR[HomeButtonIcon5]</texture>
             </control>
             <control type="image">
                 <description>Button-5 Icon</description>
@@ -249,7 +249,7 @@
                 <posy>18</posy>
                 <width>100</width>
                 <height>100</height>
-                <texture colordiffuse="$VAR[CustomColorHomebuttons]">$INFO[Skin.String(CustomMenuButtonIcon5)]</texture>
+                <texture colordiffuse="$VAR[CustomColorHomebuttonIcons]">$INFO[Skin.String(CustomMenuButtonIcon5)]</texture>
             </control>
             <control type="label">
                 <description>Button-5 label</description>
@@ -275,11 +275,12 @@
 <!-- 
 				<ondown condition="Control.IsVisible(9020) + Skin.String(OpenWidgetArea,open)">Control.SetFocus(9020)</ondown>
  -->
-				<ondown condition="Control.IsVisible(2011)">Control.SetFocus(2011)</ondown>
-				<ondown condition="!Control.IsVisible(2011) + Control.IsVisible(606)">Control.SetFocus(606)</ondown>
-				<ondown condition="!Control.IsVisible(2011) + Control.IsVisible(9003)">Control.SetFocus(9003)</ondown>
-				<ondown condition="!Control.IsVisible(2011) + Control.IsVisible(9004)">Control.SetFocus(9004)</ondown>
-				<ondown condition="!Control.IsVisible(2011) + !Control.IsVisible(606) + Control.IsVisible(3050)">Control.SetFocus(3050)</ondown>
+				<ondown condition="Skin.HasSetting(ShowRecentlyAdded)">Control.SetFocus(2011)</ondown>
+				<ondown condition="!Skin.HasSetting(ShowRecentlyAdded) + [Player.HasAudio + !Skin.HasSetting(HideRandomRepeat)]">Control.SetFocus(606)</ondown>
+				<ondown condition="!Skin.HasSetting(ShowRecentlyAdded) + [!Player.HasAudio | Skin.HasSetting(HideRandomRepeat)] + Control.IsVisible(3050)">Control.SetFocus(3050)</ondown>
+				<ondown condition="!Skin.HasSetting(ShowRecentlyAdded) + Control.IsVisible(9003)">Control.SetFocus(9003)</ondown>
+				<ondown condition="!Skin.HasSetting(ShowRecentlyAdded) + Control.IsVisible(9004)">Control.SetFocus(9004)</ondown>
+				<ondown condition="!Skin.HasSetting(ShowRecentlyAdded) + !Control.IsVisible(606) + Control.IsVisible(3050)">Control.SetFocus(3050)</ondown>
 				<onleft>3003</onleft>
                 <description>Main Button-6 Outline & Action</description>
                 <posx>0</posx>
@@ -299,7 +300,7 @@
                 <posy>18</posy>
                 <width>100</width>
                 <height>100</height>
-                <texture colordiffuse="$VAR[CustomColorHomebuttons]">$VAR[HomeButtonIcon6]</texture>
+                <texture colordiffuse="$VAR[CustomColorHomebuttonIcons]">$VAR[HomeButtonIcon6]</texture>
             </control>
             <control type="image">
                 <description>Button-6 Icon</description>
@@ -308,7 +309,7 @@
                 <posy>18</posy>
                 <width>100</width>
                 <height>100</height>
-                <texture colordiffuse="$VAR[CustomColorHomebuttons]">$INFO[Skin.String(CustomMenuButtonIcon6)]</texture>
+                <texture colordiffuse="$VAR[CustomColorHomebuttonIcons]">$INFO[Skin.String(CustomMenuButtonIcon6)]</texture>
             </control>
             <control type="label">
                 <description>Button-6 Label</description>

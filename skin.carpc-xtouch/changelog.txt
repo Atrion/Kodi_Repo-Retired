@@ -1,3 +1,30 @@
+3.2.0
+- Improved Magic Buttons and Magic Submenu Buttons (1): You can now easily attach a Python script to a magic button. You just have to choose the script file, which must be located in /Skin/scripts. 
+- Improved Magic Buttons and Magic Submenu Buttons (2) – Experimental, only for Android users!: Less typing needed to define the app which the button should open. Just enter the app's package name. Example: For 'Waze' you just have to type 'come.waze' (without quotes) – that's all!
+- Added new button in app switcher that opens a list of installed Android apps (Android only).
+- Added submenu button that opens a list of installed Android apps (Android only).
+- Added: Setting to hide sidebar in media windows. 
+- Added new button in music window (next to the 'Back' button) that allows direct switching back to the music navigation window.
+- Added new window that allows you to control up to four relays. Will require additional python scripts - example scripts are provided in skin/scripts. Window can be called by a Magic Button with action 'ActivateWindow(1999)'. 
+- Added Italian language. Many thanks to the user ‘predator_5‘ from Andrei's forum (http://engineeringdiy.freeforums.org/index.php)
+- Added new font: NotoSans for those who need Greek and Cyrillic characters.
+- Some bugfixes. 
+
+
+3.1.1
+- Bugfix: Magic Buttons on Homescreen are working now as they should. 
+
+3.1.0
+- Skin settings: Added option to set color of home button icons and text separately from each other.
+- Skin Settings/Magic Buttons & Magic Submenu Buttons: You can now not only type in an action for the button but also have the option to choose an addon (type Program, Music or Video) from a list. 
+- Skin Settings/Magic Buttons: Added 'Clear'-Button to the settings for Magic Buttons. The button clears all entries made to this button. 
+- Improvement: Music info on home screen fades out when 'Recently added albums' list on home screen slides in and fades in again when the album list slides out. 
+- Changed the appearance of settings dialogs to a more flat design.
+- Fixed a small bug with keyboard navigation on home screen. 
+- Removed unused textures.
+- Code optimizations.
+- As usual: If you use the x-Touch Helper addon, please update it to the latest version (v0.1.3 or newer)!
+
 3.0.2
 - Added option to show list of recently played items (music albums and movies) on home screen. 
 - Re-worked info area that shows infos about actually playing track (when music is playing) or radio station (when radio is active).

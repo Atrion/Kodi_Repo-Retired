@@ -3,6 +3,7 @@
     <defaultcontrol always="true">7100</defaultcontrol>
 	<onunload>Skin.Reset(MediaSubMenuVisible2)</onunload>
     <!-- removed allowoverlay true -->
+	<backgroundcolor>0</backgroundcolor>
     <controls>
 		<include>CommonBackground</include>
 		<include>CommonBackgroundAddons</include>

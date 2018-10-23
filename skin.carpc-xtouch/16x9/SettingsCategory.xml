@@ -1,7 +1,9 @@
 <window id="12">
 	<defaultcontrol>3</defaultcontrol>
+	<backgroundcolor>0</backgroundcolor>
 	<controls>
-<!--	<include>CommonBackground</include> -->
+	<include>CommonBackground</include>
+<!-- 
 		<control type="image">
 			<posx>0</posx>
 			<posy>0</posy>
@@ -9,8 +11,11 @@
 			<height>screenheight</height>
 			<texture border="5">dialog_back_black2.png</texture>
 		</control>
+ -->
 		<include>HomeButtonCommons</include>
+<!-- 
 		<include>BottomNowPLaying</include>
+ -->
 		
 		<control type="label">
 			<description>Window label</description>
@@ -30,15 +35,15 @@
 			</content>
 		</control>
 		<control type="group">
-			<include>Window_OpenClose_Animation_Zoom</include>
-			<posx>150</posx>
-			<posy>105</posy>
+			<include>Window_OpenClose_Animation_Fade</include>
+			<posx>120</posx>
+			<posy>100</posy>
 			<control type="grouplist" id="3">
 				<description>button area</description>
 				<posx>0</posx>
 				<posy>0</posy>
-				<width>210</width>
-				<height>500</height>
+				<width>240</width>
+				<height>494</height>
 				<itemgap>-1</itemgap>
 				<onleft>5</onleft>
 				<onright>5</onright>
@@ -47,11 +52,11 @@
 			</control>
 			<control type="grouplist" id="5">
 				<description>control area</description>
-				<posx>220</posx>
+				<posx>250</posx>
 				<posy>0</posy>
 				<width>760</width>
-				<height>500</height>
-				<itemgap>0</itemgap>
+				<height>494</height>
+				<itemgap>1</itemgap>
 				<pagecontrol>37</pagecontrol>
 				<onleft>3</onleft>
 				<onright>3</onright>
@@ -63,56 +68,55 @@
 
 		<control type="button" id="10">
 			<description>Default Category Button</description>
-			<height>70</height>
-			<textoffsetx>5</textoffsetx>
+			<height>69</height>
 			<align>left</align>
 			<aligny>center</aligny>
-			<textoffsetx>10</textoffsetx>
+			<textoffsetx>20</textoffsetx>
 			<font>font24_title</font>
 			<textcolor>white</textcolor>
 			<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>
-			<texturefocus border="5">button-nofocus2.png</texturefocus>
-			<texturenofocus border="5">button-nofocus2.png</texturenofocus>
+			<texturefocus colordiffuse="$VAR[CustomColorFocus]" border="5">list_bg.png</texturefocus>
+			<texturenofocus colordiffuse="66000000" border="5">list_bg.png</texturenofocus>
 			<pulseonselect>false</pulseonselect>
 		</control>
 		<control type="button" id="7">
 			<description>Default Button</description>
 			<posx>0</posx>
 			<posy>0</posy>
-			<height>70</height>
+			<height>69</height>
 			<align>left</align>
 			<aligny>center</aligny>
-			<textoffsetx>10</textoffsetx>
+			<textoffsetx>20</textoffsetx>
 			<font>font24_title</font>
 			<textcolor>white</textcolor>
-			<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>
-			<texturefocus border="5">menuitem_black2_nf.png</texturefocus>
-			<texturenofocus border="5">listnf.png</texturenofocus>
+			<focusedcolor>white</focusedcolor>
+			<texturefocus colordiffuse="$VAR[CustomColorFocus]" border="5">list_bg_fo.png</texturefocus>
+			<texturenofocus colordiffuse="66000000" border="5">list_bg_fo.png</texturenofocus>
 		</control>
 		<control type="radiobutton" id="8">
 			<description>Default RadioButton</description>
 			<posx>0</posx>
 			<posy>0</posy>
-			<height>70</height>
+			<height>69</height>
 			<align>left</align>
 			<aligny>center</aligny>
-			<textoffsetx>10</textoffsetx>
+			<textoffsetx>20</textoffsetx>
 			<font>font24_title</font>
 			<textcolor>white</textcolor>
-			<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>
-			<texturefocus border="5">menuitem_black2_nf.png</texturefocus>
-			<texturenofocus border="5">listnf.png</texturenofocus>
+			<focusedcolor>white</focusedcolor>
+			<texturefocus colordiffuse="$VAR[CustomColorFocus]" border="5">list_bg_fo.png</texturefocus>
+			<texturenofocus colordiffuse="66000000" border="5">list_bg_fo.png</texturenofocus>
 		</control>
 		<control type="spincontrolex" id="9">
 			<description>Default SpinControlex</description>
 			<posx>0</posx>
 			<posy>0</posy>
-			<height>70</height>
+			<height>69</height>
 			<font>font24_title</font>
 			<textcolor>white</textcolor>
-			<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>
-			<texturefocus border="5">menuitem_black2_nf.png</texturefocus>
-			<texturenofocus border="5">listnf.png</texturenofocus>
+			<focusedcolor>white</focusedcolor>
+			<texturefocus colordiffuse="$VAR[CustomColorFocus]" border="5">list_bg_fo.png</texturefocus>
+			<texturenofocus colordiffuse="66000000" border="5">list_bg_fo.png</texturenofocus>
 			<aligny>center</aligny>
 			<reverse>yes</reverse>
 		</control>
@@ -121,28 +125,12 @@
 			<height>1</height>
 			<texture>separator_1px.png</texture>
 		</control>
-<!--	<control type="scrollbar" id="37">
-			<posx>1140</posx>
-			<posy>105</posy>
-			<width>45</width>
-			<height>500</height>
-			<texturesliderbackground border="0,14,0,14">ScrollBarV.png</texturesliderbackground>
-			<texturesliderbar border="0,14,0,14">ScrollBarV_bar.png</texturesliderbar>
-			<texturesliderbarfocus border="0,14,0,14">ScrollBarV_bar_focus.png</texturesliderbarfocus>
-			<textureslidernib>ScrollBarNib.png</textureslidernib>
-			<textureslidernibfocus>ScrollBarNib.png</textureslidernibfocus>
-			<onleft>5</onleft>
-			<onright>9002</onright>
-			<showonepage>false</showonepage>
-			<orientation>vertical</orientation>
-			</control> -->
-
 		<control type="scrollbar" id="37">
 			<visible>!Skin.HasSetting(ScrollbarBold)</visible>
 			<posx>1145</posx>
-			<posy>105</posy>
+			<posy>100</posy>
 			<width>30</width>
-			<height>500</height>
+			<height>494</height>
 			<texturesliderbackground border="0,14,0,14">ScrollBarV.png</texturesliderbackground>
 			<texturesliderbar border="2,16,2,16">osdslidernib.png</texturesliderbar>
 			<texturesliderbarfocus border="2,16,2,16">osdslidernib.png</texturesliderbarfocus>
@@ -159,9 +147,9 @@
 		<control type="scrollbar" id="37">
 			<visible>Skin.HasSetting(ScrollbarBold)</visible>
 			<posx>1140</posx>
-			<posy>105</posy>
+			<posy>100</posy>
 			<width>40</width>
-			<height>500</height>
+			<height>494</height>
 			<texturesliderbackground colordiffuse="$VAR[CustomColorNofocus]">scrollbarv_bar_bold2.png</texturesliderbackground>
 			<texturesliderbar colordiffuse="$VAR[CustomColorNofocus]">osdsliderbar_square.png</texturesliderbar>
 			<texturesliderbarfocus colordiffuse="$VAR[CustomColorFocus]">osdsliderbar_square.png</texturesliderbarfocus>
@@ -175,6 +163,35 @@
 			<animation effect="fade" time="150">Visible</animation>
 			<animation effect="fade" time="150">Hidden</animation>
 		</control>
+		<control type="group">
+			<include>Window_OpenClose_Animation_Fade</include>
+			<control type="image">
+				<posx>370</posx>
+				<posy>605</posy>
+				<width>760</width>
+				<height>120</height>
+				<texture colordiffuse="66000000" border="5">list_bg_fo.png</texture>
+			</control>
+			<control type="image">
+				<posx>365</posx>
+				<posy>600</posy>
+				<width>60</width>
+				<height>60</height>
+				<texture>icon-settings-info.png</texture>
+			</control>
+			<control type="textbox" id="6">
+				<description>description area</description>
+				<posx>420</posx>
+				<posy>615</posy>
+				<width>700</width>
+				<height>100</height>
+				<font>font20</font>
+				<align>left</align>
+				<textcolor>white</textcolor>
+				<autoscroll time="3000" delay="5000" repeat="5000">true</autoscroll>
+			</control>
+		</control>
+
 		<control type="label" id="2">
 			<description>Fake Label so we can pass it on</description>
 			<posx>0</posx>

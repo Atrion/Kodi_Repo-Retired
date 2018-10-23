@@ -214,45 +214,6 @@
         </extension>
     </addon>
 
-<addon id="plugin.video.covenant" version="1.1.30" name="Covenant" provider-name="Covenant">
-	<requires>
-		<import addon="xbmc.python" version="2.19.0" />
-		<import addon="repository.colossus" />
-		<import addon="script.module.covenant" />
-		<import addon="script.covenant.artwork" version="1.0.0" />
-		<import addon="script.covenant.metadata" version="1.0.0" />
-		<import addon="script.module.urlresolver" version="3.0.0" />
-		<import addon="script.module.requests" />
-		<import addon="script.module.metahandler" version="1.0.0" />
-	</requires>
-	<extension point="xbmc.python.pluginsource" library="covenant.py">
-		<provides>video</provides>
-	</extension>
-	<extension point="xbmc.service" library="service.py" start="startup" />
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en">Covenant</summary>
-		<description lang="en">[I]A New Generation[/I][CR][CR][B]Covenant Movies and TV[/B][CR][CR]This addon does not form part of the Kodi Media Centre. Please do not seek assistance with this addon from any of the Official Kodi Support Channels.[CR][CR]The author does not host any of the content in this addon and takes no responsibility for content found.</description>
-		<description lang="hr">[I]Nova generacija[/I][CR][CR][B]Covenant Filmova i TV serija[/B][CR][CR]Ovaj dodatak ne sadrži dijelove Kodi Medijskog Centra. Ne tažite pomoć za ovaj dodatak na službenim kanalima podrške za Kodi.[CR][CR]Autor ne posjeduje bilo kakav sadržaj u ovom dodatku i ne preuzima bilo kakvu odgovornost za pronađeni sadržaj.</description>
-		<description lang="he">[I]הדור החדש[/I][CR][CR][B]Covenant סרטים וסדרות[/B][CR][CR]ההרחבה הזו אינה חלק של Kodi Media Center. אנא אל תבקש עזרה עם ההרחבה זה מכל אחד מערוצי התמיכה הרשמיים של Kodi [CR][CR]. אין למחבר תוכן בהרחבה הזו והמחבר אינו אחראי לתוכן שנמצא.</description>
-		<platform>all</platform>
-		<license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
-		<forum></forum>
-		<website></website>
-		<source></source>
-		<disclaimer lang="en">The author of this addon do not host any of the content which is found and have no affiliation with any of the content providers. This addon simply searches websites for content. Use at your own risk!</disclaimer>
-		<disclaimer lang="hr">Autor ovog dodatka ne posjeduje bilo kakav sadržaj koji je pronađen i nije povezan sa bilo kojim izvorom sadržaja. Ovaj dodatak samo pretražuje sadržaj na web stranicama. Koristite ga na vlastitu odgovornost!</disclaimer>
-		<disclaimer lang="he">מחבר ההרחבה זה אינו מארח את התוכן שיתכן ויימצא ואין לו זיקה לאף אחד מספקי התוכן. הרחבה רק מחפשת תוכן שקיים באתרי אינטרנט. השימוש בהרחבה הוא על אחריותך בלבד!</disclaimer>
-		<assets>
-			<icon>icon.png</icon>
-			<fanart>fanart.jpg</fanart>
-    			<screenshot>resources/screenshots/screenshot-01.jpg</screenshot>
-    			<screenshot>resources/screenshots/screenshot-02.jpg</screenshot>
-    			<screenshot>resources/screenshots/screenshot-03.jpg</screenshot>
-		</assets>
-		<news></news>
-	</extension>
-</addon>
-
 <addon id="metadata.common.allmusic.com"
        name="AllMusic Scraper Library"
         version="3.2.0"
@@ -523,31 +484,6 @@ This is a Non-profit resource, organized solely for educational purposes which i
         <website>https://code.google.com/p/feedparser/</website>
         <source>https://code.google.com/p/feedparser/source/browse/</source>
         <forum></forum>
-    </extension>
-</addon>
-
-<addon id="plugin.video.bob.unleashed" name="BoB Unleashed" version="1.0.12" provider-name="midraal">
-    <requires>
-        <import addon="xbmc.python" version="2.19.0" />
-        <import addon="script.module.nanscrapers" version="0.5.5" />
-        <import addon="script.module.python.koding.aio" version="0.9.6.6" />
-        <import addon="script.module.beautifulsoup" version="3.2.1" />
-        <import addon="script.module.requests" version="2.9.1" />
-        <import addon="script.module.addon.common" version="2.0.0" />
-        <import addon="script.module.xmltodict" version="0.9.0" />
-        <!--<import addon="script.module.web-pdb" version="1.0"/>-->
-        <import addon="script.module.urlresolver" version="1.2.0" />
-    </requires>
-    <extension point="xbmc.python.pluginsource" library="default.py">
-        <provides>audio video</provides>
-    </extension>
-    <extension point="xbmc.service" library="service.py" start="[login|startup]" />
-    <extension point="xbmc.addon.metadata">
-        <summary lang="en">Bob's little sister</summary>
-        <description lang="en">Bob's little sister</description>
-        <platform>all</platform>
-        <website>www.noobsandnerds.com</website>
-        <video_guide>xtOqLY5PJDY</video_guide>
     </extension>
 </addon>
 
@@ -918,6 +854,116 @@ This is a Non-profit resource, organized solely for educational purposes which i
   </extension>
 </addon>
 
+<addon
+  id="visualization.milkdrop2"
+  version="2.1.0"
+  name="MilkDrop 2"
+  provider-name="Ryan Geiss, ported by MrC, DX11 by afedchin">
+  <extension
+    point="xbmc.player.musicviz"
+    library_windows="visualization.milkdrop2.dll"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="af">MilkDrop laat jou sweef deur die klankgolwe wat jy hoor</summary>
+    <summary lang="ar">يحلق بك MilkDrop فوق الموجات الصوتية اللتي تسمع</summary>
+    <summary lang="be">MilkDrop takes you flying through the soundwaves you're hearing</summary>
+    <summary lang="bg">"MilkDrop" ще Ви отведе на пътешествие между звуковите вълни, които чувате</summary>
+    <summary lang="ca">MilkDrop et porta volant a través de les ones de so que escoltes</summary>
+    <summary lang="cs">MilkDrop s Vámi proletí skrz zvukové vlny, které slyšíte</summary>
+    <summary lang="cy">Mae MilkDrop yn eich hedeg drwy'r tannau sain rydych yn eu clywed</summary>
+    <summary lang="da">Milkdrop tager dig på en flyvetur gennem lydbølgerne, du lytter til</summary>
+    <summary lang="de">MilkDrop nimmt dich mit auf einen Flug durch deine Musik.</summary>
+    <summary lang="el">Το MilkDrop σας ταξιδεύει μέσα στα ηχητικά κύματα που ακούτε</summary>
+    <summary lang="en">MilkDrop takes you flying through the soundwaves you're hearing</summary>
+    <summary lang="en_US">MilkDrop takes you flying through the soundwaves you're hearing</summary>
+    <summary lang="es">MilkDrop te lleva volando a través de las ondas que estás escuchando</summary>
+    <summary lang="es_AR">MilkDrop te lleva volando a través de las ondas que estás escuchando</summary>
+    <summary lang="es_MX">MilkDrop the lleva volando a través de las ondas de sonido que estás escuchando</summary>
+    <summary lang="et">MilkDrop viib sind lennates läbi kullatavate helilainete</summary>
+    <summary lang="fi">MilkDrop lennättää sinut ääniaaltojen läpi</summary>
+    <summary lang="fr">MilkDrop vous fait voyager dans les ondes sonores de votre musique</summary>
+    <summary lang="fr_CA">MilkDrop vous fait voyager dans les ondes sonores de votre musique</summary>
+    <summary lang="gl">MilkDrop lévate voando a través da ondas de son que esta a ouvir</summary>
+    <summary lang="he">MilkDrop לוקח אותך לתעופה דרך גלי הסאונד שאתה שומע</summary>
+    <summary lang="hr">MilkDrop vam omogućuje let kroz zvuk koji čujete</summary>
+    <summary lang="hu">A Milkdrop végigrepít a zene hullámain</summary>
+    <summary lang="is">Með MilkDrop flýgurðu í gegnum hljóðbylgjurnar sem þú heyrir</summary>
+    <summary lang="it">MilkDrop ti fa volare tra le onde sonore di ciò che stai ascoltando</summary>
+    <summary lang="ja">MilkDrop - 音楽の波の上を飛ぶ</summary>
+    <summary lang="ko">MilkDrop은 사운드웨이브 속으로 날아가는듯한 효과를 보여줍니다.</summary>
+    <summary lang="lt">MilkDrop nukelia Jus i nuostabu skrydi virs debesu, istiesu fantastisku garsu gausa</summary>
+    <summary lang="lv">MilkDrop paņem Jūs līdzi lidojumā cauri skaņu viļņiem, kurus dzirdat</summary>
+    <summary lang="mk">MilkDrop ве прелетува преку брановите на музиката која ја слушате</summary>
+    <summary lang="nl">Met MilkDrop vliegt u mee door de soundwaves die je hoort</summary>
+    <summary lang="no">MilkDrop tar deg med på en flyreise gjennom lydbølgene du hører</summary>
+    <summary lang="pl">MilkDrop zabiera Cię w niesamowity lot w chmurach aktualnie słuchanych dźwięków</summary>
+    <summary lang="pt">O MilkDrop leva-o num voo através das ondas sonoras que está a ouvir</summary>
+    <summary lang="pt_BR">O MilkDrop leva você para voar nas ondas sonoras que está ouvindo</summary>
+    <summary lang="ro">MilkDrop vă face să zburați printre undele audio pe care le auziți</summary>
+    <summary lang="ru">Milkdrop отправит вас в полёт через звуковые волны, которые вы слышите</summary>
+    <summary lang="sk">MilkDrop s Vami poletí zvukovými vlnami, ktoré počúvate</summary>
+    <summary lang="sl">MilkDrop vas popelje skozi zvočne valove, ki jih poslušate</summary>
+    <summary lang="sq">MilkDrop të bën të fluturosh nëpër valet të tingullit që e dëgjonë</summary>
+    <summary lang="sv">Milkdrop för dig flygande genom de ljudvågor du hör.</summary>
+    <summary lang="ta_IN">MilkDrop நீங்கள் கேட்கும் ஒலி அலைகளின் வடிவங்களின் மூலம் பறக்க செய்யும்</summary>
+    <summary lang="tg">MilkDrop бо мавҷҳои садояш фораму роҳатбахш аст</summary>
+    <summary lang="th">MilkDrop นำคุณโบยบิน ผ่านคลื่นเสียงที่คุณกำลังรับฟัง</summary>
+    <summary lang="tr">MilkDrop sizi duymakta olduğunuz ses dalgalarının içine çeker</summary>
+    <summary lang="uk">MilkDrop забере вас в політ крізь хвилі музики яку ви слухаєте</summary>
+    <summary lang="vi">MilkDrop giúp bạn bay bổng trong âm thanh bạn đang nghe</summary>
+    <summary lang="zh">MilkDrop 带你与声波一起飞翔</summary>
+    <summary lang="zh_TW">MilkDrop帶您穿越聆聽中的音樂饗宴</summary>
+    <description lang="af">MilkDrop was oorspronklik 'n musiek visualisering "plug-in" vir die Winamp musiek speler. Soos jy na jou musiek luister, laat MilkDrop jou deur die klankgolwe sweef wat jy hoor, en gebruik klop waarnemings om 'n magdom psigedeliese effekte te aktiveer, en 'n visuele reis deur klank te skep.</description>
+    <description lang="ar">ميلك دروب كان أصلا عارض موسيقى لمشغل الموسيقى وين امب. عندما تستمع لموسيقاك, كيلك دروب يطير بك خلال موجات صوتية تسمعا حيقيةً, ,و يستخدم كشف الوقع الموسيقي ليؤدي إلى تأثيرات كثيرة, منشئاً رجلة صوت مرئية قيمة.</description>
+    <description lang="be">MilkDrop was originally a music visualizer "plug-in" to the Winamp music player. As you listen to your music, MilkDrop takes you flying through the actual soundwaves you're hearing, and uses beat detection to trigger myriad psychedelic effects, creating a rich visual journey through sound.</description>
+    <description lang="bg">Първоначално "MilkDrop" е замислена като приставка за музикалния плеър Winamp. Докато слушате музикалната си колекция "MilkDrop" ще Ви накара да "полетите", измежду звуковите вълни, които чувате. Ползва ритъма за да създаде безброй еуфорични ефекти. Така създава едно богато визуално пътешествие в звука.</description>
+    <description lang="ca">El MilkDrop era originalment un afegitó de visualització musical pel reproductor Winamp. Mentre escoltes la música MilkDrop et porta volant a través de les ones de so que estàs escoltant al moment, i utilitza detecció de tempo per activar una munió d'efectes psicodèlics i crea un enriquidor viatge visual a través del so.</description>
+    <description lang="cs">MikDrop bylo původně vizualizační rozšíření pro přehrávač hudby Winamp. Při poslechu vaší hudby s Vámi MikDrop prolétá skrze zvukové vlny, které slyšíte, a používá detekci taktů, pro spuštění spousty psychedelických efektů, vytvářejíce tak zajímavou vizuální cestu skrze zvuk.</description>
+    <description lang="cy">Roedd MilkDrop yn wreiddiol yn "ategyn" delweddu cerddoriaeth ar gyfer Winamp. Wrth i chi wrando ar MilkDrop mae MilkDrop yn eich hedeg drwy'r tonnau sain rydych yn eu clywed gan ddefnyddio canfodydd trawiad i gychwyn effeithiau seicadelig amrywiol gan greu taith weledol cyfoethog drwy'r sain.</description>
+    <description lang="da">Milkdrop var oprindeligt et musikvisualisering "plug-in" til Winamp musikafspilleren. Mens du lytter til din musik, tager Milkdrop dig på en flyvetur gennem de faktiske lydbølger du hører og bruger beat-genkendelse til at udløse en myriade af psykedeliske effekter, der skaber en visuel rejse gennem lyd.</description>
+    <description lang="de">MilkDrop war ursprünglich ein Musik-Visualizer "Plug-in" für den Musik-Player Winamp.Wenn Sie Ihre Musik hören, fliegen Sie mit MilkDrop durch die aktuellen Klangwellen die Sie hören. Und die Beat-Erkennung wird genutzt um unzählige psychedelische Effekte auslösen, die Schaffung einer visuellen Reise durch den Klang.</description>
+    <description lang="el">Το MilkDrop ήταν αρχικά ένα "plug-in" μουσικών οπτικοποιήσεων του Winamp. Καθώς παίζετε τη μουσική σας, το MilkDrop σας ταξιδεύει μέσα στα πραγματικά ηχητικά κύματα που ακούτε, και χρησιμοποιεί ανίχνευση ρυθμού για να ενεργοποιήσει ένα πλήθος ψυχεδελικών εφέ, δημιουργώντας ένα πλούσιο οπτικό ταξίδι μέσα στον ήχο.</description>
+    <description lang="en">MilkDrop was originally a music visualiser "plug-in" to the Winamp music player. As you listen to your music, MilkDrop takes you flying through the actual soundwaves you're hearing, and uses beat detection to trigger myriad psychedelic effects, creating a rich visual journey through sound.</description>
+    <description lang="en_US">MilkDrop was originally a music visualizer "plug-in" to the Winamp music player. As you listen to your music, MilkDrop takes you flying through the actual soundwaves you're hearing, and uses beat detection to trigger myriad psychedelic effects, creating a rich visual journey through sound.</description>
+    <description lang="es">MilkDrop era originalmente un plug-in visualizador de música para Winamp. Mientras escuchas música, MilkDrop te lleva volando a través de las ondas que estás escuchando, y utiliza la detección del ritmo para activar una gran cantidad de efectos psicodélicos, creando una rica experiencia visual a través del sonido.</description>
+    <description lang="es_AR">MilkDrop era originalmente un plug-in visualizador de música para Winamp. Mientras escuchas música, MilkDrop te lleva volando a través de las ondas que estás escuchando, y utiliza la detección del ritmo para activar una gran cantidad de efectos psicodélicos, creando una rica experiencia visual a través del sonido.</description>
+    <description lang="es_MX">MilkDrop originalmente fue un "plug-in" visualizador de música para el reproductor de música Winamp. Mientras escuchas tu músuca, MilkDrop te lleva volando a través de las ondas de sonido que estás escuchando en ese momento, y usa detección de ritmo para desencadenar múltiples efectos psicodélicos, creando un rico recorrido visual a través del sonido.</description>
+    <description lang="et">MilkDrop oli algselt muusika visuaal plugin Winamp'ile. Muusikat kuulates viib MilkDrop sind lennates läbi kuulatavate helilainete. MilkDrop kasutab rütmituvastust, et päästa valla tohutu hulk psühhedeelseid efekte luues visuaalidest rikka teekonna läbi heli.</description>
+    <description lang="fi">MilkDrop oli alunperin Winampin visualisaattorilisäosa. Kuunnellessasi musiikkia MilkDrop lennättää sinut kuulemiesi ääniaaltojen läpi ja käyttää tahdintunnistusta lukemattomien psykedeelisten tehosteiden toistamiseen, luoden visuaalisen matkan musiikin läpi.</description>
+    <description lang="fr">MilkDrop était à l'origine une extension de visualisation musicale pour le lecteur audio Winamp. Pendant que vous écoutez votre musique, Milkdrop vous fait voyager à travers les ondes sonores que vous entendez, détectant le rythme pour déclencher une myriade d'effets psychédéliques, créant ainsi une riche expérience visuelle et sonore.</description>
+    <description lang="fr_CA">MilkDrop était à l'origine une extension de visualisation musicale pour le lecteur audio Winamp. Pendant que vous écoutez votre musique, Milkdrop vous fait voyager à travers les ondes sonores que vous entendez, détectant le rythme pour déclencher une myriade d'effets psychédéliques, créant ainsi une riche expérience visuelle et sonore.</description>
+    <description lang="gl">MilkDrop foi orixinalmente un plugin de Visualización para múica do reprodutor de música Winamp. Nametres vostede escoita a súa música, MilkDrop lévao voando a través das ondas de son que esta a ouvir, e emprega a detección de ritmo para activar milleiros de efectos psicodélicos, creando unha rica viaxe visual a través do son.</description>
+    <description lang="he">MilkDrop was originally a music visualizer "plug-in" to the Winamp music player. As you listen to your music, MilkDrop takes you flying through the actual soundwaves you're hearing, and uses beat detection to trigger myriad psychedelic effects, creating a rich visual journey through sound.</description>
+    <description lang="hr">MilkDrop je orginalno bio zamišljen kao "dodatak" za Winamp glazbeni svirač. Dok slušate svoju glazbu, MilkDrop vam omogućuje let kroz zvuk koji čujete i koristi otkrivanje taktova da bi pokrenuo bezbroj psihodeličnih efekata, tako stvarajući bogato vizualno  zvučno putovanje.</description>
+    <description lang="hu">A Milkdrop eredetileg egy beépülőmodul volt a Winamp zenelejátszóhoz. Ahogy hallgatod a zenét, a Milkdrop keresztülrepít a hallható hanghullámokon, felhasználva a dobritmust pszihedelikus effektusok létrehozására gazdag látványvilág megteremtésével.</description>
+    <description lang="is">Milkdrop var upprunalega viðbót við Winamp tónlistarspilarann. Þegar þú hlustar á tónlistina, fer Milkdrop með þig á flug í gegnum hljóðbylgjurnar sem þú heyrir og notar taktskynjun til að setja af stað allskonar effekta sem skapa myndrænt ferðalag í gegnum tónlistarupplifunina</description>
+    <description lang="it">MilkDrop era, in origine, un "plug-in" di visualizzazione per Winamp. Mentre ascolti la musica, MilkDrop ti fa volare tra le onde sonore di ciò che stai ascoltando usando la rilevazione del ritmo per sincronizzare una miriade di effetti psichedelici, creando un ricco viaggio visuale attraverso il suono.</description>
+    <description lang="ja">MilkDrop は元々 Winamp 音楽プレーヤーのビジュアライザープラグインでした。音楽を再生すると、音楽にあわせた波の上を飛んでいるような視覚効果が現れ、ビート検出により無数のサイケデリックな効果が生まれ、音による視覚的体験を生み出します。</description>
+    <description lang="ko">MilkDrop는 원래 윈앰프의 음악 시각화 플러그인입니다. 음악을 들으면서 사운드 웨이브로 날아가는듯한 효과를 보여주며 비트 감지를 해서 다양한 싸이키데릭한 효과를 만들어 풍부한 시각적 경험을 하게합니다.</description>
+    <description lang="lt">MilkDrop vizualizacija, gauta is Winamp. Klausantis muzikos, MilkDrop nukelia jus i nuostabu skrydi virs debesu, naudojamas ritmo aptikimas, kuris sinchronizuoja muzikos vaizdo efektus.</description>
+    <description lang="mk">MilkDrop беше визуализација допонување на Winamp music player. Како што ја слушате музиката, MilkDrop ве прелетува преку актуелните музички бранови, и користи детекција на битот за да покрене myriad психоделични ефекти, креирајќи богато визуелно патување низ звукот.</description>
+    <description lang="nl">Milkdrop was oorspronkelijk een muziekvisualisatieplug-in voor de Winamp-muziekspeler. Terwijl u uw muziek beluistert vliegt Milkdrop u door de soundwaves die u op dat moment hoort. Op basis van de beat produceert het een veelvoud aan psychedelische effecten.</description>
+    <description lang="no">MilkDrop var originalt et visualiseringstillegg til musikkavspilleren Winamp. Mens du lytter til musikken din, tar MilkDrop deg med på en flytur gjennom de faktiske lydbølgene du hører. Visualiseringen oppdager takten i musikken og bruker denne for å skape en rik, visuell ferd gjennom utallige, psykedeliske effekter.</description>
+    <description lang="pl">MilkDrop jest wizualizacją pochodzącą z odtwarzacza Winamp. W czasie słuchania muzyki, MilkDrop zabiera użytkownika w niesamowity lot pomiędzy aktualnie odtwarzanymi falami dźwiękowymi, używając detekcji beatu, która synchronizuje efekty wizualne z muzyką.</description>
+    <description lang="pt">Originalmente, o MilkDrop era uma visualização do leitor de música Winamp. Ao ouvir a sua música, o MilkDrop leva-o a voar pelas ondas sonoras que está a ouvir, detectando o ritmo da música e desencadeando uma variedade de efeitos psicadélicos. Cria, assim, uma viagem inesquecível pelo som.</description>
+    <description lang="pt_BR">MilkDrop era originalmente uma visualização do reprodutor de música Winamp. Ao ouvir a sua música, o MilkDrop leva-o a voar nas ondas sonoras que está a ouvir, usando detecção de batida para desencadear uma miríade de efeitos psicodélicos. Cria, assim, uma viagem visual inesquecível pelo som.</description>
+    <description lang="ro">MilkDrop a fost original un „modul” de vizualizare pentru lectorul de muzică Winamp. În timp ce ascultați muzica, MilkDrop vă face să zburați printre undele audio actuale pe care le auziți și folosește detecția bătăii pentru a activa miriada de efecte psihedelice, creând o călătorie vizuală bogată printre sunete.</description>
+    <description lang="ru">MilkDrop изначально был модулем визуализации музыки для проигрывателя Winamp. Когда вы слушаете музыку, MilkDrop создает визуальное ощущение полёта по звуковым волнам, а также использует обнаружение ритма для активации множества психоделических эффектов.</description>
+    <description lang="sk">MilkDrop bol pôvodne hudobným vizualizačným rozšírením Winamp prehrávača. Pri počúvaní hudby s Vami MilkDrop letí zvukovými vlnami, ktoré počúvate a použitím detekcie rytmu spúšťa nespočetné psychodelické efekty, a vytvára bohatú vizuálnu cestu zvukom.</description>
+    <description lang="sl">MilkDrop je bila prvotno vizualizacija za predvajalnik Winamp. Ko poslušate vašo glasbo, vas MilkDrop popelje skozi dejansko valovanje, ki ga slišite, in uporablja zaznavanje ritma, kar omogoči psihedelični efekt in bogato vizualno izkušnjo predvajanja glasbe.</description>
+    <description lang="sq">Milkrop fillimisht ishte një "plug-in" për vizualizimin e muzikës për riprodhuesin Winamp. Ndërsa dëgjonë muzikën tënde, Milkdrop vizualizon valët që i dëgjon dhe përdor zbulimin e tingullit për efekte të ndryshme.</description>
+    <description lang="sv">Milkdrop var ursprungligen ett visualiserarande ljudplug-in till Winamp. Medan du lyssnar på din musik så för dig Milkdrop flygande genom de ljudvågor du hör och använder rytmavkänning för att ge dig psykedeliska effekter som skapar en mäktig visuell resa via ljudet.</description>
+    <description lang="ta_IN">MilkDrop முதலில் Winamp இசை வாசிபானுடைய ஒரு இசை விசுவலைஸர் "செருகுநிரல்"ஆகும். நீங்கள் இசை கேட்டுக்கொண்டு இருக்குபோது, MilkDrop ஆனது உங்களை ஒலி அலைகளின் அமைப்புகேர்ப்ப உங்களை பறக்க செய்யும், மேலும் இசை துடிப்புகேர்ப்ப எண்ணற்ற சைக்டெலிக் விளைவுகளை உண்டாக்கும், ஒலி மூலம் ஒரு மறக்கமுடியாத காட்சி பயணம் உருவாக்கும்.</description>
+    <description lang="tg">MilkDrop аз ибтидо плагини таҷассуми мусиқие барои плеери мусиқии Winamp буд. Вақте ки шумо мусиқиро мешунавед, MilkDrop бо мавҷҳои садояш фораму роҳатбахш аст, ва муайянкуни битҳои мусиқиро барои эҷоди таъсирҳои девонагӣ истифода мекунад ва шуморо ба сайёҳии мусиқӣ мебарад.</description>
+    <description lang="th">MilkDrop แต่เดิมเป็น "ปลั๊ก-อิน" การแสดงแสงสีประกอบเพลง ของโปรแกรมเล่นเพลง Winamp.  ในขณะที่คุณฟังเพลงของคุณ, MilkDrop นำคุณบินผ่านคลื่นเสียงที่เกิดขึ้นตามที่คุณได้ยิน, และใช้การจับจังหวะ ในการส่งผลต่อเอฟเฟคภาพลวงตา อันหลากหลาย, สร้างภาพอันตื่นตาในการเดินทางไปตามเสียงเพลง.</description>
+    <description lang="tr">MilkDrop aslında Winamp müzik çalıcısı için görsel bir "eklenti" dir. Müziğinizi dinlerken, Milkdrop size işittiğiniz ses dalgaları arasında uçuyormuşcasına bir his ve ritm algılayıcısı ile de en çılgın efektleri yaşıyormuşçasına görsel bir şölen sunar.</description>
+    <description lang="uk">MilkDrop спочатку був додатком візуалізації музики для програвача музики Winamp. MilkDrop створює багату гаму візуалізації музики, використовуючи власний механізм визначення музичних тактів.</description>
+    <description lang="vi">MilkDrop ban đầu là một "plug-in" trình diễn nhạc cho Winamp. Khi bạn nghe nhạc, MilkDrop sẽ làm bạn bay bổng trong âm thanh bạn đang nghe, và sử dụng bộ dò giai điệu để kích hoạt vô số những hiệu ứng ảo, tạo ra một cuộc hành trình âm thanh qua mắt thường</description>
+    <description lang="zh">MilkDrop 是来自于 Winamp 音乐播放器的可视化效果插件。在你听音乐时，MilkDrop 通过节拍检测触发的无数迷幻的效果，带你与声波一起飞翔，给你带来丰富的音乐和视觉旅程。</description>
+    <description lang="zh_TW">MilkDrop是來自於Winamp音樂播放器的視覺效果插件。在您在聽音樂時，MilkDrop通過節奏偵測觸發的無數夢幻的效果，帶您穿越聆聽中的音樂饗宴，也給您帶來豐富的聲音和視覺效果的奇幻旅程。</description>
+    <platform>windows</platform>
+  </extension>
+</addon>
+
 <addon id="plugin.program.ftgmaint"
 	     name="[COLOR blue][B]--[COLOR yellow]FTG Maintenance[COLOR blue]--[/COLOR][/B]"
 	     version="1.1.0"
@@ -1154,34 +1200,6 @@ This is a Non-profit resource, organized solely for educational purposes which i
 			<fanart>fanart.jpg</fanart>
 		</assets>
 	</extension>
-</addon>
-
-<addon id="plugin.video.elysium" version="2017.11.25" name="Elysium" provider-name="Elysium">
-    <requires>
-        <import addon="xbmc.python" version="2.19.0"/>
-        <import addon="script.elysium.artwork" version="2017.06.27"/>
-        <import addon="script.module.urlresolver" version="2.10.0"/>
-        <import addon="script.module.metahandler" version="2.9.0"/>
-        <import addon="script.module.requests" version="2.12.4"/>
-        <import addon="script.module.beautifulsoup" version="3.2.1"/>
-        <import addon="script.module.schism.common" version="2017.06.08"/>
-        <import addon="script.module.futures" version="2.2.0"/>
-        <import addon="script.module.nanscrapers" version="0.5.35"/>
-    </requires>
-    <extension point="xbmc.python.pluginsource" library="elysium.py">
-        <provides>video</provides>
-    </extension>
-    <extension point="xbmc.addon.metadata">
-        <summary lang="en">Elysium movies and TV shows</summary>
-        <description lang="en">Watch movies and TV shows in high quality! Please note that this addon is not an official part of the Kodi media player and is therefore not to be mentioned within Kodi's official support channels. This addon has nothing to do with the media player itself, nor its intended use, it is simply a third party plugin which has been added to your system.</description>
-        <disclaimer lang="en">The author does not host any content, nor is he affiliated with any of the content providers.</disclaimer>
-        <platform>all</platform>
-        <news>Added Trakt (thanks ARB, Midraal and Soulless) / Added Norwegian language strings (thanks solbu) / New api-key (will be the last one provided natively, from 2018 onwards users will need to provide their own api-key)</news>
-        <assets>
-            <icon>icon.png</icon>
-            <fanart>fanart.jpg</fanart>
-        </assets>
-    </extension>
 </addon>
 
 <addon id="script.module.schism.common" name="Elysium Common Libraries" version="2017.06.08" provider-name="Elysium">
@@ -1834,6 +1852,122 @@ Fixed search issue caused by character accents
   </extension>
 </addon>
 
+<addon
+  id="visualization.milkdrop"
+  version="1.6.0"
+  name="MilkDrop"
+  provider-name="Team-Kodi">
+  <extension
+    point="xbmc.player.musicviz"
+    library_windows="visualization.milkdrop.dll"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="af">MilkDrop laat jou sweef deur die klankgolwe wat jy hoor</summary>
+    <summary lang="ar">يحلق بك MilkDrop فوق الموجات الصوتية اللتي تسمع</summary>
+    <summary lang="be">MilkDrop takes you flying through the soundwaves you're hearing</summary>
+    <summary lang="bg">"MilkDrop" ще Ви отведе на пътешествие между звуковите вълни, които чувате</summary>
+    <summary lang="ca">MilkDrop et porta volant a través de les ones de so que escoltes</summary>
+    <summary lang="cs">MilkDrop s Vámi proletí skrz zvukové vlny, které slyšíte</summary>
+    <summary lang="cy">Mae MilkDrop yn eich hedeg drwy'r tannau sain rydych yn eu clywed</summary>
+    <summary lang="da">Milkdrop tager dig på en flyvetur gennem lydbølgerne, du lytter til</summary>
+    <summary lang="de">MilkDrop nimmt dich mit auf einen Flug durch deine Musik.</summary>
+    <summary lang="el">Το MilkDrop σας ταξιδεύει μέσα στα ηχητικά κύματα που ακούτε</summary>
+    <summary lang="en">MilkDrop takes you flying through the soundwaves you're hearing</summary>
+    <summary lang="en_AU">MilkDrop takes you flying through the soundwaves you're hearing</summary>
+    <summary lang="en_NZ">MilkDrop takes you flying through the soundwaves you're hearing</summary>
+    <summary lang="en_US">MilkDrop takes you flying through the soundwaves you're hearing</summary>
+    <summary lang="es">MilkDrop te lleva volando a través de las ondas que estás escuchando</summary>
+    <summary lang="es_AR">MilkDrop te lleva volando a través de las ondas que estás escuchando</summary>
+    <summary lang="es_MX">MilkDrop the lleva volando a través de las ondas de sonido que estás escuchando</summary>
+    <summary lang="et">MilkDrop viib sind lennates läbi kullatavate helilainete</summary>
+    <summary lang="fi">MilkDrop lennättää sinut ääniaaltojen läpi</summary>
+    <summary lang="fr">MilkDrop vous fait voyager dans les ondes sonores de votre musique</summary>
+    <summary lang="fr_CA">MilkDrop vous fait voler au travers des ondes sonores que vous entendez</summary>
+    <summary lang="gl">MilkDrop lévate voando a través da ondas de son que esta a ouvir</summary>
+    <summary lang="he">MilkDrop לוקח אותך לתעופה דרך גלי הסאונד שאתה שומע</summary>
+    <summary lang="hr">MilkDrop vam omogućuje let kroz zvuk koji čujete</summary>
+    <summary lang="hu">A Milkdrop végigrepít a zene hullámain</summary>
+    <summary lang="id">MilkDrop membawa anda terbang melalui gelombang suara yang anda dengarkan</summary>
+    <summary lang="is">Með MilkDrop flýgurðu í gegnum hljóðbylgjurnar sem þú heyrir</summary>
+    <summary lang="it">MilkDrop ti fa volare tra le onde sonore di ciò che stai ascoltando</summary>
+    <summary lang="ja">MilkDrop - 音楽の波の上を飛ぶ</summary>
+    <summary lang="ko">MilkDrop은 사운드웨이브 속으로 날아가는듯한 효과를 보여줍니다.</summary>
+    <summary lang="lt">MilkDrop nukelia Jus i nuostabu skrydi virs debesu, istiesu fantastisku garsu gausa</summary>
+    <summary lang="lv">MilkDrop paņem Jūs līdzi lidojumā cauri skaņu viļņiem, kurus dzirdat</summary>
+    <summary lang="mk">MilkDrop ве прелетува преку брановите на музиката која ја слушате</summary>
+    <summary lang="nl">Met MilkDrop vliegt u mee door de geluidsgolven die je hoort</summary>
+    <summary lang="no">MilkDrop tar deg med på en flyreise gjennom lydbølgene du hører</summary>
+    <summary lang="pl">MilkDrop zabiera Cię w niesamowity lot w chmurach aktualnie słuchanych dźwięków</summary>
+    <summary lang="pt">O MilkDrop leva-o num voo através das ondas sonoras que está a ouvir</summary>
+    <summary lang="pt_BR">O MilkDrop leva você para voar nas ondas sonoras que está ouvindo</summary>
+    <summary lang="ro">MilkDrop vă face să zburați printre undele audio pe care le auziți</summary>
+    <summary lang="ru">Milkdrop отправит вас в полёт через звуковые волны, которые вы слышите</summary>
+    <summary lang="sk">MilkDrop s Vami poletí zvukovými vlnami, ktoré počúvate</summary>
+    <summary lang="sl">MilkDrop vas popelje skozi zvočne valove, ki jih poslušate</summary>
+    <summary lang="sq">MilkDrop të bën të fluturosh nëpër valet të tingullit që e dëgjonë</summary>
+    <summary lang="sv">Milkdrop för dig flygande genom de ljudvågor du hör.</summary>
+    <summary lang="ta_IN">MilkDrop நீங்கள் கேட்கும் ஒலி அலைகளின் வடிவங்களின் மூலம் பறக்க செய்யும்</summary>
+    <summary lang="tg">MilkDrop бо мавҷҳои садояш фораму роҳатбахш аст</summary>
+    <summary lang="th">MilkDrop นำคุณโบยบิน ผ่านคลื่นเสียงที่คุณกำลังรับฟัง</summary>
+    <summary lang="tr">MilkDrop sizi duymakta olduğunuz ses dalgalarının içine çeker</summary>
+    <summary lang="uk">MilkDrop забере вас в політ крізь хвилі музики яку ви слухаєте</summary>
+    <summary lang="vi">MilkDrop giúp bạn bay bổng trong âm thanh bạn đang nghe</summary>
+    <summary lang="zh">MilkDrop 带你与声波一起飞翔</summary>
+    <summary lang="zh_TW">MilkDrop帶您穿越聆聽中的音樂饗宴</summary>
+    <description lang="af">MilkDrop was oorspronklik 'n musiek visualisering "plug-in" vir die Winamp musiek speler. Soos jy na jou musiek luister, laat MilkDrop jou deur die klankgolwe sweef wat jy hoor, en gebruik klop waarnemings om 'n magdom psigedeliese effekte te aktiveer, en 'n visuele reis deur klank te skep.</description>
+    <description lang="ar">ميلك دروب كان أصلا عارض موسيقى لمشغل الموسيقى وين امب. عندما تستمع لموسيقاك, كيلك دروب يطير بك خلال موجات صوتية تسمعا حيقيةً, ,و يستخدم كشف الوقع الموسيقي ليؤدي إلى تأثيرات كثيرة, منشئاً رجلة صوت مرئية قيمة.</description>
+    <description lang="be">MilkDrop was originally a music visualizer "plug-in" to the Winamp music player. As you listen to your music, MilkDrop takes you flying through the actual soundwaves you're hearing, and uses beat detection to trigger myriad psychedelic effects, creating a rich visual journey through sound.</description>
+    <description lang="bg">Първоначално "MilkDrop" е замислена като приставка за музикалния плеър Winamp. Докато слушате музикалната си колекция "MilkDrop" ще Ви накара да "полетите", измежду звуковите вълни, които чувате. Ползва ритъма за да създаде безброй еуфорични ефекти. Така създава едно богато визуално пътешествие в звука.</description>
+    <description lang="ca">El MilkDrop era originalment un afegitó de visualització musical pel reproductor Winamp. Mentre escoltes la música MilkDrop et porta volant a través de les ones de so que estàs escoltant al moment, i utilitza detecció de tempo per activar una munió d'efectes psicodèlics i crea un enriquidor viatge visual a través del so.</description>
+    <description lang="cs">MikDrop bylo původně vizualizační rozšíření pro přehrávač hudby Winamp. Při poslechu vaší hudby s Vámi MikDrop prolétá skrze zvukové vlny, které slyšíte, a používá detekci taktů, pro spuštění spousty psychedelických efektů, vytvářejíce tak zajímavou vizuální cestu skrze zvuk.</description>
+    <description lang="cy">Roedd MilkDrop yn wreiddiol yn "ategyn" delweddu cerddoriaeth ar gyfer Winamp. Wrth i chi wrando ar MilkDrop mae MilkDrop yn eich hedeg drwy'r tonnau sain rydych yn eu clywed gan ddefnyddio canfodydd trawiad i gychwyn effeithiau seicadelig amrywiol gan greu taith weledol cyfoethog drwy'r sain.</description>
+    <description lang="da">Milkdrop var oprindeligt et musikvisualisering "plug-in" til Winamp musikafspilleren. Mens du lytter til din musik, tager Milkdrop dig på en flyvetur gennem de faktiske lydbølger du hører og bruger beat-genkendelse til at udløse en myriade af psykedeliske effekter, der skaber en visuel rejse gennem lyd.</description>
+    <description lang="de">MilkDrop war ursprünglich ein Musik-Visualizer "Plug-in" für den Musik-Player Winamp.Wenn Sie Ihre Musik hören, fliegen Sie mit MilkDrop durch die aktuellen Klangwellen die Sie hören. Und die Beat-Erkennung wird genutzt um unzählige psychedelische Effekte auslösen, die Schaffung einer visuellen Reise durch den Klang.</description>
+    <description lang="el">Το MilkDrop ήταν αρχικά ένα "plug-in" μουσικών οπτικοποιήσεων του Winamp. Καθώς παίζετε τη μουσική σας, το MilkDrop σας ταξιδεύει μέσα στα πραγματικά ηχητικά κύματα που ακούτε, και χρησιμοποιεί ανίχνευση ρυθμού για να ενεργοποιήσει ένα πλήθος ψυχεδελικών εφέ, δημιουργώντας ένα πλούσιο οπτικό ταξίδι μέσα στον ήχο.</description>
+    <description lang="en">MilkDrop was originally a music visualiser "plug-in" to the Winamp music player. As you listen to your music, MilkDrop takes you flying through the actual soundwaves you're hearing, and uses beat detection to trigger myriad psychedelic effects, creating a rich visual journey through sound.</description>
+    <description lang="en_AU">MilkDrop was originally a music visualiser "plug-in" to the Winamp music player. As you listen to your music, MilkDrop takes you flying through the actual soundwaves you're hearing, and uses beat detection to trigger a myriad of psychedelic effects, creating a rich visual journey through sound.</description>
+    <description lang="en_US">MilkDrop was originally a music visualizer "plug-in" to the Winamp music player. As you listen to your music, MilkDrop takes you flying through the actual soundwaves you're hearing, and uses beat detection to trigger myriad psychedelic effects, creating a rich visual journey through sound.</description>
+    <description lang="es">MilkDrop era originalmente un plug-in visualizador de música para Winamp. Mientras escuchas música, MilkDrop te lleva volando a través de las ondas que estás escuchando, y utiliza la detección del ritmo para activar una gran cantidad de efectos psicodélicos, creando una rica experiencia visual a través del sonido.</description>
+    <description lang="es_AR">MilkDrop era originalmente un plug-in visualizador de música para Winamp. Mientras escuchas música, MilkDrop te lleva volando a través de las ondas que estás escuchando, y utiliza la detección del ritmo para activar una gran cantidad de efectos psicodélicos, creando una rica experiencia visual a través del sonido.</description>
+    <description lang="es_MX">MilkDrop originalmente fue un "plug-in" visualizador de música para el reproductor de música Winamp. Mientras escuchas tu músuca, MilkDrop te lleva volando a través de las ondas de sonido que estás escuchando en ese momento, y usa detección de ritmo para desencadenar múltiples efectos psicodélicos, creando un rico recorrido visual a través del sonido.</description>
+    <description lang="et">MilkDrop oli algselt muusika visuaal plugin Winamp'ile. Muusikat kuulates viib MilkDrop sind lennates läbi kuulatavate helilainete. MilkDrop kasutab rütmituvastust, et päästa valla tohutu hulk psühhedeelseid efekte luues visuaalidest rikka teekonna läbi heli.</description>
+    <description lang="fi">MilkDrop oli alunperin Winampin visualisaattorilisäosa. Kuunnellessasi musiikkia MilkDrop lennättää sinut kuulemiesi ääniaaltojen läpi ja käyttää tahdintunnistusta lukemattomien psykedeelisten tehosteiden toistamiseen, luoden visuaalisen matkan musiikin läpi.</description>
+    <description lang="fr">MilkDrop était à l'origine une extension de visualisation musicale pour le lecteur audio Winamp. Pendant que vous écoutez votre musique, Milkdrop vous fait voyager à travers les ondes sonores que vous entendez, détectant le rythme pour déclencher une myriade d'effets psychédéliques, créant ainsi une riche expérience visuelle et sonore.</description>
+    <description lang="fr_CA">MilkDrop était à l'origine un plugiciel de visualisation musicale pour le lecteur audio Winamp. Alors que vous écoutez votre musique, Milkdrop vous fait voler au travers des ondes sonores, et utilise la détection rythmique pour déclencher une myriade d'effets psychédéliques, créant un voyage visuel et sonore.</description>
+    <description lang="gl">MilkDrop foi orixinalmente un plugin de Visualización para múica do reprodutor de música Winamp. Nametres vostede escoita a súa música, MilkDrop lévao voando a través das ondas de son que esta a ouvir, e emprega a detección de ritmo para activar milleiros de efectos psicodélicos, creando unha rica viaxe visual a través do son.</description>
+    <description lang="he">MilkDrop was originally a music visualizer "plug-in" to the Winamp music player. As you listen to your music, MilkDrop takes you flying through the actual soundwaves you're hearing, and uses beat detection to trigger myriad psychedelic effects, creating a rich visual journey through sound.</description>
+    <description lang="hr">MilkDrop je orginalno bio zamišljen kao "dodatak" za Winamp glazbeni svirač. Dok slušate svoju glazbu, MilkDrop vam omogućuje let kroz zvuk koji čujete i koristi otkrivanje taktova da bi pokrenuo bezbroj psihodeličnih efekata, tako stvarajući bogato vizualno  zvučno putovanje.</description>
+    <description lang="hu">A Milkdrop eredetileg egy beépülőmodul volt a Winamp zenelejátszóhoz. Ahogy hallgatod a zenét, a Milkdrop keresztülrepít a hallható hanghullámokon, felhasználva a dobritmust pszihedelikus effektusok létrehozására gazdag látványvilág megteremtésével.</description>
+    <description lang="id">MilkDrop awalnya adalah pengaya visualisasi musik untuk Winamp. Sembari mendengarkan musik, MilkDrop akan membawa Anda terbang melalui gelombang suara yang Anda dengarkan, dan menggunakan deteksi ketukan untuk menampikan banyak sekali efek psikedelik, menciptakan suatu perjalanan visual yang kaya melalui suara.</description>
+    <description lang="is">Milkdrop var upprunalega viðbót við Winamp tónlistarspilarann. Þegar þú hlustar á tónlistina, fer Milkdrop með þig á flug í gegnum hljóðbylgjurnar sem þú heyrir og notar taktskynjun til að setja af stað allskonar effekta sem skapa myndrænt ferðalag í gegnum tónlistarupplifunina</description>
+    <description lang="it">MilkDrop era, in origine, un "plug-in" di visualizzazione per Winamp. Mentre ascolti la musica, MilkDrop ti fa volare tra le onde sonore di ciò che stai ascoltando usando la rilevazione del ritmo per sincronizzare una miriade di effetti psichedelici, creando un ricco viaggio visuale attraverso il suono.</description>
+    <description lang="ja">MilkDrop は元々 Winamp 音楽プレーヤーのビジュアライザープラグインでした。音楽を再生すると、音楽にあわせた波の上を飛んでいるような視覚効果が現れ、ビート検出により無数のサイケデリックな効果が生まれ、音による視覚的体験を生み出します。</description>
+    <description lang="ko">MilkDrop는 원래 윈앰프의 음악 시각화 플러그인입니다. 음악을 들으면서 사운드 웨이브로 날아가는듯한 효과를 보여주며 비트 감지를 해서 다양한 싸이키데릭한 효과를 만들어 풍부한 시각적 경험을 하게합니다.</description>
+    <description lang="lt">MilkDrop vizualizacija, gauta is Winamp. Klausantis muzikos, MilkDrop nukelia jus i nuostabu skrydi virs debesu, naudojamas ritmo aptikimas, kuris sinchronizuoja muzikos vaizdo efektus.</description>
+    <description lang="lv">MilkDrop sākotnēji bija mūzikas vizualizācijas "spraudnis" Winamp mūzikas atskaņotājā. Kamēr tu klausies mūziku, MilkDrop paņem tevi līdz lidojumā cauri skaņas viļņiem, kuri skan, un izmanto ritma noteikšanu, lai palaistu myriad psihodēliskos efektus, radot bagātu vizuālo ceļojumu cauri skaņai.</description>
+    <description lang="mk">MilkDrop беше визуализација допонување на Winamp music player. Како што ја слушате музиката, MilkDrop ве прелетува преку актуелните музички бранови, и користи детекција на битот за да покрене myriad психоделични ефекти, креирајќи богато визуелно патување низ звукот.</description>
+    <description lang="nl">Milkdrop was oorspronkelijk een muziekvisualisatieplug-in voor de Winamp-muziekspeler. Terwijl u uw muziek beluistert vliegt Milkdrop u door de soundwaves die u op dat moment hoort. Op basis van de beat produceert het een veelvoud aan psychedelische effecten.</description>
+    <description lang="no">MilkDrop var originalt et visualiseringstillegg til musikkavspilleren Winamp. Mens du lytter til musikken din, tar MilkDrop deg med på en reise gjennom de faktiske lydbølgene du hører. Visualiseringen oppdager takten i musikken og bruker denne for å skape en rik, visuell ferd gjennom utallige, psykedeliske effekter.</description>
+    <description lang="pl">MilkDrop jest wizualizacją pochodzącą z odtwarzacza Winamp. W czasie słuchania muzyki, MilkDrop zabiera użytkownika w niesamowity lot pomiędzy aktualnie odtwarzanymi falami dźwiękowymi, używając detekcji beatu, która synchronizuje efekty wizualne z muzyką.</description>
+    <description lang="pt">Originalmente, o MilkDrop era uma visualização do leitor de música Winamp. Ao ouvir a sua música, o MilkDrop leva-o a voar pelas ondas sonoras que está a ouvir, detectando o ritmo da música e desencadeando uma variedade de efeitos psicadélicos. Cria, assim, uma viagem inesquecível pelo som.</description>
+    <description lang="pt_BR">MilkDrop era originalmente uma visualização do reprodutor de música Winamp. Ao ouvir a sua música, o MilkDrop leva-o a voar nas ondas sonoras que está a ouvir, usando detecção de batida para desencadear uma miríade de efeitos psicodélicos. Cria, assim, uma viagem visual inesquecível pelo som.</description>
+    <description lang="ro">MilkDrop a fost original un „modul” de vizualizare pentru lectorul de muzică Winamp. În timp ce ascultați muzica, MilkDrop vă face să zburați printre undele audio actuale pe care le auziți și folosește detecția bătăii pentru a activa miriada de efecte psihedelice, creând o călătorie vizuală bogată printre sunete.</description>
+    <description lang="ru">MilkDrop изначально был модулем визуализации музыки для проигрывателя Winamp. Когда вы слушаете музыку, MilkDrop создает визуальное ощущение полёта по звуковым волнам, а также использует обнаружение ритма для активации множества психоделических эффектов.</description>
+    <description lang="sk">MilkDrop bol pôvodne hudobným vizualizačným rozšírením Winamp prehrávača. Pri počúvaní hudby s Vami MilkDrop letí zvukovými vlnami, ktoré počúvate a použitím detekcie rytmu spúšťa nespočetné psychodelické efekty, a vytvára bohatú vizuálnu cestu zvukom.</description>
+    <description lang="sl">MilkDrop je bila prvotno vizualizacija za predvajalnik Winamp. Ko poslušate vašo glasbo, vas MilkDrop popelje skozi dejansko valovanje, ki ga slišite, in uporablja zaznavanje ritma, kar omogoči psihedelični efekt in bogato vizualno izkušnjo predvajanja glasbe.</description>
+    <description lang="sq">Milkrop fillimisht ishte një "plug-in" për vizualizimin e muzikës për riprodhuesin Winamp. Ndërsa dëgjonë muzikën tënde, Milkdrop vizualizon valët që i dëgjon dhe përdor zbulimin e tingullit për efekte të ndryshme.</description>
+    <description lang="sv">Milkdrop var ursprungligen ett visualiserarande ljudplug-in till Winamp. Medan du lyssnar på din musik så för dig Milkdrop flygande genom de ljudvågor du hör och använder rytmavkänning för att ge dig psykedeliska effekter som skapar en mäktig visuell resa via ljudet.</description>
+    <description lang="ta_IN">MilkDrop முதலில் Winamp இசை வாசிபானுடைய ஒரு இசை விசுவலைஸர் "செருகுநிரல்"ஆகும். நீங்கள் இசை கேட்டுக்கொண்டு இருக்குபோது, MilkDrop ஆனது உங்களை ஒலி அலைகளின் அமைப்புகேர்ப்ப உங்களை பறக்க செய்யும், மேலும் இசை துடிப்புகேர்ப்ப எண்ணற்ற சைக்டெலிக் விளைவுகளை உண்டாக்கும், ஒலி மூலம் ஒரு மறக்கமுடியாத காட்சி பயணம் உருவாக்கும்.</description>
+    <description lang="tg">MilkDrop аз ибтидо плагини таҷассуми мусиқие барои плеери мусиқии Winamp буд. Вақте ки шумо мусиқиро мешунавед, MilkDrop бо мавҷҳои садояш фораму роҳатбахш аст, ва муайянкуни битҳои мусиқиро барои эҷоди таъсирҳои девонагӣ истифода мекунад ва шуморо ба сайёҳии мусиқӣ мебарад.</description>
+    <description lang="th">MilkDrop แต่เดิมเป็น "ปลั๊ก-อิน" การแสดงแสงสีประกอบเพลง ของโปรแกรมเล่นเพลง Winamp.  ในขณะที่คุณฟังเพลงของคุณ, MilkDrop นำคุณบินผ่านคลื่นเสียงที่เกิดขึ้นตามที่คุณได้ยิน, และใช้การจับจังหวะ ในการส่งผลต่อเอฟเฟคภาพลวงตา อันหลากหลาย, สร้างภาพอันตื่นตาในการเดินทางไปตามเสียงเพลง.</description>
+    <description lang="tr">MilkDrop aslında Winamp müzik çalıcısı için görsel bir "eklenti" dir. Müziğinizi dinlerken, Milkdrop size işittiğiniz ses dalgaları arasında uçuyormuşcasına bir his ve ritm algılayıcısı ile de en çılgın efektleri yaşıyormuşçasına görsel bir şölen sunar.</description>
+    <description lang="uk">MilkDrop спочатку був додатком візуалізації музики для програвача музики Winamp. MilkDrop створює багату гаму візуалізації музики, використовуючи власний механізм визначення музичних тактів.</description>
+    <description lang="vi">MilkDrop ban đầu là một "plug-in" trình diễn nhạc cho Winamp. Khi bạn nghe nhạc, MilkDrop sẽ làm bạn bay bổng trong âm thanh bạn đang nghe, và sử dụng bộ dò giai điệu để kích hoạt vô số những hiệu ứng ảo, tạo ra một cuộc hành trình âm thanh qua mắt thường</description>
+    <description lang="zh">MilkDrop 是来自于 Winamp 音乐播放器的可视化效果插件。在你听音乐时，MilkDrop 通过节拍检测触发的无数迷幻的效果，带你与声波一起飞翔，给你带来丰富的音乐和视觉旅程。</description>
+    <description lang="zh_TW">MilkDrop是來自於Winamp音樂播放器的視覺效果插件。在您在聽音樂時，MilkDrop通過節奏偵測觸發的無數夢幻的效果，帶您穿越聆聽中的音樂饗宴，也給您帶來豐富的聲音和視覺效果的奇幻旅程。</description>
+    <platform>windows</platform>
+  </extension>
+</addon>
+
 <addon id="metadata.common.imdb.com"
        name="IMDB Scraper Library"
        version="3.1.3"
@@ -1925,47 +2059,13 @@ Fixed search issue caused by character accents
   </extension>
 </addon>
 
-<addon id="plugin.program.advanced.emulator.launcher" name="Advanced Emulator Launcher"
-       version="0.9.7~beta1" provider-name="Wintermute0110">
-  <requires>
-    <!-- See https://github.com/xbmc/xbmc/blob/master/addons/xbmc.python/addon.xml
-         2.24.0  Jarvis 16.x
-         2.25.0  Krypton 17.x
-         x.yy.z  Leia 18.x
-         x.yy.z  M**** 19.x
-    -->
-    <import addon="xbmc.python" version="2.25.0" />
-  </requires>
-  <extension point="xbmc.python.pluginsource" library="addon.py">
-    <provides>executable</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <summary lang="en">Start any emulators/apps from Kodi.</summary>
-    <description lang="en">Multi-emulator front-end and general application launcher for Kodi. Includes offline scrapers for MAME and No-Intro ROM sets and also supports scrapping ROM metadata and artwork online. ROM auditing for No-Intro ROMs using No-Intro or Redump XML DAT files. Launching of games and standalone applications is also available.</description>
-    <platform>all</platform>
-    <license>GNU General Public License version 2</license>
-    <email>wintermute0110@gmail.com</email>
-    <forum>http://forum.kodi.tv/showthread.php?tid=287826</forum>
-    <website>https://github.com/Wintermute0110/plugin.program.advanced.emulator.launcher/wiki</website>
-    <source>https://github.com/Wintermute0110/plugin.program.advanced.emulator.launcher</source>
-    <assets>
-      <icon>media/icon.png</icon>
-      <fanart>media/fanart.jpg</fanart>
-      <screenshot>media/Estuary_ROM_Launcher.jpg</screenshot>
-      <screenshot>media/Estuary_ROM_Console.jpg</screenshot>
-      <screenshot>media/Estuary_ROM_MAME.jpg</screenshot>
-    </assets>
-    <news>See changelog.txt for information about the latests release.</news>
-  </extension>
-</addon>
-
 <addon
     id="skin.arctic.zephyr"
-    version="2.3.14"
+    version="2.3.15"
     name="Arctic: Zephyr"
     provider-name="jurialmunkey">
     <requires>
-        <import addon="xbmc.gui" version="5.12.0"/>
+        <import addon="xbmc.gui" version="5.13.0"/>
         <import addon="script.skinshortcuts" version="0.4.0"/>
         <import addon="service.library.data.provider" version="0.1.0"/>
         <import addon="script.skin.helper.service" version="0.0.1"/>
@@ -1991,6 +2091,7 @@ Fixed search issue caused by character accents
         <summary lang="es">Limpio, minimalista, elegante, simple, ligero.</summary>
         <summary lang="fr">Clair, minimaliste, élégant, simple et léger.</summary>
         <summary lang="fr_CA">Net, minimal, élégant, simple, léger.</summary>
+        <summary lang="it">Pulita, minimale, elegante, semplice, leggera.</summary>
         <summary lang="lt">Švari, minimali, elegantiška, paprasta, lengva.</summary>
         <summary lang="nl">Schoon, minimaal, elegant, simpel, licht.</summary>
         <summary lang="no">Rent, minimalt, elegant, enkelt, lett.</summary>
@@ -2005,6 +2106,7 @@ Fixed search issue caused by character accents
         <description lang="es">Arctic: Zephyr es la tercera versión de Arctic skin creada por jurialmunkey. La skin Arctic se centra en ser simple, limplia y minimalista con un toque de luminosidad.</description>
         <description lang="fr">Arctic: Zephyr est la 3ème version du skin Arctic créé par jurialmunkey. Arctic se focalise sur le fait d'être simple, claire et minimaliste.</description>
         <description lang="fr_CA">Arctique : Zéphyr est la troisième version de l'habillage Arctique créé par jurialmunkey. Arctique se veut être simple, net et minimaliste tout en étant léger. </description>
+        <description lang="it">Arctic: Zephyr è la terza iterazione della skin Arctic creata da jurialmunkey. Arctic si concentra sull'essere semplice, pulita e minimalista con un tocco di leggerezza.</description>
         <description lang="lt">Arctic: Zephyr yra trečia Arctic teminės išvaizdos, kurios autorius yra jurialmunkey, iteracija. Arctic sutelkia dėmesį ties paprastumu, švarumu ir minimalizmu su lengvu veikimu.</description>
         <description lang="nl">Arctic: Zephyr is de derde herhaling van de arctic skin ge creëerd door jurialmunkey. Arctic focust zich op een eenvoudig zeinde, schoon en minimaal met een lichte twist.</description>
         <description lang="no">Arctic: Zephyr er den tredje iterasjonen av Arctic skallet som ble laget av jurialmunkey. Arctic fokuserer på å være enkel, rent og minimalistisk med et snev av letthet.</description>
@@ -2041,6 +2143,64 @@ Fixed search issue caused by character accents
 		<description></description>
 		<platform>all</platform>
 	</extension>
+</addon>
+
+<addon
+  id="visualization.vortex"
+  version="1.6.0"
+  name="Vortex"
+  provider-name="Team-Kodi">
+  <extension
+    point="xbmc.player.musicviz"
+    library_windows="visualization.vortex.dll"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="af">Vortex Visualisasie van die XBOX paket</summary>
+    <summary lang="ar">تصور دوامة من حزمة XBOX</summary>
+    <summary lang="bg">Визуализацията Vortex  от пакета за XBOX</summary>
+    <summary lang="ca">Visualització Vortex del paquet d'XBOX</summary>
+    <summary lang="cs">Vizualizace Vortex z balíčku XBOX</summary>
+    <summary lang="da">Vortex visualisering fra XBOX pakken</summary>
+    <summary lang="de">Vortex Visualisierung aus dem XBOX Paket</summary>
+    <summary lang="el">Οπτικοποίηση Δίνης από το πακέτο XBOX</summary>
+    <summary lang="en">Vortex Visualization from XBOX package</summary>
+    <summary lang="en_AU">Vortex Visualisation from XBOX package</summary>
+    <summary lang="en_NZ">Vortex Visualisation from XBOX package</summary>
+    <summary lang="en_US">Vortex Visualization from XBOX package</summary>
+    <summary lang="es">Visualización Vortex del paquete XBOX</summary>
+    <summary lang="es_AR">Visualización Vortex del paquete XBOX</summary>
+    <summary lang="es_MX">Visualización Vortex desde el paquete de XBOX</summary>
+    <summary lang="et">Vortex visuaal XBOX-i paketist</summary>
+    <summary lang="fi">Vortex-visualisaatiot XBOX-paketista</summary>
+    <summary lang="fr">Visualisation Vortex du Package XBOX</summary>
+    <summary lang="fr_CA">Visualisation Vortex du paquet XBOX</summary>
+    <summary lang="gl">Visualización Vortex do paquete XBOX</summary>
+    <summary lang="he">ויזואליזציה של מערבולת מחבילת ה-XBOX</summary>
+    <summary lang="hr">Vortex vizualizacija iz XBOX paketa</summary>
+    <summary lang="hu">Vortex vizualizáció az XBOX csomagból</summary>
+    <summary lang="id">Visualisasi Vortex dari paket XBOX</summary>
+    <summary lang="is">Vortex sjónræn upplifun frá XBOX pakkanum</summary>
+    <summary lang="it">Visualizzazione vortice dal package XBOX</summary>
+    <summary lang="ja">XBOX パッケージ由来の渦巻きビジュアライザー</summary>
+    <summary lang="ko">XBOX 패키지의 Vortex 시각화</summary>
+    <summary lang="lt">Vortex vizualicija iš Kodi paketo</summary>
+    <summary lang="lv">Vortex vizualizācija no XBOX pakotnes</summary>
+    <summary lang="mk">Vortex визуелизација од пакетот на XBOX</summary>
+    <summary lang="nl">Vortexvisualisatie van XBOX pakket</summary>
+    <summary lang="no">Tornado Visualisering fra XBOX pakke</summary>
+    <summary lang="pl">Wizualizacja Vortex z XBOX</summary>
+    <summary lang="pt">Visualização Vortex do pacote XBOX</summary>
+    <summary lang="pt_BR">Visualização Vortex do pacote XBOX</summary>
+    <summary lang="ru">Vortex визуализация из пакета XBOX</summary>
+    <summary lang="sk">Vortex vizualizácia z XBOX balíčku</summary>
+    <summary lang="sl">Vizualizacija Vortex iz paketa XBOX</summary>
+    <summary lang="sv">Vortex Visualization från XBOX-paketet</summary>
+    <summary lang="ta_IN">XBOX தொகுப்பில் இருந்து Vortex காட்சிஅமைப்பு</summary>
+    <summary lang="tg">Таҷассуми Vortex аз бастаи XBOX</summary>
+    <summary lang="th">การแสดง Vortex จาก XBOX package</summary>
+    <summary lang="tr">XBOX paketinden Vortex Görsel Öğe</summary>
+    <summary lang="zh">来自 XBOX 组件包的旋涡可视化效果</summary>
+    <platform>windows</platform>
+  </extension>
 </addon>
 
 <addon id="script.module.routing" name="Plugin routing" version="0.2.1" provider-name="takoi">
@@ -2098,7 +2258,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
 	</extension>
 </addon>
 
-<addon id="skin.carpc-xtouch" version="3.0.2" name="CarPC-XTouch" provider-name="JackTirol">
+<addon id="skin.carpc-xtouch" version="3.2.0" name="CarPC-XTouch" provider-name="JackTirol">
 	<requires>
 		<import addon="xbmc.gui" version="5.12.0"/>
 	</requires>
@@ -2195,6 +2355,18 @@ This is a Non-profit resource, organized solely for educational purposes which i
 		<license>GNU General Public License v.2</license>
 		<website>https://pypi.python.org/pypi/Unidecode</website>
 		<source>https://pypi.python.org/pypi/Unidecode</source>
+	</extension>
+</addon>
+
+<addon id="resource.images.moviegenreicons.transparent" name="Movie Genre Icons - Transparent" version="0.0.6" provider-name="Team Kodi">
+	<extension point="kodi.resource.images" compile="true" type="moviegenreicons" />
+	<requires>
+		<import addon="kodi.resource" version="1.0.0"/>
+	</requires>
+	<extension point="xbmc.addon.metadata">
+		<summary lang="en">Transparent Movie Genre Icons</summary>
+		<description lang="en">Movie Genre Icons with a transparent background</description>
+		<platform>all</platform>
 	</extension>
 </addon>
 
@@ -2673,35 +2845,6 @@ This is a Non-profit resource, organized solely for educational purposes which i
 	</extension>
 </addon>
 
-<addon id="plugin.video.twit"
-             name="TWiT"
-             version="2.1.6"
-             provider-name="divingmule">
-  <requires>
-    <import addon="xbmc.python" version="2.1.0"/>
-    <import addon="script.module.feedparser" version="5.1.3"/>
-    <import addon="script.ircchat" version="1.0.1" optional="true"/>
-    <import addon="script.module.simple.downloader" version="1.9.5"/>
-    <import addon="script.module.beautifulsoup4" version="4.3.2"/>
-  </requires>
-  <extension point="xbmc.python.pluginsource" library="default.py">
-    <provides>audio video</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <summary>The TWiT.tv Netcast Network</summary>
-    <description>
-      https://twit.tv/about/what-is-twit-tv
-      [CR]The TWiT.tv Netcast Network with Leo Laporte features the #1 ranked technology podcast This Week in Tech, along with over 20 other top-ranked online shows.
-    </description>
-    <platform>all</platform>
-    <language>en</language>
-    <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-    <source>https://github.com/divingmule/plugin.video.twit</source>
-    <forum>http://forum.kodi.tv/showthread.php?tid=183336</forum>
-    <website>https://twit.tv/</website>
-  </extension>
-</addon>
-
 <addon id="script.module.oauth2client"
        name="oauth2client"
        version="4.1.2"
@@ -2788,6 +2931,63 @@ This is a Non-profit resource, organized solely for educational purposes which i
     <email></email>
     <source></source>
   </extension>
+</addon>
+
+<addon id="script.cinemavision" name="CinemaVision" version="1.1.0" provider-name="CinemaVision">
+    <requires>
+        <import addon="xbmc.python" version="2.1.0"/>
+        <import addon="script.module.youtube.dl" version="15.318.0"/>
+        <import addon="script.module.beautifulsoup" version="3.0.8"/>
+        <import addon="script.module.requests" version="2.3.0"/>
+    </requires>
+    <extension point="xbmc.python.script" library="addon.py">
+        <provides>executable</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">Create a movie theater experience in the comfort of your own home!</summary>
+        <summary lang="es">Crear una experiencia de cine en la comodidad de su propia casa!</summary>
+        <summary lang="de">Erstellen Sie ein Kinoerlebnis in den Komfort der Ihren eigenen vier Wänden!</summary>
+        <summary lang="pt-br">Crie uma experiência de cinema no conforto da sua própria casa!</summary>
+        <description lang="en">Create a sequence of trivia slides, video bumpers, trailers and more that will bring the experience of a movie theater straight to your home theater. Share your sequences, customize your content and collaborate online at CinemaVision.tv!</description>
+        <description lang="es">Crear una secuencia de diapositivas de trivia, parachoques vídeos, trailers y mucho más que traerán la experiencia de una sala de cine directamente a su cine en casa. Comparte tus secuencias, personalizar el contenido y colaborar en línea en CinemaVision.tv!</description>
+        <description lang="de">Erstellen Sie eine Sequenz von trivia Dias, Video Stoßstangen, Trailer und vieles mehr, die die Erfahrung eines Filmtheaters direkt auf Ihr Heimkino bringen wird. Teile deine Sequenzen, passen Sie Ihre Inhalte und online zusammenarbeiten bei CinemaVision.tv!</description>
+        <description lang="pt-br">Criar uma seqüência de slides trivia, pára-choques de vídeo, trailers e muito mais que trará a experiência de um cinema direto para o seu home theater. Compartilhe suas sequências, personalize o seu conteúdo e colaborar online no CinemaVision.tv!</description>
+        <disclaimer lang="en">This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. Visit the website for details.</disclaimer>
+        <disclaimer lang="es">Esta obra está bajo una licencia internacional Creative Commons Attribution-NonCommercial-ShareAlike 4.0. Visite el sitio web para más detalles.</disclaimer>
+        <disclaimer lang="de">Diese Seite ist unter einer Creative Commons Attribution-NonCommercial-ShareAlike 4.0 Internationale lizensiert. Besuchen Sie die Website für weitere Details.</disclaimer>
+        <disclaimer lang="pt-br">Esta obra está licenciada sob uma Licença Internacional Creative Commons Attribution-Noncommercial-Share Alike 4.0. Visite o site para mais detalhes.</disclaimer>
+        <platform>all</platform>
+        <license>Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International</license>
+        <forum>http://www.cinemavision.tv/forums/</forum>
+        <website>http://www.cinemavision.tv/</website>
+        <source>https://github.com/CinemaVision/script.cinemavision</source>
+        <assets>
+            <icon>icon.png</icon>
+            <screenshot>resources/screenshots/screenshot1.png</screenshot>
+            <screenshot>resources/screenshots/screenshot2.png</screenshot>
+            <screenshot>resources/screenshots/screenshot3.png</screenshot>
+        </assets>
+        <news>
+add:     Added 'Sequence settings' option to context menu
+add:     Sequence settings: Conditions Attributes for automatic sequence selection
+add:     Sequence settings: Show in selection dialog Toggle
+fix:     Issues found with non-english characters in the file names of Action files causing errors
+fix:     Issue #6 With context menu visible the options icon for disabled changes to enabled
+fix:     Issue #70 Up/Down nav on options occasionally fails
+fix:     Issue #71 ImportError: Failed to import _strptime because the import lockis held by another thread
+fix:     Issue #78 AttributeError: 'ExperiencePlayer' object has no attribute 'processor'
+change:  Issue #33 Change demo content location
+fix:     Issue #10 When adding module sometimes jumps to the start
+fix:     Issue #73 iTunes scraper picking up clips
+change:  Issue #74 Remove 'Enabled: YES/NO' from settings display
+add:     Issue #50 Add 'Reset module to defaults'
+fix:     Update demo music to point to a working stream
+change:  Make various logging cleaner and more human readable
+fix:     Issue #115 Error caused when playing a movie with no active sequences
+fix:     Issue #116 Error when saving a sequence
+change:  Better handling of read/write falures and errors to help troubleshooting - Issue #95
+        </news>
+    </extension>
 </addon>
 
 <addon id="script.extendedinfo" name="[COLOR purple]Wraith[/COLOR]" version="9.1.1" provider-name="Revived by [COLOR purple]Mr.Blamo[/COLOR], original work by phil65">
@@ -3141,7 +3341,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
   </extension>
 </addon>
 
-<addon id="plugin.program.carpc-xtouch" name="X-Touch Helper" version="0.1.2" provider-name="Marc Hillesheim">
+<addon id="plugin.program.carpc-xtouch" name="X-Touch Helper" version="0.1.5" provider-name="Marc Hillesheim">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
     </requires>
@@ -3250,27 +3450,6 @@ This is a Non-profit resource, organized solely for educational purposes which i
     <summary lang="en">Common caching api for xbmc plugins.</summary>
   </extension>
   <extension library="lib" point="xbmc.python.module" />
-</addon>
-
-<addon id="plugin.program.chrome.launcher" name="Chrome Launcher" version="1.1.5" provider-name="alelec (AddonScriptorDE)">
-    <requires>
-        <import addon="xbmc.python" version="2.1.0"/>
-        <import addon="script.module.pydevd" version="2.1.0" optional="true"/>
-    </requires>
-    <extension point="xbmc.python.pluginsource" library="default.py">
-        <provides>executable</provides>
-    </extension>
-    <extension point="xbmc.addon.metadata">
-        <platform>all</platform>
-        <summary lang="en">Launch websites via Chrome in Kiosk-mode</summary>
-        <language></language>
-        <description lang="en">Launch websites via Chrome in Kiosk-mode</description>
-        <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-        <source>https://github.com/AddonScriptorDE/plugin.program.chrome.launcher</source>
-        <forum>http://forum.xbmc.org/showthread.php?tid=170965</forum>
-        <email>AddonScriptorDE at yahoo dot de</email>
-        <website></website>
-    </extension>
 </addon>
 
 <addon id="repository.firetvguru" name="Fire TV Guru Repo" version="0.0.5" provider-name="Fire TV Guru Repo">
@@ -3485,6 +3664,126 @@ This is a Non-profit resource, organized solely for educational purposes which i
   </extension>
 </addon>
 
+<addon
+  id="visualization.waveform"
+  version="1.1.0"
+  name="Waveform"
+  provider-name="MrC">
+  <extension
+    point="xbmc.player.musicviz"
+    library_windows="visualization.waveform.dll"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="af">Visualisering wat 2 golfvorm grafieke op die skerm vertoon</summary>
+    <summary lang="ar">التصوير يظهر2 رسم بياني موجي على الشاشة</summary>
+    <summary lang="be">Візуалізацыя што паказвае 2 графікі сыгналу на экране</summary>
+    <summary lang="bg">Визуализация представяща две осцилиращи вълни</summary>
+    <summary lang="ca">Visualització que mostra 2 gràfics en forma d'ona a la pantalla</summary>
+    <summary lang="cs">Vizualizace zobrazující 2 grafy průběhu vlny na obrazovce</summary>
+    <summary lang="cy">Delweddu'n dangos 2 Graff Ffurf Ton ar y sgrin</summary>
+    <summary lang="da">Visualisering der viser 2 bølgeagtige grafer på skærmen</summary>
+    <summary lang="de">Eine Visualisierung, die zwei wellenförmige Grafiken auf dem Bildschirm zeigt</summary>
+    <summary lang="el">Οπτικοποίηση που εμφανίζει 2 Κυματομορφές στην οθόνη</summary>
+    <summary lang="en">Visualisation showing 2 Waveform Graphs on the screen</summary>
+    <summary lang="en_AU">Visualisation showing 2 Waveform Graphs on the screen</summary>
+    <summary lang="en_NZ">Visualisation showing 2 Waveform Graphs on the screen</summary>
+    <summary lang="en_US">Visualization showing 2 Waveform Graphs on the screen</summary>
+    <summary lang="es">Visualización mostrando 2 gráficos de ondas en la pantalla</summary>
+    <summary lang="es_AR">Visualización mostrando 2 gráficos de ondas en la pantalla</summary>
+    <summary lang="es_MX">Visualización que muestra 2 Gráficos de Forma de onda</summary>
+    <summary lang="et">Visuaal, mis näitab ekraanil kahte signaalikujulist graafikut</summary>
+    <summary lang="fi">Kaksi aaltomuotograafia</summary>
+    <summary lang="fr">Visualisation affichant 2 graphiques de forme d'onde à l'écran</summary>
+    <summary lang="fr_CA">Visualisation affichant 2 graphiques de forme d'onde à l'écran</summary>
+    <summary lang="gl">Visualización amosando 2 gráficos en forma de onde na pantalla</summary>
+    <summary lang="he">חיזוי אשר מציג 2 גרפיים בצורת גל על המסך</summary>
+    <summary lang="hr">Vizualizacija koja prikazuje 2 valna grafikona</summary>
+    <summary lang="hu">Vizualizáció két hullámformával</summary>
+    <summary lang="id">Visualisasi menampilkan dua grafik gelombang pada layar</summary>
+    <summary lang="it">Visualizzatore che mostra 2 grafici di forma d'onda sullo schermo</summary>
+    <summary lang="ja">画面に2波形グラフを表示するビジュアライザー</summary>
+    <summary lang="ko">두개의 웨이브폼을 보여주는 음악시각화</summary>
+    <summary lang="lt">Vizualizacija kuri parodo dvi garso bangas</summary>
+    <summary lang="lv">Vizualizācija, kas attēlo 2 viļņveida grafikus uz ekrāna</summary>
+    <summary lang="mk">Визуализација која покажува 2 брана на екранот</summary>
+    <summary lang="ms">Visual di skrin menunjukkan 2 graf gelombang</summary>
+    <summary lang="nl">Visualisatie die twee grafieken in golfvorm weergeeft</summary>
+    <summary lang="no">Visualisering som viser to bølgeformede grafer på skjermen</summary>
+    <summary lang="pl">Wizualizacja pokazująca dwie fale dźwięku</summary>
+    <summary lang="pt">Visualização que mostra 2 gráficos ondulantes no ecrã</summary>
+    <summary lang="pt_BR">Visualização que mostra 2 gráficos ondulantes</summary>
+    <summary lang="ro">Vizualizare care arată 2 grafice Waveform pe ecran</summary>
+    <summary lang="ru">Визуализация, показывающая  на экране 2 волновых графика</summary>
+    <summary lang="se">Visualisering som visar 2 vågformsgrafer på skärmen</summary>
+    <summary lang="sk">Vizualizácia zobrazujúca 2 grafy priebehu signálu</summary>
+    <summary lang="sl">Vizualizacija zvoka z dvema valovnima oblikama</summary>
+    <summary lang="sq">Vizualizim që shfaq 2 Grafikë Valëzues në ekran</summary>
+    <summary lang="sr">Визуелизација која приказује два таласна облика на екрану</summary>
+    <summary lang="sv">Visualisering som visar 2 vågformgrafer på skärmen</summary>
+    <summary lang="ta_IN">திரையில் 2 அலைவடிவம் வரைபடங்கள் காட்டும் காட்சி</summary>
+    <summary lang="tg">Визуализатсия бо намоиши 2 нақши мавҷшакл дар экран</summary>
+    <summary lang="th">กำลังแสดงผลภาพเวอร์ชวลไลเซชั่น 'Waveform' เป็น 2  กราฟสัญญาณบนหน้าจอ</summary>
+    <summary lang="tr">2 Dalga Grafiğini ekranda gösteren görsel öğe</summary>
+    <summary lang="uk">Візуалізація показує на екрані 2 лінії, що змінюються в такт з музикою.</summary>
+    <summary lang="vi">Trình diễn đồ họa 2 đường sóng lên màn hình</summary>
+    <summary lang="zh">在屏幕上显示两个波形图的可视化效果</summary>
+    <summary lang="zh_TW">在屏幕上顯示2波形圖的視覺效果</summary>
+    <description lang="af">Golfvorm is 'n eenvoudige visualisering wat 2 golfvorm grafieke op die skerm vertoon, een elk vir Linker en Regter kanale wat beweeg op die maat van die musiek.</description>
+    <description lang="ar">التشكيل الموجي هو تصوير بسيط يظهر2 رسم بياني موجي على الشاشة, واحد لقنوات اليسار و اليمين التر تتحرك على وقع الموسيقى</description>
+    <description lang="be">Waveform is a simple Visualization showing 2 Waveform Graphs on the screen, One each for Left and Right channels that move to the beat of the music</description>
+    <description lang="bg">Waveform представя графика на две осцилиращи вълни на екрана, по една за всеки канал (ляв и десен), който реагират на ритъма на музиката.</description>
+    <description lang="ca">Waveform és una visualització molt simple que mostra 2 gràfics en forma d'ona a la pantalla, un per a cada un dels canals, esquerre i dret, que es mouen al ritme de la música.</description>
+    <description lang="cs">Průběh vlny je jednoduchá vizualizace zobrazující 2 grafy průběhu vlny na obrazovce, které znázorňují levý a pravý kanál a pohybují se v rytmu hudby</description>
+    <description lang="cy">Delweddu syml yw Waveform sy'n dangos 2 Graff Ffurf Ton ar y sgrin. Un yr un ar gyfer y sianel de a chwith sy'n symud i guriad y gerddoriaeth</description>
+    <description lang="da">Waveform er en simpel visualisering, der viser 2 bølgeagtige grafer på skærmen. Én til den venstre og én til den højre kanal, der bevæger sig til musikkens rytme.</description>
+    <description lang="de">Waveform ist eine einfache Visualisierung, die zwei wellenförmige Grafiken zeigt. Je eine Grafik für den linken und rechten Kanal, die sich im Takt der Musik bewegen</description>
+    <description lang="el">Το Waveform είναι μία απλή Οπτικοποίηση του εμφανίζει 2 Κυματομορφές στην οθόνη, μία για το Αριστερό και μία για το Δεξί κανάλι οι οποίες κινούνται στο ρυθμό της μουσικής</description>
+    <description lang="en">Waveform is a simple Visualisation showing 2 Waveform Graphs on the screen, One each for Left and Right channels that move to the beat of the music</description>
+    <description lang="en_AU">Waveform is a simple Visualisation showing 2 Waveform Graphs on the screen, one each for Left and Right channels that move to the beat of the music</description>
+    <description lang="en_NZ">Waveform is a simple Visualisation showing 2 Waveform Graphs on the screen, One each for Left and Right channels that move to the beat of the music</description>
+    <description lang="en_US">Waveform is a simple Visualization showing 2 Waveform Graphs on the screen, One each for Left and Right channels that move to the beat of the music</description>
+    <description lang="es">Waveform es un sencillo visualizador que muestra 2 gráficos de ondas en la pantalla, uno para cada canal, derecho e izquierdo, que se mueven al ritmo de la música.</description>
+    <description lang="es_AR">Waveform es un sencillo visualizador que muestra 2 gráficos de ondas en la pantalla, uno para cada canal, derecho e izquierdo, que se mueven al ritmo de la música.</description>
+    <description lang="es_MX">Waveform es una Visualización simple que muestra 2 Gráficos de Forma de onda en la pantalla, uno para cada canal Izquierdo y Derecho que se mueven al ritmo de la música</description>
+    <description lang="et">Waveform on lihtne visuaal, ekraanil on 2 signaalikujulist graafikut - üks vasaku ja teine parema kanali jaoks, mis mõlemad liiguvad muusika rütmis.</description>
+    <description lang="fi">Waveform on kaksi aaltomuotograafia näyttävä yksinkertainen visualisointi. Toinen on vasemmalle ja toinen oikealle kanavalla ja ne liikkuvat musiikin tahdissa.</description>
+    <description lang="fr">Waveform est une visualisation simple affichant deux graphiques de forme d'onde à l'écran. Chaque forme d'onde représente une voie, gauche et droite, et réagit selon le rythme de la musique.</description>
+    <description lang="fr_CA">Waveform est une visualisation simple affichant deux graphiques de forme d'onde à l'écran. Chaque forme d'onde représente une voie, gauche et droite, et réagit selon le rythme de la musique.</description>
+    <description lang="gl">Waveform é unha Visualización simple que amosa 2 gráficos en forma de onde na súa pantalla, unha por cada lateral correspondente ás canles de audio da esquerda e da dereita que se move ó ritmo da música</description>
+    <description lang="he">Waveform הוא חיזוי פשוט המציג 2 גרפים בצורת גל על המסך, אחד לכל ערוץ שמאלי וימני הזז לפי קצב המוזיקה</description>
+    <description lang="hr">Waveform je jednostavna vizualizacija koja prikazuje 2 valna grafikona, po jedan za lijevi i desni kanal koji se pokreću u ritmu glazbe.</description>
+    <description lang="hu">A Waveform egy egyszerű vizualizáció, amely 2db hullámot mutat reprezentálva a bal és a jobb hangcsatornákat, melyek a zene ritmusára mozognak.</description>
+    <description lang="id">Waveform adalah visualisasi sederhana yang menunjukkan grafik dua gelombang pada layar, masing-masing untuk Satu saluran Kiri dan Kanan yang bergerak dengan ketukan musik</description>
+    <description lang="it">Waveform è un semplice visualizzatore che mostra 2 grafici di forma d'onda sullo schermo, uno per il canale destro e uno per quello sinistro, che si muovono a ritmo di musica</description>
+    <description lang="ja">Waveform は画面に2波形グラフを表示するシンプルなビジュアライザーです。音楽に合わせて、右チャンネル、左チャンネルの波形が表示されます。</description>
+    <description lang="ko">Waveform은 간단히 두개의 웨이브폼을 화면에 보여줍니다. 각각 왼쪽, 오른쪽 채널이고 음악의 비트에 따라 움직입니다.</description>
+    <description lang="lt">Waveform yra paprasta vizualizacija katra rodo dvi garso bangas ekrane. Viena banga vieno kanalo garsas.</description>
+    <description lang="lv">Waveform ir vienkārša vizualizācija, kas atēlo 2 viļņveida grafikus uz ekrāna, vienu - labajam, otru - kreisajam kanālam, kas kustās muzikas ritmā</description>
+    <description lang="mk">Бранови е едноставна визуализација која покажува 2 брановидни графови на екран, по еден за десниот и левиот канал од музиката</description>
+    <description lang="ms">Gelombang merupakan visual ringkas yang menunjukkan 2 graf gelombang, saluran kiri dan kanan yang bergerak mengikut rentak musik</description>
+    <description lang="nl">Waveform is een simpele muziekvisualisatie die twee golfvormen op het scherm toont, respectievelijk voor het linker- en rechtergeluidskanaal. De golfvormen bewegen mee met de beat van de muziek.</description>
+    <description lang="no">Waveform er en enkel visualisering. Waveform viser to bølgeformede grafer på skjermen som beveger seg i takt med musikken. En for venstre og en for høyre lydkanal.</description>
+    <description lang="pl">Waveform jest prostą wizualizacją pokazującą dwie fale dźwiękowe na ekranie. Każda na jeden kanał dźwięku.</description>
+    <description lang="pt">O Waveform é uma visualização simples que mostra 2 gráficos ondulantes no ecrã, um para cada canal estéreo. Estas ondas movem-se ao ritmo da música.</description>
+    <description lang="pt_BR">O Waveform é um visualizador simples que mostra 2 gráficos ondulantes na tela, um para cada canal estéreo</description>
+    <description lang="ro">Waveform este o vizualizare simplă care arată 2 grafice în formă de undă pe ecran, câte unul pentru fiecare canal stâng și drept și care se mișcă după bătăile muzicii.</description>
+    <description lang="ru">В этой визуализации отображаются 2 графика для левого и правого каналов, которые движутся в такт музыке</description>
+    <description lang="se">Waveform är en enkel visualisering som visar 2 vågformsgrafer på skärmen, en för vänster och en för höger kanal som rör sig i takt med musiken</description>
+    <description lang="sk">"Waveform" je jednoduchá vizualizácia zobrazujúca 2 grafy priebehu signálu pre pravý a ľavý kanál, pohybujúce sa v rytme hudby</description>
+    <description lang="sl">Waveform je preprosta vizualizacija, ki prikazuje valovni obliki zvoka iz levega in desnega kanala, ki sledita ritmu glasbe</description>
+    <description lang="sq">Valëzuesi është një Vizualizim i thjeshtë që shfaq 2 Grafikë Valëzues në ekran, nga Një për secilin kanal, të Majtë dhe të Djathtë, që lëvizin sipas ritmit të muzikës</description>
+    <description lang="sv">Waveform är en enkel visualisering som visar 2 vågformgrafer på skärmen, en vardera för vänster och höger kanal som rör sig i takt med musiken.</description>
+    <description lang="ta_IN">திரையில் 2 அலைவடிவம் வரைபடங்கள் காட்டப்படும், ஒன்று இடது புற சேனலுக்கும் மற்றொன்று வலதுபுற சேனலுக்கு உரியதாகும்.</description>
+    <description lang="tg">Waveform - визуализатсияи осонест, ки дар экран 2 нақши мавҷшаклро намоиш медиҳад, ду нақши алоҳида барои шабакаи чап ва рости ритми мусиқӣ</description>
+    <description lang="th">Waveform เป็นการแสดงผลภาพเวอร์ชวลไลเซชั่นพื้นฐานที่จะแสดงกราฟสัญญาณเสียง 2 กราฟบนหน้าจอ โดยเป็นกราฟสัญญาณเสียงซ้ายและขวาตามจังหวะของเพลง</description>
+    <description lang="tr">Dalgaformu, müzik vuruşlarına göre biri sol biri sağ kanal olmak üzere 2 dalga grafiğini ekranda gösteren görsel öğedir.</description>
+    <description lang="uk">Waveform є простою візуалізацією що показує 2 осцилограми на екрані. Кожна лінія відповідає своєму каналу і змінюється в такт з музикою.</description>
+    <description lang="vi">Waveform là một màn trình diễn đồ họa đơn giản hiển thị 2 đường sóng lên màn hình, Mỗi đường sóng sẽ đại diện cho một kênh tín hiệu loa trái hoặc phải di chuyển theo nhịp điệu của bài hát</description>
+    <description lang="zh">Waveform 是一个简单的可视化效果，它在屏幕上显示两个波形图，分别与音乐左右声道的节拍相呼应。</description>
+    <description lang="zh_TW">Waveform是一個簡單的可在屏幕上顯示2波形圖的視覺效果，左右聲道會跟著音樂節拍移動</description>
+    <platform>windows</platform>
+  </extension>
+</addon>
+
 <addon id="script.module.liveresolver"
      name="LiveResolver"
      version="0.1.50"
@@ -3544,7 +3843,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
         </extension>
     </addon>
 
-    <addon id="repository.Atrion" name="Atrions Repo" version="0.3.7" provider-name="AtrionDarnay">
+    <addon id="repository.Atrion" name="[COLOR maroon]Atrion's Add-ons Repository[/COLOR]" version="0.3.8" provider-name="Atrion Darnay">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -3556,7 +3855,7 @@ This is a Non-profit resource, organized solely for educational purposes which i
         </extension>
         <extension point="xbmc.addon.metadata">
             <summary>Atrions Repository</summary>
-            <description>Atrions Repo</description>
+            <description>Atrions Repository</description>
             <platform>all</platform>
     </extension>
 </addon>
@@ -3606,7 +3905,7 @@ Kodi is a registered trademark of the XBMC Foundation. We are not connected to o
   </extension>
 </addon>
 
-    <addon id="repository.Atrion2" name="Atrions Repo2" version="0.3.7" provider-name="AtrionDarnay">
+    <addon id="repository.Atrion2" name="[COLOR maroon]Atrion's Add-ons Repository[/COLOR] [COLOR Red]Backup[/COLOR]" version="0.3.8" provider-name="Atrion Darnay">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -3621,6 +3920,21 @@ Kodi is a registered trademark of the XBMC Foundation. We are not connected to o
             <description>Atrions Repo</description>
             <platform>all</platform>
     </extension>
+</addon>
+
+<addon
+  id="visualization.shadertoy"
+  version="1.1.5"
+  name="Shadertoy"
+  provider-name="Team-Kodi">
+  <extension
+    point="xbmc.player.musicviz"
+    library_windows="visualization.shadertoy.dll"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">Visualisations from Shadertoy</summary>
+    <description lang="en">Visualisations from Shadertoy</description>
+    <platform>windows</platform>
+  </extension>
 </addon>
 
 <addon id="plugin.video.nemesis" name="[COLOR aqua][B]Nemesis[/B][/COLOR]" version="1.0.8" provider-name="[COLOR aqua]Nemzzy[/COLOR]">
@@ -3661,6 +3975,99 @@ Kodi is a registered trademark of the XBMC Foundation. We are not connected to o
         <license>GNU GENERAL PUBLIC LICENSE Version 2.1, February 1999</license>
         <source>https://github.com/phil65/plugin.program.autocompletion</source>
     </extension>
+</addon>
+
+<addon
+  id="visualization.spectrum"
+  version="1.1.1"
+  name="Spectrum"
+  provider-name="Team XBMC">
+  <extension
+    point="xbmc.player.musicviz"
+    library_windows="visualization.spectrum.dll"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="af">Visualisering wys a roterende 3D Spektrum Analiseerder</summary>
+    <summary lang="ar">عارض يظهر طيف محلل دوري ثلاثي الأبعاد</summary>
+    <summary lang="be">Visualisation showing a rotating 3D Spectrum Analyzer</summary>
+    <summary lang="bg">Визуализация представяща ротиращ се 3D спектрален анализатор</summary>
+    <summary lang="ca">Visualització mostrant un analitzador d'espectre giratori 3D</summary>
+    <summary lang="cs">Vizualizace zobrazující rotující 3D spektrální analyzátor</summary>
+    <summary lang="da">Visualisering der viser en roterende 3D-spektrumanalyse</summary>
+    <summary lang="de">Diese Visualisierung zeigt eine rotierende Spektrum Analyse in 3D</summary>
+    <summary lang="el">Οπτικοποίηση που εμφανίζει έναν περιστρεφόμενο τρισδιάστατο Αναλυτή Φάσματος</summary>
+    <summary lang="en">Visualisation showing a rotating 3D Spectrum Analyzer</summary>
+    <summary lang="es">Visualización que muestra un analizador de espectro en 3D girando</summary>
+    <summary lang="es_AR">Visualización que muestra un analizador de espectro en 3D girando</summary>
+    <summary lang="es_MX">Visualización que muestra un Analizador de Espectro giratorio 3D</summary>
+    <summary lang="et">Visuaal, mis näitab pöörlevat 3D spektraalanalüüsi</summary>
+    <summary lang="fi">Pyörivä 3D-spektrianalysaattori</summary>
+    <summary lang="fr">Visualisation affichant un analyseur de spectre 3D en rotation</summary>
+    <summary lang="gl">Visualización que amosa un analizador de espectro virando en 3D</summary>
+    <summary lang="he">DirectX Spectrum זהו חיזוי אשר מציג סיבובי 3D Spectrum Analyzer</summary>
+    <summary lang="hr">Vizualizacija koja prikazuje rotirajući 3D spektralni analizator</summary>
+    <summary lang="hu">Vizualizáció 3D spektrum analizátorral</summary>
+    <summary lang="is">Myndskreyting sem sýnir þrívíddar rófgreini</summary>
+    <summary lang="it">La visualizzazione mostra un analizzatore di spettro 3D rotante</summary>
+    <summary lang="ja">回転する 3D スペクトラムアナライザーを表示する  ビジュアライザー</summary>
+    <summary lang="ko">회전하는 3D 스펙트럼 분석기를 보여지는 음악시각화</summary>
+    <summary lang="lt">Vizualizacija rodo rotacinis 3D spektro analizatorių</summary>
+    <summary lang="mk">Визуализација која покажува ротирачки 3Д анализатор на спектар</summary>
+    <summary lang="nl">DirectX-visualisatie die een roterende 3D-spectrumanalyse weergeeft</summary>
+    <summary lang="no">Visualisering som viser en roterende 3D ​​Spectrum Analyzer</summary>
+    <summary lang="pl">Wizualizacja pokazująca obracający się analizator widma w 3D</summary>
+    <summary lang="pt">Visualização que mostra um analisador espectral rotativo em 3D</summary>
+    <summary lang="pt_BR">Visualização que mostra um analisador espectral rotativo em 3D</summary>
+    <summary lang="ro">Vizualizare cu afișarea unui analizor de spectru 3D rotativ</summary>
+    <summary lang="ru">Визуализация, показывающая вращающийся трёхмерный анализатор спектра</summary>
+    <summary lang="sk">Vizualizácia zobrazujúca rotujúci 3D spektrálny analyzátor</summary>
+    <summary lang="sl">Vizualizacija, ki prikatuje vrtečo 3D spektralno analizo</summary>
+    <summary lang="sv">Visualisering som visar en roterande 3D-spektrumanalysator</summary>
+    <summary lang="th">การแสดงแสงสี ทำให้เห็นการหมุนแบบ 3 มิติ ของการวิเคราะห์คลื่นความถี่เสียง</summary>
+    <summary lang="uk">Візуалізація що показує обертаючийся 3D спектроаналізатор.</summary>
+    <summary lang="zh">显示旋转三维频谱分析图像的可视化效果</summary>
+    <summary lang="zh_TW">顯示旋轉的3D頻譜分析視覺效果</summary>
+    <description lang="af">Spectrum is 'n Visualisering wat 'n roterende 3D Spektrum Analiseerder, verbeeld met , vertoon wat op die maat van die musiek beweeg en 'n golf effek oor die spektrum rooster skep.&#10;Dit het ook verstellings vir die aanpas van spektrum staaf hoogte, sy spoed, en hoe die stawe verbeeld word (solied, punte, draad raamwerk) en is 'n lekker ligte, lae cpu verbruik visualisering wat fantasties lyk</description>
+    <description lang="ar">طيف  هو تحليل بصري متحرك ثلاثي الابعاد للموسيقى! يتحرك بواسطة يرنامج  على وزن الموسيقى في شكل موجة.&#10;توجد ايضا اعدادات لتعديل شبكة الطيف من حيث طول الاعمدة, سرعتها, وحتى شكلها (صلبة, نقاط, اسلاك) تعمل هذة بحمل خفيف, ومعالجة cpu ضئيلة لكنها تبدو رائعة</description>
+    <description lang="be">Spectrum is a Visualisation showing a rotating 3D Spectrum Analyzer rendered in  that moves to the beat of the music creating a wave effect across the spectrum grid.&#10;It also has settings to adjust the spectrum bar height, Its speed, and how the bars are rendered (solid, points, wire frame) and is a nice light weight, low cpu useage visualisation that looks great</description>
+    <description lang="bg">Spectrum е визуализация изобразяваща ротиращ се 3D спектрален анализатор (рендването се извършва с ). Ротацията е според ритъма на музиката и предизвиква вълнови ефект по спектрална решетка.&#10;Можете да настройвате височината на спектралните стълбове, скоростта и рендването - solid, points, wire frame. Характеризира се с отличен вид, като същевременно почти не натоварва процесора.</description>
+    <description lang="ca">Spectrum és una visualització que mostra un analitzador d'espectre giratori en 3D renderitzat amb  que es mou al ritme de la música creant un efecte d'ona al llarg de la graella de l'espectre.⏎ També té opcions per ajustar l'alçada de la barra de l'espectre, la seva velocitat, i com es renderitzen les barres (sòlid, punts, malla de filferro). Una visualització que utilitza poca CPU i que és veu molt bé. </description>
+    <description lang="cs">Spectrum je vizualizace zobrazující rotující 3D spektrální analyzátor rendrovaný v , který se pohybuje v rytmu hudby a vytváří vlnový efekt napříč spektrální mřížkou.&#10;Obsahuje také nastavení pro přizpůsobení výšky sloupců spektra, rychlosti a způsobu vykreslení (vyplněný, body, drátový model). Je to velmi lehká vizualizace s nízkou zatíží CPU, která vypadá skvěle.</description>
+    <description lang="da">-spektrum er en visualisering, der viser en roterende 3D-spektrumanalysator renderet i DirectX, som bevæger sig i takt til musikken og skaber en bølgeeffekt på tværs af spektrumfeltet.&#10;Den har også indstillinger til at justere spektrumliniens højde, fart og hvordan den bliver renderet (fast, punkter, trådramme). Det er en letvægtsvisualisering med lavt CPU-forbrug, som ser godt ud.</description>
+    <description lang="de">Spectrum ist eine Visualisierung, die eine rotierende Spektrum Analyse in 3D zeigt. Die Visualisierung wird so gerendert, dass sie sich zum Takt der Musik bewegt und eine Welle über das Spektrum Grid legt.&#10;Es lässt sich neben der Höhe, die Geschwindigkeit als auch die Art der Balken (durchgehend, Punkte, Drahtgeflecht) einstellen. Eine schöne Visualisierung, die nur eine geringe CPU-Last erzeugt</description>
+    <description lang="el">Το Spectrum είναι μία Οπτικοποίηση που εμφανίζει έναν περιστρεφόμενο τρισδιάστατο Αναλυτή Φάσματος που αποδίδεται μέσω  και κινείται στο ρυθμό της μουσικής δημιουργώντας ένα κυματικό εφέ κατά μήκος του φασματικού πλέγματος.&#10;Διαθέτει ρυθμίσεις για τον ορισμό του ύψους των στηλών του φάσματος, του τρόπου απόδοσης των στηλών (συμπαγείς, σημειακές, συρματόπλεγμα), και είναι μία ελαφριά, εμφανίσιμη και χαμηλής υπολογιστικής ισχύος οπτικοποίηση</description>
+    <description lang="en">Spectrum is a Visualisation showing a rotating 3D Spectrum Analyzer rendered in  that moves to the beat of the music creating a wave effect across the spectrum grid.&#10;It also has settings to adjust the spectrum bar height, Its speed, and how the bars are rendered (solid, points, wire frame) and is a nice light weight, low cpu useage visualisation that looks great</description>
+    <description lang="es">Spectrum es una visualización que muestra un analizador de espectro en 3D girando renderizado con  que se mueve al ritmo de la música creando un efecto de onda en la rejilla del espectro.&#10;Se puede ajustar la altura de las barras, su velocidad, y como son renderizadas (sólido, puntos, malla). Es una visualización que utiliza poca CPU y muy agradable.</description>
+    <description lang="es_AR">Spectrum es una visualización que muestra un analizador de espectro en 3D girando, renderizado con , que se mueve al ritmo de la música creando un efecto de onda en la rejilla del espectro.&#10;Se puede ajustar la altura de las barras, su velocidad, y como son renderizadas (sólido, puntos, malla). Es una visualización que utiliza poca CPU y muy agradable.</description>
+    <description lang="es_MX">Espectro es una Visualización que muestra un Analizador de Especto en 3D rotando renderizado en  que se mueve al ritmo de la música creando un efecto de onda a través del espectro de la red.&#10;También tiene configuraciones para ajustar la altura de la barra de espectro, su velocidad, y cómo las barras son renderizadas (sólidas, puntos, malla de alambre) y es una buena visualización liviana, de poco uso de cpu que se ve genial.</description>
+    <description lang="et">Spectrum on visuaal, mis näitab 3D spektraalanalüüsi renderdatud 'is, mis liigub liigub muusika rütmis luues laineefekti üle spektraalvõrgustiku.&#10;Lisaks on olemas ka võimalus seadistada spektri kõrgust, selle kiirust ja kuidas ribasid renderdatakse (tahkis, punktid, sõrestik).  Spectrum on hea väljanägemisega kerge ja vähese protsessorikasutusega visuaal.</description>
+    <description lang="fi">Näyttää pyörivän 3D-spektrianalysaattorin, joka liikkuu musiikin tahdissa tuottaen aaltotehosteen spektrikuvaajaan.&#10;Spektripalkin korkeuden, nopeuden, ja piirtotavan (täytetyt, pisteet, ääriviivat) voi asettaa asetuksista. Spectrum on kevyt visualisointi joka näyttää hyvältä.</description>
+    <description lang="fr">Spectrum est une visualisation affichant un analyseur de spectre 3D en rotation, sous . Il réagit au rythme de la musique, créant un effet d'onde sur la grille du spectre.&#10;Il propose divers paramètres pour ajuster la hauteur, la vitesse, et le rendu des barres du spectre (plein, points, fil de fer). Une visualisation légère, peu gourmande en CPU et agréable à regarder.</description>
+    <description lang="gl">Spectrum é unha Visualización que amosa un analizador de espectro virando en 3D renderizado con  que se move ó ritmo da música creando un efecto de onde ó longo da grella do espectro.&#10;Tamén ten opcións para axustar a altura da barra, a velocidade e como se renderizan as barras (sólidas, puntos, malla) do espectro. É bonito, lixeiro, de baixo custo en CPU.</description>
+    <description lang="he">Spectrum זהו חיזוי אשר מציג סיבובי 3D Spectrum Analyzer אשר זז לצלילי המוזיקה שיוצר אפקט גלים לרוחב רשת הספקטרום.&#10;יש אפשרות גם להגדיר את גובה פס הספקטרום, את המהירות, ואת התנהגות הפסים (filled, points, wire frame) וזהו חיזוי נחמד קל משקל לא מעמיס על המעבד ונראה נהדר.</description>
+    <description lang="hr">Spectrum je vizualizacija koja prikazuje rotirajući 3D spektralni analizator renderiran u -u koji se pokreće u ritmu muzike stvarajući efekt valova u spektralnoj mreži.&#10;Također sadrži i postavke za namještanje visine sprektralnih traka, njihove brzine, i načina na koji su prikazane (popunjeno, točke, žičani okvir). Vizualizacija izgleda sjajno te je malih memorijskih i CPU zahtjeva.</description>
+    <description lang="hu">Az Spectrum egy olyan vizualizáció ami egy 3D hang spektrum analizátort mutat  segítségével megjelenítve, ami a zene ritmusára mozog egy hullám-effektust képezve a teljes spektrumhálón.&#10;Beállítható a spektrum oszlopok magassága, mozgási sebessége és hogy az oszlopok hogyan jelenjenek meg (teli, pontok, drótváz). Ez egy kis erőforrásigényű vizualizáció ami nagyon jól mutat.</description>
+    <description lang="is">Spectrum er myndskreyting sem sýnir þrívíddar rófgreini sem snýst sem er teiknaður í  og hreyfist í takt við tónlistina sem myndar bylgjuhreyfingu yfir rófið.&#10;Það er líka hægt að stilla hæð mælingana, hraða og hvernig þær eru teiknaðar (fyllt, punktar, útlínur) myndskrytingin setur lítið álag á örgjörva og lítur vel út</description>
+    <description lang="it">Spectrum è una visualizzazione che mostra un analizzatore di spettro renderizzato in  che si muove a tempo di musica creando un effetto onda attraverso la griglia.&#10;E' possibile regolare varie impostazioni: l'altezza delle barre, la velocità di risposta e come le barre sono renderizzate (piene, con punti o con righe). E' una visualizzazione rilassante e con basso uso del processore.</description>
+    <description lang="ja">Spectrum is a Visualisation showing a rotating 3D Spectrum Analyzer rendered in  that moves to the beat of the music creating a wave effect across the spectrum grid.&#10;It also has settings to adjust the spectrum bar height, Its speed, and how the bars are rendered (solid, points, wire frame) and is a nice light weight, low cpu useage visualisation that looks great</description>
+    <description lang="ko">스펙트럼은 회전하는 3D 스펙트럼 분석기를 통해 음악시각화를 보여주며 음악의 비트가 만들어내는 웨이브 효과를 스펙트럼 그리드에 보여줍니다. 설정에서 스펙트럼 바의 높이, 속도, 바의 갯수 (채워짐, 점, 와이어 프레임)를 지정할수 있습니다. 가볍고 CPU를 많이 사용하지 않습니다.</description>
+    <description lang="lt">Spektro vizualizacija, kurioje besisukantį 3D spektro analizatorių, priimtą , katras juda į muzikos ritmą, įsteigiantis bangų poveikį visame spektro tinklelyje.&#10;Taip pat turi nustatymus nureguliuoti spektro juostos aukštį, jos greitį, ir teikiamas kraštines (kieta, taškai, tinklelio rėmas) ir yra gražus bei lengvas, mažai naudoja CPU vizualizacijai, ir atrodo puikiai</description>
+    <description lang="mk">Spectrum is a Visualisation showing a rotating 3D Spectrum Analyzer rendered in  that moves to the beat of the music creating a wave effect across the spectrum grid.⏎ It also has settings to adjust the spectrum bar height, Its speed, and how the bars are rendered (solid, points, wire frame) and is a nice light weight, low cpu useage visualisation that looks great</description>
+    <description lang="nl">Spectrum is een visualisatie met een draaiende 3D ​​Spectrum Analyzer gerenderd in . Deze visualisatie beweegt op het ritme van de muziek en creëert een golf effect over het hele spectrum. ⏎&#10;Het heeft instellingen om de barhoogte en de snelheid aan te passen, en hoe de staven worden weergegeven (vast, punten, draad frame) en is een mooie lichtgewicht visualisatie die weinig van de cpu vraagt en er geweldig uit ziet.</description>
+    <description lang="no">Spectrum er en visualisering som viser et roterende 3D ​​Spectrum Analyzer gjengitt i  som flytter til rytmen i musikken skaper en bølge effekt over hele spekteret rutenettet.⏎&#10;Det har også innstillinger for å justere spekterets bar høyde, hastighet, og hvordan barene gjengis (solid, punkt, wireframe) og er en fin lett vekt, lav cpu brukende visualisering som ser flott ut</description>
+    <description lang="pl">Wizualizacja pokazuje obracający się, trójwymiarowy analizator widma, renderowany przy użyciu . Możesz ustawić wysokość słupków, ich prędkość i wygląd.</description>
+    <description lang="pt">Spectrum é uma visualização que mostra um analisador espectral 3D rotativo, renderizado em , que se sincroniza com o ritmo da música, criando assim um efeito de ondas na grelha espectral.&#10;Pode-se definir a altura das barras, a sua velocidade e como são renderizadas (sólido, pontos ou contorno). É uma visualização que não utiliza muito CPU e tem um aspecto fantástico.</description>
+    <description lang="pt_BR">O Spectrum é uma visualização que mostra um analisador espectral rotativo 3D, renderizado em , que se sincroniza com a batida, criando assim um efeito de ondas na grelha espectral.&#10;Pode-se definir a altura das barras, a sua velocidade e como são renderizadas (sólido, pontos ou contorno). É uma visualização que utiliza pouco o CPU e com um visual fantástico.</description>
+    <description lang="ro">Spectrul  este o vizualizare care afișează un analizor de spectre 3D rotativ randat în  care se mișcă după bătăile muzicii creând un val dea-lungul grilei spectrale.&#10;De asemenea, are setări pentru ajustarea înălțimii bărilor spectrale, a vitezei, și a modului în care bările sunt randate (umplere, puncte, contur). Este o vizualizare cu consum redus al procesorului care arată fantastic de bine.</description>
+    <description lang="ru">Эта визуализация на основе  показывает вращающийся трёхмерный анализатор спектра, который движется в такт музыке, создавая эффект волны по всему спектру сетки.⏎&#10;Визуализация имеет настройки для регулировки высоты полос спектра, скорости движения и способа отображения полос (сплошной, точки, каркас), а также обладает небольшим размером и малой нагрузкой на процессор.</description>
+    <description lang="sk">Spectrum je vizualizácia zobrazujúca rotujúci 3D spektrálny analyzátor vykresľovaný pomocou , ktorý sa hýbe v rytme hudby a tak vytvára vlny naprieč mriežkou spektra.[CR]&#10;Zároveň má nastavenia upravujúce výšku stĺpcov spektra, ich rýchlosť a ako sú vykresľované (vyplnené, body, drôtový model). Je to jednoduchá vizualizácia s nízkou záťažou CPU, ktorá výborne vyzerá.</description>
+    <description lang="sl">Spectrum je vizualizacija, ki prikazuje vrtečo 3D spektralno analizato, generirano v , ki se premika v ritmu glasbe in ustvarja učinek valovanja v celotnem spektru. Vsebuje tudi nastavitve za prilagoditev višine spektra, hitrosti in oblike (polno, točke, okvir) ter je varčna vizualizacija z nizka porabo CPU-ja, ki izgleda super.</description>
+    <description lang="sv">Spektrum är en visualisering som visar en roterande 3D-spektrumanalysator renderad i . Den rör sig till musikens takt och skapar en vågeffekt över spektrat.&#10;-spektrum har inställningar för att justera staplarnas höjd, deras hastighet, hur de ska visas (solida, punkter, ramverk) och är en visualisering med låg cpu-användning samtidigt som den ser bra ut</description>
+    <description lang="th">Spectrum เป็น การแสดงแสงสี ทำให้เห็นการหมุนกราฟวิเคราะห์คลื่นความถี่เสียง แบบ 3 มิติ ที่สร้างขึ้นโดย  ที่ขยับไปตามจังหวะของเพลงที่สร้างผลกระทบเป็นคลื่นไปทั่วตารางความถี่.&#10;นอกจากนี้ยังมีการตั้งค่าเพื่อปรับความสูงของแท่งคลื่นความถี่,ความเร็วและกระบวนการที่แท่งแสดงผล (ของแข็ง, จุด, โครงลวด) ทั้งยังใช้ทรัพยากรน้อยได้ดี, การแสดงแสงสี ที่ใช้ซีพียูต่ำนั่นก็ดูยอดเยี่ยมทีเดียว</description>
+    <description lang="uk">Spectrum  є візалізаціє що показує обертаючийся 3D спектроаналізатор що промальовується з використанням технології  . Спектроаналізатор показує стовпчики змінної висоти що рухаються в такт з музикою і створюють ефект подібний до хвилі.&#10;Ви маєте можливість налаштувати висоту стовпчиків, їх швидкість і те як вони намальовані (Заповнені, контури, крапки). Це досить проста, і невимоглива до процесора візуалізація, але яка має чудовий вигляд.</description>
+    <description lang="zh">Spectrum可视化效果是渲染的一个旋转的三维频谱分析图像，频谱矩阵随着音乐节拍而象波浪起伏。&#10;你还可以设置频谱棒的高度、变换速度、以及呈现效果（固体、点、框架）。这是一个不错的轻量级，低CPU使用率的可视化效果。</description>
+    <description lang="zh_TW"> Spectrum 是使用  描繪顯示旋轉的3D頻譜分析視覺效果，頻譜格線隨著音樂節拍而像波浪起伏。&#10;它還可以調整頻譜長條的高度、速度以及呈現效果（實心、點狀、線框）。它是個很好的輕量級、低 CPU 使用率的視覺化效果。</description>
+    <platform>windows</platform>
+  </extension>
 </addon>
 
 <addon id="metadata.album.universal"

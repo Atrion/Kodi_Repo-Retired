@@ -53,7 +53,7 @@
 				<width>250</width>
 				<height>46</height>
 				<label>-</label>
-				<texturenofocus border="5">floor_button.png</texturenofocus>
+				<texturenofocus border="5">1px_transparent.png</texturenofocus>
 				<texturefocus border="5">floor_buttonFO.png</texturefocus>
 				<onclick>Skin.ToggleSetting(SubtitleSourceChooserVisible)</onclick>
 			</control>

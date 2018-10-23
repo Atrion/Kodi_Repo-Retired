@@ -55,7 +55,20 @@ COMMANDLIST = ['BGPicturesAllowFocus','BottomBGColor','BottomBGTransparency','Cl
 'Use_Startup_Playlist','UseCustomBackground','UseCustomBackground','UseCustomLogo','UseCustomLogo','UseRadioBG',
 'UseVisBg','UseVisBg','UseVisBgCover','UseVisBgCover','UseVisBgFull','UseVisBgFull','TempSensor','TempSensorCount',
 'TempBackgroundPath','TempLabelColor','TempClockColorHours','TempClockColorMinutes','ShowRecentlyAdded','ShowNextTrack',
-'ShowNextTrackDuration','HideMusicInfoBG',]
+'ShowNextTrackDuration','HideMusicInfoBG','CustomColorHomebuttonIcons','CustomHomeButtonAction1',
+'CustomHomeButtonActionProgram1','CustomHomeButtonActionMusic1','CustomHomeButtonActionVideo1','HomeButton1Type',
+'CustomHomeButtonAction2','CustomHomeButtonActionProgram2','CustomHomeButtonActionMusic2','CustomHomeButtonActionVideo2',
+'HomeButton2Type','CustomHomeButtonAction3','CustomHomeButtonActionProgram3','CustomHomeButtonActionMusic3',
+'CustomHomeButtonActionVideo3','HomeButton3Type','CustomHomeButtonAction4','CustomHomeButtonActionProgram4',
+'CustomHomeButtonActionMusic4','CustomHomeButtonActionVideo4','HomeButton4Type','CustomHomeButtonAction5',
+'CustomHomeButtonActionProgram5','CustomHomeButtonActionMusic5','CustomHomeButtonActionVideo5','HomeButton5Type',
+'CustomHomeButtonAction6','CustomHomeButtonActionProgram6','CustomHomeButtonActionMusic6','CustomHomeButtonActionVideo6',
+'HomeButton6Type','MagicSMB1Type','MagicSMBAction1','MagicSMBActionProgram1','MagicSMBActionMusic1','MagicSMBActionVideo1',
+'MagicSMBLabel1','MagicSMBIcon1','MagicSMB2Type','MagicSMBAction2','MagicSMBActionProgram2','MagicSMBActionMusic2',
+'MagicSMBActionVideo2','MagicSMBLabel2','MagicSMBIcon2','MagicSMB3Type','MagicSMBAction3','MagicSMBActionProgram3',
+'MagicSMBActionMusic3','MagicSMBActionVideo3','MagicSMBLabel3','MagicSMBIcon3','MagicSMB4Type','MagicSMBAction4',
+'MagicSMBActionProgram4','MagicSMBActionMusic4','MagicSMBActionVideo4','MagicSMBLabel4','MagicSMBIcon4','HideMediaBlade',
+'RelayControlCustomBackground','CustomRelayControlBgFullPath',]
 
 def readDaySetting(command):
     xbmc.executebuiltin('Skin.SetString(' + command + ',' + addon.getSetting("day_" + command) + ')')

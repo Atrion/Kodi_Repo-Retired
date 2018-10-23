@@ -2380,6 +2380,17 @@
 				<texture colordiffuse="$INFO[Skin.String(CustomColorHomebuttons)]">button-nofocus.png</texture>
 			</control>
 			<control type="image">
+				<visible>Skin.String(ChangeHBIconColor,1)</visible>
+				<description>Farbfeld</description>
+				<posx>700</posx>
+				<posy>15</posy>
+				<posx>0</posx>
+				<posy>0</posy>
+				<width>100</width>
+				<height>40</height>
+				<texture colordiffuse="$INFO[Skin.String(CustomColorHomebuttonIcons)]">button-nofocus.png</texture>
+			</control>
+			<control type="image">
 				<visible>Skin.String(ChangeOutlineColor,1)</visible>
 				<description>Farbfeld</description>
 				<posx>700</posx>
@@ -2534,6 +2545,7 @@
 			<pagecontrol></pagecontrol>
 
 			<control type="button" id="951">
+				<visible>!Skin.String(ChangeOutlineColor,1)</visible>
 				<height>50</height>
 				<width>170</width>
 				<font>font22_title</font>
@@ -2543,7 +2555,25 @@
 				<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>
 				<texturefocus border="0,2,0,2">button_outline2.png</texturefocus>
 				<texturenofocus border="0,2,0,2">button_outline2.png</texturenofocus>
-				<onclick>Skin.SetString($VAR[SetColor],00FFFFFF)</onclick>
+				<onclick>Skin.SetString($VAR[SetColor],FFFFFFFF)</onclick>
+				<onup>950</onup>
+				<ondown></ondown>
+				<onleft></onleft>
+				<onright>952</onright>
+			</control>
+			<control type="button" id="951">
+				<visible>Skin.String(ChangeOutlineColor,1)</visible>
+				<height>50</height>
+				<width>170</width>
+				<font>font22_title</font>
+				<textcolor>white</textcolor>
+				<label>$LOCALIZE[40143]</label>
+				<align>center</align>
+				<focusedcolor>$VAR[CustomColorFocus]</focusedcolor>
+				<texturefocus border="0,2,0,2">button_outline2.png</texturefocus>
+				<texturenofocus border="0,2,0,2">button_outline2.png</texturenofocus>
+			    <onclick>Skin.Reset(HBOutlineColor)</onclick>
+				<onclick>Skin.SetString(HBOutlineColor,00ffffff)</onclick>
 				<onup>950</onup>
 				<ondown></ondown>
 				<onleft></onleft>
@@ -2562,7 +2592,8 @@
 				<onclick>Skin.Reset(ChangeSkinColor)</onclick>
 				<onclick>Skin.Reset(ChangeFocusColor)</onclick>
 				<onclick>Skin.Reset(ChangeIconTextColor)</onclick>
-				<onclick>Skin.Reset(ChangeOutlineColor)</onclick>
+				<onclick>Skin.Reset(ChangeIconTextColor)</onclick>
+				<onclick>Skin.Reset(ChangeHBIconColor)</onclick>
 				<onclick>Skin.Reset(ChangeOutlineColorFocus)</onclick>
 				<onclick>Skin.Reset(ChangeBottomBGColor)</onclick>
 				<onclick>Skin.Reset(ChangeButtonBGColor)</onclick>

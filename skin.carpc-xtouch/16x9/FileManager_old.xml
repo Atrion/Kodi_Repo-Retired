@@ -1,6 +1,7 @@
 <window id="3">
 	<defaultcontrol>20</defaultcontrol>
 	<!-- removed allowoverlay -->
+	<backgroundcolor>0</backgroundcolor>
 	<controls>
 		<include>CommonBackground</include>
 <!--	<include>Time</include> -->
