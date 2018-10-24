@@ -1,3 +1,0 @@
-XvBMC Nederland
- - SHUTDOWN / DOWN \ CLOSED / GESTOPT \ GESTAAKT / TERMINATED \ DONE !
- + https://github.com/EPiC-APOC/repository.xvbmc/blob/master/README.md

@@ -1,3 +1,30 @@
+[B]0.9.32[/B]
+ARTWORK - Add generated artwork for missing artist/album artwork.
+
+[B]0.9.31[/B]
+CODECFLAGS - Add support for Atmos and DTS-X flags based on filename
+DIALOGVIDEOINFO - Add tags and set information
+PVRGUIDE - Add scrollbar in mouse mode
+VIDEOINFO - Add option to disable trailer preview
+
+[B]0.9.30[/B]
+WIDGETS - Fix for square widgets
+SKINSETTINGS - Add options to disable info dialog lists
+PVROSD - Swap ratings for Next... info
+SKINSETTINGS - Fix reset to defaults button
+PLOTOVERLAY - Hide clock in plot overlay
+DIALOGVIDEOINFO - Add new trailer window. Thanks to VikkiXavier for the design
+
+[B]0.9.29[/B]
+DEPENDENCY - Remove Skin Helper as Dependency (Now optional install)
+SKIN HELPER - Add some checks that it is installed before using.
+ARIAL FONT - Tweaks
+
+[B]0.9.28[/B]
+DIALOGVIDEOINFO - Fix for trailer button (hopefully)
+DIALOGSELECT - Fix for weird multilines
+PVR - Hopefully fix artwork and info overlap issues
+
 [B]0.9.27[/B]
 SKINSHORTCUTS Fix enable / disable code when in skinshortcuts and adding item
 WIDGETS Add checks for playlists ending with name Genres.xsp, Studios.xsp, Countries.xsp etc

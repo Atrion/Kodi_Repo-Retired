@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-    <addon id="repository.Atrion2" name="[COLOR maroon]Atrion's Add-ons Repository[/COLOR] [COLOR Red]Backup[/COLOR]" version="0.3.8" provider-name="Atrion Darnay">
+    <addon id="repository.Atrion2" name="[COLOR maroon]Atrion's Add-on Repository Backup[/COLOR]" version="0.4.0" provider-name="Atrion Darnay">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>

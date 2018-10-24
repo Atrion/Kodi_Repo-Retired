@@ -16,7 +16,7 @@
         <definition>
             <control type="grouplist">
                 <top>-10</top>
-                <visible>String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,video) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | Window.IsVisible(script-script.extendedinfo-VideoList.xml) | $EXP[Exp_IsPluginAdvancedLauncher]</visible>
+                <visible>Container.Content(movies) | Container.Content(sets) | Container.Content(episodes) | Container.Content(tvshows) | Container.Content(videos) | Container.Content(seaons) | Window.IsVisible(script-script.extendedinfo-VideoList.xml) | $EXP[Exp_IsPluginAdvancedLauncher]</visible>
                 <visible>!Container($PARAM[id]).ListItem.IsParentFolder</visible>
                 <orientation>vertical</orientation>
                 <usecontrolcoords>true</usecontrolcoords>
@@ -148,7 +148,7 @@
                 </control>
             </control>
             <control type="grouplist">
-                <visible>![String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,episode) | String.IsEqual(ListItem.DBType,video) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,season) | Window.IsVisible(script-script.extendedinfo-VideoList.xml) | $EXP[Exp_IsPluginAdvancedLauncher]]</visible>
+                <visible>![Container.Content(movies) | Container.Content(sets) | Container.Content(episodes) | Container.Content(tvshows) | Container.Content(videos) | Container.Content(seaons) | Window.IsVisible(script-script.extendedinfo-VideoList.xml) | $EXP[Exp_IsPluginAdvancedLauncher]]</visible>
                 <visible>!Container($PARAM[id]).ListItem.IsParentFolder</visible>
                 <bottom>$PARAM[bottom]</bottom>
                 <top>-10</top>
@@ -203,6 +203,7 @@
 
     <include name="Object_VideoInfo_InfoSection">
         <param name="haspath" default="false" />
+        <param name="label3" default="" />
         <definition>
             <control type="group">
                 <height>32</height>
@@ -220,7 +221,7 @@
                     <align>left</align>
                     <font>font_tiny</font>
                     <textcolor>main_fg_70</textcolor>
-                    <label>$INFO[$PARAM[label2]]</label>
+                    <label>$INFO[$PARAM[label2],, ]$PARAM[label3]</label>
                     <haspath>$PARAM[haspath]</haspath>
                     <scroll>true</scroll>
                 </control>
@@ -247,6 +248,7 @@
         <param name="aspect" default="scale" />
         <param name="fallbackimage" default="DefaultAddonImages.png" />
         <param name="showfocuslabel" default="true" />
+        <param name="visible" default="true" />
         <definition>
             <control type="group">
                 <visible>Integer.IsGreater(Container($PARAM[id]).NumItems,0) | Container($PARAM[id]).IsUpdating</visible>
@@ -255,7 +257,7 @@
                 <height>$PARAM[height]</height>
                 <top>$PARAM[top]</top>
                 <visible>!Container.Content(musicvideos)</visible>
-
+                <visible>$PARAM[visible]</visible>
                 <control type="grouplist">
                     <top>20</top>
                     <height>42</height>
@@ -554,8 +556,6 @@
                     <texture>$INFO[$PARAM[artwork]]</texture>
                 </control>
                 <control type="group">
-                    <visible>!String.IsEmpty($PARAM[fallback]) | !String.IsEmpty($PARAM[artwork])</visible>
-                    <include>Animation_FadeIn</include>
                     <height>430</height>
                     <top>view_top</top>
                     <right>view_pad</right>
@@ -566,19 +566,30 @@
                         <top>-10</top>
                         <bottom>-10</bottom>
                         <include>Defs_PosterBack</include>
-                        <control type="image">
-                            <bordersize>10</bordersize>
-                            <fadetime>100</fadetime>
-                            <aspectratio scalediffuse="false">scale</aspectratio>
-                            <texture diffuse="diffuse/mediainfo.png">$INFO[$PARAM[artwork]]</texture>
-                            <visible>!String.IsEmpty($PARAM[artwork]) + !String.StartsWith(Control.GetLabel(9123),Default)</visible>
-                        </control>
+                        <visible>!String.IsEmpty($PARAM[fallback]) + [String.IsEmpty(Control.GetLabel(9123)) | String.StartsWith(Control.GetLabel(9123),Default)]</visible>
                         <control type="image">
                             <bordersize>10</bordersize>
                             <fadetime>100</fadetime>
                             <aspectratio scalediffuse="false">scale</aspectratio>
                             <texture diffuse="diffuse/mediainfo.png">$INFO[$PARAM[fallback]]</texture>
-                            <visible>!String.IsEmpty($PARAM[fallback]) + [String.IsEmpty($PARAM[artwork]) | String.StartsWith(Control.GetLabel(9123),Default)]</visible>
+                        </control>
+                        <control type="image">
+                            <bordersize>10</bordersize>
+                            <texture colordiffuse="PixelLines" border="20">common/outline.png</texture>
+                        </control>
+                    </control>
+                    <control type="group">
+                        <left>-10</left>
+                        <right>-10</right>
+                        <top>-10</top>
+                        <bottom>-10</bottom>
+                        <include>Defs_PosterBack</include>
+                        <visible>!String.IsEmpty(Control.GetLabel(9123)) + !String.StartsWith(Control.GetLabel(9123),Default)</visible>
+                        <control type="image">
+                            <bordersize>10</bordersize>
+                            <fadetime>100</fadetime>
+                            <aspectratio scalediffuse="false">scale</aspectratio>
+                            <texture diffuse="diffuse/mediainfo.png">$INFO[$PARAM[artwork]]</texture>
                         </control>
                         <control type="image">
                             <bordersize>10</bordersize>
@@ -587,7 +598,7 @@
                     </control>
                 </control>
                 <control type="grouplist">
-                    <visible>[!String.IsEmpty($PARAM[artwork]) + !String.StartsWith(Control.GetLabel(9123),Default)] | [!String.IsEmpty($PARAM[fallback]) + [String.IsEmpty($PARAM[artwork]) | String.StartsWith(Control.GetLabel(9123),Default)]]</visible>
+                    <visible>[[!String.IsEmpty($PARAM[fallback]) + [String.IsEmpty(Control.GetLabel(9123)) | String.StartsWith(Control.GetLabel(9123),Default)]] | [!String.IsEmpty(Control.GetLabel(9123)) + !String.StartsWith(Control.GetLabel(9123),Default)]]</visible>
                     <height>430</height>
                     <top>view_top</top>
                     <left>view_pad</left>
@@ -598,7 +609,7 @@
                     <include>Object_PVR_Info_Content</include>
                 </control>
                 <control type="grouplist">
-                    <visible>![[!String.IsEmpty($PARAM[artwork]) + !String.StartsWith(Control.GetLabel(9123),Default)] | [!String.IsEmpty($PARAM[fallback]) + [String.IsEmpty($PARAM[artwork]) | String.StartsWith(Control.GetLabel(9123),Default)]]]</visible>
+                    <visible>![[!String.IsEmpty($PARAM[fallback]) + [String.IsEmpty(Control.GetLabel(9123)) | String.StartsWith(Control.GetLabel(9123),Default)]] | [!String.IsEmpty(Control.GetLabel(9123)) + !String.StartsWith(Control.GetLabel(9123),Default)]]</visible>
                     <height>430</height>
                     <top>view_top</top>
                     <left>view_pad</left>
@@ -965,6 +976,22 @@
                     <height>64</height>
                     <texture colordiffuse="$PARAM[colordiffuse]">flags/$PARAM[directory]/other/HDR.png</texture>
                     <visible>String.Contains($PARAM[container]$PARAM[source]FileNameAndPath,HDR)</visible>
+                </control>
+                <control type="image">
+                    <width>88</width>
+                    <aspectratio align="right">keep</aspectratio>
+                    <centertop>50%</centertop>
+                    <height>48</height>
+                    <texture colordiffuse="$PARAM[colordiffuse]">flags/$PARAM[directory]/audio/atmos.png</texture>
+                    <visible>String.Contains($PARAM[container]$PARAM[source]FileNameAndPath,atmos)</visible>
+                </control>
+                <control type="image">
+                    <width>88</width>
+                    <aspectratio align="right">keep</aspectratio>
+                    <centertop>50%</centertop>
+                    <height>48</height>
+                    <texture colordiffuse="$PARAM[colordiffuse]">flags/$PARAM[directory]/audio/dtsx.png</texture>
+                    <visible>String.Contains($PARAM[container]$PARAM[source]FileNameAndPath,dtsx) | String.Contains($PARAM[container]$PARAM[source]FileNameAndPath,dts-x) | String.Contains($PARAM[container]$PARAM[source]FileNameAndPath,dts:x)</visible>
                 </control>
                 <control type="image">
                     <width>88</width>
@@ -1743,9 +1770,9 @@
             <visible>$PARAM[visible]</visible>
             <showonepage>false</showonepage>
             <orientation>vertical</orientation>
-            <onright condition="[String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558])] + !Container.Content(seasons) + [Control.IsEnabled(3) | Control.IsEnabled(4)] + Skin.HasSetting(AlphabetStrip)">SetFocus(8000)</onright>
-            <onright condition="![[String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558])] + !Container.Content(seasons) + [Control.IsEnabled(3) | Control.IsEnabled(4)]] + Skin.HasSetting(AlphabetStrip)">Notification($LOCALIZE[161],$LOCALIZE[31334])</onright>
-            <onright condition="!Skin.HasSetting(AlphabetStrip)">50</onright>
+            <onright condition="[String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558])] + !Container.Content(seasons) + [Control.IsEnabled(3) | Control.IsEnabled(4)] + Skin.HasSetting(AlphabetStrip) + System.HasAddon(script.skin.helper.service)">SetFocus(8000)</onright>
+            <onright condition="![[String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558])] + !Container.Content(seasons) + [Control.IsEnabled(3) | Control.IsEnabled(4)]] + Skin.HasSetting(AlphabetStrip) + System.HasAddon(script.skin.helper.service)">Notification($LOCALIZE[161],$LOCALIZE[31334])</onright>
+            <onright condition="!Skin.HasSetting(AlphabetStrip) | !System.HasAddon(script.skin.helper.service)">50</onright>
             <onleft>50</onleft>
             <texturesliderbackground colordiffuse="main_fg_12" border="4">common/white.png</texturesliderbackground>
             <texturesliderbar colordiffuse="main_fg_30" border="4">scrollbar/scrollv.png</texturesliderbar>
@@ -1769,9 +1796,9 @@
             <orientation>horizontal</orientation>
             <onup>50</onup>
             <visible>$PARAM[visible]</visible>
-            <ondown condition="[String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558])] + !Container.Content(seasons) + [Control.IsEnabled(3) | Control.IsEnabled(4)] + Skin.HasSetting(AlphabetStrip)">SetFocus(8000)</ondown>
-            <ondown condition="![[String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558])] + !Container.Content(seasons) + [Control.IsEnabled(3) | Control.IsEnabled(4)]] + Skin.HasSetting(AlphabetStrip)">Notification($LOCALIZE[161],$LOCALIZE[31334])</ondown>
-            <ondown condition="!Skin.HasSetting(AlphabetStrip)">50</ondown>
+            <ondown condition="[String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558])] + !Container.Content(seasons) + [Control.IsEnabled(3) | Control.IsEnabled(4)] + Skin.HasSetting(AlphabetStrip) + System.HasAddon(script.skin.helper.service)">SetFocus(8000)</ondown>
+            <ondown condition="![[String.IsEqual(Container.SortMethod,$LOCALIZE[551]) | String.IsEqual(Container.SortMethod,$LOCALIZE[556]) | String.IsEqual(Container.SortMethod,$LOCALIZE[557]) | String.IsEqual(Container.SortMethod,$LOCALIZE[558])] + !Container.Content(seasons) + [Control.IsEnabled(3) | Control.IsEnabled(4)]] + Skin.HasSetting(AlphabetStrip) + System.HasAddon(script.skin.helper.service)">Notification($LOCALIZE[161],$LOCALIZE[31334])</ondown>
+            <ondown condition="!Skin.HasSetting(AlphabetStrip) | !System.HasAddon(script.skin.helper.service)">50</ondown>
             <texturesliderbackground colordiffuse="main_fg_12" border="4">common/white.png</texturesliderbackground>
             <texturesliderbar colordiffuse="main_fg_30" border="4">scrollbar/scrollv.png</texturesliderbar>
             <texturesliderbarfocus colordiffuse="$VAR[ColorHighlight]" border="4">scrollbar/scrollv.png</texturesliderbarfocus>
@@ -1825,7 +1852,7 @@
                     <right>view_pad</right>
                     <top>view_top</top>
                     <bottom>view_pad</bottom>
-                    <visible>[Control.HasFocus(9601) | [System.IdleTime(4) + Skin.HasSetting(AutoPlotOverlay) + [Window.IsVisible(MyVideoNav.xml) | Window.IsVisible(MyMusicNav.xml) | Window.IsVisible(Home)] + ![Window.IsVisible(DialogVideoInfo.xml) | Window.IsVisible(DialogMusicInfo.xml) | Window.IsVisible(DialogAddonInfo.xml)]]]</visible>
+                    <visible>$EXP[Exp_PlotOverlay]</visible>
                     <include>Animation_FadeIn</include>
                     <control type="group">
                         <top>12</top>

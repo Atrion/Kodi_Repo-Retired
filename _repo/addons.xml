@@ -83,41 +83,6 @@
   </extension>
 </addon>
 
-<addon id="plugin.video.fantastic" version="1.1.30" name="Fantastic" provider-name="Firestickplusman">
-	<requires>
-		<import addon="xbmc.python" version="2.19.0" />
-		<import addon="script.module.fantastic" />
-		<import addon="script.fantastic.artwork" version="1.0.0" />
-		<import addon="script.fantastic.metadata" version="1.0.0" />
-		<import addon="script.module.urlresolver" version="3.0.0" />
-		<import addon="script.module.metahandler" version="1.0.0" />
-	</requires>
-	<extension point="xbmc.python.pluginsource" library="fantastic.py">
-		<provides>video</provides>
-	</extension>
-	<extension point="xbmc.service" library="service.py" start="startup" />
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en">fantastic</summary>
-		<description lang="en">[COLOR dodgerblue]A New Fantastic Movies and TV. This addon does not form part of the Kodi Media Centre. Please do not seek assistance with this addon from any of the Official Kodi Support Channels. The author does not host any of the content in this addon and takes no responsibility for content found[/COLOR].</description>
-		<platform>all</platform>
-		<license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
-		<forum></forum>
-		<website></website>
-		<source></source>
-		<disclaimer lang="en">The author of this addon do not host any of the content which is found and have no affiliation with any of the content providers. This addon simply searches websites for content. Use at your own risk!</disclaimer>
-		<disclaimer lang="hr">Autor ovog dodatka ne posjeduje bilo kakav sadržaj koji je pronađen i nije povezan sa bilo kojim izvorom sadržaja. Ovaj dodatak samo pretražuje sadržaj na web stranicama. Koristite ga na vlastitu odgovornost!</disclaimer>
-		<disclaimer lang="he">מחבר ההרחבה זה אינו מארח את התוכן שיתכן ויימצא ואין לו זיקה לאף אחד מספקי התוכן. הרחבה רק מחפשת תוכן שקיים באתרי אינטרנט. השימוש בהרחבה הוא על אחריותך בלבד!</disclaimer>
-		<assets>
-			<icon>icon.png</icon>
-			<fanart>fanart.jpg</fanart>
-    			<screenshot>resources/screenshots/screenshot-01.jpg</screenshot>
-    			<screenshot>resources/screenshots/screenshot-02.jpg</screenshot>
-    			<screenshot>resources/screenshots/screenshot-03.jpg</screenshot>
-		</assets>
-		<news></news>
-	</extension>
-</addon>
-
 <addon id="repository.gaia" version="3.2.1" name="Gaia Repository" provider-name="Gaia">
 	<extension point="xbmc.addon.repository" name="Gaia Repository">
 		<dir>
@@ -196,23 +161,6 @@
         <source>https://github.com/phil65/script.module.autocompletion</source>
     </extension>
 </addon>
-
-    <addon id="repository.universalscrapers" name="universalscrapers-repository" version="1.0.0" provider-name="universalscrapers">
-        <requires>
-            <import addon="xbmc.addon" version="12.0.0"/>
-        </requires>
-        <extension point="xbmc.addon.repository" name="universalscrapers">
-            <info compressed="false">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml</info>
-            <checksum>https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/</datadir>
-            <hashes>false</hashes>
-        </extension>
-        <extension point="xbmc.addon.metadata">
-            <summary>Scrape common video host for URL's to be playable in XBMC/Kodi.</summary>
-            <description>carrying on the dream</description>
-            <platform>all</platform>
-        </extension>
-    </addon>
 
 <addon id="metadata.common.allmusic.com"
        name="AllMusic Scraper Library"
@@ -320,25 +268,6 @@
 	</extension>
 </addon>
 
-<addon id="script.module.kodi65" name="Kodi65 Library" version="1.2.1" provider-name="Philipp Temminghoff (phil65)">
-	<requires>
-		<import addon="xbmc.python" version="2.25.0"/>
-		<import addon="script.module.youtube.dl" version="14.519.1"/>
-		<import addon="script.module.pil" version="1.1.7"/>
-		<import addon="script.module.autocompletion" version="1.0.0"/>
-		<import addon="script.module.requests" version="2.9.1"/>
-	</requires>
-	<extension point="xbmc.python.module" library="lib" />
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en">Helper module</summary>
-		<description lang="en">Helper module for all kind of stuff</description>
-		<platform>all</platform>
-		<license>GNU GENERAL PUBLIC LICENSE Version 2.1, February 1999</license>
-		<source>https://github.com/phil65/script.module.kodi65</source>
-		<news>Adjust to latest core changes, bugfixes, API extensions</news>
-	</extension>
-</addon>
-
 <addon id="script.module.thetvdb"
        name="The TVDB API v2"
        version="1.0.27"
@@ -394,96 +323,6 @@
         <platform>all</platform>
         <website>http://dev.mysql.com/doc/connector-python/en/index.html</website>
         <source>http://dev.mysql.com/downloads/connector/python/</source>
-    </extension>
-</addon>
-
-<addon id="plugin.video.neptune" version="1.4.9" name=" Neptune Rising" provider-name="Mr. Blamo">
-	<requires>
-		<import addon="xbmc.python" version="2.19.0" />
-		<import addon="script.neptune.artwork" />
-		<import addon="script.neptune.metadata" />
-                <import addon="script.module.resolveurl"/>
-                <import addon="script.module.metahandler"/>
-                <import addon="script.module.requests"/>
-                <import addon="script.module.beautifulsoup"/>
-                <import addon="script.module.schism.common"/>
-                <import addon="script.module.futures"/>
-        		<import addon="script.module.universalscrapers" version="1.0.0" />
-	</requires>
-	<extension point="xbmc.python.pluginsource" library="neptune.py">
-		<provides>video</provides>
-	</extension>
-	<extension point="xbmc.service" library="service.py" start="startup" />
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en">Neptune Rising</summary>
-		<description lang="en">Movie, TV Show, and Playlist Add-on</description>
-        <disclaimer lang="en">The author is not responsible for the use of this addon. The author is not responsible for the content found using this addon. The author does not host or own any content found within this addon.
-The author is in no way affiliated with Kodi, Team Kodi, or the XBMC Foundation.
-This is a Non-profit resource, organized solely for educational purposes which is protected under the Fair-Use doctrine of the Copyright Act, Specifically section 107, which does promote freedom of expression, by permitting the unlicensed use of copyright-protected works.
-</disclaimer>
-		<platform>all</platform>
-		<license>Beerware rev. 42</license>
-		<platform>all</platform>
-        <reuselanguageinvoker>false</reuselanguageinvoker>
-		<forum></forum>
-		<website></website>
-		<source></source>
-		<assets>
-			<icon>icon.png</icon>
-			<fanart>fanart.jpg</fanart>
-		</assets>
-		<news></news>
-	</extension>
-</addon>
-
-<addon id="repository.colossus" name="[COLOR gold]Colossus Repository[/COLOR]" version="999.999.666" provider-name="Colossal STOPPED">
-    <extension point="xbmc.addon.repository" name="[COLOR gold]Colossus Repository[/COLOR]">
-    </extension>
-    <extension point="xbmc.addon.metadata">
-        <summary>Colossus STOPPED, uninstall (t)his repo...</summary>
-        <description>Colossus STOPPED (info: http://koditips.com/colossus-repo-gone-urlresolver-offline/)</description>
-        <disclaimer>Colossus STOPPED, see: http://koditips.com/colossus-repo-gone-urlresolver-offline/ for more info, please uninstall (t)his repo.</disclaimer>
-        <platform>all</platform>
-        <license>GNU GENERAL PUBLIC LICENSE. Version 3, June 2007</license>
-        <forum>http://koditips.com/colossus-repo-gone-urlresolver-offline/</forum>
-        <website>http://koditips.com/colossus-repo-gone-urlresolver-offline/</website>
-        <source>http://koditips.com/colossus-repo-gone-urlresolver-offline/</source>
-        <news>Colossal ABANDONED (t)his repo</news>
-        <assets>
-            <icon>icon.png</icon>
-            <fanart>fanart.jpg</fanart>
-            <screenshot></screenshot>
-        </assets>
-        <broken>Colossus STOPPED! (t)his repo is ABANDONED!</broken>
-    </extension>
-</addon>
-
-<addon id="script.neptune.metadata" version="1.0.5" name="Neptune Rising Metadata" provider-name="Mr.Blamo">
-	<requires>
-		<import addon="xbmc.python" version="2.19.0"/>
-	</requires>
-	<extension point="xbmc.python.module" library="lib" />
-	<extension point="xbmc.addon.metadata">
-		<summary>Metadata for the Neptune Rising Addon</summary>
-		<description>Metadata for Neptune Rising are maintained separately to make distribution of the the addon itself easier/faster.</description>
-		<platform>all</platform>
-	</extension>
-</addon>
-
-<addon id="script.module.feedparser" name="feedparser" version="5.1.3" provider-name="Tristan Fischer (sphere@dersphere.de)">
-    <requires>
-        <import addon="xbmc.python" version="2.1.0"/>
-    </requires>
-    <extension point="xbmc.python.module" library="lib" />
-    <extension point="xbmc.addon.metadata">
-        <language></language>
-        <summary lang="en">Python helper module</summary>
-        <description lang="en">feedparser is a Python library that parses feeds in all known formats, including Atom, RSS, and RDF. It runs on Python 2.4 all the way up to 3.2.</description>
-        <license>MIT</license>
-        <platform>all</platform>
-        <website>https://code.google.com/p/feedparser/</website>
-        <source>https://code.google.com/p/feedparser/source/browse/</source>
-        <forum></forum>
     </extension>
 </addon>
 
@@ -628,24 +467,6 @@ This is a Non-profit resource, organized solely for educational purposes which i
   </extension>
 </addon>
 
-<addon id="repository.StreamArmy" name="[COLOR crimson]S[COLOR silver]tream Army Repo[/COLOR]" version="10.0" provider-name="@Nemzzy668 / @_Manc_">
-    <extension point="xbmc.addon.repository" name="Stream Army">
-        <info compressed="false">https://raw.githubusercontent.com/nemesis668/repository.streamarmy/master/addons.xml</info>
-        <checksum>http://raw.githubusercontent.com/nemesis668/repository.streamarmy/master/addons.xml.md5</checksum>
-        <datadir zip="true">http://raw.githubusercontent.com/nemesis668/repository.streamarmy/master/zips/</datadir>
-        <dir>
-            <info compressed="false">https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml</info>
-            <checksum>https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.githubusercontent.com/jsergio123/zips/master/</datadir>
-        </dir>
-    </extension>
-    <extension point="xbmc.addon.metadata">
-        <summary>Stream Army Repo</summary>
-        <description>Repo For Stream Army, Bought to you by @Nemzzy668 /  @_MANC_</description>
-        <platform>all</platform>
-    </extension>
-</addon>
-
 <addon id="script.Yoda.metadata" version="1.0.3" name="[COLORgreen]Yoda Metadata[/COLOR]" provider-name="S">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0"/>
@@ -655,39 +476,6 @@ This is a Non-profit resource, organized solely for educational purposes which i
 		<summary>Metadata for the Yoda Addon</summary>
 		<description>Metadata for Yoda are maintained separately to make distribution of the the addon itself easier/faster.</description>
 		<platform>all</platform>
-	</extension>
-</addon>
-
-<addon id="plugin.video.rebirth" version="1.0.2" name="Rebirth" provider-name="Cypher">
-	<requires>
-		<import addon="xbmc.python" version="2.19.0" />
-		<import addon="script.rebirth.artwork" version="1.0.0" />
-		<import addon="script.rebirth.metadata" version="1.0.0" />
-                <import addon="script.module.urlresolver"/>
-                <import addon="script.module.metahandler"/>
-                <import addon="script.module.requests"/>
-                <import addon="script.module.beautifulsoup"/>
-                <import addon="script.module.schism.common"/>
-                <import addon="script.module.futures"/>
-                <import addon="script.module.nanscrapers" version="0.5.5" />
-	</requires>
-	<extension point="xbmc.python.pluginsource" library="Rebirth.py">
-		<provides>video</provides>
-	</extension>
-	<extension point="xbmc.service" library="service.py" start="startup" />
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en">Rebirth</summary>
-		<description lang="en">The Ultimate Movie, TV Show, and Playlist Add-on</description>
-		<disclaimer lang="en">The author does not host or distribute any of the content displayed by this addon. The author does not have any affiliation with the content provider.</disclaimer>
-		<platform>all</platform>
-		<forum></forum>
-		<website></website>
-		<source></source>
-		<assets>
-			<icon>icon.png</icon>
-			<fanart>fanart.jpg</fanart>
-		</assets>
-		<news></news>
 	</extension>
 </addon>
 
@@ -803,31 +591,6 @@ This is a Non-profit resource, organized solely for educational purposes which i
                 <website>https://superrepo.org/</website>
                 </extension>
                 </addon>
-
-<addon id="repository.bubbles.3" version="4.2.0" name="Bubbles Repository 3" provider-name="Bubbles">
-	<extension point="xbmc.addon.repository" name="Bubbles Repository 3">
-		<dir>
-			<info compressed="false">https://gitlab.com/trailerpark/trailerpark/raw/HEAD/repository/common/addons.xml</info>
-			<checksum>https://gitlab.com/trailerpark/trailerpark/raw/HEAD/repository/common/addons.xml.md5</checksum>
-			<datadir zip="true">https://gitlab.com/trailerpark/trailerpark/raw/HEAD/repository/common/</datadir>
-		</dir>
-		<info compressed="false">https://gitlab.com/trailerpark/trailerpark/raw/HEAD/repository/addons.xml</info>
-		<checksum>https://gitlab.com/trailerpark/trailerpark/raw/HEAD/repository/addons.xml.md5</checksum>
-		<datadir zip="true">https://gitlab.com/trailerpark/trailerpark/raw/HEAD/repository/</datadir>
-	</extension>
-	<requires>
-		<import addon="script.module.urllib.3" version="1.22.0" />
-	</requires>
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en">Bubbles Tertiary Repository</summary>
-		<description lang="en">The Bubbles repository for the addon, resources, extensions, and external addons. Any of the Bubbles mirror repositories can be used for installation and updates.</description>
-		<disclaimer lang="en">Bubbles and its developers are not in any way affiliated with Kodi, TVAddons, Premiumize, RealDebrid, EasyNews, or any of the sites and providers used in the addon. Bubbles is and always will be free and open-source. None of its code and resources may be sold or redistributed for any commercial purposes. Bubbles and its developers do not host, create, or distribute any of the content displayed in the addon, it simply searches public websites.</disclaimer>
-		<platform>all</platform>
-		<license>GPL 3.0</license>
-		<website>https://bubbles4kodi.com</website>
-		<forum>https://bubbles4kodi.com/support</forum>
-	</extension>
-</addon>
 
 <addon id="script.module.trakt"
        name="trakt.py"
@@ -964,32 +727,6 @@ This is a Non-profit resource, organized solely for educational purposes which i
   </extension>
 </addon>
 
-<addon id="plugin.program.ftgmaint"
-	     name="[COLOR blue][B]--[COLOR yellow]FTG Maintenance[COLOR blue]--[/COLOR][/B]"
-	     version="1.1.0"
-	     provider-name="FTG">
-  <requires>
-  	<import addon="xbmc.python" version="2.1.0"/>
-  </requires>
-  <extension point="xbmc.python.pluginsource" library="default.py">
-        <provides>executable</provides>
-  </extension>
-  <extension point="xbmc.service" library="service.py" start="startup">
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <platform>all</platform>
-    <summary lang="en">[COLOR red]LAST MAINTENANCE TOOL Y'All WILL EVER NEED!!![/COLOR]</summary>
-    <description lang="en"> Does all the Maint needed for a smooth kodi with out all the fluff. Notifies you when package and thumbs get full (Sizes are changable) cuts down on your devices read/writes on the ROM. Also has tons of Backup/Restore Options and a Speed test, plus other great features!! THX goes to surfacingx and NaN for the code used </description>
-    <disclaimer lang="en"></disclaimer>
-    <language></language>
-    <platform>all</platform>
-    <license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
-    <forum></forum>
-    <website></website>
-    <email></email>
-  </extension>
-</addon>
-
 <addon id="repository.jacktirol_kodi17" name="Jack's Repo Kodi17" version="1.0.0" provider-name="JackTirol">
     <requires>
 	<import addon="xbmc.gui" version="5.12.0"/>
@@ -1050,25 +787,6 @@ This is a Non-profit resource, organized solely for educational purposes which i
   </extension>
 </addon>
 
-<addon id="script.keymap"
-       name="Keymap Editor"
-       version="1.0.10"
-       provider-name="takoi">
-    <requires>
-        <import addon="xbmc.python" version="2.19.0"/>
-    </requires>
-    <extension point="xbmc.python.script" library="main.py"/>
-    <extension point="xbmc.addon.metadata">
-        <summary lang="en">An editor for keymap files</summary>
-        <description lang="en">Keymap Editor is a GUI for configuring mappings for remotes, keyboard and other inputs supported by xbmc. Note: existing user defined key mappings will be removed.</description>
-        <platform>all</platform>
-        <language/>
-        <license>GNU GENERAL PUBLIC LICENSE. Version 3, 29 June 2007</license>
-        <forum>http://forum.xbmc.org/showthread.php?tid=168767</forum>
-        <source>https://github.com/tamland/xbmc-keymap-editor</source>
-    </extension>
-</addon>
-
 <addon id="script.Yoda.artwork" version="1.0.6" name="[COLORgreen]Yoda Artwork[/COLOR]" provider-name="S">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0"/>
@@ -1078,21 +796,6 @@ This is a Non-profit resource, organized solely for educational purposes which i
 		<summary>Themes for the Yoda Addon</summary>
 		<description></description>
 		<platform>all</platform>
-	</extension>
-</addon>
-
-<addon id="script.elysium.artwork" version="2017.11.12" name="Elysium Artwork" provider-name="Elysium">
-	<requires>
-		<import addon="xbmc.python" version="2.19.0"/>
-	</requires>
-	<extension point="xbmc.python.script" library="default.py">
-		<provides>executable</provides>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary>Themes for the Elysium Addon</summary>
-		<description></description>
-		<platform>all</platform>
-		<news>Added new artwork</news>
 	</extension>
 </addon>
 
@@ -1134,26 +837,6 @@ This is a Non-profit resource, organized solely for educational purposes which i
     <description lang="se">Ladda ner bakgrundsbilder från www.fanart.tv.com</description>
     <description lang="zh">从www.fanart.tv.com下载背景图</description>
   </extension>
-</addon>
-
-<addon id="script.module.parsedom" name="Parsedom for xbmc plugins" provider-name="TheCollective" version="2.5.2">
-  <requires>
-    <import addon="xbmc.python" version="2.1.0" />
-  </requires>
-  <extension point="xbmc.addon.metadata">
-    <platform>all</platform>
-    <summary lang="en">Parsedom for xbmc plugins.</summary>
-  </extension>
-  <extension library="lib" point="xbmc.python.module" />
-  <extension point="xbmc.addon.metadata">
-        <license>GPLv3</license>
-        <platform>all</platform>
-        <email></email>
-        <website></website>
-        <forum>http://forum.xbmc.org/showthread.php?tid=116498</forum>
-        <source>https://github.com/HenrikDK/xbmc-common-plugin-functions</source>
-        <language></language>
-   </extension>
 </addon>
 
 <addon id="script.module.Yoda" name="[COLORgreen]Yoda Module[/COLOR]" version="1.00.041" provider-name="S-media">
@@ -1199,22 +882,6 @@ This is a Non-profit resource, organized solely for educational purposes which i
 			<icon>icon.png</icon>
 			<fanart>fanart.jpg</fanart>
 		</assets>
-	</extension>
-</addon>
-
-<addon id="script.module.schism.common" name="Elysium Common Libraries" version="2017.06.08" provider-name="Elysium">
-	<requires>
-		<import addon="xbmc.python" version="2.1.0" />
-		<import addon="script.module.six" />
-		<import addon="script.module.metahandler" />
-		<import addon="script.module.beautifulsoup" />
-	</requires>
-	<extension point="xbmc.python.module" library="lib" />
-	<extension point="xbmc.addon.metadata">
-		<platform>all</platform>
-		<summary lang="en">Collection of modules used by Elysium</summary>
-		<description lang="en">Collection of modules used by Elysium</description>
-		<license>GNU GENERAL PUBLIC LICENSE. Version 2, June 1991</license>
 	</extension>
 </addon>
 
@@ -1290,23 +957,6 @@ This is a Non-profit resource, organized solely for educational purposes which i
     <description lang="se">Ladda ner musikinformation från www.musicbrainz.org</description>
     <description lang="zh">从www.musicbrainz.org下载音乐信息</description>
   </extension>
-</addon>
-
-<addon id="script.module.xmltodict" name="xmltodict" version="0.11.0" provider-name="martinblech">
-    <requires>
-        <import addon="xbmc.python" version="2.1.0"/>
-    </requires>
-    <extension point="xbmc.python.module" library="lib"/>
-    <extension point="xbmc.addon.metadata">
-        <language></language>
-        <summary lang="en">Python helper module</summary>
-        <description lang="en">xmltodict is a Python module that makes working with XML feel like you are working with JSON, as in this "spec".</description>
-        <license>MIT</license>
-        <platform>all</platform>
-        <website>https://github.com/martinblech/xmltodict</website>
-        <source>https://github.com/martinblech/xmltodict</source>
-        <forum></forum>
-    </extension>
 </addon>
 
 <addon id="script.image.resource.select" name="Image Resource Select Addon" version="2.0.2" provider-name="ronie">
@@ -1767,31 +1417,6 @@ Fixed search issue caused by character accents
   </extension>
 </addon>
 
-<addon id="script.module.covenant" name="Covenant Module" version="1.00.025" provider-name="Covenant">
-	<requires>
-		<import addon="xbmc.python" version="2.1.0" />
-	</requires>
-	<extension point="xbmc.python.module" library="lib" />
-	<extension point="xbmc.addon.metadata">
-		<platform>all</platform>
-		<summary lang="en">Covenant</summary>
-	</extension>
-</addon>
-
-<addon id="repository.marcelveldt" version="1.0.1" name="Marcelveldt's BETA repository" provider-name="marcelveldt">
-
-	<extension point="xbmc.addon.repository" name="Marcelveldt's BETA repository">
-		<info compressed="false">https://raw.githubusercontent.com/marcelveldt/repository.marcelveldt/master/addons.xml</info>
-		<checksum>https://raw.githubusercontent.com/marcelveldt/repository.marcelveldt/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.githubusercontent.com/marcelveldt/repository.marcelveldt/master/</datadir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en">Kodi repository for beta/test versions of Marcelveldt's addons</summary>
-		<description lang="en">Kodi repository for beta/test versions of Marcelveldt's addons, for stable versions please just use the official Kodi repository. This repo is for test/beta versions of my work only</description>
-		<platform>all</platform>
-	</extension>
-</addon>
-
 <addon id="script.module.arrow"
        name="arrow"
        version="0.10.0"
@@ -1829,27 +1454,6 @@ Fixed search issue caused by character accents
 		<website>https://gaiakodi.com</website>
 		<forum>https://gaiakodi.com/?support</forum>
 	</extension>
-</addon>
-
-<addon id="script.module.yaml"
-       name="pyyaml"
-       version="3.11.0"
-       provider-name="Kirill Simonov">
-  <requires>
-    <import addon="xbmc.python" version="2.14.0"/>
-  </requires>
-  <extension point="xbmc.python.module"
-             library="lib" />
-  <extension point="xbmc.addon.metadata">
-    <platform>all</platform>
-    <language></language>
-    <summary lang="en">PyYaml library</summary>
-    <description lang="en">A packaged version of files needed for the pyyamml library.</description>
-    <disclaimer lang="en">Source code taken from original source repo</disclaimer>
-    <license>MIT</license>
-    <website>http://pyyaml.org/</website>
-    <source>http://svn.pyyaml.org/pyyaml/</source>
-  </extension>
 </addon>
 
 <addon
@@ -2019,7 +1623,7 @@ Fixed search issue caused by character accents
   </extension>
 </addon>
 
-<addon id="script.module.resolveurl" name="ResolveURL" version="5.0.16" provider-name="jsergio">
+<addon id="script.module.resolveurl" name="ResolveURL" version="5.0.17" provider-name="jsergio">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 		<import addon="plugin.video.youtube" optional="true" />
@@ -2061,11 +1665,11 @@ Fixed search issue caused by character accents
 
 <addon
     id="skin.arctic.zephyr"
-    version="2.3.15"
+    version="2.3.13"
     name="Arctic: Zephyr"
     provider-name="jurialmunkey">
     <requires>
-        <import addon="xbmc.gui" version="5.13.0"/>
+        <import addon="xbmc.gui" version="5.12.0"/>
         <import addon="script.skinshortcuts" version="0.4.0"/>
         <import addon="service.library.data.provider" version="0.1.0"/>
         <import addon="script.skin.helper.service" version="0.0.1"/>
@@ -2091,7 +1695,6 @@ Fixed search issue caused by character accents
         <summary lang="es">Limpio, minimalista, elegante, simple, ligero.</summary>
         <summary lang="fr">Clair, minimaliste, élégant, simple et léger.</summary>
         <summary lang="fr_CA">Net, minimal, élégant, simple, léger.</summary>
-        <summary lang="it">Pulita, minimale, elegante, semplice, leggera.</summary>
         <summary lang="lt">Švari, minimali, elegantiška, paprasta, lengva.</summary>
         <summary lang="nl">Schoon, minimaal, elegant, simpel, licht.</summary>
         <summary lang="no">Rent, minimalt, elegant, enkelt, lett.</summary>
@@ -2106,7 +1709,6 @@ Fixed search issue caused by character accents
         <description lang="es">Arctic: Zephyr es la tercera versión de Arctic skin creada por jurialmunkey. La skin Arctic se centra en ser simple, limplia y minimalista con un toque de luminosidad.</description>
         <description lang="fr">Arctic: Zephyr est la 3ème version du skin Arctic créé par jurialmunkey. Arctic se focalise sur le fait d'être simple, claire et minimaliste.</description>
         <description lang="fr_CA">Arctique : Zéphyr est la troisième version de l'habillage Arctique créé par jurialmunkey. Arctique se veut être simple, net et minimaliste tout en étant léger. </description>
-        <description lang="it">Arctic: Zephyr è la terza iterazione della skin Arctic creata da jurialmunkey. Arctic si concentra sull'essere semplice, pulita e minimalista con un tocco di leggerezza.</description>
         <description lang="lt">Arctic: Zephyr yra trečia Arctic teminės išvaizdos, kurios autorius yra jurialmunkey, iteracija. Arctic sutelkia dėmesį ties paprastumu, švarumu ir minimalizmu su lengvu veikimu.</description>
         <description lang="nl">Arctic: Zephyr is de derde herhaling van de arctic skin ge creëerd door jurialmunkey. Arctic focust zich op een eenvoudig zeinde, schoon en minimaal met een lichte twist.</description>
         <description lang="no">Arctic: Zephyr er den tredje iterasjonen av Arctic skallet som ble laget av jurialmunkey. Arctic fokuserer på å være enkel, rent og minimalistisk med et snev av letthet.</description>
@@ -2241,21 +1843,27 @@ Documentation: https://github.com/tamland/kodi-plugin-routing</description>
   </extension>
 </addon>
 
-<addon id="script.neptune.artwork" version="1.1.2" name="Neptune Rising Artwork" provider-name="Mr. Blamo">
-	<requires>
-		<import addon="xbmc.python" version="2.19.0"/>
-	</requires>
-	<extension point="xbmc.python.module" library="lib" />
-	<extension point="xbmc.addon.metadata">
-		<summary>Themes for the Neptune Rising Addon</summary>
-		<description>Themes for Neptune Rising are maintained separately to make distribution of the the addon itself easier/faster.</description>
-        <disclaimer lang="en">The author is not responsible for the use of this addon. The author is not responsible for the content found using this addon. The author does not host or own any content found within this addon.
-The author is in no way affiliated with Kodi, Team Kodi, or the XBMC Foundation.
-This is a Non-profit resource, organized solely for educational purposes which is protected under the Fair-Use doctrine of the Copyright Act, Specifically section 107, which does promote freedom of expression, by permitting the unlicensed use of copyright-protected works.
-</disclaimer>
-		<platform>all</platform>
-		<license>Beerware rev. 42</license>
-	</extension>
+<addon id="context.cinemavision" name="CinemaVision Launcher" version="1.0.0" provider-name="CinemaVision">
+  <requires>
+    <import addon="xbmc.python" version="2.20.0"/>
+    <import addon="script.cinemavision" version="1.0.0"/>
+  </requires>
+  <extension point="kodi.context.item" library="addon.py">
+    <item>
+      <label>32000</label>
+      <visible>Container.Content(movies)</visible>
+    </item>
+  </extension>
+  <extension point="kodi.addon.metadata">
+    <platform>all</platform>
+    <summary lang="en">Run the CinemaVision experience from your video library.</summary>
+    <description lang="en">Easily play your movies using the CinemaVision add-on! Launch directly into the CinemaVision theater experience from the context menu in your library.</description>
+    <disclaimer lang="en">This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License. Visit the website for details.</disclaimer>
+    <license>Creative Commons Attribution-ShareAlike 4.0 International</license>
+    <forum>http://www.cinemavision.tv/forums/</forum>
+    <website>http://www.cinemavision.tv/</website>
+    <source>https://github.com/CinemaVision/context.cinemavision</source>
+  </extension>
 </addon>
 
 <addon id="skin.carpc-xtouch" version="3.2.0" name="CarPC-XTouch" provider-name="JackTirol">
@@ -2288,57 +1896,6 @@ This is a Non-profit resource, organized solely for educational purposes which i
                        <screenshot>resources/screenshot-10.jpg</screenshot>
                </assets>
 	</extension>
-</addon>
-
-<addon id="script.covenant.metadata" version="1.0.2" name="Covenant Metadata" provider-name="Covenant">
-	<requires>
-		<import addon="xbmc.python" version="2.19.0"/>
-	</requires>
-	<extension point="xbmc.python.module" library="lib" />
-	<extension point="xbmc.addon.metadata">
-		<summary>Metadata for the Covenant Addon</summary>
-		<description>Metadata for Covenant are maintained separately to make distribution of the the addon itself easier/faster.</description>
-		<platform>all</platform>
-	</extension>
-</addon>
-
-<addon id="repository.Cypherslocker" name="[COLOR cornflowerblue]Cyphers locker[/COLOR]" version="2.0" provider-name="Project Cypher">
-	<extension point="xbmc.addon.repository" name="CyphersLocker">
-	    <dir>
-			<info compressed="false">https://raw.githubusercontent.com/tvaddonsco/tva-resolvers-repo/master/addons.xml</info>
-			<checksum>https://raw.githubusercontent.com/tvaddonsco/tva-resolvers-repo/master/addons.xml.md5</checksum>
-			<datadir zip="true">https://raw.githubusercontent.com/tvaddonsco/tva-resolvers-repo/master/zips/</datadir>
-		</dir>
-
-		<dir>
-			<info compressed="false">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml</info>
-            <checksum>https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/</datadir>
-        </dir>
-
-		<info compressed="false">https://github.com/CypherMediaGIT/CypherRepo/raw/master/cypherrepo/plugins/addons.xml</info>
-		<checksum>https://github.com/CypherMediaGIT/CypherRepo/raw/master/cypherrepo/plugins/addons.xml.md5</checksum>
-		<datadir zip="true">https://github.com/CypherMediaGIT/CypherRepo/raw/master/cypherrepo/plugins</datadir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary>Cypers Locker Repo - Home to Project Cypher</summary>
-		<description>Cypers Locker Repo - Home to Project Cypher.</description>
-		<platform>all</platform>
-	</extension>
-</addon>
-
-<addon id="script.module.simple.downloader" name="Simple Downloader for xbmc plugins" provider-name="TheCollective" version="1.9.5">
-  <requires>
-    <import addon="xbmc.python" version="2.1.0" />
-    <import addon="script.common.plugin.cache" version="2.5.0" />
-    <import addon="script.module.parsedom" version="2.5.1" />
-  </requires>
-  <extension library="default.py" point="xbmc.service" />
-  <extension point="xbmc.addon.metadata">
-    <platform>all</platform>
-    <summary lang="en">Simple downloader for xbmc plugins.</summary>
-  </extension>
-  <extension library="lib" point="xbmc.python.module" />
 </addon>
 
 <addon id="script.module.unidecode" name="unidecode" version="0.4.16" provider-name="Tomaz Solc (Tomaz.solc@tablix.org)">
@@ -2494,130 +2051,6 @@ This is a Non-profit resource, organized solely for educational purposes which i
   </extension>
 </addon>
 
-<addon id="script.covenant.artwork" version="1.0.3" name="Covenant Artwork" provider-name="Covenant">
-	<requires>
-		<import addon="xbmc.python" version="2.19.0"/>
-	</requires>
-	<extension point="xbmc.python.module" library="lib" />
-	<extension point="xbmc.addon.metadata">
-		<summary>Themes for the Covenant Addon</summary>
-		<description></description>
-		<platform>all</platform>
-	</extension>
-</addon>
-
-<addon id="script.module.python.koding.aio"
-   name="Python Koding AIO"
-   version="1.0"
-   provider-name="Total Revolution">
-  <requires>
-    <import addon="xbmc.python" version="2.1.0"/>
-    <import addon="script.module.urlresolver" version="1.2.0"/>
-    <import addon="script.module.requests" version="2.3.0"/>
-    <import addon="script.module.beautifulsoup" version="2.1.31"/>
-    <import addon="script.module.unidecode" version="0.4.16"/>
-  </requires>
-  <extension point="xbmc.python.module" library="lib" />
-  <extension point="xbmc.addon.metadata">
-    <platform>all</platform>
-    <summary lang="en">Python Koding All In One</summary>
-    <description lang="en">Python Koding AIO contains a bunch of time saving modules that allows for quick and simple development.</description>
-    <disclaimer lang="en"></disclaimer>
-    <language></language>
-    <license>Creative Commons 4.0-NC-ND</license>
-    <forum>http://totalrevolution.tv/forum</forum>
-    <website>http://totalrevolution.tv</website>
-    <news>1.0 Stable release</news>
-    <source>https://github.com/totalrevolution/python-koding/tree/master/script.module.python.koding.aio</source>
-  </extension>
-</addon>
-
-<addon id="script.module.nanscrapers" name="NaN Scrapers" version="0.5.51" provider-name="Team NaN">
-        <requires>
-                <import addon="xbmc.python" version="2.1.0"/>
-                <import addon="script.module.beautifulsoup" version="3.2.1"/>
-                <import addon="script.module.futures" version="2.2.0"/>
-                <import addon="script.module.requests"/>
-                <import addon="script.module.six"/>
-                <import addon="script.module.resolveurl" version="5.0.00"/>
-                <!--<import addon="script.mrknow.urlresolver" version="2016.10.30.2" optional="true"/>-->
-        </requires>
-        <extension point="xbmc.python.module" library="lib"/>
-        <extension point="xbmc.python.pluginsource" library="lib/default.py">
-                <provides>executable</provides>
-        </extension>
-        <extension point="xbmc.addon.metadata">
-                <platform>all</platform>
-                <summary lang="en">Scrape common video host for URL's to be playable in XBMC/Kodi.</summary>
-                <description lang="en">Scrape common video host for URL's to be playable in XBMC/Kodi, simplifying addon development of video plugins requiring multi video hosts.
-                </description>
-                <license>GPL v3</license>
-                <source>https://github.com/noobsandnerds/noobsandnerds/tree/master/script.module.nanscrapers</source>
-                <forum>http://www.noobsandnerds.com/support/showthread.php?tid=17212</forum>
-                <website>http://noobsandnerds.com</website>
-        </extension>
-</addon>
-
-    <addon id="repository.skymashitv" name="SkymashiTV Repo" version="0.3" provider-name="SkymashiTV">
-        <requires>
-            <import addon="xbmc.addon" version="12.0.0"/>
-        </requires>
-        <extension point="xbmc.addon.repository" name="SkymashiTV Repo">
-            <info compressed="false">https://skymashi.eu/_repo/addons.xml</info>
-            <checksum>https://skymashi.eu/_repo/addons.xml.md5</checksum>
-            <datadir zip="true">https://skymashi.eu/_repo/</datadir>
-            <hashes>false</hashes>
-        </extension>
-        <extension point="xbmc.addon.metadata">
-            <summary>SkymashiTV Repository</summary>
-            <description>SkymashiTV Repository for our Addons and Buildwizard</description>
-            <platform>all</platform>
-    </extension>
-</addon>
-
-<addon id="script.module.uritemplate"
-       name="uritemplate"
-       version="0.6.0"
-       provider-name="Joe Gregorio">
-  <requires>
-    <import addon="xbmc.python" version="2.14.0"/>
-  </requires>
-  <extension point="xbmc.python.module"
-             library="lib" />
-  <extension point="xbmc.addon.metadata">
-    <platform>all</platform>
-    <language></language>
-    <summary lang="en">URItemplates python module</summary>
-    <description lang="en">A packaged version of the uritemplates python module.</description>
-    <disclaimer lang="en">All source code taken from original repository at source address</disclaimer>
-    <license>Apache 2.0</license>
-    <website>https://github.com/uri-templates/uritemplate-py</website>
-    <source>https://github.com/uri-templates/uritemplate-py</source>
-  </extension>
-</addon>
-
-<addon id="repository.bubbles.1" version="4.2.0" name="Bubbles Repository 1" provider-name="Bubbles">
-	<extension point="xbmc.addon.repository" name="Bubbles Repository 1">
-		<dir>
-			<info compressed="false">https://github.com/trailerpark/trailerpark/raw/master/repository/common/addons.xml</info>
-			<checksum>https://github.com/trailerpark/trailerpark/raw/master/repository/common/addons.xml.md5</checksum>
-			<datadir zip="true">https://github.com/trailerpark/trailerpark/raw/master/repository/common/</datadir>
-		</dir>
-		<info compressed="false">https://github.com/trailerpark/trailerpark/raw/master/repository/addons.xml</info>
-		<checksum>https://github.com/trailerpark/trailerpark/raw/master/repository/addons.xml.md5</checksum>
-		<datadir zip="true">https://github.com/trailerpark/trailerpark/raw/master/repository/</datadir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en">Bubbles Primary Repository</summary>
-		<description lang="en">The Bubbles repository for the addon, resources, extensions, and external addons. Any of the Bubbles mirror repositories can be used for installation and updates.</description>
-		<disclaimer lang="en">Bubbles and its developers are not in any way affiliated with Kodi, TVAddons, Premiumize, RealDebrid, EasyNews, or any of the sites and providers used in the addon. Bubbles is and always will be free and open-source. None of its code and resources may be sold or redistributed for any commercial purposes. Bubbles and its developers do not host, create, or distribute any of the content displayed in the addon, it simply searches public websites.</disclaimer>
-		<platform>all</platform>
-		<license>GPL 3.0</license>
-		<website>https://bubbles4kodi.com</website>
-		<forum>https://bubbles4kodi.com/support</forum>
-	</extension>
-</addon>
-
 <addon id="script.gaia.resources" version="3.2.5" name="Gaia Resources" provider-name="Gaia">
 	<requires>
 		<import addon="xbmc.python" version="2.19.0"/>
@@ -2704,110 +2137,6 @@ This is a Non-profit resource, organized solely for educational purposes which i
   </extension>
 </addon>
 
-<addon id="resource.images.recordlabels.white" name="Recordlabel Icons - White" version="0.0.7" provider-name="Team Kodi">
-	<extension point="kodi.resource.images" compile="true" type="recordlabels" />
-	<requires>
-		<import addon="kodi.resource" version="1.0.0"/>
-	</requires>
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en">White Recordlabel Icons</summary>
-		<description lang="en">White Recordlabel Icons</description>
-		<platform>all</platform>
-		<license>Creative Commons Attribution-Share Alike 3.0 United States</license>
-	</extension>
-</addon>
-
-<addon id="script.xbmcbackup"
-    name="Backup" version="1.1.2" provider-name="robweber">
-  <requires>
-	<!-- jarvis -->
-    <import addon="xbmc.python" version="2.24.0"/>
-    <import addon="script.module.httplib2" version="0.8.0" />
-    <import addon="script.module.oauth2client" version="4.1.2" />
-    <import addon="script.module.uritemplate" version="0.6" />
-    <import addon="script.module.yaml" version="3.11"/>
-    <import addon="script.module.googleapi" version="1.6.4" />
-	<import addon="script.module.requests" version="2.9.1" />
-  </requires>
-  <extension point="xbmc.python.script" library="default.py">
-     <provides>executable</provides>
-  </extension>
-  <extension point="xbmc.service" library="scheduler.py" start="startup" />
-  <extension point="xbmc.addon.metadata">
-    <summary lang="ar">إنسخ إحتياطياً قاعده بيانات إكس بى إم سى وملفات اﻹعدادات فى حاله وقوع إنهيار مع إمكانيه اﻹسترجاع</summary>
-    <summary lang="be">Backup and restore your XBMC database and configuration files in the event of a crash or file corruption.</summary>
-    <summary lang="bg">Добавката може да създава резервно копие на XBMC и възстановява (след това) Вашата база от данни и настройки, в случай на необходимост.</summary>
-    <summary lang="ca">Feu còpies de seguretat i restaureu la vostra base de dades de l'XBMC i dels fitxers de configuració en el cas de fallada o corrupció dels fitxers.</summary>
-    <summary lang="cs">Zálohování a obnovení XBMC databáze a konfiguračních souborů v případě chyby nebo poškození souborů.</summary>
-    <summary lang="da">Sikkerhedskopiér og genskab din XBMC database og konfigurationsfiler i tilfælde af et nedbrud eller en ødelagt fil.</summary>
-    <summary lang="de">Die XBMC Datenbank sichern und bei Dateiverlust oder Beschädigung wiederherstellen.</summary>
-    <summary lang="el">Δημιουργήστε αντίγραφα ασφαλείας της βάσης δεδομένων και των ρυθμίσεων του XBMC για την πιθανότητα σφαλμάτων ή καταστροφής αρχείων.</summary>
-    <summary lang="en">Backup and restore your Kodi database and configuration files in the event of a crash or file corruption.</summary>
-    <summary lang="en_NZ">Backup and restore your XBMC database and configuration files in the event of a crash or file corruption.</summary>
-    <summary lang="en_US">Backup and restore your XBMC database and configuration files in the event of a crash or file corruption.</summary>
-    <summary lang="es">Haz copia de seguridad de tu base de datos y configuración y recupera todo en caso de fallo.</summary>
-    <summary lang="es_MX">Respalda y restaura tu base de datos y archivos de configuración de XBMC dado el evento de un cuelgue o corrupción de archivos. </summary>
-    <summary lang="eu">XBMC datu-basea eta konfigurazio fitxategien babes-kopia egin kraskatze edo fitxategi hondamena saihesteko</summary>
-    <summary lang="fr">Sauvegarder et restaurer vos bases de données XBMC et vos fichiers de configuration en cas de crash ou de fichiers corrompus.</summary>
-    <summary lang="fr_CA">Sauvegarder et restaurer votre base de données et vos fichiers de configuration XBMC dans le cas d'un plantage ou d'une corruption de fichier.</summary>
-    <summary lang="gl">Crear copia de seguranza e restaurar a base de datos e ficheiros de configuración de XBMC no caso dun fallo ou corrupción de ficheiros.</summary>
-    <summary lang="he">גיבוי ושחזור מסד הנתונים וקבצי ההגדרות של XBMC במקרה של קריסה או קבצים פגומים.</summary>
-    <summary lang="hr">Sigurnosno kopirajte i obnovite vašu XBMC bazu podataka i datoteke podešavanja prilikom rušenja ili oštećenja datoteka.</summary>
-    <summary lang="hu">Biztonsági mentés készítése az XBMC adatbázisról és a beállítófájlokról vagy állítsa helyre azokat egy rendszerösszeomlás vagy adatvesztés után.</summary>
-    <summary lang="id">Cadangkan dan kembalikan basis data XBMC Anda beserta berkas konfigurasi apabila terjadi kerusakan atau korupsi berkas.</summary>
-    <summary lang="it">Effettua il backup o ripristina il tuo database di XBMC e i file di configurazione qualora si verifichi una chiusura imprevista o un danneggiamento dei file.</summary>
-    <summary lang="ja">システムのクラッシュやファイル破損に備えて、XBMC のデータベースや設定ファイルをバックアップ・リストアできます。</summary>
-    <summary lang="ko">XBMC 데이터베이스와 설정 파일을 백업하고 복구합니다.</summary>
-    <summary lang="lt">Atsarginė kopija katra atkuria jūsų XBMC duomenų bazę ir konfigūracijos failus avarijos ar failo sugadinimo metu.</summary>
-    <summary lang="nl">Back-up en herstel je XBMC database en configuratiebestanden in geval van een crash of bestandscorruptie.</summary>
-    <summary lang="no">Sikkerhetskopier og gjenopprett dine XBMC-databaser og -konfigurasjonsfiler i tilfelle et krasj eller filkorrupsjon.</summary>
-    <summary lang="pl">Stwórz kopię bezpieczeństwa oraz przywróć twoją bazę danych XBMC łącznie z plikami konfiguracyjnymi, w przypadku awarii lub uszkodzenia plików.</summary>
-    <summary lang="pt">Crie cópias de segurança da base de dados do XBMC e dos ficheiros de configuração. Pode restaurar o conteúdo se ocorrer um crash ou corrupção de ficheiros.</summary>
-    <summary lang="pt_BR">Faça backup e restaure o banco de dados do XBMC e seus arquivos de configuração, no caso de falha ou corrupção de arquivo.</summary>
-    <summary lang="ru">Сохраняйте и восстанавливайте базу данных и конфигурационные файлы XBMC, чтоб не допустить потерю данных в случае аварии или повреждений файлов.</summary>
-    <summary lang="sk">Zálohovanie a obnova XBMC databázy a konfiguračných súborov pre prípad havárie alebo poškodenia súboru.</summary>
-    <summary lang="sv">Ta backupp av eller återställ din XBMC-databas och konfigurationsfiler i händelse av en krash eller filkorruption.</summary>
-    <summary lang="zh">备份和恢复 XBMC 数据库和配置文件，以防范系统崩溃或文件损坏问题。</summary>
-    <description lang="ar">أسبق لك ان أضعت تخصيصاتك المفضله ورغبت لو كان بإمكانك نسخهم إحتياطياً ؟ اﻷن بات بإمكانك ذلك. يمكنك إستخراج قاعده بياناتك وقوائم التشغيل والملحقات وتخصيصاتك المفضله وغيره الى اى مصدر خارجى قابل للكتابه من قِبَل إكس بى إم سى او مباشرتاً الى نظام تخزين سحابى. يمكنك تفعيل النسخ اﻹحتياطى عند الحاجه او جدولته مُسبقاً</description>
-    <description lang="be">Ever hosed your XBMC configuration and wished you'd had a backup? Now you can with one easy click. You can export your database, playlist, thumbnails, addons and other configuration details to any source writeable by XBMC or directly to Dropbox cloud storage. Backups can be run on demand or via a scheduler. </description>
-    <description lang="bg">Някога да сте губили всички настройки, които сте правили по XBMC? А разполагахте ли с резервно копие? Е сега можете да създавате резервни копия само с едно кликване. Можете да изнасяте базата от данни, плейлистите, миниатюрите, добавките и други, на всяко място до което XBMC има права за писане или директно в Dropbox. Можете да настроите и автоматично създаване на копия през определен интервал от време.</description>
-    <description lang="ca">Alguna vegada s'ha carregat la seva configuració de l'XBMC i ha desitjat tenir una còpia de seguretat? Ara pot fer-ho amb un simple clic. Pot exportar la seva base de dades, llista de reproducció, miniatures, complements i altres detalls de la configuració a qualsevol font que pugui ser escrita per l'XBMC o directament a l'emmagatzematge en el núvol Dropbox. Les còpies de seguretat es poden executar sota demanda o per mitjà d'un planificador.</description>
-    <description lang="da">Har du prøvet at slette din XBMC opsætning, og ønsket at du havde haft sikkerhedskopi? Nu kan du få det med et enkelt klik. Du kan eksportere din database, afspilninglister, miniaturebilleder, addons og andre opsætningsdetaljer til enhver kilde, som er skrivbar for XBMC eller direkt til Dropbox cloud lager. Sikkerhedskopier kan køres manuelt eller via en tidsplan.</description>
-    <description lang="de">Jemals deine XBMC Konfiguration zerschossen und dir dann gewünscht, dass ein Backup existiert? Jetzt kannst du eine Sicherung mit nur einem Klick erzeugen. Du kannst deine Datenbanen, Playlisten, Thumbnails, Addons und andere Details zu einem Ort deiner Wahl sichern.</description>
-    <description lang="el">Σας έτυχε ποτέ να χάσετε τις ρυθμίσεις του XBMC και να εύχεστε να είχατε αντίγραφο ασφαλείας; Πλέον μπορείτε με ένα απλό κλικ. Μπορείτε να εξάγετε τη βάση δεδομένων, τις λίστες αναπαραγωγής, τις μικρογραφίες, τα πρόσθετα και άλλες λεπτομέρειες της εγκατάστασης σε οποιαδήποτε πηγή στην οποία μπορεί να γράψει το XBMC, ή απευθείας στο λογαριασμό σας στο Dropbox. Τα αντίγραφα μπορούν να γίνονται κατ' επιλογή ή μέσω προγραμματισμού.</description>
-    <description lang="en">Ever hosed your Kodi configuration and wished you'd had a backup? Now you can with one easy click. You can export your database, playlist, thumbnails, addons and other configuration details to any source writeable by XBMC or directly to Dropbox cloud storage. Backups can be run on demand or via a scheduler. </description>
-    <description lang="en_NZ">Ever hosed your XBMC configuration and wished you'd had a backup? Now you can with one easy click. You can export your database, playlist, thumbnails, addons and other configuration details to any source writeable by XBMC or directly to Dropbox cloud storage. Backups can be run on demand or via a scheduler. </description>
-    <description lang="en_US">Ever hosed your XBMC configuration and wished you'd had a backup? Now you can with one easy click. You can export your database, playlist, thumbnails, addons and other configuration details to any source writeable by Kodi or directly to Dropbox cloud storage. Backups can be run on demand or via a scheduler. </description>
-    <description lang="es">¿Alguna vez te has cargado la configuración de XBMC y habrías deseado tener una copia de seguridad? Ahora puedes tenerla con un único click. Exporta tus base de datos, listas de reproducción, miniaturas, addons y resto de configuraciones a cualquier fuente accesible por XBMC o a tu almacenamiento en Dropbox. Las copias de seguridad pueden programarse o realizarse bajo demanda.</description>
-    <description lang="es_MX">¿Alguna vez haz echado a perder tu configuración de XBMC y haz deseado tener un respaldo? Ahora puedes tenerlo con un simple click. Puedes exportar tu base de datos, listas de reproducción, miniaturas, addons y otros detalles de configuración correspondientes a cualquier fuente que pueda escribir XBMC. Los respaldos pueden ser efectuados a pedido o mediante una programación temporal</description>
-    <description lang="fr">Avez-vous déjà perdu votre configuration XBMC et espéré avoir fait une sauvegarde ? Maintenant, vous pouvez le faire en un simple click. Vous pouvez exporter vos bases de données, playlists, miniatures, addons et autres fichiers de configuration vers n'importe quel endroit accessible depuis XBMC.</description>
-    <description lang="fr_CA">Avez-vous déjà ruiné votre configuration XBMC et souhaité avoir une sauvegarde? Vous le pouvez maintenant en un seul clic. Vous pouvez exporter vos base de données, liste de lecture, imagettes, addiciels et autres détails de configurations vers n'importe quelle source inscriptible depuis XBMC ou directement vers le stockage en nuage Dropbox. Les sauvegardes peuvent être exécutées sur demande ou à l'aide d'un ordonnanceur.</description>
-    <description lang="gl">De seguro que algunha vez eliminou a configuración do XBMC e desexou ter unha copia de seguranza?. Agora pode cun só clic. Pode exportar a súa base de datos, listaxes de reprodución, miniaturas, complementos e outros detalles da configuración a calquera medio escribíbel ou directamente ao Dropbox. As copias de seguranza pódense executar baixo demanda ou programadas.</description>
-    <description lang="he">האם אי פעם נפגמו הגדרות XBMC וייחלת שהיה לך גיבוי ? כעת אתה יכול ליצור כזה בלחיצת כפתור קלילה. ניתן לייצא את בסיס הנתונים, רשימות ההשמעה, התמונות הממוזערות, הרחבות והגדרות נוספות לכל יעד שיש ל-XBMC הרשאת כתיבה לו או ישירות לשירות אחסון הענן דרופבוקס. ניתן לתזמן מראש גיבויים או להריצם ידנית.</description>
-    <description lang="hr">Jeste li ikada oštetili vaša XBMC podešavanja i poželjeli ste ih obnoviti iz sigurnosne kopije? Sada to možete jednim klikom. Možete izvesti vašu bazu podataka, popis izvođenja, minijature, dodatke i ostale pojedinosti podešavanja na svaki izvor dostupan XBMC-u ili izravno na Dropbox oblak pohrane. Sigurnosno kopiranje se može pokrenuti na zahtjev ili u planiranom vremenu.</description>
-    <description lang="hu">Sikerült már összekutyulni az XBMC beállításait és jó lett volna egy biztonsági mentés? Most megteheti egy kattintással. Exportálhatja az adatbázisait, lejátszáslistáit, könyvjelzőit, kiegészítőit és egyéb beállításokat bármely, az XBMC által írható tárhelyre vagy közvetlenül a Dropbox felhő tárolóba. A mentések kézzel vagy időzítetten indíthatóak.</description>
-    <description lang="id">Pernah membuat berantakan konfigurasi XBMC Anda dan berharap Anda punya cadangannya? Sekarang Anda dapat melakukannya dengan klik mudah. Anda dapat mengekspor basis data, daftar putar, gambar kecil, addon dan rincian konfigurasi lainnya ke sumber mana saja yang dapat ditulis oleh XBMC atau langsung ke penyimpanan awan Dropbox. Pencadangan dapat dijalankan sesuai permintaan atau terjadwal.</description>
-    <description lang="it">Hai mai distrutto la tua configurazione di XBMC ma non ne avevi una copia di backup? Ora puoi farlo con un semplice click. Puoi esportare il tuo database, le playlist, le anteprime, gli add-on ed altre configurazioni su ogni percorso accessibile da XBMC o direttamente su Dropbox. I backup si possono fare a richiesta o possono essere pianificati.</description>
-    <description lang="ja">XBMCの設定が消えてしまい、バックアップをとっておけば... と思ったことはありますか？これからは1クリックで簡単にバックアップできます。データベース、プレイリスト、サムネール、アドオン、その他設定項目を、XBMC が書き込み可能なメディアに書き出せます。Dropbox クラウドストレージにも直接書き出せます。スケジューラによる自動バックアップと、オンデマンドでのバックアップの両方が使えます。</description>
-    <description lang="ko">XBMC 설정 백업본이 있었으면 하고 원했던 적이 있습니까? 이제 한 번의 클릭으로 가능합니다. 데이터베이스, 재생목록, 썸네일, 애드온과 기타  세부 설정을 어디에나 내보내거나 직접 Dropbox 에  저장할 수 있습니다. 백업은 수동 또는 예약으로 실행할 수 있습니다.</description>
-    <description lang="lt">Kada naujinate ir konfiguruojate savo XBMC ar susimastėte, kad jums reikalinga atsarginė kopija? Dabar galite tai atlikti vienu spustelėjimu. Savo duomenų bazes, atkūrimą, miniatiūras, priedus ir kitas konfigūracijos failus galite eksportuoti iš bet kokio šaltinio. Atsarginė(-ės) kopija(-os) gali būti paleistos pareikalavus arba per tvarkaraštį.</description>
-    <description lang="nl">Ooit je XBMC configuratie verknalt en gewenst dat je een backup had? Nu kan dat met een simpele klik. Je kunt je bibliotheek, afspeellijsten, miniaturen, addons en andere configuratie optes exporteren naar elke bron die door XBMC beschrijfbaar is of direct naar een Dropbox cloud opslag. Backups kunnen op verzoek of via een rooster gedraaid worden.</description>
-    <description lang="no">Har du noen gang ødelagt XBMC-installasjonen din og ønsket at du hadde en sikkerhetskopi? Det kan du nå med et enkelt trykk. Du kan eksportere din database, spillelister, miniatyrer, utvidelser og andre konfigurasjonsdetaljer til enhver kilde som er tilgjengelig for XBMC eller til Dropbox. Du kan lage sikkerhetskopier ved behov eller med en timeplan.</description>
-    <description lang="pl">Straciłeś kiedyś swoją konfigurację XBMC i marzyłeś o kopii zapasowej? Teraz już możesz i to w prosty sposób. Możesz eksportować swoją bazę, listy odtwarzania, miniatury, wtyczki oraz wiele więcej do dowolnego źródła bezpośrednio z XBMC. Kopia bezpieczeństwa może być uruchomiona na żądanie lub wg harmonogramu.</description>
-    <description lang="pt">Já arruinou a sua configuração do XBMC e desejou ter feito uma cópia de segurança? Agora pode, com apenas um clique. Exporte a base de dados, listas de reprodução, miniaturas, add-ons e outras configurações para qualquer fonte acedível pelo XBMC. As cópias de segurança podem ser executadas manualmente ou por temporizador.</description>
-    <description lang="pt_BR">Sempre se preocupou com sua configuração do XBMC e desejou ter um backup? Agora você pode com um simples clique. Você pode exportar seu banco de dados, listas de reprodução, miniaturas, addons e outros detalhes de configuração para qualquer fonte gravável pelo XBMC ou diretamente ao armazenamento na nuvem Dropbox. Os backups podem ser executados sob demanda ou por agendamento.</description>
-    <description lang="ru">Хотите получить резервную копию настроек XBMC? Теперь можете это сделать одним щелчком мыши. Вы можете выгрузить вашу базу данных, плейлисты, эскизы, дополнения и другую нужную Вам информацию и сохранить её с помощью XBMC или выгрузить в облачное хранилище Dropbox. Резервную копию можно сделать по требованию или запускать по расписанию.</description>
-    <description lang="sk">Už ste niekedy poškodili konfiguráciu XBMC a priali si mať zálohu? Teraz môžete - na jeden klik. Môžete exportovať Vašu databázu, playlist, náhľady, doplnky a konfigurácie na ktorýkoľvek zdroj zapisovateľný XBMC. Zálohy môžu byť púšťané na požiadanie alebo plánovačom. </description>
-    <description lang="sv">Har du någonsin tappat bort din XBMC konfiguration och önskat att du hade en backup? Nu kan du enkelt med ett klick. Du kan exportera din databas, spellista, minityrer, tillägg och andra konfigurationsdetaljer till valfri källa som är skrivbar för XBMC. Backupper kan köras på begäran eller via scheman.</description>
-    <description lang="zh">你是否经常折腾你的 XBMC，因而希望能够有个备份？你可以把资料库、播放列表、缩略图、插件和其他配置细节导出到 XBMC 可以写入的任意位置。备份可以按需运行或通过计划任务执行。</description>
-    <language></language>
-    <platform>all</platform>
-    <license>The MIT License</license>
-    <forum>http://forum.xbmc.org/showthread.php?tid=129499</forum>
-    <source>https://github.com/robweber/xbmcbackup</source>
-  </extension>
-</addon>
-
 <addon id="resource.images.weathericons.white" name="Weather Icons - White" version="0.0.6" provider-name="Team Kodi">
 	<extension point="kodi.resource.images" compile="true" type="weather" />
 	<requires>
@@ -2845,30 +2174,6 @@ This is a Non-profit resource, organized solely for educational purposes which i
 	</extension>
 </addon>
 
-<addon id="script.module.oauth2client"
-       name="oauth2client"
-       version="4.1.2"
-       provider-name="Google">
-  <requires>
-    <import addon="xbmc.python" version="2.24.0"/>
-	<import addon="script.module.httplib2" version="0.8.0" />
-	<import addon="script.module.uritemplate" version="0.6" />
-	<import addon="script.module.six" version="1.9.0" />
-  </requires>
-  <extension point="xbmc.python.module"
-             library="lib" />
-  <extension point="xbmc.addon.metadata">
-    <platform>all</platform>
-    <language></language>
-    <summary lang="en">Google Oauth2Client libraries</summary>
-    <description lang="en">A packaged version of the libraries needed for Google Oauth2 Client access to their API via python.</description>
-    <disclaimer lang="en">Source code from https://github.com/google/oauth2client</disclaimer>
-    <license>Apache 2.0</license>
-    <website>https://oauth2client.readthedocs.io/en/latest/</website>
-    <source>https://github.com/google/oauth2client</source>
-  </extension>
-</addon>
-
 <addon id="script.module.chardet"
        name="chardet"
        version="3.0.4"
@@ -2889,23 +2194,6 @@ This is a Non-profit resource, organized solely for educational purposes which i
     <source>https://github.com/beenje/script.module.chardet</source>
     <email>beenje AT gmail.com</email>
   </extension>
-</addon>
-
-    <addon id="repository.Firestickplusman" name="Firestickplusman Addons" version="4.0" provider-name="Firestickplusman">
-        <requires>
-            <import addon="xbmc.addon" version="12.0.0"/>
-        </requires>
-        <extension point="xbmc.addon.repository" name="Firestickplusman Addons">
-            <info compressed="false">http://fspmkodi.com/_repo/addons.xml</info>
-            <checksum>http://fspmkodi.com/_repo/addons.xml.md5</checksum>
-            <datadir zip="true">http://fspmkodi.com/_repo/</datadir>
-            <hashes>false</hashes>
-        </extension>
-        <extension point="xbmc.addon.metadata">
-            <summary>Firestickplusman addon repo</summary>
-            <description>Firestickplusman addon repo to in the best and update addons from Firestickplusman.</description>
-            <platform>all</platform>
-    </extension>
 </addon>
 
 <addon id="script.module.metahandler"
@@ -3179,32 +2467,6 @@ change:  Better handling of read/write falures and errors to help troubleshootin
   </extension>
 </addon>
 
-<addon id="script.module.universalscrapers" name="Universal Scrapers" version="1.1.0" provider-name="Team Universal">
-    <requires>
-        <import addon="xbmc.python" version="2.1.0"/>
-        <import addon="script.module.beautifulsoup" version="3.2.1"/>
-        <import addon="script.module.futures" version="2.2.0"/>
-        <import addon="script.module.requests"/>
-        <import addon="script.module.six"/>
-        <import addon="repository.universalscrapers"/>
-	<import addon="script.module.resolveurl" version="5.0.00" optional="true"/>
-
-                <!--<import addon="script.mrknow.urlresolver" version="2016.10.30.2" optional="true"/>-->
-    </requires>
-    <extension point="xbmc.python.module" library="lib"/>
-    <extension point="xbmc.python.pluginsource" library="lib/default.py">
-        <provides>executable</provides>
-    </extension>
-        <extension point="xbmc.addon.metadata">
-            <platform>all</platform>
-            <summary lang="en">Scrape common video host for URL's to be playable in XBMC/Kodi.</summary>
-            <description lang="en">Scrape common video host for URL's to be playable in XBMC/Kodi, simplifying addon development of video plugins requiring multi video hosts.
-            </description>
-            <license>GPL v3</license>
-            <source>https://</source>
-        </extension>
-</addon>
-
 <addon id="script.module.beautifulsoup"
        name="BeautifulSoup"
        version="3.2.1"
@@ -3261,23 +2523,6 @@ change:  Better handling of read/write falures and errors to help troubleshootin
     <description lang="se">Ladda ner miniatyrer och fanart från www.themoviedb.org</description>
     <description lang="zh">从www.themoviedb.org下载海报和同人画</description>
   </extension>
-</addon>
-
-<addon id="script.module.urllib.3" version="1.22.3" name="urllib3" provider-name="urllib3">
-	<requires>
-		<import addon="xbmc.python" version="2.1.0" />
-	</requires>
-	<extension point="xbmc.python.module" library="lib" />
-	<extension point="xbmc.service" library="__init__.py" start="startup" />
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en">Python Urllib 3 for Kodi</summary>
-		<description lang="en">Python Urllib 3 extension for Kodi</description>
-		<disclaimer lang="en"></disclaimer>
-		<platform>all</platform>
-		<license>MIT</license>
-		<website>https://urllib3.readthedocs.io</website>
-		<forum>https://urllib3.readthedocs.io</forum>
-	</extension>
 </addon>
 
 <addon id="plugin.program.touchCalibration" name="Touch Screen Calibration" version="1.1.1" provider-name="Andrei">
@@ -3414,57 +2659,6 @@ change:  Better handling of read/write falures and errors to help troubleshootin
 	</extension>
 </addon>
 
-<addon id="repository.bubbles.2" version="4.2.0" name="Bubbles Repository 2" provider-name="Bubbles">
-	<extension point="xbmc.addon.repository" name="Bubbles Repository Mirror 2">
-		<dir>
-			<info compressed="false">https://bitbucket.org/trailerpark/trailerpark/raw/HEAD/repository/common/addons.xml</info>
-			<checksum>https://bitbucket.org/trailerpark/trailerpark/raw/HEAD/repository/common/addons.xml.md5</checksum>
-			<datadir zip="true">https://bitbucket.org/trailerpark/trailerpark/raw/HEAD/repository/common/</datadir>
-		</dir>
-		<info compressed="false">https://bitbucket.org/trailerpark/trailerpark/raw/HEAD/repository/addons.xml</info>
-		<checksum>https://bitbucket.org/trailerpark/trailerpark/raw/HEAD/repository/addons.xml.md5</checksum>
-		<datadir zip="true">https://bitbucket.org/trailerpark/trailerpark/raw/HEAD/repository/</datadir>
-	</extension>
-	<requires>
-		<import addon="script.module.urllib.3" version="1.22.0" />
-	</requires>
-	<extension point="xbmc.addon.metadata">
-		<summary lang="en">Bubbles Secondary Repository</summary>
-		<description lang="en">The Bubbles repository for the addon, resources, extensions, and external addons. Any of the Bubbles mirror repositories can be used for installation and updates.</description>
-		<disclaimer lang="en">Bubbles and its developers are not in any way affiliated with Kodi, TVAddons, Premiumize, RealDebrid, EasyNews, or any of the sites and providers used in the addon. Bubbles is and always will be free and open-source. None of its code and resources may be sold or redistributed for any commercial purposes. Bubbles and its developers do not host, create, or distribute any of the content displayed in the addon, it simply searches public websites.</disclaimer>
-		<platform>all</platform>
-		<license>GPL 3.0</license>
-		<website>https://bubbles4kodi.com</website>
-		<forum>https://bubbles4kodi.com/support</forum>
-	</extension>
-</addon>
-
-<addon id="script.common.plugin.cache" name="Common plugin cache" provider-name="TheCollective" version="2.5.10">
-  <requires>
-    <import addon="xbmc.python" version="2.24.0" />
-  </requires>
-  <extension library="default.py" point="xbmc.service" start="startup">
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <platform>all</platform>
-    <summary lang="en">Common caching api for xbmc plugins.</summary>
-  </extension>
-  <extension library="lib" point="xbmc.python.module" />
-</addon>
-
-<addon id="repository.firetvguru" name="Fire TV Guru Repo" version="0.0.5" provider-name="Fire TV Guru Repo">
-	<extension point="xbmc.addon.repository" name="Fire TV Guru Repo">
-		<info compressed="false">https://raw.github.com/Firetvguru/fire-tv/master/addons.xml</info>
-		<checksum>https://raw.github.com/Firetvguru/fire-tv/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.github.com/Firetvguru/fire-tv/master/</datadir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary>Fire TV Guru Repo</summary>
-		<description>My Repository</description>
-		<platform>all</platform>
-	</extension>
-</addon>
-
 <addon id="script.globalsearch" name="Global Search" version="7.4.7" provider-name="ronie">
 	<requires>
 		<import addon="xbmc.python" version="2.25.0"/>
@@ -3543,49 +2737,10 @@ change:  Better handling of read/write falures and errors to help troubleshootin
 	</extension>
 </addon>
 
-<addon id="repository.aftermathwizard" name="[COLOR dodgerblue]Aftermath[/COLOR] Repo" version="0.0.1" provider-name="Aftermath">
-	<extension point="xbmc.addon.repository" name="Aftermath Repo">
-		<info compressed="false">https://raw.githubusercontent.com/aftermathbuilds/aftermathwizard/master/addons.xml</info>
-		<checksum>https://raw.githubusercontent.com/aftermathbuilds/aftermathwizard/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://raw.githubusercontent.com/aftermathbuilds/aftermathwizard/master/</datadir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary>Aftermath Repository</summary>
-		<description>Home of the Aftermath wizard</description>
-		<platform>all</platform>
-	</extension>
-</addon>
-
-<addon id="script.module.googleapi"
-       name="googleapi"
-       version="1.6.4"
-       provider-name="Google">
-  <requires>
-    <import addon="xbmc.python" version="2.24.0"/>
-	<import addon="script.module.httplib2" version="0.8.0" />
-	<import addon="script.module.uritemplate" version="0.6" />
-	<import addon="script.module.six" version="1.9.0" />
-	<import addon="script.module.oauth2client" version="4.1.2" />
-  </requires>
-  <extension point="xbmc.python.module"
-             library="lib" />
-  <extension point="xbmc.addon.metadata">
-    <platform>all</platform>
-    <language></language>
-    <summary lang="en">Google API python classes and dependencies</summary>
-    <description lang="en">A packaged version of all the libraries needed for Google API access via python.</description>
-    <disclaimer lang="en">Source code for the Google API from https://developers.google.com/api-client-library/python/start/installation</disclaimer>
-    <license>Apache 2.0</license>
-    <website>https://developers.google.com/api-client-library/python/start/installation</website>
-    <source>https://github.com/google/google-api-python-client</source>
-  </extension>
-</addon>
-
-<addon id="skin.aura" version="0.9.27" name="Aura" provider-name="jurialmunkey">
+<addon id="skin.aura" version="0.9.32" name="Aura" provider-name="jurialmunkey">
     <requires>
         <import addon="xbmc.gui" version="5.12.0"/>
         <import addon="script.skinshortcuts" version="0.4.0"/>
-        <import addon="script.skin.helper.service" version="1.1.0"/>
         <import addon="script.extendedinfo" version="3.0.0"/>
         <import addon="script.image.resource.select" version="0.0.5"/>
         <import addon="plugin.program.autocompletion" version="1.0.1"/>
@@ -3784,25 +2939,6 @@ change:  Better handling of read/write falures and errors to help troubleshootin
   </extension>
 </addon>
 
-<addon id="script.module.liveresolver"
-     name="LiveResolver"
-     version="0.1.50"
-     provider-name="natko1412">
-  <requires>
-    <import addon="xbmc.python" version="2.1.0" />
-    <import addon="script.module.beautifulsoup" version="3.2.1"/>
-    <import addon="script.module.requests"/>
-    <import addon="script.module.addon.common" version="2.0.0" />
-
-  </requires>
-  <extension point="xbmc.python.module" library="lib" />
-  <extension point="xbmc.addon.metadata">
-    <platform>all</platform>
-    <summary lang="en">Resolve common live video host URL's to be playable in XBMC/Kodi + find links embeded in sites.</summary>
-    <description lang="en"></description>
-  </extension>
-</addon>
-
     <addon id="repository.blamo" name="[COLOR red]Blamo Repo[/COLOR]" version="0.1.7" provider-name="Mr Blamo">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
@@ -3843,7 +2979,7 @@ change:  Better handling of read/write falures and errors to help troubleshootin
         </extension>
     </addon>
 
-    <addon id="repository.Atrion" name="[COLOR maroon]Atrion's Add-ons Repository[/COLOR]" version="0.3.8" provider-name="Atrion Darnay">
+    <addon id="repository.Atrion" name="[COLOR maroon]Atrion's Add-on Repository[/COLOR]" version="0.4.0" provider-name="Atrion Darnay">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -3860,52 +2996,7 @@ change:  Better handling of read/write falures and errors to help troubleshootin
     </extension>
 </addon>
 
-<addon id="repository.xbmchub" name="TVADDONS.CO Add-on Repository" version="3.0.0" provider-name="tvaddons">
-	<extension point="xbmc.addon.repository" name="TVADDONS.CO Add-on Repository">
-	<dir>
-		<info compressed="false">https://github.com/tvaddonsco/tva-resolvers-repo/raw/master/addons.xml</info>
-		<checksum>https://github.com/tvaddonsco/tva-resolvers-repo/raw/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://github.com/tvaddonsco/tva-resolvers-repo/raw/master/zips/</datadir>
-	</dir>
-
-    <dir>
-		<info compressed="false">https://github.com/tvaddonsco/tva-release-repo/raw/master/addons.xml</info>
-		<checksum>https://github.com/tvaddonsco/tva-release-repo/raw/master/addons.xml.md5</checksum>
-		<datadir zip="true">https://github.com/tvaddonsco/tva-release-repo/raw/master/</datadir>
-    </dir>
-	</extension>
-	<extension point="xbmc.addon.metadata">
-		<summary>Unofficial Kodi Addons from TVADDONS.CO</summary>
-		<description>Unofficial Kodi Addons from the TVADDONS.CO Add-on Repository. Please visit www.tvaddons.co for support!
-
-Kodi is a registered trademark of the XBMC Foundation. We are not connected to or in any other way affiliated with Kodi, Team Kodi, or the XBMC Foundation.</description>
-         <disclaimer>TVADDONS.CO did not make all the add-ons in this repository and is not responsible for their content.</disclaimer>
-		<platform>all</platform>
-                <forum>https://www.tvaddons.co/forums</forum>
-                <website>https://www.tvaddons.co</website>
-	</extension>
-</addon>
-
-<addon id="script.grab.fanart"
-    name="Grab Fanart" version="0.14.1" provider-name="robweber">
-  <requires>
-    <import addon="xbmc.python" version="2.19.0"/>
-  </requires>
-  <extension point="xbmc.python.library" library="default.py" />
-  <extension point="xbmc.service" library="service.py" start="login" />
-  <extension point="xbmc.addon.metadata">
-    <summary lang="en">Exposes fanart as skin properties for slideshows, etc</summary>
-    <description lang="en">Uses the Kodi database to grab all fanart from media items and put it into a skin property for use by skins/slideshows as previous version of XBMC allowed.</description>
-    <forum>http://forum.kodi.tv/showthread.php?tid=166572</forum>
-    <source>https://github.com/robweber/script.grab.fanart</source>
-	<website>https://github.com/robweber/script.grab.fanart</website>
-    <license>The MIT License</license>
-    <platform>all</platform>
-    <language></language>
-  </extension>
-</addon>
-
-    <addon id="repository.Atrion2" name="[COLOR maroon]Atrion's Add-ons Repository[/COLOR] [COLOR Red]Backup[/COLOR]" version="0.3.8" provider-name="Atrion Darnay">
+    <addon id="repository.Atrion2" name="[COLOR maroon]Atrion's Add-on Repository Backup[/COLOR]" version="0.4.0" provider-name="Atrion Darnay">
         <requires>
             <import addon="xbmc.addon" version="12.0.0"/>
         </requires>
@@ -3934,26 +3025,6 @@ Kodi is a registered trademark of the XBMC Foundation. We are not connected to o
     <summary lang="en">Visualisations from Shadertoy</summary>
     <description lang="en">Visualisations from Shadertoy</description>
     <platform>windows</platform>
-  </extension>
-</addon>
-
-<addon id="plugin.video.nemesis" name="[COLOR aqua][B]Nemesis[/B][/COLOR]" version="1.0.8" provider-name="[COLOR aqua]Nemzzy[/COLOR]">
-  <requires>
-    <import addon="xbmc.python" version="2.1.0"/>
-    <import addon="script.module.simplejson"/>
-    <import addon="script.module.urlresolver"/>
-    <import addon="script.module.liveresolver"/>
-    <import addon="script.common.plugin.cache"/>
-    <import addon="script.module.metahandler"/>
-    <import addon="plugin.video.youtube" optional="false" />
-  </requires>
-  <extension point="xbmc.python.pluginsource" library="nemesis.py">
-        <provides>video</provides>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <summary lang="en">[COLOR aqua]Nemesis Addon[/COLOR]</summary>
-    <description lang="en">[COLOR aqua]Nemesis Addon, We Do not host any streams or content, all information available in this addon is obtained using scrappers[/COLOR]</description>
-    <platform>all</platform>
   </extension>
 </addon>
 
@@ -4215,102 +3286,9 @@ Kodi is a registered trademark of the XBMC Foundation. We are not connected to o
   </extension>
 </addon>
 
-<addon id="repository.xvbmc" name=" [COLOR lime][B]X[/B][/COLOR]vBMC (Add-ons) REPOsitory [COLOR maroon](shutdown)[/COLOR]" version="4.2.5" provider-name="XvBMC Nederland (closed)">
-    <extension point="xbmc.addon.repository" name=" [COLOR lime][B]X[/B][/COLOR]vBMC (Add-ons) REPOsitory">
-    <!--<dir>
-            <info compressed="false">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml</info>
-            <checksum>https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.githubusercontent.com/teamuniversal/scrapers/master/_modules4all/zips/</datadir>
-            <hashes>false</hashes>
-        </dir>-->
-    <!--<dir>
-            <info compressed="false">https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml</info>
-            <checksum>https://raw.githubusercontent.com/jsergio123/zips/master/addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.githubusercontent.com/jsergio123/zips/master/</datadir>
-        </dir>-->
-    <!--<dir>
-            <info compressed="false">https://github.com/tvaddonsco/tva-resolvers-repo/raw/master/addons.xml</info>
-            <checksum>https://github.com/tvaddonsco/tva-resolvers-repo/raw/master/addons.xml.md5</checksum>
-            <datadir zip="true">https://github.com/tvaddonsco/tva-resolvers-repo/raw/master/zips/</datadir>
-        </dir>-->
-        <dir>
-            <info compressed="false">https://raw.githubusercontent.com/XvBMC/repository.xvbmc/master/Dependencies/xvbmc-addons.xml</info>
-            <checksum>https://raw.githubusercontent.com/XvBMC/repository.xvbmc/master/Dependencies/xvbmc-addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.githubusercontent.com/XvBMC/repository.xvbmc/master/Dependencies/zips/</datadir>
-            <hashes>false</hashes>
-        </dir>
-        <dir>
-            <info compressed="false">https://raw.githubusercontent.com/XvBMC/repository.xvbmc/master/Look-and-Feel/xvbmc-addons.xml</info>
-            <checksum>https://raw.githubusercontent.com/XvBMC/repository.xvbmc/master/Look-and-Feel/xvbmc-addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.githubusercontent.com/XvBMC/repository.xvbmc/master/Look-and-Feel/zips/</datadir>
-            <hashes>false</hashes>
-        </dir>
-        <dir>
-            <info compressed="false">https://raw.githubusercontent.com/XvBMC/repository.xvbmc/master/REPOsitory/xvbmc-addons.xml</info>
-            <checksum>https://raw.githubusercontent.com/XvBMC/repository.xvbmc/master/REPOsitory/xvbmc-addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.githubusercontent.com/XvBMC/repository.xvbmc/master/REPOsitory/zips/</datadir>
-            <hashes>false</hashes>
-        </dir>
-        <dir>
-            <info compressed="false">https://raw.githubusercontent.com/XvBMC/repository.xvbmc/master/xvbmc-addons.xml</info>
-            <checksum>https://raw.githubusercontent.com/XvBMC/repository.xvbmc/master/xvbmc-addons.xml.md5</checksum>
-            <datadir zip="true">https://raw.githubusercontent.com/XvBMC/repository.xvbmc/master/zips/</datadir>
-            <hashes>false</hashes>
-        </dir>
-        <dir>
-            <info compressed="false">https://bitbucket.org/toetu/repository/raw/master/Dependencies/xvbmc-addons.xml</info>
-            <checksum>https://bitbucket.org/toetu/repository/raw/master/Dependencies/xvbmc-addons.xml.md5</checksum>
-            <datadir zip="true">https://bitbucket.org/toetu/repository/raw/master/Dependencies/zips/</datadir>
-            <hashes>false</hashes>
-        </dir>
-        <dir>
-            <info compressed="false">https://bitbucket.org/toetu/repository/raw/master/Look-and-Feel/xvbmc-addons.xml</info>
-            <checksum>https://bitbucket.org/toetu/repository/raw/master/Look-and-Feel/xvbmc-addons.xml.md5</checksum>
-            <datadir zip="true">https://bitbucket.org/toetu/repository/raw/master/Look-and-Feel/zips/</datadir>
-            <hashes>false</hashes>
-        </dir>
-        <dir>
-            <info compressed="false">https://bitbucket.org/toetu/repository/raw/master/REPOsitory/xvbmc-addons.xml</info>
-            <checksum>https://bitbucket.org/toetu/repository/raw/master/REPOsitory/xvbmc-addons.xml.md5</checksum>
-            <datadir zip="true">https://bitbucket.org/toetu/repository/raw/master/REPOsitory/zips/</datadir>
-            <hashes>false</hashes>
-        </dir>
-        <dir>
-            <info compressed="false">https://bitbucket.org/toetu/repository/raw/master/xvbmc-addons.xml</info>
-            <checksum>https://bitbucket.org/toetu/repository/raw/master/xvbmc-addons.xml.md5</checksum>
-            <datadir zip="true">https://bitbucket.org/toetu/repository/raw/master/zips/</datadir>
-            <hashes>false</hashes>
-        </dir>
-    </extension>
-    <extension point="xbmc.addon.metadata">
-        <summary lang="en">#SHUTDOWN: XvBMC The Netherlands (Add-ons) REPOsitory</summary>
-        <summary lang="nl">#GESTOPT!: XvBMC Nederland (Addons) REPOsitory (down)</summary>
-        <description lang="en">*CLOSED* XvBMC The Netherlands (Add-ons) Repository | XvBMC-NL (Add-on) Depot  |  UsagePolicy; https://bit.ly/Disclaimer_XvBMC-NL !!! USE AT YOUR OWN RISK !!!</description>
-        <description lang="nl">'XvBMC Nederland' heeft moeten besluiten met deze pagina te stoppen en op slot te zetten (per 26-07-2018), ook de 'XvBMC Repository' is per ommegaande offline, cq. leeggehaald waardoor deze niet meer bruikbaar zal zijn.
-
-De(ze) 'repo' zal alleen worden "vastgehouden" ter voorkoming van kaping in- en onder onze naam, een en ander om eventuele misstanden te voorkomen.</description>
-        <disclaimer lang="en">**DOWN!** The owners and submitters to this repository do not host or distribute any of the content displayed by these add-ons nor do they have any affiliation with its content. Please Read: https://bit.ly/Disclaimer_XvBMC-NL ...just because you can  ;)  !!! USE-AT-YOUR-OWN-RISK !!!</disclaimer>
-        <disclaimer lang="nl">*GESTOPT* The owners and submitters to this repository do not host or distribute any of the content displayed by these add-ons nor do they have any affiliation with its content. Please Read: https://bit.ly/Disclaimer_XvBMC-NL ...just because you can  ;)  !!! USE-AT-YOUR-OWN-RISK !!! ***SHUTDOWN INFO: https://github.com/EPiC-APOC/repository.xvbmc/blob/master/README.md</disclaimer>
-        <platform>all</platform>
-        <license>GNU GENERAL PUBLIC LICENSE. Version 3, June 2007</license>
-        <forum>http://bit.ly/XvBMC-NL</forum>
-        <website>https://github.com/EPiC-APOC/repository.xvbmc/blob/master/README.md</website>
-        <source>https://bit.ly/Disclaimer_XvBMC-NL</source>
-        <size>942080</size>
-        <news>'XvBMC Nederland' heeft moeten besluiten met deze pagina te stoppen en op slot te zetten (per 26-07-2018), ook de 'XvBMC Repository' is per ommegaande offline, cq. leeggehaald waardoor deze niet meer bruikbaar zal zijn.
-
-De(ze) 'repo' zal alleen worden "vastgehouden" ter voorkoming van kaping in- en onder onze naam, een en ander om eventuele misstanden te voorkomen.</news>
-        <assets>
-            <icon>icon.png</icon>
-            <fanart>fanart.jpg</fanart>
-            <screenshot>xbmc.png</screenshot>
-        </assets>
-    </extension>
-</addon>
-
 <addon id="service.xbmc.versioncheck"
        name="Version Check"
-      version="0.3.27"
+      version="0.3.28"
       provider-name="Team Kodi">
     <requires>
         <import addon="xbmc.python" version="2.1.0"/>
@@ -4425,24 +3403,6 @@ De(ze) 'repo' zal alleen worden "vastgehouden" ter voorkoming van kaping in- en 
         <email></email>
         <source>https://github.com/XBMC-Addons/service.xbmc.versioncheck</source>
     </extension>
-</addon>
-
-<addon id="script.module.httplib2" name="httplib2" provider-name="Joe Gregorio" version="0.10.3">
-  <requires>
-    <import addon="xbmc.python" version="2.14.0" />
-  </requires>
-  <extension library="lib" point="xbmc.python.module" />
-  <extension point="xbmc.addon.metadata">
-        <description lan="en">httplib2 module</description>
-        <summary lang="en">httplib2 module</summary>
-        <license>MIT</license>
-        <platform>all</platform>
-        <email></email>
-        <website>https://pypi.python.org/pypi/httplib2</website>
-        <forum></forum>
-        <source>https://github.com/httplib2/httplib2</source>
-        <language></language>
-   </extension>
 </addon>
 
 	<addon id="script.skin.helper.service" name="Skin Helper Service" version="1.1.24" provider-name="marcelveldt">
@@ -4598,7 +3558,7 @@ De(ze) 'repo' zal alleen worden "vastgehouden" ter voorkoming van kaping in- en 
 	</extension>
 </addon>
 
-<addon id="script.module.urlresolver" name="URLResolver" version="5.0.23" provider-name="tvaddons">
+<addon id="script.module.urlresolver" name="URLResolver" version="5.0.24" provider-name="tvaddons">
 	<requires>
 		<import addon="xbmc.python" version="2.1.0" />
 		<import addon="plugin.video.youtube" optional="true" />
@@ -4617,28 +3577,6 @@ De(ze) 'repo' zal alleen worden "vastgehouden" ter voorkoming van kaping in- en 
 		<description lang="hr">Prilagodi najčešće URL-ove video izvora kako bi radili u XBMC/Kodiju, pojednostavnjuje razvoj priključaka za video dodatke koji zahtjevaju višestruke video izvore.</description>
 		<forum>https://www.tvaddons.co/forums</forum>
         <website>https://www.tvaddons.co</website>
-	</extension>
-</addon>
-
-<addon id="script.skin.info.service" name="Skin Info Service" version="1.0.1" provider-name="phil65">
-	<requires>
-		<import addon="xbmc.python" version="2.1.0"/>
-		<import addon="script.module.simplejson" version="2.0.10"/>
-	</requires>
-	<extension point="xbmc.python.library"          library="default.py" />
-    <extension point="xbmc.python.script"           library="default.py">
-        <provides>executable</provides>
-    </extension>
-	<extension point="xbmc.addon.metadata">
-		<language/>
-		<summary lang="en">Script used by skins to show extended media info.</summary>
-		<description lang="en">This script fetches extended information for several media types (artists, albums, movie sets etc.). Needs skin support.</description>
-		<platform>all</platform>
-		<license>GNU GENERAL PUBLIC LICENSE Version 2, June 1991</license>
-		<forum>-</forum>
-		<source>-</source>
-		<email>-</email>
-		<news>[B]***Recent Changes***[/B][CR]Krypton compatibility (change deprecated window names)</news>
 	</extension>
 </addon>
 
@@ -4662,26 +3600,6 @@ De(ze) 'repo' zal alleen worden "vastgehouden" ter voorkoming van kaping in- en 
     <source>https://github.com/beenje/script.module.urllib3</source>
     <email>beenje AT gmail.com</email>
   </extension>
-</addon>
-
-<addon id="script.module.python.requests" name="[COLOR red]Python Requests[/COLOR] [COLOR maroon](you should remove this)[/COLOR]" version="6.6.6" provider-name="Miovi Team">
-	<requires>
-		<import addon="xbmc.python" version="2.1.0"/>
-        <import addon="script.module.simplejson" version="3.4.2"/>
-	</requires>
-   <extension point="xbmc.python.script" library="default.py">
-   <provides>executable</provides>
-  </extension>
-	<extension point="xbmc.addon.metadata">
-		<summary>this dummy addon is not supported</summary>
-		<description>this dummy addon is not supported</description>
-    <disclaimer lang="en">!! do NOT use Gaia's fake 2.16(.?) version;
--> includes Cryptocurrency-mining malware:
-=> 'script.module.python.requests'</disclaimer>
-		<platform>all</platform>
-		<language></language>
-		<license>Apache2</license>
-	</extension>
 </addon>
 
 <addon id="script.module.metadatautils"

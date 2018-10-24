@@ -19,7 +19,7 @@
 
     <include name="View_Library">
         <control type="group">
-            <visible allowhiddenfocus="true">![Control.HasFocus(9601) | [System.IdleTime(4) + Skin.HasSetting(AutoPlotOverlay) + [Window.IsVisible(MyVideoNav.xml) | Window.IsVisible(MyMusicNav.xml) | Window.IsVisible(Home)] + ![Window.IsVisible(DialogVideoInfo.xml) | Window.IsVisible(DialogMusicInfo.xml) | Window.IsVisible(DialogAddonInfo.xml)]]]</visible>
+            <visible allowhiddenfocus="true">!$EXP[Exp_HideFurniture]</visible>
             <include>Animation_FadeInOut</include>
             <control type="group">
                 <include>View_Group</include>
@@ -58,6 +58,24 @@
                 <include content="Object_Scrollbar_Horz">
                     <param name="visible" value="Control.IsVisible(55) | Control.IsVisible(56) | Control.IsVisible(57) | Control.IsVisible(58) | Control.IsVisible(59)" />
                 </include>
+                <control type="scrollbar" id="8060">
+                    <onback>50</onback>
+                    <right>0</right>
+                    <width>8</width>
+                    <top>-60</top>
+                    <bottom>0</bottom>
+                    <visible>Window.IsVisible(MyPVRGuide.xml) + Skin.HasSetting(MouseMode)</visible>
+                    <showonepage>false</showonepage>
+                    <orientation>vertical</orientation>
+                    <onright>50</onright>
+                    <onleft>50</onleft>
+                    <texturesliderbackground colordiffuse="main_fg_12" border="4">common/white.png</texturesliderbackground>
+                    <texturesliderbar colordiffuse="main_fg_30" border="4">scrollbar/scrollv.png</texturesliderbar>
+                    <texturesliderbarfocus colordiffuse="$VAR[ColorHighlight]" border="4">scrollbar/scrollv.png</texturesliderbarfocus>
+                    <animation effect="fade" start="100" end="33" time="400" condition="!Control.HasFocus(8060) + !Container.Scrolling">Conditional</animation>
+                    <include>Animation_FadeIn</include>
+                    <include>Animation_FadeOut</include>
+                </control>
             </control>
 
         </control>
@@ -95,6 +113,11 @@
                             <visible>String.IsEmpty(ListItem.Art(landscape)) + String.IsEmpty(ListItem.Art(tvshow.landscape)) + String.IsEmpty(ListItem.Art(season.landscape))</visible>
                             <visible>Container.Content(movies) | Container.Content(sets) | Container.Content(tvshows) | Container.Content(seasons)</visible>
                         </control>
+                        <include content="Defs_PictureBack">
+                            <param name="diffuse" value="diffuse/mediainfo.png" />
+                            <param name="showtext" value="false" />
+                            <param name="colordiffuse" value="ffffffff" />
+                        </include>
                     </control>
                     <control type="image">
                         <texture colordiffuse="PixelLines" border="20">common/outline.png</texture>
@@ -143,6 +166,12 @@
                             <param name="width" value="poster_width" />
                             <param name="height" value="poster_width" />
                             <param name="aspect" value="scale" />
+                        </include>
+                        <include content="Defs_PictureBack">
+                            <param name="diffuse" value="diffuse/mediainfo.png" />
+                            <param name="showtext" value="false" />
+                            <param name="colordiffuse" value="ffffffff" />
+                            <param name="pad" value="-10" />
                         </include>
                         <control type="image">
                             <texture colordiffuse="PixelLines" border="20">common/outline.png</texture>
@@ -352,19 +381,22 @@
     </include>
 
     <include name="View_Selectbox">
-        <control type="group">
-            <left>3</left>
-            <top>3</top>
-            <right>3</right>
-            <bottom>3</bottom>
-            <control type="image">
-                <texture colordiffuse="$VAR[ColorHighlight]" border="20">common/selectbox.png</texture>
+        <param name="overlay" default="true" />
+        <definition>
+            <control type="group">
+                <left>3</left>
+                <top>3</top>
+                <right>3</right>
+                <bottom>3</bottom>
+                <control type="image">
+                    <texture colordiffuse="$VAR[ColorHighlight]" border="20">common/selectbox.png</texture>
+                </control>
+                <control type="image">
+                    <texture colordiffuse="$VAR[ColorHighlight2]" border="20">common/gradient-diffuse-selectbox.png</texture>
+                </control>
             </control>
-            <control type="image">
-                <texture colordiffuse="$VAR[ColorHighlight2]" border="20">common/gradient-diffuse-selectbox.png</texture>
-            </control>
-        </control>
-        <include>View_WatchedOverlay_Focus</include>
+            <include condition="$PARAM[overlay]">View_WatchedOverlay_Focus</include>
+        </definition>
     </include>
 
     <include name="View_Actor_Layout">
@@ -606,6 +638,7 @@
                     <scrolltime tween="quadratic">300</scrolltime>
                     <timeblocks>24</timeblocks>
                     <rulerunit>6</rulerunit>
+                    <pagecontrol>8060</pagecontrol>
                     <rulerlayout height="74" width="262">
                         <control type="label" id="2">
                             <posx>0</posx>

@@ -82,7 +82,6 @@
             <aspectratio scalediffuse="false">scale</aspectratio>
             <texture diffuse="common/circle.png" background="true">$INFO[ListItem.Icon]</texture>
             <visible>!Skin.HasSetting(global.hidecirles)</visible>
-            <visible>!String.StartsWith(ListItem.Icon,Default)</visible>
         </control>
         <control type="image">
             <left>10</left>
@@ -92,16 +91,6 @@
             <aspectratio scalediffuse="false">keep</aspectratio>
             <texture background="true">$INFO[ListItem.Icon]</texture>
             <visible>Skin.HasSetting(global.hidecirles)</visible>
-            <visible>!String.StartsWith(ListItem.Icon,Default)</visible>
-        </control>
-        <control type="image">
-            <left>10</left>
-            <top>10</top>
-            <width>100</width>
-            <height>100</height>
-            <aspectratio scalediffuse="false">keep</aspectratio>
-            <texture background="true" colordiffuse="Dark1">$INFO[ListItem.Icon]</texture>
-            <visible>String.StartsWith(ListItem.Icon,Default)</visible>
         </control>
         <control type="label">
             <left>130</left>
@@ -131,7 +120,7 @@
             <height>32</height>
             <aspectratio aligny="top">keep</aspectratio>
             <texture>$VAR[PercentWatched]</texture>
-            <visible>!String.IsEqual(ListItem.Label,..)</visible>
+            <visible>!stringcompare(ListItem.Label,..)</visible>
         </control>
     </include>
 
@@ -150,7 +139,6 @@
             <aspectratio scalediffuse="false">scale</aspectratio>
             <texture diffuse="common/circle.png" background="true">$INFO[ListItem.Icon]</texture>
             <visible>!Skin.HasSetting(global.hidecirles)</visible>
-            <visible>!String.StartsWith(ListItem.Icon,Default)</visible>
         </control>
         <control type="image">
             <left>10</left>
@@ -160,16 +148,6 @@
             <aspectratio scalediffuse="false">keep</aspectratio>
             <texture background="true">$INFO[ListItem.Icon]</texture>
             <visible>Skin.HasSetting(global.hidecirles)</visible>
-            <visible>!String.StartsWith(ListItem.Icon,Default)</visible>
-        </control>
-        <control type="image">
-            <left>10</left>
-            <top>10</top>
-            <width>100</width>
-            <height>100</height>
-            <aspectratio scalediffuse="false">keep</aspectratio>
-            <texture background="true" colordiffuse="Light1">$INFO[ListItem.Icon]</texture>
-            <visible>String.StartsWith(ListItem.Icon,Default)</visible>
         </control>
         <control type="label">
             <left>130</left>
@@ -199,7 +177,7 @@
             <height>32</height>
             <aspectratio aligny="top">keep</aspectratio>
             <texture>$VAR[PercentWatched]</texture>
-            <visible>!String.IsEqual(ListItem.Label,..)</visible>
+            <visible>!stringcompare(ListItem.Label,..)</visible>
         </control>
     </include>
 

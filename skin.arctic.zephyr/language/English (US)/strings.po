@@ -651,7 +651,3 @@ msgstr "Fanart Thumbs"
 msgctxt "#31259"
 msgid "Extra fanart"
 msgstr "Extra fanart"
-
-msgctxt "#31282"
-msgid "Special Features"
-msgstr ""

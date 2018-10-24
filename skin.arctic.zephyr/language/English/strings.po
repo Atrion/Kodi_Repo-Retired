@@ -765,11 +765,3 @@ msgstr ""
 msgctxt "#31280"
 msgid "Pixel format"
 msgstr ""
-
-msgctxt "#31281"
-msgid "Play Speed"
-msgstr ""
-
-msgctxt "#31282"
-msgid "Special Features"
-msgstr ""
